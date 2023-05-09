@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "vibeverse_backend": {
+      "candid": "src/vibeverse_backend/vibeverse_backend.did",
+      "package": "vibeverse_backend",
+      "type": "rust"
+    },
+    "vibeverse_assets": {
+      "dependencies": [
+        "vibeverse_backend"
+      ],
+      "frontend": {
+        "entrypoint": "out/index.html"
+      },
+      "source": ["out"],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
