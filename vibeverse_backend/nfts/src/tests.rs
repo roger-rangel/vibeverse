@@ -9,7 +9,7 @@ fn creating_nft_works() {
     let limit = None;
     let image_url = None;
 
-    do_create_nft_collection(
+    do_create_collection(
         creator,
         nft_name.clone(),
         nft_desc.clone(),
@@ -42,7 +42,7 @@ fn updating_nft_metadata_works() {
     let image_url = None;
     let limit = None;
 
-    do_create_nft_collection(
+    do_create_collection(
         creator,
         nft_name.clone(),
         nft_desc.clone(),
@@ -122,7 +122,7 @@ fn updating_nft_metadata_fails_when_not_called_by_creator() {
     let image_url = None;
     let limit = None;
 
-    do_create_nft_collection(
+    do_create_collection(
         creator,
         nft_name.clone(),
         nft_desc.clone(),
@@ -172,7 +172,7 @@ fn get_creator_nfts_works() {
     let name = String::from("nft1");
     let transferable = false;
 
-    let nft = create_nft_collection(creator, name.clone(), transferable);
+    let nft = create_collection(creator, name.clone(), transferable);
 
     assert_eq!(
         do_get_nfts_of_creator(creator),
@@ -193,8 +193,8 @@ fn get_creator_nfts_works() {
 fn minting_nfts_works() {
     let creator = get_creator();
 
-    let mut nft1 = create_nft_collection(creator, format!("Nft1"), false);
-    let mut nft2 = create_nft_collection(creator, format!("Nft2"), false);
+    let mut nft1 = create_collection(creator, format!("Nft1"), false);
+    let mut nft2 = create_collection(creator, format!("Nft2"), false);
 
     let alice = get_default_principal();
 
@@ -216,7 +216,7 @@ fn minting_limit_works() {
     let image_url = None;
     let limit: Option<Nat> = Some(Nat::from(2));
 
-    let _ = do_create_nft_collection(creator, name, description, transferable, limit, image_url);
+    let _ = do_create_collection(creator, name, description, transferable, limit, image_url);
 
     let alice = get_default_principal();
 
@@ -236,7 +236,7 @@ fn nft_transfer_works() {
     let name = String::from("nft");
     let transferable = true;
 
-    let mut nft = create_nft_collection(creator, name, transferable);
+    let mut nft = create_collection(creator, name, transferable);
 
     // The creator mints a nft for himself.
     assert_eq!(do_mint_nft(creator, creator, nft.clone().id), Ok(()));
@@ -256,12 +256,12 @@ fn nft_transfer_works() {
     assert_eq!(do_get_nfts_of_user(creator), vec![]);
 }
 
-fn create_nft_collection(creator: Principal, name: String, transferable: bool) -> Nft {
+fn create_collection(creator: Principal, name: String, transferable: bool) -> Nft {
     let description = format!("Description of: {}", name);
     let image_url = None;
     let limit: Option<Nat> = None;
 
-    let id = do_create_nft_collection(
+    let id = do_create_collection(
         creator,
         name.clone(),
         description.clone(),

@@ -61,7 +61,7 @@ pub fn do_get_nft_count() -> NftId {
 }
 
 /// Creates a new nft and increases the `NFT_COUNT`.
-pub fn do_create_nft_collection(
+pub fn do_create_collection(
     creator: Principal,
     name: String,
     description: String,

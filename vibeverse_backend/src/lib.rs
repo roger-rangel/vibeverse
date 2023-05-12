@@ -5,7 +5,7 @@ use ic_cdk_macros::*;
 use nfts::{Nft, NftId};
 
 #[update]
-fn create_nft_collection(
+fn create_collection(
     name: String,
     description: String,
     transferable: bool,
@@ -13,7 +13,7 @@ fn create_nft_collection(
     image_url: Option<String>,
 ) -> String {
     let creator = ic_cdk::api::caller();
-    nfts::do_create_nft_collection(creator, name, description, transferable, limit, image_url);
+    nfts::do_create_collection(creator, name, description, transferable, limit, image_url);
 
     format!("Nft created successfully.")
 }
