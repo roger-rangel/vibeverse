@@ -61,7 +61,7 @@ pub fn do_get_nft_count() -> NftId {
 }
 
 /// Creates a new nft and increases the `NFT_COUNT`.
-pub fn do_create_nft_blueprint(
+pub fn do_create_nft_collection(
     creator: Principal,
     name: String,
     description: String,
@@ -178,11 +178,7 @@ pub fn do_get_nfts_of_creator(creator: Principal) -> Vec<Nft> {
 /// Mints a new instance of a created nft
 ///
 /// This call is only allowed for the creator of the specified nft.
-pub fn do_mint_nft(
-    caller: Principal,
-    receiver: Principal,
-    nft_id: NftId,
-) -> Result<(), Error> {
+pub fn do_mint_nft(caller: Principal, receiver: Principal, nft_id: NftId) -> Result<(), Error> {
     let maybe_nft = do_get_nft(nft_id.clone());
     if let Some(nft) = maybe_nft.clone() {
         if nft.creator != caller {
@@ -233,11 +229,7 @@ pub fn do_get_nfts_of_user(user: Principal) -> Vec<Nft> {
     nfts
 }
 
-pub fn do_transfer_nft(
-    caller: Principal,
-    receiver: Principal,
-    nft_id: NftId,
-) -> Result<(), Error> {
+pub fn do_transfer_nft(caller: Principal, receiver: Principal, nft_id: NftId) -> Result<(), Error> {
     NFTS_OF.with(|nfts_of| -> Result<(), Error> {
         let mut nfts_of = nfts_of.borrow_mut();
         if let Some(nfts) = nfts_of.get_mut(&caller) {
