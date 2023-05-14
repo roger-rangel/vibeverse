@@ -18,5 +18,6 @@ module.exports = {
     // Important: return the modified config
     return config;
   },
+  images: { unoptimized: true },
   output: 'export',
 };
