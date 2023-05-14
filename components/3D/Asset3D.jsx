@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
 import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment } from '@react-three/drei';
 import { useInView } from 'react-intersection-observer';
 
-import CanvasModel from './CanvasModel';
+import CanvasModel from './AssetModel';
 
-function Item_3D({item, scale}) {
+function Item3D({ asset, scale }) {
   const [inViewRef, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
   return (
-    <div className='h-24 w-20' ref={inViewRef}>
+    <div className="h-24 w-20" ref={inViewRef}>
       <Canvas
         shadows
-        frameloop='demand'
+        frameloop="demand"
         dpr={[1, 2]}
         gl={{ preserveDrawingBuffer: true }}
         camera={{
@@ -30,7 +30,7 @@ function Item_3D({item, scale}) {
         <Suspense>
           <ambientLight />
           <spotLight position={[10, 10, 10]} angle={0.3} />
-          <CanvasModel animate={inView} item={item} scale={scale} />
+          <CanvasModel animate={inView} asset={asset} scale={scale} />
           <Environment preset="sunset" />
           <OrbitControls
             autoRotate
@@ -44,4 +44,4 @@ function Item_3D({item, scale}) {
   );
 }
 
-export default Item_3D;
+export default Item3D;

@@ -9,7 +9,6 @@ export default function Dashboard() {
       {/* <Image src="/next.svg" width={200} height={200} alt="Next" /> */}
       <Preview />
       <Categories />
-
     </div>
   );
 }

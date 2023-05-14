@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 const categories = [
   {
@@ -51,13 +51,21 @@ export default function Example() {
                     className="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto"
                   >
                     <span aria-hidden="true" className="absolute inset-0">
-                      <Image src={category.imageSrc} alt="" className="h-full w-full object-cover object-center" width={200} height={200} />
+                      <Image
+                        src={category.imageSrc}
+                        alt=""
+                        className="h-full w-full object-cover object-center"
+                        width={200}
+                        height={200}
+                      />
                     </span>
                     <span
                       aria-hidden="true"
                       className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"
                     />
-                    <span className="relative mt-auto text-center text-xl font-bold text-white">{category.name}</span>
+                    <span className="relative mt-auto text-center text-xl font-bold text-white">
+                      {category.name}
+                    </span>
                   </a>
                 ))}
               </div>
@@ -66,7 +74,10 @@ export default function Example() {
         </div>
 
         <div className="mt-6 px-4 sm:hidden">
-          <a href="#" className="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
+          <a
+            href="#"
+            className="block text-sm font-semibold text-indigo-600 hover:text-indigo-500"
+          >
             Browse all categories
             <span aria-hidden="true"> &rarr;</span>
           </a>

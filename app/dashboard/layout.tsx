@@ -12,12 +12,11 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className="h-full bg-black">   
-      <body className="h-full"> 
+    <html className="h-full bg-black">
+      <body className="h-full">
         {/* eslint-disable-next-line react/no-children-prop */}
-        <Navigation children={children} />      
+        <Navigation children={children} />
       </body>
     </html>
-      
   );
 }
