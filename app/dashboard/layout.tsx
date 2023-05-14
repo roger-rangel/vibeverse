@@ -1,5 +1,5 @@
 // Desc: Layout for dashboard
-import Navigation from '../../components/navigation';
+import Navigation from '../../components/dashboard/navigation';
 
 export const metadata = {
   title: 'Dashboard',
@@ -12,7 +12,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className="h-full bg-white">   
+    <html className="h-full bg-black">   
       <body className="h-full"> 
         {/* eslint-disable-next-line react/no-children-prop */}
         <Navigation children={children} />      
