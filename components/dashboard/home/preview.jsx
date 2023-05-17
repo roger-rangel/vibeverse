@@ -1,8 +1,9 @@
 'use client';
 
-import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
-import ReactPlayer from 'react-player';
+// Dynamically import ReactPlayer with SSR turned off
+const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 
 export default function Preview() {
   return (
@@ -15,8 +16,6 @@ export default function Preview() {
               playing
               loop
               muted // Add the "muted" prop to mute the video
-              // width="100%"
-              // height="100%"
               style={{
                 position: 'absolute',
                 transform: 'translate(-50%, -50%)',

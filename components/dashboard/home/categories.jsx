@@ -4,41 +4,34 @@ const categories = [
   {
     name: 'Mystery',
     href: '#',
-    imageSrc: '/images/mystery.png',
+    imageSrc: '/images/dashboard/mystery.png',
   },
   {
     name: 'Adventure',
     href: '#',
-    imageSrc: '/images/adventure.png',
+    imageSrc: '/images/dashboard/adventure.png',
   },
   {
-    name: 'Racing',
+    name: 'Sci-Fi',
     href: '#',
-    imageSrc: '/images/racing.png',
+    imageSrc: '/images/dashboard/blue_face.png',
   },
   {
     name: 'Fashion',
     href: '#',
-    imageSrc: '/images/fashion.png',
+    imageSrc: '/images/dashboard/fashion.png',
   },
   {
     name: 'Futuristic',
     href: '#',
-    imageSrc: '/images/futuristic.png',
+    imageSrc: '/images/dashboard/futuristic.png',
   },
 ];
 
 export default function Example() {
   return (
-    <div className="bg-gray-800">
+    <div className="">
       <div className="py-10 sm:py-10 xl:mx-auto xl:max-w-7xl xl:px-8">
-        <div className="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
-          {/* <h2 className="text-2xl font-bold tracking-tight text-gray-200">AI Films by Category</h2> */}
-          {/* <a href="#" className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
-            Browse all categories
-            <span aria-hidden="true"> &rarr;</span>
-          </a> */}
-        </div>
 
         <div className="mt-4 flow-root">
           <div className="-my-2">
@@ -82,6 +75,7 @@ export default function Example() {
             <span aria-hidden="true"> &rarr;</span>
           </a>
         </div>
+        
       </div>
     </div>
   );

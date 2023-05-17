@@ -22,12 +22,12 @@ import {
 } from '@heroicons/react/20/solid';
 
 import Image from 'next/image';
-import Item3D from '../3D/Asset3D';
-import { assets } from '../../constants';
+import Item3D from '../../3D/Asset3D';
+import { assets } from '../../../constants';
 
 const navigation = [
-  { name: 'Home', href: '#', icon: HomeIcon, current: true },
-  { name: 'Shorts', href: '#', icon: UsersIcon, current: false },
+  { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
+  { name: 'Shorts', href: '/dashboard/shorts', icon: UsersIcon, current: false },
   { name: 'AI Tools', href: '#', icon: FolderIcon, current: false },
   { name: 'AI Content', href: '#', icon: CalendarIcon, current: false },
   { name: 'Upload', href: '#', icon: DocumentDuplicateIcon, current: false },
@@ -187,7 +187,7 @@ export default function Navigation({ children }) {
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component */}
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 border-r-2 border-fuchsia-900">
             <div className="flex h-16 shrink-0 items-center">
               <div className="-ml-6 -mt-1">
                 <Item3D asset={assets[0].logo3D} scale={0.8} />
@@ -266,7 +266,7 @@ export default function Navigation({ children }) {
         </div>
 
         <div className="lg:pl-72">
-          <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 bg-black px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+          <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 bg-gray-900 border-b-2 border-fuchsia-900">
             <button
               type="button"
               className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
@@ -282,7 +282,7 @@ export default function Navigation({ children }) {
               aria-hidden="true"
             />
 
-            <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+            <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 ">
               <form className="relative flex flex-1" action="#" method="GET">
                 <label htmlFor="search-field" className="sr-only">
                   Search
@@ -293,7 +293,7 @@ export default function Navigation({ children }) {
                 />
                 <input
                   id="search-field"
-                  className="block bg-black h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                  className="block bg-transparent h-full w-full border-0 py-0 pl-8 pr-0 text-gray-400 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
                   placeholder="Search..."
                   type="search"
                   name="search"
@@ -320,7 +320,7 @@ export default function Navigation({ children }) {
                     <span className="sr-only">Open user menu</span>
                     <Image
                       className="h-8 w-8 rounded-full bg-gray-800"
-                      src="/images/avatar.png"
+                      src="/images/dashboard/avatar.png"
                       alt=""
                       width={32}
                       height={32}
@@ -370,13 +370,14 @@ export default function Navigation({ children }) {
             </div>
           </div>
 
-          <main className="py-10 bg-gray-800">
-            <div className="px-4 sm:px-6 lg:px-8">
+          <main className="">
+            <div className="">
               <h1 className="text-2xl font-semibold text-gray-900">
                 {children}
               </h1>
             </div>
           </main>
+
         </div>
       </div>
     </>
