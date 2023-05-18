@@ -32,7 +32,6 @@ export default function Example() {
   return (
     <div className="">
       <div className="py-10 sm:py-10 xl:mx-auto xl:max-w-7xl xl:px-8">
-
         <div className="mt-4 flow-root">
           <div className="-my-2">
             <div className="relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible">
@@ -75,7 +74,6 @@ export default function Example() {
             <span aria-hidden="true"> &rarr;</span>
           </a>
         </div>
-        
       </div>
     </div>
   );

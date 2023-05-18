@@ -6,7 +6,6 @@ import Image from 'next/image';
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 
 const product = {
-
   images: [
     {
       src: '/images/dashboard/aitools_0.png',
@@ -27,14 +26,10 @@ const product = {
   ],
 };
 
-
 export default function Example() {
-
-
   return (
     <div className="">
       <div className="pt-6">
-        
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
@@ -105,10 +100,8 @@ export default function Example() {
               height={200}
             />
           </div>
-    
         </div>
       </div>
     </div>
   );
 }
-

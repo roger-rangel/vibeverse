@@ -27,7 +27,12 @@ import { assets } from '../../../constants';
 
 const navigation = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
-  { name: 'Shorts', href: '/dashboard/shorts', icon: UsersIcon, current: false },
+  {
+    name: 'Shorts',
+    href: '/dashboard/shorts',
+    icon: UsersIcon,
+    current: false,
+  },
   { name: 'AI Tools', href: '#', icon: FolderIcon, current: false },
   { name: 'AI Content', href: '#', icon: CalendarIcon, current: false },
   { name: 'Upload', href: '#', icon: DocumentDuplicateIcon, current: false },
@@ -377,7 +382,6 @@ export default function Navigation({ children }) {
               </h1>
             </div>
           </main>
-
         </div>
       </div>
     </>

@@ -21,7 +21,8 @@ export default function Sign() {
             <div>
               <h2 className="text-xl font-bold text-white">New AI Tools</h2>
               <p className="mt-1 text-sm text-gray-300">
-                Upgrade your creative skills and discover the hottest AI tools this summer. Updated weekly.
+                Upgrade your creative skills and discover the hottest AI tools
+                this summer. Updated weekly.
               </p>
             </div>
             <a
