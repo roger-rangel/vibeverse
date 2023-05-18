@@ -6,9 +6,7 @@
       "type": "rust"
     },
     "vibeverse_assets": {
-      "dependencies": [
-        "vibeverse_backend"
-      ],
+      "dependencies": ["vibeverse_backend"],
       "frontend": {
         "entrypoint": "out/index.html"
       },
