@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+const webpack = require('webpack');
 const path = require('path');
 
 let localCanisters, prodCanisters, canisters;
@@ -36,4 +37,10 @@ function initCanisterIds() {
 
 module.exports = {
   initCanisterIds: initCanisterIds,
+  plugins: [
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development',
+      MIXPANEL: process.env.MIXPANEL,
+    }),
+  ],
 };
