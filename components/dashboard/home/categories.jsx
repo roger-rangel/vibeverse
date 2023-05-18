@@ -14,17 +14,17 @@ const categories = [
   {
     name: 'Sci-Fi',
     href: '#',
-    imageSrc: '/images/dashboard/blue_face.png',
+    imageSrc: '/images/dashboard/art.png',
   },
   {
-    name: 'Fashion',
+    name: 'Ancient',
     href: '#',
-    imageSrc: '/images/dashboard/fashion.png',
+    imageSrc: '/images/dashboard/ancient.png',
   },
   {
-    name: 'Futuristic',
+    name: 'New ',
     href: '#',
-    imageSrc: '/images/dashboard/futuristic.png',
+    imageSrc: '/images/dashboard/lion.png',
   },
 ];
 
