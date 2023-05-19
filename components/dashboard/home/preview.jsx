@@ -1,15 +1,19 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 
 // Dynamically import ReactPlayer with SSR turned off
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 
 export default function Preview() {
   return (
-    <div className="">
+    <div>
       <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8">
-        <div className="group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2">
+        <div
+          onClick={() => (window.location.href = 'https://kaiber.ai/')}
+          className="group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2"
+        >
           <div className="absolute inset-0 flex items-center justify-center bg-black">
             <ReactPlayer
               url="https://player.vimeo.com/797542275"
@@ -52,7 +56,12 @@ export default function Preview() {
             </div>
           </div>
         </div>
-        <div className="group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full">
+        <div
+          onClick={() =>
+            (window.location.href = 'https://www.whitemirror.xyz/')
+          }
+          className="group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full"
+        >
           <ReactPlayer
             url="https://player.vimeo.com/826634628"
             playing

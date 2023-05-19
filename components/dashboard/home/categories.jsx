@@ -13,7 +13,7 @@ const categories = [
   },
   {
     name: 'Sci-Fi',
-    href: '#',
+    href: 'https://midwayai.com/',
     imageSrc: '/images/dashboard/art.png',
   },
   {
