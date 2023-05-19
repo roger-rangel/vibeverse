@@ -2,7 +2,7 @@
 
 'use client';
 
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import {
   Bars3Icon,
@@ -22,6 +22,7 @@ import {
 } from '@heroicons/react/20/solid';
 
 import Image from 'next/image';
+import {useRouter} from 'next/router';
 import Item3D from '../../3D/Asset3D';
 import { assets } from '../../../constants';
 
@@ -55,6 +56,12 @@ function classNames(...classes) {
 
 export default function Navigation({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  function isSelected(item) {
+    const parts = window.location.href.split("/");
+    const path = parts[parts.length - 1];
+    return item.href.endsWith(path);
+  }
 
   return (
     <>
@@ -212,7 +219,7 @@ export default function Navigation({ children }) {
                         <a
                           href={item.href}
                           className={classNames(
-                            item.current
+                              isSelected(item)
                               ? 'bg-gray-800 text-white'
                               : 'text-gray-400 hover:text-white hover:bg-gray-800',
                             'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
