@@ -32,12 +32,11 @@ const navigation = [
     name: 'Shorts',
     href: '/dashboard/shorts',
     icon: UsersIcon,
-    current: false,
   },
-  { name: 'AI Tools', href: '#', icon: FolderIcon, current: false },
-  { name: 'AI Content', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Upload', href: '#', icon: DocumentDuplicateIcon, current: false },
-  { name: 'Communities', href: '#', icon: ChartPieIcon, current: false },
+  { name: 'AI Tools', href: '#', icon: FolderIcon },
+  { name: 'AI Content', href: '#', icon: CalendarIcon },
+  { name: 'Upload', href: '#', icon: DocumentDuplicateIcon },
+  { name: 'Communities', href: '#', icon: ChartPieIcon },
 ];
 const user = [
   { id: 1, name: 'Profile', href: '#', initial: 'P', current: false },
@@ -60,14 +59,14 @@ export default function Navigation({ children }) {
 
   useEffect(() => {
     navigation.forEach((nav, index) => {
-      if(isSelected(nav)) {
+      if (isSelected(nav)) {
         setCurrentNavIndex(index);
       }
     });
   }, []);
 
   function isSelected(item) {
-    const parts = window.location.href.split("/");
+    const parts = window.location.href.split('/');
     const path = parts[parts.length - 1];
     return item.href.endsWith(path);
   }
@@ -230,7 +229,7 @@ export default function Navigation({ children }) {
                           onClick={() => setCurrentNavIndex(index)}
                           href={item.href}
                           className={classNames(
-                              currentNavIndex == index
+                            currentNavIndex == index
                               ? 'bg-gray-800 text-white'
                               : 'text-gray-400 hover:text-white hover:bg-gray-800',
                             'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
