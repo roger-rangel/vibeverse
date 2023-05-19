@@ -6,7 +6,7 @@ import { Mixpanel } from '@/components/Mixpanel';
 
 export default function Home() {
   useEffect(() => {
-    Mixpanel.track('Website visited');
+    Mixpanel.track('Landing page visited');
   }, []);
 
   return (
