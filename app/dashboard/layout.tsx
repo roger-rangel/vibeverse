@@ -1,5 +1,5 @@
 // Desc: Layout for dashboard
-import Navigation from '../../components/dashboard/home/navigation';
+import { Navigation } from '@/components/dashboard/home';
 
 export const metadata = {
   title: 'Dashboard',

@@ -1,5 +1,5 @@
-import Header from '../../../components/dashboard/aitools/header';
-import Sign from '../../../components/dashboard/shorts/sign';
+import Header from '@/components/dashboard/aitools/header';
+import Sign from '@/components/dashboard/shorts/sign';
 
 export default function AITools() {
   return (
