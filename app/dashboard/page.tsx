@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import Preview from '../../components/dashboard/home/preview';
-import Categories from '../../components/dashboard/home/categories';
+import {Preview, Categories} from "@/components/dashboard/home";
 import { Mixpanel } from '@/components/Mixpanel';
 
 export default function Dashboard() {
