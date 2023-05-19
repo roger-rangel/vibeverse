@@ -1,4 +1,4 @@
-import {Trending, Header} from '@/components/dashboard/shorts';
+import { Trending, Header } from '@/components/dashboard/shorts';
 
 export default function Shorts() {
   return (
