@@ -1,7 +1,6 @@
 // Remove { Dict, Query } if not using TypeScript
 import mixpanel, { Dict } from 'mixpanel-browser';
 
-//const isProd = process.env.NODE_ENV === "production";
 const KEY = process.env.NEXT_PUBLIC_MIXPANEL || '';
 
 console.log(KEY);
