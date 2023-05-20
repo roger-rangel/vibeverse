@@ -2,7 +2,7 @@
 
 'use client';
 
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import {
   Bars3Icon,
@@ -22,6 +22,7 @@ import {
 } from '@heroicons/react/20/solid';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import Item3D from '../../3D/Asset3D';
 import { assets } from '../../../constants';
 
@@ -31,12 +32,11 @@ const navigation = [
     name: 'Shorts',
     href: '/dashboard/shorts',
     icon: UsersIcon,
-    current: false,
   },
-  { name: 'AI Tools', href: '#', icon: FolderIcon, current: false },
-  { name: 'AI Content', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Upload', href: '#', icon: DocumentDuplicateIcon, current: false },
-  { name: 'Communities', href: '#', icon: ChartPieIcon, current: false },
+  { name: 'AI Tools', href: '#', icon: FolderIcon },
+  { name: 'AI Content', href: '#', icon: CalendarIcon },
+  { name: 'Upload', href: '#', icon: DocumentDuplicateIcon },
+  { name: 'Communities', href: '#', icon: ChartPieIcon },
 ];
 const user = [
   { id: 1, name: 'Profile', href: '#', initial: 'P', current: false },
@@ -55,6 +55,21 @@ function classNames(...classes) {
 
 export default function Navigation({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [currentNavIndex, setCurrentNavIndex] = useState(0);
+
+  useEffect(() => {
+    navigation.forEach((nav, index) => {
+      if (isSelected(nav)) {
+        setCurrentNavIndex(index);
+      }
+    });
+  }, []);
+
+  function isSelected(item) {
+    const parts = window.location.href.split('/');
+    const path = parts[parts.length - 1];
+    return item.href.endsWith(path);
+  }
 
   return (
     <>
@@ -120,12 +135,13 @@ export default function Navigation({ children }) {
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
                         <li>
                           <ul role="list" className="-mx-2 space-y-1">
-                            {navigation.map((item) => (
+                            {navigation.map((item, index) => (
                               <li key={item.name}>
-                                <a
+                                <Link
+                                  onClick={() => setCurrentNavIndex(index)}
                                   href={item.href}
                                   className={classNames(
-                                    item.current
+                                    currentNavIndex == index
                                       ? 'bg-gray-800 text-white'
                                       : 'text-gray-400 hover:text-white hover:bg-gray-800',
                                     'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
@@ -136,7 +152,7 @@ export default function Navigation({ children }) {
                                     aria-hidden="true"
                                   />
                                   {item.name}
-                                </a>
+                                </Link>
                               </li>
                             ))}
                           </ul>
@@ -207,12 +223,13 @@ export default function Navigation({ children }) {
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <ul role="list" className="-mx-2 space-y-1">
-                    {navigation.map((item) => (
+                    {navigation.map((item, index) => (
                       <li key={item.name}>
-                        <a
+                        <Link
+                          onClick={() => setCurrentNavIndex(index)}
                           href={item.href}
                           className={classNames(
-                            item.current
+                            currentNavIndex == index
                               ? 'bg-gray-800 text-white'
                               : 'text-gray-400 hover:text-white hover:bg-gray-800',
                             'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
@@ -223,7 +240,7 @@ export default function Navigation({ children }) {
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
