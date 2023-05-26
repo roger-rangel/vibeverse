@@ -209,7 +209,7 @@ export default function Navigation({ children }) {
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 border-r-2 border-fuchsia-900">
-            <div className="flex h-16 shrink-0 items-center">
+            {/* <div className="flex h-16 shrink-0 items-center">
               <div className="-ml-6 -mt-1">
                 <Item3D asset={assets[0].logo3D} scale={0.8} />
               </div>
@@ -218,8 +218,8 @@ export default function Navigation({ children }) {
                   Vibeverse
                 </h1>
               </div>
-            </div>
-            <nav className="flex flex-1 flex-col">
+            </div> */}
+            <nav className="flex flex-1 flex-col mt-10">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <ul role="list" className="-mx-2 space-y-1">
@@ -392,12 +392,8 @@ export default function Navigation({ children }) {
             </div>
           </div>
 
-          <main className="">
-            <div className="">
-              <h1 className="text-2xl font-semibold text-gray-900">
-                {children}
-              </h1>
-            </div>
+          <main className="w-full text-2xl font-semibold text-gray-900">      
+            {children}         
           </main>
         </div>
       </div>

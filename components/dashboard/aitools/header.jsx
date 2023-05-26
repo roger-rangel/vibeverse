@@ -44,7 +44,7 @@ export default function Example() {
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
               <ReactPlayer
-                url="https://player.vimeo.com/827638499"
+                url="https://player.vimeo.com/830130000"
                 playing
                 loop
                 muted // Add the "muted" prop to mute the video
