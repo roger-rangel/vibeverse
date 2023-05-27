@@ -10,23 +10,24 @@ use std::{cell::RefCell, collections::BTreeMap};
 pub enum Error {
     /// The collection with provided `CollectionId` doesn't exist.
     CollectionNotFound,
-    /// The caller is not allowed to do the specific activity.
-    NotAllowed,
-    /// The minting limit has been reached.
+    /// Only the collection creator is allowed to do the specific activity.
+    OnlyCollectionCreatorAllowed,
+    /// The minting limit of the collection has been reached.
     LimitReached,
     /// Tried to do something with an nft that is not owned by the caller.
     NotOwned,
 }
 
-pub type NftId = Nat;
-
 pub type CollectionId = Nat;
+
+/// (collection_id, nft_id)
+pub type NftId = (Nat, Nat);
 
 /// Stores all the necessary information about a collection.
 #[derive(Clone, CandidType, PartialEq, Debug)]
 pub struct Collection {
     /// A unique identifier for the collection.
-    id: NftId,
+    id: CollectionId,
     /// A name for the collection.
     name: String,
     /// A description for the collection.
@@ -43,21 +44,37 @@ pub struct Collection {
     creator: Principal,
 }
 
+/// Stores all the necessary information about an nft.
+#[derive(Clone, CandidType, PartialEq, Debug)]
+pub struct Nft {
+    /// A unique identifier for the nft.
+    id: NftId,
+    /// A name for the collection.
+    name: String,
+    /// A description for the collection.
+    description: String,
+    /// The url of the asset for the nft.
+    asset_url: Option<String>,
+}
+
 /// Maps `CollectionId` to the specific Collection.
 type CollectionStore = BTreeMap<CollectionId, Collection>;
 /// Maps the creators to their collections.
-type CreatorNftsStore = BTreeMap<Principal, Vec<CollectionId>>;
+type CreatorCollectionsStore = BTreeMap<Principal, Vec<CollectionId>>;
+// Maps `NftId` to the specific Nft.
+type NftsStore = BTreeMap<NftId, Nft>;
 /// Maps users to their owned instances of collections.
 type NftsOfStore = BTreeMap<Principal, Vec<NftId>>;
 
 thread_local! {
     static COLLECTIONS: RefCell<CollectionStore> = RefCell::default();
-    static COLLECTIONS_OF: RefCell<CreatorNftsStore> = RefCell::default();
+    static NFTS: RefCell<NftsStore> = RefCell::default();
+    static COLLECTIONS_OF: RefCell<CreatorCollectionsStore> = RefCell::default();
     static COLLECTION_COUNT: RefCell<CollectionId> = RefCell::new(Nat::from(0));
     static NFTS_OF: RefCell<NftsOfStore> = RefCell::default();
 }
 
-pub fn do_get_collection_count() -> NftId {
+pub fn do_get_collection_count() -> CollectionId {
     COLLECTION_COUNT.with(|count| count.borrow().clone())
 }
 
@@ -108,7 +125,7 @@ pub fn do_create_collection(
 /// This call is only allowed for the creator of the specified collection.
 pub fn do_update_metadata(
     caller: Principal,
-    id: NftId,
+    id: CollectionId,
     name: String,
     description: String,
     image_url: Option<String>,
@@ -116,7 +133,7 @@ pub fn do_update_metadata(
     let maybe_collection = do_get_collection(id.clone());
     if let Some(collection) = maybe_collection {
         if collection.creator != caller {
-            return Err(Error::NotAllowed);
+            return Err(Error::OnlyCollectionCreatorAllowed);
         }
     } else {
         return Err(Error::CollectionNotFound);
@@ -147,7 +164,7 @@ pub fn do_update_metadata(
 
 /// Returns the collection with the specified `CollectionId`.
 /// In case there is no such collection returns `None`.
-pub fn do_get_collection(id: NftId) -> Option<Collection> {
+pub fn do_get_collection(id: CollectionId) -> Option<Collection> {
     COLLECTIONS.with(|collections| {
         if let Some(collection) = collections.borrow().get(&id) {
             Some(collection.clone())
@@ -159,7 +176,7 @@ pub fn do_get_collection(id: NftId) -> Option<Collection> {
 
 /// Get all the collections that were created by the specified creator.
 pub fn do_get_collections_of_creator(creator: Principal) -> Vec<Collection> {
-    let mut collection_ids: Vec<NftId> = vec![];
+    let mut collection_ids: Vec<CollectionId> = vec![];
 
     COLLECTIONS_OF.with(|collections_of| {
         if let Some(collections) = collections_of.borrow().get(&creator) {

@@ -4,7 +4,7 @@ mod tests;
 use ic_cdk::export::{candid::CandidType, Principal};
 use std::{cell::RefCell, collections::BTreeMap};
 
-/// Stores metadata about an nft creator.
+/// Stores metadata about a collection creator.
 #[derive(Clone, CandidType, PartialEq, Debug)]
 pub struct Creator {
     /// The principal-id of the creator.

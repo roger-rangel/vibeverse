@@ -157,7 +157,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
             new_desc.clone(),
             new_image_url.clone()
         ),
-        Err(Error::NotAllowed)
+        Err(Error::OnlyCollectionCreatorAllowed)
     );
 }
 
