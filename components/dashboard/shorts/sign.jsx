@@ -3,7 +3,7 @@ import Image from 'next/image';
 export default function Sign() {
   return (
     <div className="h-full">
-      <div className="mx-auto max-w-2xl px-4 py-6 sm:px-6 sm:py-6 lg:max-w-7xl">
+      <div className="mx-auto max-w-2xl px-4 py-6 sm:px-0 sm:py-6 lg:max-w-7xl">
         <div className="relative overflow-hidden rounded-lg lg:h-96">
           <div className="absolute inset-0">
             <Image

@@ -12,7 +12,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className=" bg-black">
+    <html className="bg-black">
       <body className="h-full">
         {/* eslint-disable-next-line react/no-children-prop */}
         <Navigation children={children} />
