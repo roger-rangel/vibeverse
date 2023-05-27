@@ -57,13 +57,13 @@ pub struct Nft {
     asset_url: Option<String>,
 }
 
-/// Maps `CollectionId` to the specific Collection.
+/// `CollectionId` mapped to a specific collection.
 type CollectionStore = BTreeMap<CollectionId, Collection>;
-/// Maps the creators to their collections.
+/// All the collections created by a principal.
 type CreatorCollectionsStore = BTreeMap<Principal, Vec<CollectionId>>;
-// Maps `NftId` to the specific Nft.
-type NftsStore = BTreeMap<NftId, Nft>;
-/// Maps users to their owned instances of collections.
+/// All of the nfts in a collection.
+type NftsStore = BTreeMap<CollectionId, Vec<Nft>>;
+/// All the nfts owned by a user.
 type NftsOfStore = BTreeMap<Principal, Vec<NftId>>;
 
 thread_local! {
@@ -193,32 +193,58 @@ pub fn do_get_collections_of_creator(creator: Principal) -> Vec<Collection> {
     collections
 }
 
-/* NEEDS TO BE REWORKED
 /// Mints a new nft
 ///
 /// This call is only allowed for the creator of the specified collection.
-pub fn do_mint_nft(caller: Principal, receiver: Principal, collection_id: CollectionId) -> Result<(), Error> {
+pub fn do_mint_nft(
+    caller: Principal,
+    receiver: Principal,
+    collection_id: CollectionId,
+    name: String,
+    description: String,
+    asset_url: Option<String>,
+) -> Result<(), Error> {
     let maybe_collection = do_get_collection(collection_id.clone());
+    let mut new_nft_id = Nat::from(0);
+
     if let Some(collection) = maybe_collection.clone() {
         if collection.creator != caller {
-            return Err(Error::NotAllowed);
+            return Err(Error::OnlyCollectionCreatorAllowed);
         }
         if collection.limit.is_some() && collection.minted >= collection.limit.unwrap() {
             return Err(Error::LimitReached);
         }
+        new_nft_id = collection.minted;
     } else {
         return Err(Error::CollectionNotFound);
     }
 
-    NFTS_OF.with(|nfts_of| {
-        let mut nfts_of = nfts_of.borrow_mut();
-        if let Some(nfts) = nfts_of.get_mut(&receiver) {
-            (*nfts).push(nft_id.clone());
+    let nft = (collection_id.clone(), new_nft_id.clone());
+
+    NFTS.with(|nfts| {
+        let mut all_nfts = nfts.borrow_mut();
+        let nft_data = Nft {
+            id: nft.clone(),
+            name,
+            description,
+            asset_url,
+        };
+        if let Some(nfts_in_collection) = all_nfts.clone().get_mut(&collection_id) {
+            (*nfts_in_collection).push(nft_data);
         } else {
-            nfts_of.insert(receiver, vec![nft_id.clone()]);
+            all_nfts.insert(collection_id, vec![nft_data]);
         }
     });
 
+    NFTS_OF.with(|nfts_of| {
+        let mut nfts_of = nfts_of.borrow_mut();
+        if let Some(nfts) = nfts_of.get_mut(&receiver) {
+            (*nfts).push(nft);
+        } else {
+            nfts_of.insert(receiver, vec![nft]);
+        }
+    });
+    /*
     let mut collection = maybe_collection.unwrap();
     collection.minted += 1;
 
@@ -226,9 +252,11 @@ pub fn do_mint_nft(caller: Principal, receiver: Principal, collection_id: Collec
         let mut collections = collections.borrow_mut();
         collections.insert(collection_id, collection);
     });
-
+    */
     Ok(())
 }
+
+/* NEEDS TO BE REWORKED
 
 pub fn do_get_nfts_of_user(user: Principal) -> Vec<Collection> {
     let mut collection_ids: Vec<CollectionId> = vec![];
