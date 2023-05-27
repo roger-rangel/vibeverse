@@ -188,25 +188,61 @@ fn get_creator_collections_works() {
         }]
     );
 }
-/*
 #[test]
 fn minting_nfts_works() {
     let creator = get_creator();
 
-    let mut collection1 = create_collection(creator, format!("Nft1"), false);
-    let mut collection2 = create_collection(creator, format!("Nft2"), false);
+    let mut collection = create_collection(creator, format!("Car Collection"), false);
 
     let alice = get_default_principal();
 
-    assert_eq!(do_mint_nft(creator, alice, collection1.clone().id), Ok(()));
-    assert_eq!(do_mint_nft(creator, alice, collection2.clone().id), Ok(()));
+    assert_eq!(
+        do_mint_nft(
+            creator,
+            alice,
+            collection.clone().id,
+            format!("Car 1"),
+            format!("..."),
+            None
+        ),
+        Ok(())
+    );
+    assert_eq!(
+        do_mint_nft(
+            creator,
+            alice,
+            collection.clone().id,
+            format!("Car 2"),
+            format!("..."),
+            None
+        ),
+        Ok(())
+    );
 
-    collection1.minted = Nat::from(1);
-    collection2.minted = Nat::from(1);
+    collection.minted = Nat::from(2);
 
-    assert_eq!(do_get_nfts_of_user(alice), vec![collection1, collection2])
+    assert_eq!(
+        do_get_nfts_of_user(alice),
+        vec![
+            Nft {
+                id: (Nat::from(0), Nat::from(0)),
+                name: format!("Car 1"),
+                description: format!("..."),
+                asset_url: None
+            },
+            Nft {
+                id: (Nat::from(0), Nat::from(1)),
+                name: format!("Car 2"),
+                description: format!("..."),
+                asset_url: None
+            }
+        ]
+    );
+
+    assert_eq!(do_get_collection(Nat::from(0)).unwrap(), collection);
 }
 
+/*
 #[test]
 fn minting_limit_works() {
     let creator = get_creator();

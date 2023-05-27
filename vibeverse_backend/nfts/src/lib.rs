@@ -174,6 +174,22 @@ pub fn do_get_collection(id: CollectionId) -> Option<Collection> {
     })
 }
 
+pub fn do_get_nft(id: NftId) -> Option<Nft> {
+    let collection_id = id.0.clone();
+    NFTS.with(|nfts| -> Option<Nft> {
+        if let Some(nfts_in_collection) = nfts.borrow().get(&collection_id) {
+            for nft in nfts_in_collection {
+                if nft.id == id {
+                    return Some(nft.clone());
+                }
+            }
+            None
+        } else {
+            None
+        }
+    })
+}
+
 /// Get all the collections that were created by the specified creator.
 pub fn do_get_collections_of_creator(creator: Principal) -> Vec<Collection> {
     let mut collection_ids: Vec<CollectionId> = vec![];
@@ -229,10 +245,10 @@ pub fn do_mint_nft(
             description,
             asset_url,
         };
-        if let Some(nfts_in_collection) = all_nfts.clone().get_mut(&collection_id) {
+        if let Some(nfts_in_collection) = all_nfts.get_mut(&collection_id) {
             (*nfts_in_collection).push(nft_data);
         } else {
-            all_nfts.insert(collection_id, vec![nft_data]);
+            all_nfts.insert(collection_id.clone(), vec![nft_data]);
         }
     });
 
@@ -244,7 +260,7 @@ pub fn do_mint_nft(
             nfts_of.insert(receiver, vec![nft]);
         }
     });
-    /*
+
     let mut collection = maybe_collection.unwrap();
     collection.minted += 1;
 
@@ -252,14 +268,12 @@ pub fn do_mint_nft(
         let mut collections = collections.borrow_mut();
         collections.insert(collection_id, collection);
     });
-    */
+
     Ok(())
 }
 
-/* NEEDS TO BE REWORKED
-
-pub fn do_get_nfts_of_user(user: Principal) -> Vec<Collection> {
-    let mut collection_ids: Vec<CollectionId> = vec![];
+pub fn do_get_nfts_of_user(user: Principal) -> Vec<Nft> {
+    let mut nft_ids: Vec<NftId> = vec![];
 
     NFTS_OF.with(|nfts_of| {
         if let Some(nfts) = nfts_of.borrow().get(&user) {
@@ -275,6 +289,8 @@ pub fn do_get_nfts_of_user(user: Principal) -> Vec<Collection> {
     }
     nfts
 }
+
+/* NEEDS TO BE REWORKED
 
 pub fn do_transfer_nft(caller: Principal, receiver: Principal, nft_id: NftId) -> Result<(), Error> {
     NFTS_OF.with(|nfts_of| -> Result<(), Error> {
