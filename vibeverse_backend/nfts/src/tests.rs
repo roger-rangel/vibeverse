@@ -242,7 +242,6 @@ fn minting_nfts_works() {
     assert_eq!(do_get_collection(Nat::from(0)).unwrap(), collection);
 }
 
-/*
 #[test]
 fn minting_limit_works() {
     let creator = get_creator();
@@ -250,16 +249,33 @@ fn minting_limit_works() {
     let description = String::from("A basic collection.");
     let transferable = false;
     let image_url = None;
-    let limit: Option<Nat> = Some(Nat::from(2));
+    let limit: Option<Nat> = Some(Nat::from(1));
 
-    let _ = do_create_collection(creator, name, description, transferable, limit, image_url);
+    let collection_id =
+        do_create_collection(creator, name, description, transferable, limit, image_url);
 
     let alice = get_default_principal();
 
-    assert_eq!(do_mint_nft(creator, alice, Nat::from(0)), Ok(()));
-    assert_eq!(do_mint_nft(creator, alice, Nat::from(0)), Ok(()));
     assert_eq!(
-        do_mint_nft(creator, alice, Nat::from(0)),
+        do_mint_nft(
+            creator,
+            alice,
+            collection_id.clone(),
+            format!("Car 1"),
+            format!("..."),
+            None
+        ),
+        Ok(())
+    );
+    assert_eq!(
+        do_mint_nft(
+            creator,
+            alice,
+            collection_id,
+            format!("Car 2"),
+            format!("..."),
+            None
+        ),
         Err(Error::LimitReached)
     );
 }
@@ -273,10 +289,31 @@ fn nft_transfer_works() {
     let mut collection = create_collection(creator, name, transferable);
 
     // The creator mints a nft for himself.
-    assert_eq!(do_mint_nft(creator, creator, collection.clone().id), Ok(()));
+    assert_eq!(
+        do_mint_nft(
+            creator,
+            creator,
+            collection.id.clone(),
+            format!("Car 1"),
+            format!("..."),
+            None
+        ),
+        Ok(())
+    );
+
     // The supply increased.
     collection.minted = Nat::from(1);
-    assert_eq!(do_get_nfts_of_user(creator), vec![collection.clone()]);
+    assert_eq!(do_get_collection(Nat::from(0)).unwrap(), collection);
+
+    assert_eq!(
+        do_get_nfts_of_user(creator),
+        vec![Nft {
+            id: (Nat::from(0), Nat::from(0)),
+            name: format!("Car 1"),
+            description: format!("..."),
+            asset_url: None
+        },]
+    );
 
     // Alice is going to be the recepient.
     let alice = get_default_principal();
@@ -284,12 +321,22 @@ fn nft_transfer_works() {
     assert_eq!(do_get_nfts_of_user(alice), vec![]);
 
     // Creator transfers the token to alice.
-    assert_eq!(do_transfer_nft(creator, alice, collection.clone().id), Ok(()));
+    assert_eq!(
+        do_nft_transfer(creator, alice, (collection.clone().id, Nat::from(0))),
+        Ok(())
+    );
 
-    assert_eq!(do_get_nfts_of_user(alice), vec![collection]);
+    assert_eq!(
+        do_get_nfts_of_user(alice),
+        vec![Nft {
+            id: (Nat::from(0), Nat::from(0)),
+            name: format!("Car 1"),
+            description: format!("..."),
+            asset_url: None
+        },]
+    );
     assert_eq!(do_get_nfts_of_user(creator), vec![]);
 }
-*/
 
 fn create_collection(creator: Principal, name: String, transferable: bool) -> Collection {
     let description = format!("Description of: {}", name);

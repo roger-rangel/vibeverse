@@ -290,9 +290,7 @@ pub fn do_get_nfts_of_user(user: Principal) -> Vec<Nft> {
     nfts
 }
 
-/* NEEDS TO BE REWORKED
-
-pub fn do_transfer_nft(caller: Principal, receiver: Principal, nft_id: NftId) -> Result<(), Error> {
+pub fn do_nft_transfer(caller: Principal, receiver: Principal, nft_id: NftId) -> Result<(), Error> {
     NFTS_OF.with(|nfts_of| -> Result<(), Error> {
         let mut nfts_of = nfts_of.borrow_mut();
         if let Some(nfts) = nfts_of.get_mut(&caller) {
@@ -315,4 +313,3 @@ pub fn do_transfer_nft(caller: Principal, receiver: Principal, nft_id: NftId) ->
         Ok(())
     })
 }
-*/

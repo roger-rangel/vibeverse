@@ -77,7 +77,7 @@ fn mint_nft(nft: CollectionId, receiver: Principal) -> String {
 #[update]
 fn transfer_nft(nft: CollectionId, receiver: Principal) -> String {
     let caller = ic_cdk::api::caller();
-    match nfts::do_transfer_nft(caller, receiver, nft) {
+    match nfts::do_nft_transfer(caller, receiver, nft) {
         Ok(_) => format!("Collection transfered successfully."),
         Err(e) => format!("Error while transfering the nft: {:?}", e),
     }
