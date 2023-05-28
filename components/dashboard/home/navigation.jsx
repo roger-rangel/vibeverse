@@ -42,7 +42,7 @@ const user = [
   { id: 1, name: 'Profile', href: '#', initial: 'P', current: false },
   { id: 2, name: 'My Tools', href: '#', initial: 'T', current: false },
   { id: 3, name: 'My Content', href: '#', initial: 'C', current: false },
-  { id: 4, name: 'Favourites', href: '#', initial: 'F', current: false },
+  { id: 4, name: 'Favorites', href: '#', initial: 'F', current: false },
 ];
 const userNavigation = [
   { name: 'Your profile', href: '#' },
