@@ -9,7 +9,7 @@ fn creating_collection_works() {
     let limit = None;
     let image_url = None;
 
-    do_create_collection(
+    create_collection(
         creator,
         collection_name.clone(),
         collection_desc.clone(),
@@ -19,7 +19,7 @@ fn creating_collection_works() {
     );
 
     assert_eq!(
-        do_get_collection(Nat::from(0)),
+        get_collection(Nat::from(0)),
         Some(Collection {
             id: Nat::from(0),
             creator,
@@ -42,7 +42,7 @@ fn updating_collection_metadata_works() {
     let image_url = None;
     let limit = None;
 
-    do_create_collection(
+    create_collection(
         creator,
         collection_name.clone(),
         collection_desc.clone(),
@@ -52,7 +52,7 @@ fn updating_collection_metadata_works() {
     );
 
     assert_eq!(
-        do_get_collection(Nat::from(0)),
+        get_collection(Nat::from(0)),
         Some(Collection {
             id: Nat::from(0),
             creator: creator.clone(),
@@ -69,7 +69,7 @@ fn updating_collection_metadata_works() {
     let new_desc = String::from("New description");
     let new_image_url = Some(String::from("https://domain.com/image.jpg"));
     assert_eq!(
-        do_update_metadata(
+        update_metadata(
             creator,
             Nat::from(0),
             new_name.clone(),
@@ -80,7 +80,7 @@ fn updating_collection_metadata_works() {
     );
 
     assert_eq!(
-        do_get_collection(Nat::from(0)),
+        get_collection(Nat::from(0)),
         Some(Collection {
             id: Nat::from(0),
             creator,
@@ -102,7 +102,7 @@ fn updating_collection_metadata_fails_for_non_existing_collection() {
     let new_image_url = Some(String::from("https::/domain.com/image.jpg"));
 
     assert_eq!(
-        do_update_metadata(
+        update_metadata(
             creator,
             Nat::from(0),
             new_name.clone(),
@@ -122,7 +122,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
     let image_url = None;
     let limit = None;
 
-    do_create_collection(
+    create_collection(
         creator,
         collection_name.clone(),
         collection_desc.clone(),
@@ -132,7 +132,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
     );
 
     assert_eq!(
-        do_get_collection(Nat::from(0)),
+        get_collection(Nat::from(0)),
         Some(Collection {
             id: Nat::from(0),
             creator: creator.clone(),
@@ -149,7 +149,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
     let new_desc = String::from("New description");
     let new_image_url = Some(String::from("https://domain.com/image.jpg"));
     assert_eq!(
-        do_update_metadata(
+        update_metadata(
             // the default principal is not allowed to make this call.
             get_default_principal(),
             Nat::from(0),
@@ -163,7 +163,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
 
 #[test]
 fn get_collection_works_when_collection_doesnt_exist() {
-    assert_eq!(do_get_collection(Nat::from(0)), None);
+    assert_eq!(get_collection(Nat::from(0)), None);
 }
 
 #[test]
@@ -172,10 +172,10 @@ fn get_creator_collections_works() {
     let name = String::from("collection1");
     let transferable = false;
 
-    let collection = create_collection(creator, name.clone(), transferable);
+    let collection = create_mock_collection(creator, name.clone(), transferable);
 
     assert_eq!(
-        do_get_collections_of_creator(creator),
+        collections_created_by(creator),
         vec![Collection {
             id: Nat::from(0),
             creator,
@@ -192,12 +192,12 @@ fn get_creator_collections_works() {
 fn minting_nfts_works() {
     let creator = get_creator();
 
-    let mut collection = create_collection(creator, format!("Car Collection"), false);
+    let mut collection = create_mock_collection(creator, format!("Car Collection"), false);
 
     let alice = get_default_principal();
 
     assert_eq!(
-        do_mint_nft(
+        mint_nft(
             creator,
             alice,
             collection.clone().id,
@@ -208,7 +208,7 @@ fn minting_nfts_works() {
         Ok(())
     );
     assert_eq!(
-        do_mint_nft(
+        mint_nft(
             creator,
             alice,
             collection.clone().id,
@@ -222,7 +222,7 @@ fn minting_nfts_works() {
     collection.minted = Nat::from(2);
 
     assert_eq!(
-        do_get_nfts_of_user(alice),
+        nfts_of_user(alice),
         vec![
             Nft {
                 id: (Nat::from(0), Nat::from(0)),
@@ -239,7 +239,7 @@ fn minting_nfts_works() {
         ]
     );
 
-    assert_eq!(do_get_collection(Nat::from(0)).unwrap(), collection);
+    assert_eq!(get_collection(Nat::from(0)).unwrap(), collection);
 }
 
 #[test]
@@ -252,12 +252,12 @@ fn minting_limit_works() {
     let limit: Option<Nat> = Some(Nat::from(1));
 
     let collection_id =
-        do_create_collection(creator, name, description, transferable, limit, image_url);
+        create_collection(creator, name, description, transferable, limit, image_url);
 
     let alice = get_default_principal();
 
     assert_eq!(
-        do_mint_nft(
+        mint_nft(
             creator,
             alice,
             collection_id.clone(),
@@ -268,7 +268,7 @@ fn minting_limit_works() {
         Ok(())
     );
     assert_eq!(
-        do_mint_nft(
+        mint_nft(
             creator,
             alice,
             collection_id,
@@ -286,11 +286,11 @@ fn nft_transfer_works() {
     let name = String::from("collection");
     let transferable = true;
 
-    let mut collection = create_collection(creator, name, transferable);
+    let mut collection = create_mock_collection(creator, name, transferable);
 
     // The creator mints a nft for himself.
     assert_eq!(
-        do_mint_nft(
+        mint_nft(
             creator,
             creator,
             collection.id.clone(),
@@ -303,10 +303,10 @@ fn nft_transfer_works() {
 
     // The supply increased.
     collection.minted = Nat::from(1);
-    assert_eq!(do_get_collection(Nat::from(0)).unwrap(), collection);
+    assert_eq!(get_collection(Nat::from(0)).unwrap(), collection);
 
     assert_eq!(
-        do_get_nfts_of_user(creator),
+        nfts_of_user(creator),
         vec![Nft {
             id: (Nat::from(0), Nat::from(0)),
             name: format!("Car 1"),
@@ -318,16 +318,16 @@ fn nft_transfer_works() {
     // Alice is going to be the recepient.
     let alice = get_default_principal();
     // She doesn't have any nfts at the moment.
-    assert_eq!(do_get_nfts_of_user(alice), vec![]);
+    assert_eq!(nfts_of_user(alice), vec![]);
 
     // Creator transfers the token to alice.
     assert_eq!(
-        do_nft_transfer(creator, alice, (collection.clone().id, Nat::from(0))),
+        nft_transfer(creator, alice, (collection.clone().id, Nat::from(0))),
         Ok(())
     );
 
     assert_eq!(
-        do_get_nfts_of_user(alice),
+        nfts_of_user(alice),
         vec![Nft {
             id: (Nat::from(0), Nat::from(0)),
             name: format!("Car 1"),
@@ -335,15 +335,15 @@ fn nft_transfer_works() {
             asset_url: None
         },]
     );
-    assert_eq!(do_get_nfts_of_user(creator), vec![]);
+    assert_eq!(nfts_of_user(creator), vec![]);
 }
 
-fn create_collection(creator: Principal, name: String, transferable: bool) -> Collection {
+fn create_mock_collection(creator: Principal, name: String, transferable: bool) -> Collection {
     let description = format!("Description of: {}", name);
     let image_url = None;
     let limit: Option<Nat> = None;
 
-    let id = do_create_collection(
+    let id = create_collection(
         creator,
         name.clone(),
         description.clone(),

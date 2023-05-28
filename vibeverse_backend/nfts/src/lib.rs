@@ -74,12 +74,12 @@ thread_local! {
     static NFTS_OF: RefCell<NftsOfStore> = RefCell::default();
 }
 
-pub fn do_get_collection_count() -> CollectionId {
+pub fn collection_count() -> CollectionId {
     COLLECTION_COUNT.with(|count| count.borrow().clone())
 }
 
 /// Creates a new collection and increases the `COLLECTION_COUNT`.
-pub fn do_create_collection(
+pub fn create_collection(
     creator: Principal,
     name: String,
     description: String,
@@ -123,14 +123,14 @@ pub fn do_create_collection(
 /// Updates the metadata of the given collection.
 ///
 /// This call is only allowed for the creator of the specified collection.
-pub fn do_update_metadata(
+pub fn update_metadata(
     caller: Principal,
     id: CollectionId,
     name: String,
     description: String,
     image_url: Option<String>,
 ) -> Result<(), Error> {
-    let maybe_collection = do_get_collection(id.clone());
+    let maybe_collection = get_collection(id.clone());
     if let Some(collection) = maybe_collection {
         if collection.creator != caller {
             return Err(Error::OnlyCollectionCreatorAllowed);
@@ -164,7 +164,7 @@ pub fn do_update_metadata(
 
 /// Returns the collection with the specified `CollectionId`.
 /// In case there is no such collection returns `None`.
-pub fn do_get_collection(id: CollectionId) -> Option<Collection> {
+pub fn get_collection(id: CollectionId) -> Option<Collection> {
     COLLECTIONS.with(|collections| {
         if let Some(collection) = collections.borrow().get(&id) {
             Some(collection.clone())
@@ -174,7 +174,7 @@ pub fn do_get_collection(id: CollectionId) -> Option<Collection> {
     })
 }
 
-pub fn do_get_nft(id: NftId) -> Option<Nft> {
+pub fn get_nft(id: NftId) -> Option<Nft> {
     let collection_id = id.0.clone();
     NFTS.with(|nfts| -> Option<Nft> {
         if let Some(nfts_in_collection) = nfts.borrow().get(&collection_id) {
@@ -191,7 +191,7 @@ pub fn do_get_nft(id: NftId) -> Option<Nft> {
 }
 
 /// Get all the collections that were created by the specified creator.
-pub fn do_get_collections_of_creator(creator: Principal) -> Vec<Collection> {
+pub fn collections_created_by(creator: Principal) -> Vec<Collection> {
     let mut collection_ids: Vec<CollectionId> = vec![];
 
     COLLECTIONS_OF.with(|collections_of| {
@@ -202,7 +202,7 @@ pub fn do_get_collections_of_creator(creator: Principal) -> Vec<Collection> {
 
     let mut collections = vec![];
     for id in collection_ids {
-        if let Some(collection) = do_get_collection(id) {
+        if let Some(collection) = get_collection(id) {
             collections.push(collection);
         }
     }
@@ -212,7 +212,7 @@ pub fn do_get_collections_of_creator(creator: Principal) -> Vec<Collection> {
 /// Mints a new nft
 ///
 /// This call is only allowed for the creator of the specified collection.
-pub fn do_mint_nft(
+pub fn mint_nft(
     caller: Principal,
     receiver: Principal,
     collection_id: CollectionId,
@@ -220,7 +220,7 @@ pub fn do_mint_nft(
     description: String,
     asset_url: Option<String>,
 ) -> Result<(), Error> {
-    let maybe_collection = do_get_collection(collection_id.clone());
+    let maybe_collection = get_collection(collection_id.clone());
     let mut new_nft_id = Nat::from(0);
 
     if let Some(collection) = maybe_collection.clone() {
@@ -272,7 +272,7 @@ pub fn do_mint_nft(
     Ok(())
 }
 
-pub fn do_get_nfts_of_user(user: Principal) -> Vec<Nft> {
+pub fn nfts_of_user(user: Principal) -> Vec<Nft> {
     let mut nft_ids: Vec<NftId> = vec![];
 
     NFTS_OF.with(|nfts_of| {
@@ -283,14 +283,14 @@ pub fn do_get_nfts_of_user(user: Principal) -> Vec<Nft> {
 
     let mut nfts = vec![];
     for id in nft_ids {
-        if let Some(nft) = do_get_nft(id) {
+        if let Some(nft) = get_nft(id) {
             nfts.push(nft);
         }
     }
     nfts
 }
 
-pub fn do_nft_transfer(caller: Principal, receiver: Principal, nft_id: NftId) -> Result<(), Error> {
+pub fn nft_transfer(caller: Principal, receiver: Principal, nft_id: NftId) -> Result<(), Error> {
     NFTS_OF.with(|nfts_of| -> Result<(), Error> {
         let mut nfts_of = nfts_of.borrow_mut();
         if let Some(nfts) = nfts_of.get_mut(&caller) {

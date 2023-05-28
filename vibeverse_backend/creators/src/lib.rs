@@ -21,7 +21,7 @@ thread_local! {
 }
 
 /// Sets the metadata for the specific creator.
-pub fn do_set_creator_metadata(principal: Principal, name: String) {
+pub fn set_creator_metadata(principal: Principal, name: String) {
     CREATORS.with(|creators| {
         let creator = Creator { principal, name };
 
@@ -30,7 +30,7 @@ pub fn do_set_creator_metadata(principal: Principal, name: String) {
     })
 }
 
-pub fn do_get_creator_metadata(principal: Principal) -> Option<Creator> {
+pub fn creator_metadata(principal: Principal) -> Option<Creator> {
     CREATORS.with(|creators| {
         if let Some(creator) = creators.borrow().get(&principal) {
             Some(creator.clone())

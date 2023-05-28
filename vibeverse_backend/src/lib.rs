@@ -13,7 +13,7 @@ fn create_collection(
     image_url: Option<String>,
 ) -> String {
     let creator = ic_cdk::api::caller();
-    nfts::do_create_collection(creator, name, description, transferable, limit, image_url);
+    nfts::create_collection(creator, name, description, transferable, limit, image_url);
 
     format!("Collection created successfully.")
 }
@@ -27,7 +27,7 @@ fn update_collection_metadata(
 ) -> String {
     let caller = ic_cdk::api::caller();
 
-    match nfts::do_update_metadata(caller, id, name, description, image_url) {
+    match nfts::update_metadata(caller, id, name, description, image_url) {
         Ok(_) => format!("Metadata updated successfully."),
         Err(e) => format!("Error while updating metadata: {:?}", e),
     }
@@ -36,48 +36,61 @@ fn update_collection_metadata(
 /// Get a specific collection with the provided `CollectionId`.
 #[ic_cdk_macros::query]
 fn get_collection(id: CollectionId) -> Option<Collection> {
-    nfts::do_get_collection(id)
+    nfts::get_collection(id)
 }
 
 #[update]
 fn set_creator_metadata(name: String) -> String {
     let caller = ic_cdk::api::caller();
-    creators::do_set_creator_metadata(caller, name);
+    creators::set_creator_metadata(caller, name);
 
     format!("Creator metadata set successfully.")
 }
 
 #[ic_cdk_macros::query]
-fn get_creator_metadata() -> Option<Creator> {
+fn creator_metadata() -> Option<Creator> {
     let caller = ic_cdk::api::caller();
-    creators::do_get_creator_metadata(caller)
+    creators::creator_metadata(caller)
 }
 
 #[ic_cdk_macros::query]
-fn get_collections_of_creator(creator: Principal) -> Vec<Collection> {
-    nfts::do_get_collections_of_creator(creator)
+fn collections_created_by(creator: Principal) -> Vec<Collection> {
+    nfts::collections_created_by(creator)
 }
 
 #[ic_cdk_macros::query]
-fn get_collections_of_caller() -> Vec<Collection> {
+fn collections_created_by_caller() -> Vec<Collection> {
     let caller = ic_cdk::api::caller();
-    nfts::do_get_collections_of_creator(caller)
+    nfts::collections_created_by(caller)
 }
 
-/*
 #[update]
-fn mint_nft(nft: CollectionId, receiver: Principal) -> String {
+fn mint_nft(
+    collection_id: CollectionId,
+    receiver: Principal,
+    name: String,
+    description: String,
+    asset_url: Option<String>,
+) -> String {
     let caller = ic_cdk::api::caller();
-    match nfts::do_mint_nft(caller, receiver, nft) {
+    match nfts::mint_nft(
+        caller,
+        receiver,
+        collection_id,
+        name,
+        description,
+        asset_url,
+    ) {
         Ok(_) => format!("Collection minted successfully."),
         Err(e) => format!("Error while minting nft: {:?}", e),
     }
 }
 
+/*
 #[update]
 fn transfer_nft(nft: CollectionId, receiver: Principal) -> String {
     let caller = ic_cdk::api::caller();
-    match nfts::do_nft_transfer(caller, receiver, nft) {
+    match nfts::nft_transfer(caller, receiver, nft) {
         Ok(_) => format!("Collection transfered successfully."),
         Err(e) => format!("Error while transfering the nft: {:?}", e),
     }
@@ -85,11 +98,11 @@ fn transfer_nft(nft: CollectionId, receiver: Principal) -> String {
 
 #[ic_cdk_macros::query]
 fn get_nfts_of_user(user: Principal) -> Vec<Collection> {
-    nfts::do_get_nfts_of_user(user)
+    nfts::nfts_of_user(user)
 }
 */
 
 #[ic_cdk_macros::query]
 fn get_collection_count() -> CollectionId {
-    nfts::do_get_collection_count()
+    nfts::collection_count()
 }
