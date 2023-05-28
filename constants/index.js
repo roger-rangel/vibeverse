@@ -2,11 +2,11 @@
 // file names).
 export const assets = [
   {
-    logo3D: 'logo_3D'
+    logo3D: 'logo_3D',
   },
   {
     erevald3D: 'erevald_3D',
-  }
+  },
 ];
 
 export const videos = [

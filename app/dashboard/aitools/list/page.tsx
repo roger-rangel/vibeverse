@@ -12,13 +12,11 @@ const posts = [
     href: '#',
     description:
       'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    videoURL:
-      '830146900',
+    videoURL: '830146900',
     rating: '⭐️⭐️⭐️⭐️⭐️',
     author: {
       name: 'Kaiber',
-      imageUrl:
-        '/images/logos/kaiber.jpeg',
+      imageUrl: '/images/logos/kaiber.jpeg',
     },
   },
   {
@@ -27,13 +25,11 @@ const posts = [
     href: '#',
     description:
       'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    videoURL:
-      '830162386',
+    videoURL: '830162386',
     rating: '⭐️⭐️⭐️⭐️⭐️',
     author: {
       name: 'Runway',
-      imageUrl:
-        '/images/logos/runway.png',
+      imageUrl: '/images/logos/runway.png',
     },
   },
   {
@@ -42,13 +38,11 @@ const posts = [
     href: '#',
     description:
       'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    videoURL:
-      '830159528',
+    videoURL: '830159528',
     rating: '⭐️⭐️⭐️⭐️⭐️',
     author: {
       name: 'Stable Diffusion',
-      imageUrl:
-        '/images/logos/stable.webp',
+      imageUrl: '/images/logos/stable.webp',
     },
   },
   // More posts...
@@ -91,15 +85,22 @@ export default function Collection() {
             <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
 
             <div className="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
-              <p className="mr-8">
-                {post.rating}
-              </p>
+              <p className="mr-8">{post.rating}</p>
               <div className="-ml-4 flex items-center gap-x-4">
-                <svg viewBox="0 0 2 2" className="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50">
+                <svg
+                  viewBox="0 0 2 2"
+                  className="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50"
+                >
                   <circle cx={1} cy={1} r={1} />
                 </svg>
-                <div className="flex gap-x-2.5"> 
-                  <Image src={post.author.imageUrl} alt="" className="h-6 w-6 flex-none rounded-full bg-white/10" width="100" height="100" />
+                <div className="flex gap-x-2.5">
+                  <Image
+                    src={post.author.imageUrl}
+                    alt=""
+                    className="h-6 w-6 flex-none rounded-full bg-white/10"
+                    width="100"
+                    height="100"
+                  />
                   {post.author.name}
                 </div>
               </div>
@@ -121,16 +122,20 @@ export default function Collection() {
               src="/images/dashboard/wizard.png"
               alt=""
               className="h-full w-full object-cover object-center"
-              width="900" height="300"
+              width="900"
+              height="300"
             />
           </div>
           <div aria-hidden="true" className="relative h-96 w-full lg:hidden" />
           <div aria-hidden="true" className="relative h-32 w-full lg:hidden" />
           <div className="absolute inset-x-0 bottom-0 rounded-bl-lg rounded-br-lg bg-black bg-opacity-75 p-6 backdrop-blur backdrop-filter sm:flex sm:items-center sm:justify-between lg:inset-x-auto lg:inset-y-0 lg:w-96 lg:flex-col lg:items-start lg:rounded-br-none lg:rounded-tl-lg">
             <div>
-              <h2 className="text-xl font-bold text-white">Don&apos;t know where to start?</h2>
+              <h2 className="text-xl font-bold text-white">
+                Don&apos;t know where to start?
+              </h2>
               <p className="mt-1 text-sm text-gray-300">
-                Don&apos;t worry, we&apos;ve got you covered. Our learning center is a great place to start.
+                Don&apos;t worry, we&apos;ve got you covered. Our learning
+                center is a great place to start.
               </p>
             </div>
             <a

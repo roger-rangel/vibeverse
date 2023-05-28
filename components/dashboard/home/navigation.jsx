@@ -392,8 +392,8 @@ export default function Navigation({ children }) {
             </div>
           </div>
 
-          <main className="w-full text-2xl font-semibold text-gray-900">      
-            {children}         
+          <main className="w-full text-2xl font-semibold text-gray-900">
+            {children}
           </main>
         </div>
       </div>
