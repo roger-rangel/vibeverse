@@ -35,7 +35,7 @@ export default function Create_Collection({showCreateCollection}) {
                   </label>
                   <div className="mt-2">
                     <div className="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                      <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">vibeverse.com/</span>
+                      <span className="flex select-none items-center pl-3 px-3 text-gray-500 sm:text-sm">vibeverse.com/</span>
                       <input
                         type="text"
                         name="title"
