@@ -12,8 +12,8 @@ export default function Create_Collection({ showCreateCollection }) {
           <div className="space-y-12">
             <div className="border-b border-white/10 pb-12">
               <div className="flex justify-between mb-4 items-center">
-                <h2 className="text-base font-semibold leading-7 text-white">
-                  Collection
+                <h2 className="text-3xl font-semibold leading-7 text-white">
+                  Create Collection
                 </h2>
                 <button
                   onClick={handleClose}
