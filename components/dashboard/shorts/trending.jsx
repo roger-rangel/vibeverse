@@ -34,7 +34,7 @@ export default function Trending() {
     <div className="">
       <div className="py-2 sm:py-2 lg:mx-auto lg:max-w-7xl lg:px-8">
         <div className="flex items-center justify-between px-4 sm:px-6 lg:px-0">
-          <h2 className="text-4xl font-bold tracking-tight text-slate-200">
+          <h2 className="text-4xl mt-4 font-bold tracking-tight text-slate-200">
             Trending this week
           </h2>
         </div>
