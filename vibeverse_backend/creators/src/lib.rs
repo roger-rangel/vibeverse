@@ -4,7 +4,7 @@ mod tests;
 use ic_cdk::export::{candid::CandidType, Principal};
 use std::{cell::RefCell, collections::BTreeMap};
 
-/// Stores metadata about an nft creator.
+/// Stores metadata about a collection creator.
 #[derive(Clone, CandidType, PartialEq, Debug)]
 pub struct Creator {
     /// The principal-id of the creator.
@@ -21,7 +21,7 @@ thread_local! {
 }
 
 /// Sets the metadata for the specific creator.
-pub fn do_set_creator_metadata(principal: Principal, name: String) {
+pub fn set_creator_metadata(principal: Principal, name: String) {
     CREATORS.with(|creators| {
         let creator = Creator { principal, name };
 
@@ -30,7 +30,7 @@ pub fn do_set_creator_metadata(principal: Principal, name: String) {
     })
 }
 
-pub fn do_get_creator_metadata(principal: Principal) -> Option<Creator> {
+pub fn creator_metadata(principal: Principal) -> Option<Creator> {
     CREATORS.with(|creators| {
         if let Some(creator) = creators.borrow().get(&principal) {
             Some(creator.clone())

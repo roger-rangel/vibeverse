@@ -15,14 +15,14 @@ type Creator = record {
 
 service : {
     "create_collection": (text, text, bool, opt nat, opt text) -> (text);
-    "update_nft_metadata": (nat, text, text, opt text) -> (text);
+    "update_collection_metadata": (nat, text, text, opt text) -> (text);
     "get_nft": (nat) -> (opt Nft);
     "set_creator_metadata": (text) -> (text);
     "mint_nft": (nat, principal) -> (text);
     "transfer_nft": (nat, principal) -> (text);
-    "get_creator_metadata": () -> (opt Creator);
-    "get_nfts_of_creator": (principal) -> (vec Nft);
-    "get_nfts_of_caller": () -> (vec Nft);
-    "get_nfts_of_user": (principal) -> (vec Nft);
-    "get_nft_count": () -> (nat);
+    "creator_metadata": () -> (opt Creator);
+    "collections_created_by": (principal) -> (vec Nft);
+    "collections_created_by_caller": () -> (vec Nft);
+    "nfts_of_user": (principal) -> (vec Nft);
+    "collections_count": () -> (nat);
 }
