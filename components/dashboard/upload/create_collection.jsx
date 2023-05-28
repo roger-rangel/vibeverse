@@ -41,7 +41,7 @@ export default function Create_Collection({showCreateCollection}) {
                         name="title"
                         id="title"
                         autoComplete="title"
-                        className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
+                        className="flex-1 bg-white/5 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="my_collection"
                       />
                     </div>
