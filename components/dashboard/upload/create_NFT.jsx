@@ -62,7 +62,7 @@ export default function Create_NFT({ showCreateNFT }) {
                   </Link> 
                 </p>
               </div>
-              <p className="mt-1 text-sm leading-6 text-purple-200 px-2">An NFT is a digital item that shows you own something cool and unique online</p>
+              <p className="mt-1 text-sm leading-6 text-purple-200 px-2">An NFT is a digital item that shows you own something cool and unique online.</p>
 
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-4">
