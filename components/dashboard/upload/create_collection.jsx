@@ -1,14 +1,26 @@
+import { useState } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
+import BackendActor from '@/components/BackendActor';
 
 export default function Create_Collection({ showCreateCollection }) {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [limit, setLimit] = useState("");
+
   const handleClose = () => {
     showCreateCollection(false);
   };
 
+  const handleSubmit = () => {
+    console.log("Creating a collection");
+    const actor = new BackendActor();
+  }
+
   return (
     <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-50">
       <div className="bg-gray-900 rounded-lg overflow-y-auto max-h-[calc(100%-2rem)] p-8 w-full max-w-2xl mx-4 my-8">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="space-y-12">
             <div className="border-b border-white/10 pb-12">
               <div className="flex justify-between mb-4 items-center">
@@ -62,6 +74,8 @@ export default function Create_Collection({ showCreateCollection }) {
                         type="text"
                         name="title"
                         id="title"
+                        onChange={(e) => setName(e.target.value)}
+                        value={name}
                         autoComplete="title"
                         className="flex-1 bg-white/5 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="my_collection"
@@ -81,7 +95,9 @@ export default function Create_Collection({ showCreateCollection }) {
                     <textarea
                       id="about"
                       name="about"
-                      rows={3}
+                      rows={3} 
+                      onChange={(e) => setDescription(e.target.value)}
+                      value={description}
                       className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                       defaultValue={''}
                     />
@@ -149,6 +165,8 @@ export default function Create_Collection({ showCreateCollection }) {
                       type="text"
                       name="first-name"
                       id="first-name"
+                      onChange={(e) => setLimit(e.target.value)}
+                      value={limit}
                       autoComplete="given-name"
                       className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                     />
