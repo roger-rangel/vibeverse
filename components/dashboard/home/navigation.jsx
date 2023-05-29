@@ -1,5 +1,3 @@
-// Note: Navigation for the Dashboard
-
 'use client';
 
 import { Fragment, useEffect, useState } from 'react';
@@ -27,16 +25,16 @@ import Item3D from '../../3D/Asset3D';
 import { assets } from '../../../constants';
 
 const navigation = [
-  { name: 'Home', href: '/dashboard/', icon: HomeIcon, current: true },
+  { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
   {
     name: 'Shorts',
-    href: '/dashboard/shorts/',
+    href: '/dashboard/shorts',
     icon: UsersIcon,
   },
-  { name: 'AI Tools', href: '/dashboard/aitools/', icon: FolderIcon },
-  { name: 'AI Content', href: '/dashboard/content/', icon: CalendarIcon },
-  { name: 'Upload', href: '/dashboard/upload/', icon: DocumentDuplicateIcon },
-  { name: 'Communities', href: '/dashboard/communities/', icon: ChartPieIcon },
+  { name: 'AI Tools', href: '/dashboard/aitools', icon: FolderIcon },
+  { name: 'AI Content', href: '/dashboard/content', icon: CalendarIcon },
+  { name: 'Upload', href: '/dashboard/upload', icon: DocumentDuplicateIcon },
+  { name: 'Communities', href: '/dashboard/communities', icon: ChartPieIcon },
 ];
 const user = [
   { id: 1, name: 'Profile', href: '#', initial: 'P', current: false },
