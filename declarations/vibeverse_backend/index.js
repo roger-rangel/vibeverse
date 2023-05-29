@@ -10,11 +10,11 @@ export { idlFactory } from "./vibeverse_backend.did.js";
  * beginning in dfx 0.15.0
  */
 export const canisterId =
-  process.env.CANISTER_ID_VIBEVERSE_BACKEND ||
   process.env.VIBEVERSE_BACKEND_CANISTER_ID;
 
 export const createActor = (canisterId, options = {}) => {
-  const agent = options.agent || new HttpAgent({ ...options.agentOptions });
+  //const agent = options.agent || new HttpAgent({ ...options.agentOptions });
+  const agent = new HttpAgent({host: "http://127.0.0.1:4943"});
 
   if (options.agent && options.agentOptions) {
     console.warn(

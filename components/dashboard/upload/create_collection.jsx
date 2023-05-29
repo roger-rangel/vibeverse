@@ -12,10 +12,12 @@ export default function Create_Collection({ showCreateCollection }) {
     showCreateCollection(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log("Creating a collection");
     const actor = new BackendActor();
-  }
+    const result = await actor.createCollection(name, description, imageUrl, Number(limit)); 
+    alert(result);
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-50">

@@ -221,7 +221,7 @@ pub fn mint_nft(
     asset_url: Option<String>,
 ) -> Result<(), Error> {
     let maybe_collection = get_collection(collection_id.clone());
-    let mut new_nft_id = Nat::from(0);
+    let new_nft_id;
 
     if let Some(collection) = maybe_collection.clone() {
         if collection.creator != caller {
