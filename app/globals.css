@@ -36,7 +36,7 @@ body {
 
 @keyframes gradient {
   0% {
-    background-position: 0% 50% ;
+    background-position: 0% 50%;
   }
   50% {
     background-position: 100% 50%;
@@ -47,13 +47,13 @@ body {
 }
 
 .button-gradient {
-  background: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
+  background: linear-gradient(-45deg, #ffa63d, #ff3d77, #338aff, #3cf0c5);
   background-size: 600% 100%;
   animation: gradient 16s linear infinite;
 }
 
 .button-signin {
-  background: linear-gradient(-45deg, #C6FFDD, #FBD786, #f7797d, #3CF0C5);
+  background: linear-gradient(-45deg, #c6ffdd, #fbd786, #f7797d, #3cf0c5);
   background-size: 600% 100%;
   animation: gradient 16s linear infinite;
 }

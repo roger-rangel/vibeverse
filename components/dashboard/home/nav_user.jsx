@@ -9,7 +9,6 @@ const userNavigation = [
 ];
 
 export default function Nav_User() {
-
   return (
     <Menu as="div" className="relative">
       <Menu.Button className="-m-1.5 flex items-center p-1.5">

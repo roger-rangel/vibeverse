@@ -50,7 +50,7 @@ function classNames(...classes) {
 
 export default function Navigation({ children }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [ login, setLogin ] = useState(false);
+  const [login, setLogin] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentNavIndex, setCurrentNavIndex] = useState(0);
 
@@ -334,15 +334,15 @@ export default function Navigation({ children }) {
                 />
 
                 {/* Profile dropdown */}
-                {login ?
-                  <Nav_User /> :
+                {login ? (
+                  <Nav_User />
+                ) : (
                   <Link href="/login">
                     <button className="button-gradient text-white font-bold py-2 px-4 rounded-3xl">
-                    Connect Wallet
+                      Connect Wallet
                     </button>
                   </Link>
-                }
-               
+                )}
               </div>
             </div>
           </div>

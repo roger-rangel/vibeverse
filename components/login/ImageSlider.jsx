@@ -9,7 +9,7 @@ const ImageSlider = ({ images, duration, startOffset }) => {
   const springs = useSprings(
     totalImages,
     images.map((image, index) => ({
-      from: { y: (index * 100) + startOffset },
+      from: { y: index * 100 + startOffset },
       to: async (next) => {
         while (true) {
           for (let i = 1; i <= totalImages; i++) {
@@ -18,7 +18,7 @@ const ImageSlider = ({ images, duration, startOffset }) => {
         }
       },
       config: { duration: totalImages * duration * 1000 },
-    }))
+    })),
   );
 
   return (
