@@ -2,6 +2,12 @@
 
 import Image from 'next/image';
 import ImageSlider from '../../components/login/imageSlider';
+import { Connect2ICProvider } from "@connect2ic/react"
+import { useConnect } from "@connect2ic/react";
+import { createClient } from "@connect2ic/core"
+import { NFID } from "@connect2ic/core/providers/nfid"
+
+const client = createClient({providers: [new NFID()]});
 
 const images1 = [
   '/images/imageSlider/1/morocco.png',
@@ -24,9 +30,14 @@ const images2 = [
   '/images/imageSlider/2/pink.png',
 ];
 
-export default function Example() {
-  
+function Login() {
+  const { connect, disconnect } = useConnect({
+    onConnect: () => console.log("hello"),
+    onDisconnect: () => console.log("bye")
+  });
+
   return (
+    <Connect2ICProvider client={client}>
     <div className="h-screen bg-slate-950">
 
       <header className="h-screen relative overflow-hidden">
@@ -44,8 +55,8 @@ export default function Example() {
               <p className="mt-4 text-xl text-gray-500">
                 Welcome to a vibrant ecosystem where users can seamlessly share, discover, and collaborate on AI-generated content in the Film Industry and beyond.
               </p>
-              <button className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl">
-                    Sign in
+              <button onClick={() => connect(new NFID().meta.id)} className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl">
+                Sign in
               </button>
             </div>
             <div>
@@ -105,5 +116,14 @@ export default function Example() {
       </header>
           
     </div>
+    </Connect2ICProvider>
   );
+}
+
+export default function LoginPage() {
+  return (
+    <Connect2ICProvider client={client}>
+      <Login />
+    </Connect2ICProvider>
+  )
 }
