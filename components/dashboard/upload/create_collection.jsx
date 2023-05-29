@@ -24,8 +24,8 @@ export default function Create_Collection({ showCreateCollection }) {
           <div className="space-y-12">
             <div className="border-b border-white/10 pb-12">
               <div className="flex justify-between mb-4 items-center">
-                <h2 className="text-base font-semibold leading-7 text-white">
-                  Collection
+                <h2 className="text-3xl font-semibold leading-7 text-white">
+                  Create Collection
                 </h2>
                 <button
                   onClick={handleClose}
@@ -77,7 +77,7 @@ export default function Create_Collection({ showCreateCollection }) {
                         onChange={(e) => setName(e.target.value)}
                         value={name}
                         autoComplete="title"
-                        className="flex-1 bg-white/5 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
+                        className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="my_collection"
                       />
                     </div>
