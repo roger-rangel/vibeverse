@@ -3,7 +3,7 @@
 'use client';
 
 import { Fragment, useEffect, useState } from 'react';
-import { Dialog, Menu, Transition } from '@headlessui/react';
+import { Dialog, Transition } from '@headlessui/react';
 import {
   Bars3Icon,
   BellIcon,
@@ -16,15 +16,11 @@ import {
   UsersIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from '@heroicons/react/20/solid';
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 
-import Image from 'next/image';
+import Nav_User from './nav_user';
+
 import Link from 'next/link';
-import Item3D from '../../3D/Asset3D';
-import { assets } from '../../../constants';
 
 const navigation = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
@@ -44,16 +40,14 @@ const user = [
   { id: 3, name: 'My Content', href: '#', initial: 'C', current: false },
   { id: 4, name: 'Favorites', href: '#', initial: 'F', current: false },
 ];
-const userNavigation = [
-  { name: 'Your profile', href: '#' },
-  { name: 'Sign out', href: '#' },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 export default function Navigation({ children }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [login, setLogin] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentNavIndex, setCurrentNavIndex] = useState(0);
 
@@ -321,7 +315,7 @@ export default function Navigation({ children }) {
                   name="search"
                 />
               </form>
-              <div className="flex items-center gap-x-4 lg:gap-x-6">
+              <div className="flex items-center gap-x-4 lg:gap-x-4">
                 <button
                   type="button"
                   className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
@@ -337,57 +331,15 @@ export default function Navigation({ children }) {
                 />
 
                 {/* Profile dropdown */}
-                <Menu as="div" className="relative">
-                  <Menu.Button className="-m-1.5 flex items-center p-1.5">
-                    <span className="sr-only">Open user menu</span>
-                    <Image
-                      className="h-8 w-8 rounded-full bg-gray-800"
-                      src="/images/dashboard/avatar.png"
-                      alt=""
-                      width={32}
-                      height={32}
-                    />
-                    <span className="hidden lg:flex lg:items-center">
-                      <span
-                        className="ml-4 text-sm font-semibold leading-6 text-green-400"
-                        aria-hidden="true"
-                      >
-                        Ragnar
-                      </span>
-                      <ChevronDownIcon
-                        className="ml-2 h-5 w-5 text-gray-400"
-                        aria-hidden="true"
-                      />
-                    </span>
-                  </Menu.Button>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-                      {userNavigation.map((item) => (
-                        <Menu.Item key={item.name}>
-                          {({ active }) => (
-                            <a
-                              href={item.href}
-                              className={classNames(
-                                active ? 'bg-gray-50' : '',
-                                'block px-3 py-1 text-sm leading-6 text-gray-900',
-                              )}
-                            >
-                              {item.name}
-                            </a>
-                          )}
-                        </Menu.Item>
-                      ))}
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
+                {login ? (
+                  <Nav_User />
+                ) : (
+                  <Link href="/login">
+                    <button className="button-gradient text-white font-bold py-2 px-4 rounded-3xl">
+                      Connect Wallet
+                    </button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>

@@ -1,8 +1,10 @@
 import { PhotoIcon } from '@heroicons/react/24/solid';
+import Link from 'next/link';
+import Image from 'next/image';
 
-export default function Create_Collection({ showCreateItem }) {
+export default function Create_NFT({ showCreateNFT }) {
   const handleClose = () => {
-    showCreateItem(false);
+    showCreateNFT(false);
   };
 
   return (
@@ -12,8 +14,8 @@ export default function Create_Collection({ showCreateItem }) {
           <div className="space-y-12">
             <div className="border-b border-white/10 pb-12">
               <div className="flex justify-between mb-4 items-center">
-                <h2 className="text-base font-semibold leading-7 text-white">
-                  Item
+                <h2 className="text-3xl font-semibold leading-7 text-white">
+                  Create NFT
                 </h2>
                 <button
                   onClick={handleClose}
@@ -44,6 +46,29 @@ export default function Create_Collection({ showCreateItem }) {
                 This information will be displayed publicly so be careful what
                 you share.
               </p>
+              <div className="flex items-center mt-4">
+                <Image
+                  src={`/images/dashboard/what_is_nft.gif`}
+                  alt=""
+                  className={`flex h-8 w-8 rounded-full items-center`}
+                  width="40"
+                  height="40"
+                />
+                <p className="ml-2 text-sm leading-6 text-gray-400 items-center">
+                  What is an NFT?{' '}
+                  <Link
+                    className="text-blue-400 underline"
+                    href="https://nftnow.com/guides/what-is-nft-meaning/"
+                    target="_blank"
+                  >
+                    Learn more
+                  </Link>
+                </p>
+              </div>
+              <p className="mt-1 text-sm leading-6 text-purple-200 px-2">
+                An NFT is a digital item that shows you own something cool and
+                unique online.
+              </p>
 
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-4">
@@ -51,20 +76,17 @@ export default function Create_Collection({ showCreateItem }) {
                     htmlFor="username"
                     className="block text-sm font-medium leading-6 text-white"
                   >
-                    Collection Title
+                    Name
                   </label>
                   <div className="mt-2">
                     <div className="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                      <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
-                        vibeverse.com/
-                      </span>
                       <input
                         type="text"
                         name="title"
                         id="title"
                         autoComplete="title"
                         className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
-                        placeholder="my_collection"
+                        placeholder="Purple Monkey "
                       />
                     </div>
                   </div>
@@ -87,7 +109,7 @@ export default function Create_Collection({ showCreateItem }) {
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-400">
-                    Write a few sentences about what you are creating.
+                    Write a few sentences about your new NFT.
                   </p>
                 </div>
 
@@ -96,7 +118,7 @@ export default function Create_Collection({ showCreateItem }) {
                     htmlFor="cover-photo"
                     className="block text-sm font-medium leading-6 text-white"
                   >
-                    Cover photo
+                    Attach Asset
                   </label>
                   <div className="mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-10">
                     <div className="text-center">
@@ -120,38 +142,9 @@ export default function Create_Collection({ showCreateItem }) {
                         <p className="pl-1">or drag and drop</p>
                       </div>
                       <p className="text-xs leading-5 text-gray-400">
-                        PNG, JPG, GIF up to 10MB
+                        PNG, JPG, GIF, 3D Item, or Video
                       </p>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="border-b border-white/10 pb-12">
-              <h2 className="text-base font-semibold leading-7 text-white">
-                Mint Information
-              </h2>
-              <p className="mt-1 text-sm leading-6 text-gray-400">
-                Maximum number of nfts in a collection, can be unlimited
-              </p>
-
-              <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor="first-name"
-                    className="block text-sm font-medium leading-6 text-white"
-                  >
-                    Max. amount of NFTs
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="first-name"
-                      id="first-name"
-                      autoComplete="given-name"
-                      className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                    />
                   </div>
                 </div>
               </div>
@@ -170,7 +163,7 @@ export default function Create_Collection({ showCreateItem }) {
               type="submit"
               className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
             >
-              Create New Item
+              Create New NFT
             </button>
           </div>
         </form>

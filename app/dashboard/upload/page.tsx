@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Sign from '@/components/dashboard/shorts/sign';
 import Modal_Collection from '@/components/dashboard/upload/modal_collection';
 import Create_Collection from '@/components/dashboard/upload/create_collection';
-import Create_Item from '@/components/dashboard/upload/create_item';
+import Create_NFT from '@/components/dashboard/upload/create_NFT';
 
 const uploads = [
   {
@@ -20,7 +20,7 @@ const uploads = [
     id: 2,
     title: 'Create New Item',
     href: '/dashboard/upload/',
-    imageUrl: '/images/dashboard/create_item.png',
+    imageUrl: '/images/dashboard/create_NFT.png',
     isModal: true,
   },
   {
@@ -36,7 +36,7 @@ const uploads = [
 export default function Upload() {
   const [modal, showModal] = useState(false);
   const [createCollection, showCreateCollection] = useState(false);
-  const [createItem, showCreateItem] = useState(false);
+  const [createNFT, showCreateNFT] = useState(false);
 
   const handleClick = (upload: {
     id: number;
@@ -49,7 +49,7 @@ export default function Upload() {
       if (upload.title === 'Create Collection') {
         showModal(true);
       } else if (upload.title === 'Create New Item') {
-        showCreateItem(true);
+        showCreateNFT(true);
       } else {
         showModal(true);
       }
@@ -61,11 +61,11 @@ export default function Upload() {
   // set overflow-hidden on body when modal is open
   useEffect(() => {
     document.body.style.overflow =
-      modal || createCollection || createItem ? 'hidden' : 'unset';
+      modal || createCollection || createNFT ? 'hidden' : 'unset';
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [modal, createCollection, createItem]);
+  }, [modal, createCollection, createNFT]);
 
   return (
     <div className="mx-auto px-4 py-10 sm:px-6 lg:px-8 bg-gradient-to-r from-[#8360c3] to-[#2ebf91]">
@@ -111,9 +111,9 @@ export default function Upload() {
         </div>
       )}
 
-      {createItem && (
+      {createNFT && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <Create_Item showCreateItem={showCreateItem} />
+          <Create_NFT showCreateNFT={showCreateNFT} />
         </div>
       )}
     </div>
