@@ -21,9 +21,6 @@ import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import Nav_User from './nav_user';
 
 import Link from 'next/link';
-// import Image from 'next/image';
-// import Item3D from '../../3D/Asset3D';
-// import { assets } from '../../../constants';
 
 const navigation = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
