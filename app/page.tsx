@@ -4,8 +4,6 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Mixpanel } from '@/components/Mixpanel';
-import Item3D from '../components/3D/Asset3D';
-import { assets } from '../constants';
 
 export default function Home() {
   useEffect(() => {
@@ -19,7 +17,7 @@ export default function Home() {
         loop
         muted
         className="absolute z-10 min-w-full min-h-full object-cover"
-        src={'/video/landing.mp4'}
+        src={'/video/landing_background.mp4'}
       />
 
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex py-10">
@@ -31,22 +29,19 @@ export default function Home() {
 
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
           <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
+            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0 text-gray-200"
             href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
             target="_blank"
             rel="noopener noreferrer"
           >
             By
             <div className="flex">
-              <div className="-mt-10">
-                <Item3D asset={assets[1].erevald3D} scale={2} />{' '}
-              </div>
-              <div className="flex items-center -mt-1.5 -ml-3">
+              <div className="segenie_logo flex items-center -mt-1.5 ml-3">
                 <Image
-                  src="/erevald.svg"
+                  src="/images/logos/segenie.png"
                   alt="Erevald Logo"
                   className="dark:invert"
-                  width={100}
+                  width={150}
                   height={24}
                   priority
                 />

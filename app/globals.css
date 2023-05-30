@@ -58,6 +58,10 @@ body {
   animation: gradient 16s linear infinite;
 }
 
+.segenie_logo path {
+    fill: #ed6866;
+}
+
 @keyframes AnimationName {
   0%,
   100% {

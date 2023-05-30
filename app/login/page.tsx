@@ -10,6 +10,7 @@ import { NFID } from '@connect2ic/core/providers/nfid';
 const client = createClient({ providers: [new NFID()] });
 
 const images1 = [
+  '/images/imageSlider/1/planets.png',
   '/images/imageSlider/1/morocco.png',
   '/images/imageSlider/1/green.png',
   '/images/imageSlider/1/world.png',
@@ -17,20 +18,20 @@ const images1 = [
   '/images/imageSlider/1/fantasy.png',
   '/images/imageSlider/1/italy.png',
   '/images/imageSlider/1/atlantis.png',
-  '/images/imageSlider/1/planets.png',
 ];
 
 const images2 = [
-  '/images/imageSlider/2/train.png',
-  '/images/imageSlider/2/mystery.png',
-  '/images/imageSlider/2/amazon.png',
-  '/images/imageSlider/2/desert.png',
-  '/images/imageSlider/2/aztec.png',
-  '/images/imageSlider/2/catle.png',
   '/images/imageSlider/2/pink.png',
+  '/images/imageSlider/2/aztec.png',
+  '/images/imageSlider/2/desert.png',
+  '/images/imageSlider/2/train.png',
+  '/images/imageSlider/2/amazon.png',
+  '/images/imageSlider/2/castle.png',
+  '/images/imageSlider/2/mystery.png',
 ];
 
 function Login() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { connect, disconnect } = useConnect({
     onConnect: () => console.log('hello'),
     onDisconnect: () => console.log('bye'),
@@ -39,6 +40,13 @@ function Login() {
   return (
     <Connect2ICProvider client={client}>
       <div className="h-screen bg-slate-950">
+        <video
+          autoPlay
+          loop
+          muted
+          className="absolute z-1 min-w-full min-h-full object-cover"
+          src={'/video/astronaut_kayak.mp4'}
+        />
         <header className="h-screen relative overflow-hidden">
           {/* Hero section */}
           <div className="pt-16 sm:pt-24 lg:pt-32">
@@ -53,11 +61,15 @@ function Login() {
                     height={100}
                   />
                 </div>
-
+                <div className="flex gap-4 mb-4 text-gray-200 items-center text-3xl xs:justify-center lg:justify-start">
+                  <Image src="/images/logos/vibeverse.png" alt="logo" width={150} height={50} />
+                  +{' '}
+                  <Image src="/images/logos/segenie.png" alt="logo" width={150} height={150} className="ml-2" />
+                </div>
                 <h1 className="text-4xl font-bold tracking-tight text-gray-200 sm:text-6xl">
                   Converging the Power of AI and Web3
                 </h1>
-                <p className="mt-4 text-xl text-gray-500">
+                <p className="mt-4 text-xl text-gray-200 p-2 pl-4 backdrop-blur rounded-xl">
                   Welcome to a vibrant ecosystem where users can seamlessly
                   share, discover, and collaborate on AI-generated content in
                   the Film Industry and beyond.

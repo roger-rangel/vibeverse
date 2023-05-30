@@ -26,7 +26,7 @@ const uploads = [
   {
     id: 3,
     title: 'New to Web3?',
-    href: '/dashboard/upload/new_to_web3',
+    href: 'https://learn.metamask.io/overview',
     imageUrl: '/images/dashboard/new_to_web3.png',
     isModal: false,
   },
@@ -35,7 +35,7 @@ const uploads = [
 
 export default function Upload() {
   const [modal, showModal] = useState(false);
-  const [createCollection, showCreateCollection] = useState(true);
+  const [createCollection, showCreateCollection] = useState(false);
   const [createNFT, showCreateNFT] = useState(false);
 
   const handleClick = (upload: {
@@ -54,7 +54,7 @@ export default function Upload() {
         showModal(true);
       }
     } else {
-      window.location.href = upload.href;
+      window.open(upload.href, '_blank');
     }
   };
 

@@ -17,7 +17,7 @@ import {
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 
 import Nav_User from './nav_user';
-
+import Image from 'next/image';
 import Link from 'next/link';
 
 const navigation = [
@@ -28,7 +28,7 @@ const navigation = [
     icon: UsersIcon,
   },
   { name: 'AI Tools', href: '/dashboard/aitools', icon: FolderIcon },
-  { name: 'AI Content', href: '/dashboard/content', icon: CalendarIcon },
+  { name: 'AI Content', href: '/dashboard/aicontent', icon: CalendarIcon },
   { name: 'Upload', href: '/dashboard/upload', icon: DocumentDuplicateIcon },
   { name: 'Communities', href: '/dashboard/communities', icon: ChartPieIcon },
 ];
@@ -120,8 +120,8 @@ export default function Navigation({ children }) {
                   </Transition.Child>
                   {/* Sidebar component */}
                   <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
-                    <div className="flex h-16 shrink-0 items-center">
-                      <h1 className="text-white">LOGO MOBILE</h1>
+                    <div className="flex h-16 shrink-0 items-center -ml-2 mt-2 -mb-4">
+                      <Image src="/images/logos/vibeverse.png" alt="logo" width={150} height={75} />
                     </div>
                     <nav className="flex flex-1 flex-col">
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -201,17 +201,12 @@ export default function Navigation({ children }) {
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 border-r-2 border-fuchsia-900">
-            {/* <div className="flex h-16 shrink-0 items-center">
-              <div className="-ml-6 -mt-1">
-                <Item3D asset={assets[0].logo3D} scale={0.8} />
+            <div className="flex items-center">
+              <div className="-ml-2 mt-6">
+                <Image src="/images/logos/vibeverse.png" alt="logo" width={150} height={75} />
               </div>
-              <div className="-ml-4 mt-8">
-                <h1 className="text-white text-2xl font-semibold ml-2">
-                  Vibeverse
-                </h1>
-              </div>
-            </div> */}
-            <nav className="flex flex-1 flex-col mt-10">
+            </div>
+            <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <ul role="list" className="-mx-2 space-y-1">
