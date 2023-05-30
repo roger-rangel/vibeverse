@@ -1,4 +1,4 @@
-type Nft = record {
+type Collection = record {
     "id": nat;
     "name": text;
     "description": text;
@@ -16,13 +16,13 @@ type Creator = record {
 service : {
     "create_collection": (text, text, bool, opt nat, opt text) -> (text);
     "update_collection_metadata": (nat, text, text, opt text) -> (text);
-    "get_nft": (nat) -> (opt Nft);
+    "get_collection": (nat) -> (opt Collection);
     "set_creator_metadata": (text) -> (text);
     "mint_nft": (nat, principal) -> (text);
     "transfer_nft": (nat, principal) -> (text);
     "creator_metadata": () -> (opt Creator);
-    "collections_created_by": (principal) -> (vec Nft);
-    "collections_created_by_caller": () -> (vec Nft);
-    "nfts_of_user": (principal) -> (vec Nft);
-    "collections_count": () -> (nat);
+    "collections_created_by": (principal) -> (vec Collection);
+    "collections_created_by_caller": () -> (vec Collection);
+    "nfts_of_user": (principal) -> (vec Collection);
+    "collection_count": () -> (nat);
 }

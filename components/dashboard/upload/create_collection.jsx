@@ -1,14 +1,88 @@
+'use client';
+
+import { useState } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
+import BackendActor from '@/components/BackendActor';
+import { AssetManager } from '@dfinity/assets';
+import { canisterId } from '@/declarations/vibeverse_backend';
+import { HttpAgent } from '@dfinity/agent';
+import { Principal } from '@dfinity/principal';
 
 export default function Create_Collection({ showCreateCollection }) {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [limit, setLimit] = useState('');
+
   const handleClose = () => {
     showCreateCollection(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('Creating a collection');
+    const actor = new BackendActor();
+    const result = await actor.createCollection(
+      name,
+      description,
+      imageUrl,
+      Number(limit),
+    );
+    alert(result);
+  };
+
+  const tryUploadPhoto = async (e) => {
+    try {
+      await uploadPhoto(e);
+    } catch (err) {
+      if (err.message.includes('Caller is not authorized')) {
+        alert('Caller is not authorized');
+      } else {
+        throw err;
+      }
+    }
+  };
+
+  const uploadPhoto = async (e) => {
+    const assetManager = getAssetManager();
+    const file = e.target.files[0];
+
+    const fileName = 'collection-' + Date.now() + file.type.split('/')[1];
+    const blob = file.slice(0, file.size, 'image/*');
+
+    const renamedFile = new File([blob], fileName, { type: 'image/*' });
+    const key = await assetManager.store(renamedFile);
+
+    if (isLocal) {
+      setImageUrl(
+        `http://${window.location.host}${key}?canisterId=${canisterId}`,
+      );
+    } else {
+      setImageUrl(
+        `https://${window.location.host}${key}?canisterId=${canisterId}`,
+      );
+    }
+  };
+
+  const getAssetManager = () => {
+    const isLocal = !window.location.host.endsWith('ic0.app');
+
+    const agent = new HttpAgent({
+      host: isLocal
+        ? `http://127.0.0.1:${window.location.port}`
+        : `https://ic0.app`,
+      principal: Principal.from('2vxsx-fae'),
+    });
+
+    const assetManager = new AssetManager({ canisterId, agent });
+
+    return assetManager;
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-50">
       <div className="bg-gray-900 rounded-lg overflow-y-auto max-h-[calc(100%-2rem)] p-8 w-full max-w-2xl mx-4 my-8">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="space-y-12">
             <div className="border-b border-white/10 pb-12">
               <div className="flex justify-between mb-4 items-center">
@@ -62,6 +136,8 @@ export default function Create_Collection({ showCreateCollection }) {
                         type="text"
                         name="title"
                         id="title"
+                        onChange={(e) => setName(e.target.value)}
+                        value={name}
                         autoComplete="title"
                         className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="my_collection"
@@ -82,6 +158,8 @@ export default function Create_Collection({ showCreateCollection }) {
                       id="about"
                       name="about"
                       rows={3}
+                      onChange={(e) => setDescription(e.target.value)}
+                      value={description}
                       className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                       defaultValue={''}
                     />
@@ -113,6 +191,7 @@ export default function Create_Collection({ showCreateCollection }) {
                           <input
                             id="file-upload"
                             name="file-upload"
+                            onChange={tryUploadPhoto}
                             type="file"
                             className="sr-only"
                           />
@@ -149,6 +228,8 @@ export default function Create_Collection({ showCreateCollection }) {
                       type="text"
                       name="first-name"
                       id="first-name"
+                      onChange={(e) => setLimit(e.target.value)}
+                      value={limit}
                       autoComplete="given-name"
                       className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                     />

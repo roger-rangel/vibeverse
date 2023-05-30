@@ -1,5 +1,3 @@
-// Note: Navigation for the Dashboard
-
 'use client';
 
 import { Fragment, useEffect, useState } from 'react';
@@ -29,10 +27,10 @@ const navigation = [
     href: '/dashboard/shorts',
     icon: UsersIcon,
   },
-  { name: 'AI Tools', href: '#', icon: FolderIcon },
-  { name: 'AI Content', href: '#', icon: CalendarIcon },
-  { name: 'Upload', href: '#', icon: DocumentDuplicateIcon },
-  { name: 'Communities', href: '#', icon: ChartPieIcon },
+  { name: 'AI Tools', href: '/dashboard/aitools', icon: FolderIcon },
+  { name: 'AI Content', href: '/dashboard/content', icon: CalendarIcon },
+  { name: 'Upload', href: '/dashboard/upload', icon: DocumentDuplicateIcon },
+  { name: 'Communities', href: '/dashboard/communities', icon: ChartPieIcon },
 ];
 const user = [
   { id: 1, name: 'Profile', href: '#', initial: 'P', current: false },
