@@ -1,6 +1,12 @@
+'use client';
+
 import { useState } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import BackendActor from '@/components/BackendActor';
+import { AssetManager } from "@dfinity/assets";
+import { canisterId } from '@/declarations/vibeverse_backend';
+import { HttpAgent } from '@dfinity/agent';
+import { Principal } from '@dfinity/principal';
 
 export default function Create_Collection({ showCreateCollection }) {
   const [name, setName] = useState("");
@@ -18,6 +24,48 @@ export default function Create_Collection({ showCreateCollection }) {
     const actor = new BackendActor();
     const result = await actor.createCollection(name, description, imageUrl, Number(limit)); 
     alert(result);
+  };
+
+  const tryUploadPhoto = async(e) => {
+    try {
+      await uploadPhoto(e);
+    }catch(err) {
+      if(err.message.includes("Caller is not authorized")) {
+        alert("Caller is not authorized");
+      }else {
+        throw err;
+      }
+    }
+  };
+
+  const uploadPhoto = async (e) => {
+    const assetManager = getAssetManager();
+    const file = e.target.files[0];
+
+    const fileName = "collection-" + Date.now() + file.type.split('/')[1];
+    const blob = file.slice(0, file.size, 'image/*');
+
+    const renamedFile = new File([blob], fileName, { type: 'image/*' });
+    const key = await assetManager.store(renamedFile);
+
+    if(isLocal) {
+      setImageUrl(`http://${window.location.host}${key}?canisterId=${canisterId}`);
+    }else {
+      setImageUrl(`https://${window.location.host}${key}?canisterId=${canisterId}`);
+    }
+  };
+
+  const getAssetManager = () => {
+    const isLocal = !window.location.host.endsWith("ic0.app");
+
+    const agent = new HttpAgent({
+      host: isLocal? `http://127.0.0.1:${window.location.port}` : `https://ic0.app`,
+      principal: Principal.from("2vxsx-fae")
+    });
+
+    const assetManager = new AssetManager({canisterId, agent});
+
+    return assetManager;
   };
 
   return (
@@ -132,6 +180,7 @@ export default function Create_Collection({ showCreateCollection }) {
                           <input
                             id="file-upload"
                             name="file-upload"
+                            onChange={tryUploadPhoto}
                             type="file"
                             className="sr-only"
                           />
