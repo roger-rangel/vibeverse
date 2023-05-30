@@ -3,16 +3,16 @@
 import { useState } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import BackendActor from '@/components/BackendActor';
-import { AssetManager } from "@dfinity/assets";
+import { AssetManager } from '@dfinity/assets';
 import { canisterId } from '@/declarations/vibeverse_backend';
 import { HttpAgent } from '@dfinity/agent';
 import { Principal } from '@dfinity/principal';
 
 export default function Create_Collection({ showCreateCollection }) {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [limit, setLimit] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [limit, setLimit] = useState('');
 
   const handleClose = () => {
     showCreateCollection(false);
@@ -20,19 +20,24 @@ export default function Create_Collection({ showCreateCollection }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Creating a collection");
+    console.log('Creating a collection');
     const actor = new BackendActor();
-    const result = await actor.createCollection(name, description, imageUrl, Number(limit)); 
+    const result = await actor.createCollection(
+      name,
+      description,
+      imageUrl,
+      Number(limit),
+    );
     alert(result);
   };
 
-  const tryUploadPhoto = async(e) => {
+  const tryUploadPhoto = async (e) => {
     try {
       await uploadPhoto(e);
-    }catch(err) {
-      if(err.message.includes("Caller is not authorized")) {
-        alert("Caller is not authorized");
-      }else {
+    } catch (err) {
+      if (err.message.includes('Caller is not authorized')) {
+        alert('Caller is not authorized');
+      } else {
         throw err;
       }
     }
@@ -42,28 +47,34 @@ export default function Create_Collection({ showCreateCollection }) {
     const assetManager = getAssetManager();
     const file = e.target.files[0];
 
-    const fileName = "collection-" + Date.now() + file.type.split('/')[1];
+    const fileName = 'collection-' + Date.now() + file.type.split('/')[1];
     const blob = file.slice(0, file.size, 'image/*');
 
     const renamedFile = new File([blob], fileName, { type: 'image/*' });
     const key = await assetManager.store(renamedFile);
 
-    if(isLocal) {
-      setImageUrl(`http://${window.location.host}${key}?canisterId=${canisterId}`);
-    }else {
-      setImageUrl(`https://${window.location.host}${key}?canisterId=${canisterId}`);
+    if (isLocal) {
+      setImageUrl(
+        `http://${window.location.host}${key}?canisterId=${canisterId}`,
+      );
+    } else {
+      setImageUrl(
+        `https://${window.location.host}${key}?canisterId=${canisterId}`,
+      );
     }
   };
 
   const getAssetManager = () => {
-    const isLocal = !window.location.host.endsWith("ic0.app");
+    const isLocal = !window.location.host.endsWith('ic0.app');
 
     const agent = new HttpAgent({
-      host: isLocal? `http://127.0.0.1:${window.location.port}` : `https://ic0.app`,
-      principal: Principal.from("2vxsx-fae")
+      host: isLocal
+        ? `http://127.0.0.1:${window.location.port}`
+        : `https://ic0.app`,
+      principal: Principal.from('2vxsx-fae'),
     });
 
-    const assetManager = new AssetManager({canisterId, agent});
+    const assetManager = new AssetManager({ canisterId, agent });
 
     return assetManager;
   };
@@ -146,7 +157,7 @@ export default function Create_Collection({ showCreateCollection }) {
                     <textarea
                       id="about"
                       name="about"
-                      rows={3} 
+                      rows={3}
                       onChange={(e) => setDescription(e.target.value)}
                       value={description}
                       className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"

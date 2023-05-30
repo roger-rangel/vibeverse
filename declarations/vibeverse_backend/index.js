@@ -1,8 +1,8 @@
-import { Actor, HttpAgent } from "@dfinity/agent";
+import { Actor, HttpAgent } from '@dfinity/agent';
 
 // Imports and re-exports candid interface
-import { idlFactory } from "./vibeverse_backend.did.js";
-export { idlFactory } from "./vibeverse_backend.did.js";
+import { idlFactory } from './vibeverse_backend.did.js';
+export { idlFactory } from './vibeverse_backend.did.js';
 
 /* CANISTER_ID is replaced by webpack based on node environment
  * Note: canister environment variable will be standardized as
@@ -15,19 +15,21 @@ export const canisterId =
 
 export const createActor = (canisterId, options = {}) => {
   //const agent = options.agent || new HttpAgent({ ...options.agentOptions });
-  const agent = new HttpAgent({host: `http://127.0.0.1:4943/?canisterId=ahw5u-keaaa-aaaaa-qaaha-cai&id=aovwi-4maaa-aaaaa-qaagq-cai`});
+  const agent = new HttpAgent({
+    host: `http://127.0.0.1:4943/?canisterId=ahw5u-keaaa-aaaaa-qaaha-cai&id=aovwi-4maaa-aaaaa-qaagq-cai`,
+  });
 
   if (options.agent && options.agentOptions) {
     console.warn(
-      "Detected both agent and agentOptions passed to createActor. Ignoring agentOptions and proceeding with the provided agent."
+      'Detected both agent and agentOptions passed to createActor. Ignoring agentOptions and proceeding with the provided agent.',
     );
   }
 
   // Fetch root key for certificate validation during development
-  if (process.env.DFX_NETWORK !== "ic") {
+  if (process.env.DFX_NETWORK !== 'ic') {
     agent.fetchRootKey().catch((err) => {
       console.warn(
-        "Unable to fetch root key. Check to ensure that your local replica is running"
+        'Unable to fetch root key. Check to ensure that your local replica is running',
       );
       console.error(err);
     });

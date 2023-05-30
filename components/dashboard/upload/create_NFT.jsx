@@ -55,14 +55,20 @@ export default function Create_NFT({ showCreateNFT }) {
                   height="40"
                 />
                 <p className="ml-2 text-sm leading-6 text-gray-400 items-center">
-
-                What is an NFT?{' '}
-                  <Link className="text-blue-400 underline" href="https://nftnow.com/guides/what-is-nft-meaning/" target="_blank">
-                  Learn more
-                  </Link> 
+                  What is an NFT?{' '}
+                  <Link
+                    className="text-blue-400 underline"
+                    href="https://nftnow.com/guides/what-is-nft-meaning/"
+                    target="_blank"
+                  >
+                    Learn more
+                  </Link>
                 </p>
               </div>
-              <p className="mt-1 text-sm leading-6 text-purple-200 px-2">An NFT is a digital item that shows you own something cool and unique online.</p>
+              <p className="mt-1 text-sm leading-6 text-purple-200 px-2">
+                An NFT is a digital item that shows you own something cool and
+                unique online.
+              </p>
 
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-4">
@@ -74,7 +80,6 @@ export default function Create_NFT({ showCreateNFT }) {
                   </label>
                   <div className="mt-2">
                     <div className="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                      
                       <input
                         type="text"
                         name="title"
@@ -144,7 +149,6 @@ export default function Create_NFT({ showCreateNFT }) {
                 </div>
               </div>
             </div>
-            
           </div>
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
