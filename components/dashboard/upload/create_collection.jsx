@@ -12,7 +12,8 @@ export default function Create_Collection({ showCreateCollection }) {
     showCreateCollection(false);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     console.log("Creating a collection");
     const actor = new BackendActor();
     const result = await actor.createCollection(name, description, imageUrl, Number(limit)); 

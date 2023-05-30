@@ -12,7 +12,7 @@ export interface Nft {
   'limit' : [] | [bigint],
 }
 export interface _SERVICE {
-  'collections_count' : ActorMethod<[], bigint>,
+  'collection_count' : ActorMethod<[], bigint>,
   'collections_created_by' : ActorMethod<[Principal], Array<Nft>>,
   'collections_created_by_caller' : ActorMethod<[], Array<Nft>>,
   'create_collection' : ActorMethod<

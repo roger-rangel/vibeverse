@@ -13,7 +13,7 @@ export const idlFactory = ({ IDL }) => {
     'name' : IDL.Text,
   });
   return IDL.Service({
-    'collections_count' : IDL.Func([], [IDL.Nat], []),
+    'collection_count' : IDL.Func([], [IDL.Nat], []),
     'collections_created_by' : IDL.Func([IDL.Principal], [IDL.Vec(Nft)], []),
     'collections_created_by_caller' : IDL.Func([], [IDL.Vec(Nft)], []),
     'create_collection' : IDL.Func(

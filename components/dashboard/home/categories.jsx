@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 
 const categories = [
@@ -28,7 +30,7 @@ const categories = [
   },
 ];
 
-export default function Example() {
+export default function Categories() {
   return (
     <div className="">
       <div className="py-10 sm:py-10 xl:mx-auto xl:max-w-7xl xl:px-8">

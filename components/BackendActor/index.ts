@@ -11,7 +11,6 @@ class BackendActor {
     maybeLimit: number | null,
   ): Promise<any> {
     const actor = createActor(canisterId, idlFactory);
-    /*
     const isTranferable = true; // TODO have this passed from the UI.
 
     let limit: number;
@@ -26,7 +25,6 @@ class BackendActor {
       [BigInt(limit)],
       [coverPhoto],
     );
-    */
   }
 }
 
