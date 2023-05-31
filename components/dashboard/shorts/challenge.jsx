@@ -106,7 +106,7 @@ const license = {
   `,
 };
 
-function classNames(...classes) {
+function className(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
@@ -153,7 +153,7 @@ export default function Challenge() {
                   {[0, 1, 2, 3, 4].map((rating) => (
                     <StarIcon
                       key={rating}
-                      className={classNames(
+                      className={className(
                         reviews.average > rating
                           ? 'text-yellow-400'
                           : 'text-gray-300',
@@ -277,7 +277,7 @@ export default function Challenge() {
                 <Tab.List className="-mb-px flex space-x-8">
                   <Tab
                     className={({ selected }) =>
-                      classNames(
+                      className(
                         selected
                           ? 'border-indigo-600 text-indigo-600'
                           : 'border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800',
@@ -289,7 +289,7 @@ export default function Challenge() {
                   </Tab>
                   <Tab
                     className={({ selected }) =>
-                      classNames(
+                      className(
                         selected
                           ? 'border-indigo-600 text-indigo-600'
                           : 'border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800',
@@ -301,7 +301,7 @@ export default function Challenge() {
                   </Tab>
                   <Tab
                     className={({ selected }) =>
-                      classNames(
+                      className(
                         selected
                           ? 'border-indigo-600 text-indigo-600'
                           : 'border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800',
@@ -330,7 +330,7 @@ export default function Challenge() {
                         />
                       </div>
                       <div
-                        className={classNames(
+                        className={className(
                           reviewIdx === 0 ? '' : 'border-t border-gray-200',
                           'py-10',
                         )}
@@ -346,7 +346,7 @@ export default function Challenge() {
                           {[0, 1, 2, 3, 4].map((rating) => (
                             <StarIcon
                               key={rating}
-                              className={classNames(
+                              className={className(
                                 review.rating > rating
                                   ? 'text-yellow-400'
                                   : 'text-gray-300',

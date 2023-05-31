@@ -48,10 +48,10 @@ export default function Nav_User() {
               {({ active }) => (
                 <a
                   href={item.href}
-                  className={classNames(
+                  className={
                     active ? 'bg-gray-50' : '',
-                    'block px-3 py-1 text-sm leading-6 text-gray-900',
-                  )}
+                    'block px-3 py-1 text-sm leading-6 text-gray-900'
+                  }
                 >
                   {item.name}
                 </a>
