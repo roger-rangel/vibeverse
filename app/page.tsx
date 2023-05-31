@@ -2,135 +2,184 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Mixpanel } from '@/components/Mixpanel';
+import ImageSlider from '../components/login/imageSlider';
+import { Connect2ICProvider } from '@connect2ic/react';
+import { useConnect } from '@connect2ic/react';
+import { createClient } from '@connect2ic/core';
+import { NFID } from '@connect2ic/core/providers/nfid';
 
-export default function Home() {
+const client = createClient({ providers: [new NFID()] });
+
+const images1 = [
+  '/images/imageSlider/1/planets.png',
+  '/images/imageSlider/1/morocco.png',
+  '/images/imageSlider/1/green.png',
+  '/images/imageSlider/1/world.png',
+  '/images/imageSlider/1/house_ballons.png',
+  '/images/imageSlider/1/fantasy.png',
+  '/images/imageSlider/1/italy.png',
+  '/images/imageSlider/1/atlantis.png',
+];
+
+const images2 = [
+  '/images/imageSlider/2/pink.png',
+  '/images/imageSlider/2/aztec.png',
+  '/images/imageSlider/2/desert.png',
+  '/images/imageSlider/2/train.png',
+  '/images/imageSlider/2/amazon.png',
+  '/images/imageSlider/2/castle.png',
+  '/images/imageSlider/2/mystery.png',
+];
+
+function Login() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { connect, disconnect } = useConnect({
+    onConnect: () => console.log('hello'),
+    onDisconnect: () => console.log('bye'),
+  });
+
+  const handleButtonClick = () => {
+    window.location.href('/dashboard');
+  };
+
   useEffect(() => {
     Mixpanel.track('Landing page visited');
   }, []);
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between relative overflow-hidden">
-      <video
-        autoPlay
-        loop
-        muted
-        className="absolute z-10 min-w-full min-h-full object-cover"
-        src={'/video/landing_background.mp4'}
-      />
+    <Connect2ICProvider client={client}>
+      <div className="h-screen bg-slate-950">
+        <video
+          autoPlay
+          loop
+          muted
+          className="absolute z-1 min-w-full min-h-full object-cover"
+          src={'/video/astronaut_kayak.mp4'}
+        />
+        <header className="h-screen relative overflow-hidden">
+          {/* Hero section */}
+          <div className="pt-16 sm:pt-24 lg:pt-32">
+            <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
+              <div className="lg:max-w-lg items-center">
+                <div className="relative lg:hidden">
+                  <Image
+                    src="/images/dashboard/magical_place.png"
+                    alt="logo"
+                    className="h-44 w-full rounded-2xl object-cover mb-10"
+                    width={1000}
+                    height={100}
+                  />
+                </div>
+                <div className="flex gap-4 mb-4 text-gray-200 items-center text-3xl xs:justify-center lg:justify-start">
+                  <Image src="/images/logos/vibeverse.png" alt="logo" width={150} height={50} />
+                  +{' '}
+                  <Image src="/images/logos/segenie.png" alt="logo" width={150} height={150} className="ml-2" />
+                </div>
+                <h1 className="text-4xl font-bold tracking-tight text-gray-200 sm:text-6xl">
+                  Converging the Power of AI and Web3
+                </h1>
+                <p className="mt-4 text-xl text-gray-200 p-2 pl-4 backdrop-blur rounded-xl">
+                  Welcome to a vibrant ecosystem where users can seamlessly
+                  share, discover, and collaborate on AI-generated content in
+                  the Film Industry and beyond.
+                </p>
+                <div className="mx-8">
+                  <button
+                    onClick={() => connect(new NFID().meta.id)}
+                    className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl"
+                  >
+                  Sign in
+                  </button>
+                  <div className="flex space-x-4">
+                    <button
+                      onClick={() => (window.location.href = '/dashboard')}
+                      className="mt-10 w-full button-guest text-cyan-950 font-bold py-2 rounded-3xl"
+                    >
+                  Continue as Guest
+                    </button>
+                    <button
+                      className="mt-10 w-full button-discord text-cyan-950 font-bold py-2 rounded-3xl"
+                    >
+                  Join our Discord
+                    </button>
+                  </div>
+                </div>
+               
 
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex py-10">
-        <Link href="/dashboard">
-          <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-            Demo | Dashboard
-          </p>
-        </Link>
+              </div>
+              <div>
+                <div className="mt-10">
+                  {/* Decorative image grid */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl "
+                  >
+                    <div className="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8 hidden lg:block">
+                      <div className="flex items-center space-x-6 lg:space-x-8">
+                        <div
+                          className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8 mt-40 overflow-hidden h-screen animation-linear animation-infinite"
+                          style={{
+                            animationName: 'moveUp',
+                            animationDuration: '5s',
+                          }}
+                        >
+                          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-full h-full">
+                            <ImageSlider
+                              images={images1}
+                              duration={4}
+                              startOffset={0}
+                            />
+                          </div>
+                        </div>
 
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0 text-gray-200"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By
-            <div className="flex">
-              <div className="segenie_logo flex items-center -mt-1.5 ml-3">
-                <Image
-                  src="/images/logos/segenie.png"
-                  alt="Erevald Logo"
-                  className="dark:invert"
-                  width={150}
-                  height={24}
-                  priority
-                />
+                        <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                          <div className="absolute left-72 top-1/2 transform -translate-y-1/2 w-full h-full">
+                            <ImageSlider
+                              images={images2}
+                              duration={3}
+                              startOffset={-25}
+                            />
+                          </div>
+                        </div>
+
+                        {/* this div should not deleted yet, its keeping the carousel slider working. I will delete later on */}
+                        <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                          <div className="h-64 w-44 overflow-hidden rounded-lg">
+                            <Image
+                              src="/"
+                              alt=""
+                              className="h-full w-full object-cover object-center hidden"
+                              height={100}
+                              width={100}
+                            />
+                          </div>
+                          <div className="h-64 w-44 overflow-hidden rounded-lg">
+                            <Image
+                              src="/"
+                              alt=""
+                              className="h-full w-full object-cover object-center hidden"
+                              height={100}
+                              width={100}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </a>
-        </div>
+          </div>
+        </header>
       </div>
+    </Connect2ICProvider>
+  );
+}
 
-      <div className="z-20 relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/4 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/vibeverse.svg"
-          alt="Next.js Logo"
-          width={360}
-          height={74}
-          priority
-        />
-      </div>
-
-      <div className="z-1 mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+export default function LoginPage() {
+  return (
+    <Connect2ICProvider client={client}>
+      <Login />
+    </Connect2ICProvider>
   );
 }

@@ -53,9 +53,21 @@ body {
 }
 
 .button-signin {
-  background: linear-gradient(-45deg, #c6ffdd, #fbd786, #f7797d, #3cf0c5);
+  background: linear-gradient(-45deg, #40E0D0, #FF8C00, #FF0080);
+  background-size: 300% 50%;
+  animation: gradient 6s linear infinite;
+}
+
+.button-guest {
+  background: linear-gradient(-45deg, #FDFC47, #24FE41);
+  background-size: 300% 50%;
+  animation: gradient 8s linear infinite;
+}
+
+.button-discord {
+  background: linear-gradient(-45deg, #fc00ff, #00dbde);
   background-size: 600% 100%;
-  animation: gradient 16s linear infinite;
+  animation: gradient 8s linear infinite;
 }
 
 .segenie_logo path {
