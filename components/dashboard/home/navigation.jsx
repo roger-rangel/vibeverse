@@ -50,7 +50,7 @@ export default function Navigation({ children }) {
   const [currentNavIndex, setCurrentNavIndex] = useState(0);
 
   useEffect(() => {
-    const request = window.indexedDB.open("auth-client-db");
+    const request = window.indexedDB.open('auth-client-db');
     request.onsuccess = (_) => {
       console.log(request.result);
       setLogin(true);

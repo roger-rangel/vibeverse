@@ -12,9 +12,9 @@ class BackendActor {
     maybeLimit: number | null,
   ): Promise<any> {
     let actor;
-    if(!customProvider) {
+    if (!customProvider) {
       actor = createActor(canisterId, idlFactory);
-    }else {
+    } else {
       actor = (await customProvider.createActor(canisterId, idlFactory)).value;
     }
 

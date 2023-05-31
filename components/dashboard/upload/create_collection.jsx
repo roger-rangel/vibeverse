@@ -17,7 +17,7 @@ function CreateCollection({ showCreateCollection }) {
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [limit, setLimit] = useState('');
-  const {activeProvider} = useConnect();
+  const { activeProvider } = useConnect();
 
   const handleClose = () => {
     showCreateCollection(false);
@@ -267,7 +267,7 @@ function CreateCollection({ showCreateCollection }) {
 
 const client = createClient({ providers: [new NFID()] });
 
-export default function CreateCollectionWrapped({showCreateCollection}) {
+export default function CreateCollectionWrapped({ showCreateCollection }) {
   return (
     <Connect2ICProvider client={client}>
       <CreateCollection showCreateCollection={showCreateCollection} />
