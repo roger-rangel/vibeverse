@@ -35,7 +35,7 @@ const uploads = [
 
 export default function Upload() {
   const [modal, showModal] = useState(false);
-  const [createCollection, showCreateCollection] = useState(true);
+  const [createCollection, showCreateCollection] = useState(false);
   const [createNFT, showCreateNFT] = useState(false);
 
   const handleClick = (upload: {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import BackendActor from '@/components/BackendActor';
 import { AssetManager } from '@dfinity/assets';
@@ -8,11 +8,20 @@ import { canisterId } from '@/declarations/vibeverse_backend';
 import { HttpAgent } from '@dfinity/agent';
 import { Principal } from '@dfinity/principal';
 
-export default function Create_Collection({ showCreateCollection }) {
+import { Connect2ICProvider, useConnect } from '@connect2ic/react';
+import { createClient } from '@connect2ic/core';
+import { NFID } from '@connect2ic/core/providers/nfid';
+
+function CreateCollection({ showCreateCollection }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [limit, setLimit] = useState('');
+  const {activeProvider} = useConnect();
+
+  useEffect(() => {
+    console.log(activeProvider);
+  });
 
   const handleClose = () => {
     showCreateCollection(false);
@@ -258,4 +267,14 @@ export default function Create_Collection({ showCreateCollection }) {
       </div>
     </div>
   );
+}
+
+const client = createClient({ providers: [new NFID()] });
+
+export default function CreateCollectionWrapped({showCreateCollection}) {
+  return (
+    <Connect2ICProvider client={client}>
+      <CreateCollection showCreateCollection={showCreateCollection} />
+    </Connect2ICProvider>
+  )
 }

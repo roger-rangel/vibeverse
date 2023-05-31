@@ -23,7 +23,7 @@ function className(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Modal_Collection({ showModal, showCreateCollection }) {
+export default function ModalCollection({ showModal, showCreateCollection }) {
   const [selected, setSelected] = useState(settings[0]);
 
   const handleClose = () => {
