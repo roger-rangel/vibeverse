@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import BackendActor from '@/components/BackendActor';
 import { AssetManager } from '@dfinity/assets';
@@ -18,10 +18,6 @@ function CreateCollection({ showCreateCollection }) {
   const [imageUrl, setImageUrl] = useState('');
   const [limit, setLimit] = useState('');
   const {activeProvider} = useConnect();
-
-  useEffect(() => {
-    console.log(activeProvider);
-  });
 
   const handleClose = () => {
     showCreateCollection(false);
@@ -276,5 +272,5 @@ export default function CreateCollectionWrapped({showCreateCollection}) {
     <Connect2ICProvider client={client}>
       <CreateCollection showCreateCollection={showCreateCollection} />
     </Connect2ICProvider>
-  )
+  );
 }

@@ -57,7 +57,7 @@ export default function Navigation({ children }) {
     };
     request.onerror = (_) => {
       setLogin(false);
-    }
+    };
     navigation.forEach((nav, index) => {
       if (isSelected(nav)) {
         setCurrentNavIndex(index);

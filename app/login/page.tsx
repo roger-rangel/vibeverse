@@ -31,7 +31,7 @@ const images2 = [
 ];
 
 function Login() {
-  const { connect } = useConnect({
+  const { connect, disconnect } = useConnect({
     onConnect: () => console.log('hello'),
     onDisconnect: () => console.log('bye'),
   });
