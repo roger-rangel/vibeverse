@@ -20,6 +20,10 @@ function CreateCollection({ showCreateCollection }) {
   const [limit, setLimit] = useState('');
   const { activeProvider } = useConnect();
 
+  useEffect(() => {
+    console.log("");
+  }, []);
+
   const handleClose = () => {
     showCreateCollection(false);
   };
