@@ -6,6 +6,16 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --color-bg-variant: #262626;
+  --color-primary: #4db5ff;
+  --color-primary-variant: rgba(77, 181, 255, 0.4);
+  --color-light: rgba(255, 255, 255, 0.6);
+
+  --transition: all 400ms ease;
+
+  --container-width-lg: 75%;
+  --container-width-md: 86%;
+  --container-width-sm: 90%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -53,13 +63,13 @@ body {
 }
 
 .button-signin {
-  background: linear-gradient(-45deg, #40E0D0, #FF8C00, #FF0080);
+  background: linear-gradient(-45deg, #40e0d0, #ff8c00, #ff0080);
   background-size: 300% 50%;
   animation: gradient 6s linear infinite;
 }
 
 .button-guest {
-  background: linear-gradient(-45deg, #FDFC47, #24FE41);
+  background: linear-gradient(-45deg, #fdfc47, #24fe41);
   background-size: 300% 50%;
   animation: gradient 8s linear infinite;
 }
@@ -71,7 +81,7 @@ body {
 }
 
 .segenie_logo path {
-    fill: #ed6866;
+  fill: #ed6866;
 }
 
 @keyframes AnimationName {
