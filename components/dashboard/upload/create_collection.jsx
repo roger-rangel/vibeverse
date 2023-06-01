@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import BackendActor from '@/components/BackendActor';
 import { AssetManager } from '@dfinity/assets';
@@ -265,9 +265,13 @@ function CreateCollection({ showCreateCollection }) {
   );
 }
 
-const client = createClient({ providers: [new NFID()] });
-
 export default function CreateCollectionWrapped({ showCreateCollection }) {
+  const client = createClient({ providers: [new NFID()] });
+
+  useEffect(() => {
+    console.log('hey');
+  }, []);
+
   return (
     <Connect2ICProvider client={client}>
       <CreateCollection showCreateCollection={showCreateCollection} />
