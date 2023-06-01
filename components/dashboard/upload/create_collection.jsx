@@ -28,6 +28,7 @@ function CreateCollection({ showCreateCollection }) {
     console.log('Creating a collection');
     const actor = new BackendActor();
     const result = await actor.createCollection(
+      actor,
       name,
       description,
       imageUrl,
