@@ -5,12 +5,22 @@ import { idlFactory } from '@/declarations/vibeverse_backend/vibeverse_backend.d
 
 class BackendActor {
   public async createCollection(
+    customProvider: any,
     name: string,
     description: string,
     coverPhoto: string,
     maybeLimit: number | null,
   ): Promise<any> {
-    const actor = createActor(canisterId, idlFactory);
+    let actor;
+    console.log(customProvider);
+    if (!customProvider) {
+      actor = createActor(canisterId, idlFactory);
+    } else {
+      actor = (
+        await customProvider.createActor(canisterId, idlFactory)
+      ).value;
+    }
+
     const isTranferable = true; // TODO have this passed from the UI.
 
     let limit: number;

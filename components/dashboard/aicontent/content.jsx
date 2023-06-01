@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { StarIcon } from '@heroicons/react/20/solid';
 import { videos } from '../../../constants';
 
-function classNames(...classes) {
+function className(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
@@ -29,7 +29,7 @@ export default function Content() {
                   {[0, 1, 2, 3, 4].map((rating) => (
                     <StarIcon
                       key={rating}
-                      className={classNames(
+                      className={className(
                         video.rating > rating
                           ? 'text-yellow-400'
                           : 'text-gray-200',

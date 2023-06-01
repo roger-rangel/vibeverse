@@ -2,7 +2,7 @@ import { PhotoIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function Create_NFT({ showCreateNFT }) {
+export default function CreateNFT({ showCreateNFT }) {
   const handleClose = () => {
     showCreateNFT(false);
   };
