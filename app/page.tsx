@@ -40,7 +40,7 @@ function Login() {
   });
 
   const handleButtonClick = () => {
-    window.location.href('/dashboard');
+    window.location.href = '/dashboard';
   };
 
   useEffect(() => {

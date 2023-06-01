@@ -19,11 +19,11 @@ const settings = [
   },
 ];
 
-function classNames(...classes) {
+function className(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Modal_Collection({ showModal, showCreateCollection }) {
+export default function ModalCollection({ showModal, showCreateCollection }) {
   const [selected, setSelected] = useState(settings[0]);
 
   const handleClose = () => {
@@ -77,7 +77,7 @@ export default function Modal_Collection({ showModal, showCreateCollection }) {
               value={setting}
               disabled={setting.disabled}
               className={({ checked }) =>
-                classNames(
+                className(
                   settingIdx === 0 ? 'rounded-tl-md rounded-tr-md' : '',
                   settingIdx === settings.length - 1
                     ? 'rounded-bl-md rounded-br-md'
@@ -102,7 +102,7 @@ export default function Modal_Collection({ showModal, showCreateCollection }) {
                   <span className="flex-grow flex flex-col ml-3">
                     <RadioGroup.Label
                       as="span"
-                      className={classNames(
+                      className={className(
                         checked ? 'text-indigo-900' : 'text-gray-100',
                         'block text-sm font-medium',
                       )}
@@ -111,7 +111,7 @@ export default function Modal_Collection({ showModal, showCreateCollection }) {
                     </RadioGroup.Label>
                     <RadioGroup.Description
                       as="span"
-                      className={classNames(
+                      className={className(
                         checked ? 'text-indigo-700' : 'text-gray-500',
                         'block text-sm',
                       )}
@@ -120,7 +120,7 @@ export default function Modal_Collection({ showModal, showCreateCollection }) {
                     </RadioGroup.Description>
                   </span>
                   <span
-                    className={classNames(
+                    className={className(
                       checked
                         ? 'bg-indigo-600 border-transparent'
                         : 'bg-white border-gray-300',

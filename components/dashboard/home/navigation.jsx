@@ -39,7 +39,7 @@ const user = [
   { id: 4, name: 'Favorites', href: '#', initial: 'F', current: false },
 ];
 
-function classNames(...classes) {
+function className(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
@@ -50,6 +50,16 @@ export default function Navigation({ children }) {
   const [currentNavIndex, setCurrentNavIndex] = useState(0);
 
   useEffect(() => {
+    const request = window.indexedDB.open('auth-client-db');
+    request.onsuccess = (_) => {
+      console.log(request.result);
+      if (request.result.objectStoreNames.length > 0) {
+        setLogin(true);
+      }
+    };
+    request.onerror = (_) => {
+      setLogin(false);
+    };
     navigation.forEach((nav, index) => {
       if (isSelected(nav)) {
         setCurrentNavIndex(index);
@@ -132,7 +142,7 @@ export default function Navigation({ children }) {
                                 <Link
                                   onClick={() => setCurrentNavIndex(index)}
                                   href={item.href}
-                                  className={classNames(
+                                  className={className(
                                     currentNavIndex == index
                                       ? 'bg-gray-800 text-white'
                                       : 'text-gray-400 hover:text-white hover:bg-gray-800',
@@ -158,7 +168,7 @@ export default function Navigation({ children }) {
                               <li key={section.name}>
                                 <a
                                   href={section.href}
-                                  className={classNames(
+                                  className={className(
                                     section.current
                                       ? 'bg-gray-800 text-white'
                                       : 'text-gray-400 hover:text-white hover:bg-gray-800',
@@ -215,7 +225,7 @@ export default function Navigation({ children }) {
                         <Link
                           onClick={() => setCurrentNavIndex(index)}
                           href={item.href}
-                          className={classNames(
+                          className={className(
                             currentNavIndex == index
                               ? 'bg-gray-800 text-white'
                               : 'text-gray-400 hover:text-white hover:bg-gray-800',
@@ -241,7 +251,7 @@ export default function Navigation({ children }) {
                       <li key={section.name}>
                         <a
                           href={section.href}
-                          className={classNames(
+                          className={className(
                             section.current
                               ? 'bg-gray-800 text-white'
                               : 'text-gray-400 hover:text-white hover:bg-gray-800',

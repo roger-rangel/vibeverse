@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import BackendActor from '@/components/BackendActor';
 import { AssetManager } from '@dfinity/assets';
@@ -8,11 +8,21 @@ import { canisterId } from '@/declarations/vibeverse_backend';
 import { HttpAgent } from '@dfinity/agent';
 import { Principal } from '@dfinity/principal';
 
-export default function Create_Collection({ showCreateCollection }) {
+import { Connect2ICProvider, useConnect } from '@connect2ic/react';
+import { createClient } from '@connect2ic/core';
+import { NFID } from '@connect2ic/core/providers/nfid';
+import { Mixpanel } from '@/components/Mixpanel';
+
+function CreateCollection({ showCreateCollection }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [limit, setLimit] = useState('');
+  const { activeProvider } = useConnect();
+
+  useEffect(() => {
+    console.log("");
+  }, []);
 
   const handleClose = () => {
     showCreateCollection(false);
@@ -20,9 +30,11 @@ export default function Create_Collection({ showCreateCollection }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(activeProvider);
     console.log('Creating a collection');
     const actor = new BackendActor();
     const result = await actor.createCollection(
+      activeProvider,
       name,
       description,
       imageUrl,
@@ -161,7 +173,6 @@ export default function Create_Collection({ showCreateCollection }) {
                       onChange={(e) => setDescription(e.target.value)}
                       value={description}
                       className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                      defaultValue={''}
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-400">
@@ -257,5 +268,19 @@ export default function Create_Collection({ showCreateCollection }) {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function CreateCollectionWrapped({ showCreateCollection }) {
+  const client = createClient({ providers: [new NFID()] });
+
+  useEffect(() => {
+    Mixpanel.track('Creating a collection');
+  }, []);
+
+  return (
+    <Connect2ICProvider client={client}>
+      <CreateCollection showCreateCollection={showCreateCollection} />
+    </Connect2ICProvider>
   );
 }
