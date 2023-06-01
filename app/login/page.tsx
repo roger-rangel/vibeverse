@@ -7,6 +7,7 @@ import { Connect2ICProvider } from '@connect2ic/react';
 import { useConnect } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
 import { NFID } from '@connect2ic/core/providers/nfid';
+import { Mixpanel } from '@/components/Mixpanel';
 
 const images1 = [
   '/images/imageSlider/1/morocco.png',
@@ -30,11 +31,7 @@ const images2 = [
 ];
 
 function Login() {
-  useEffect(() => {
-    console.log('Login page loaded');
-  }, []);
-
-  const { connect, disconnect } = useConnect({
+  const { connect } = useConnect({
     onConnect: () => console.log('hello'),
     onDisconnect: () => console.log('bye'),
   });
@@ -65,7 +62,7 @@ function Login() {
                 Industry and beyond.
               </p>
               <button
-                onClick={() => connect('NFID')}
+                onClick={() => connect(new NFID().meta.id)}
                 className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl"
               >
                 Sign in
@@ -141,7 +138,7 @@ function Login() {
 
 export default function LoginPage() {
   useEffect(() => {
-    console.log('Login page loaded');
+    Mixpanel.track('Login page');
   }, []);
   return (
     <Connect2ICProvider client={createClient({ providers: [new NFID()] })}>

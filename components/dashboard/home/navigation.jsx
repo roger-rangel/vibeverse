@@ -52,8 +52,10 @@ export default function Navigation({ children }) {
   useEffect(() => {
     const request = window.indexedDB.open('auth-client-db');
     request.onsuccess = (_) => {
-      console.log(request.result);
-      setLogin(true);
+      console.log(request.result.item);
+      if (request.result.item) {
+        setLogin(true);
+      }
     };
     request.onerror = (_) => {
       setLogin(false);

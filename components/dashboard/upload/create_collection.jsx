@@ -11,6 +11,7 @@ import { Principal } from '@dfinity/principal';
 import { Connect2ICProvider, useConnect } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
 import { NFID } from '@connect2ic/core/providers/nfid';
+import { Mixpanel } from '@/components/Mixpanel';
 
 function CreateCollection({ showCreateCollection }) {
   const [name, setName] = useState('');
@@ -25,10 +26,11 @@ function CreateCollection({ showCreateCollection }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(activeProvider);
     console.log('Creating a collection');
     const actor = new BackendActor();
     const result = await actor.createCollection(
-      actor,
+      activeProvider,
       name,
       description,
       imageUrl,
@@ -270,7 +272,7 @@ export default function CreateCollectionWrapped({ showCreateCollection }) {
   const client = createClient({ providers: [new NFID()] });
 
   useEffect(() => {
-    console.log('hey');
+    Mixpanel.track('Creating a collection');
   }, []);
 
   return (

@@ -16,7 +16,9 @@ class BackendActor {
     if (!customProvider) {
       actor = createActor(canisterId, idlFactory);
     } else {
-      actor = (await customProvider.activeProvider.createActor(canisterId, idlFactory)).value;
+      actor = (
+        await customProvider.activeProvider.createActor(canisterId, idlFactory)
+      ).value;
     }
 
     const isTranferable = true; // TODO have this passed from the UI.
