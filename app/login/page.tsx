@@ -31,6 +31,9 @@ const images2 = [
 ];
 
 function Login() {
+  useEffect(() => {
+    console.log("");
+  }, []);
   const { connect } = useConnect({
     onConnect: () => console.log('hello'),
     onDisconnect: () => console.log('bye'),

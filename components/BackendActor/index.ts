@@ -17,7 +17,7 @@ class BackendActor {
       actor = createActor(canisterId, idlFactory);
     } else {
       actor = (
-        await customProvider.activeProvider.createActor(canisterId, idlFactory)
+        await customProvider.createActor(canisterId, idlFactory)
       ).value;
     }
 
