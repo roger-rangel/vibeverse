@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './NFTs.module.scss';
 import { classnames } from 'tailwindcss-classnames';
@@ -17,30 +17,30 @@ const data = [
     image: IMG1,
     title: 'N&W2',
     sell: '',
-    View: ''
+    View: '',
   },
   {
     id: 2,
     image: IMG2,
     title: 'Dfinity Developers',
     sell: '',
-    View: ''
-  }
+    View: '',
+  },
 ];
 
-const Portals = ({setSelectedPortal}) => {
+const Portals = ({ setSelectedPortal }) => {
   let [portals, setPortals] = useState([]);
 
   const { getAllPortals } = useNewPortal();
 
   function openModal() {
-    console.log("button clicked");
+    console.log('button clicked');
     return true;
   }
 
-  useEffect(() => {  
-    if(window.localStorage.getItem("principal")) {
-      getAllPortals(window.localStorage.getItem("principal")).then((data) => { 
+  useEffect(() => {
+    if (window.localStorage.getItem('principal')) {
+      getAllPortals(window.localStorage.getItem('principal')).then((data) => {
         console.log(data);
         setPortals(data);
       });
@@ -48,38 +48,61 @@ const Portals = ({setSelectedPortal}) => {
   }, []);
 
   return (
-    <section id='portals'>
+    <section id="portals">
       <h5>Portals</h5>
       <h2>My Portals</h2>
 
-      <div className={classnames(styles. portfolio__container)}>
+      <div className={classnames(styles.portfolio__container)}>
         {portals !== [] &&
           portals.map((portal) => {
             return (
-              <article key={portal.id} className={classnames(styles. portfolio__item)}>
-                <div className={classnames(styles. portfolio__item_image)}>
-                  <img className="rounded-t-lg" src={portal.image_url.length > 0? portal.image_url[0] : IMG2} alt={'title'} />
+              <article
+                key={portal.id}
+                className={classnames(styles.portfolio__item)}
+              >
+                <div className={classnames(styles.portfolio__item_image)}>
+                  <img
+                    className="rounded-t-lg"
+                    src={
+                      portal.image_url.length > 0 ? portal.image_url[0] : IMG2
+                    }
+                    alt={'title'}
+                  />
                 </div>
                 <div>
                   <h3>{portal.name}</h3>
                   <h3>{portal.description}</h3>
-                  <div className={classnames(styles. portfolio__item_cta)}>
-                    <button onClick={() => setSelectedPortal(portal.id, portal.image_url)} className='py-2 px-4 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]'>Transfer</button>
+                  <div className={classnames(styles.portfolio__item_cta)}>
+                    <button
+                      onClick={() =>
+                        setSelectedPortal(portal.id, portal.image_url)
+                      }
+                      className="py-2 px-4 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
+                    >
+                      Transfer
+                    </button>
                   </div>
                 </div>
               </article>
-            );})
-        }
-        <article key={'mock2'} className={classnames(styles. portfolio__item)}>
-          <div className="absolute rounded-full bg-[#ff006e] py-1 px-2">Coming Soon!</div>
-          <div className={classnames(styles. portfolio__item_image)}>
+            );
+          })}
+        <article key={'mock2'} className={classnames(styles.portfolio__item)}>
+          <div className="absolute rounded-full bg-[#ff006e] py-1 px-2">
+            Coming Soon!
+          </div>
+          <div className={classnames(styles.portfolio__item_image)}>
             <img className="rounded-t-lg" src={IMG2} alt={'title'} />
           </div>
           <div>
             <h3>Dfinity Developers</h3>
             <h3>Internet Computer</h3>
-            <div className={classnames(styles. portfolio__item_cta)}>
-              <button onClick={() => setSelectedPortal(0)} className='py-2 px-4 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]'>Transfer</button>
+            <div className={classnames(styles.portfolio__item_cta)}>
+              <button
+                onClick={() => setSelectedPortal(0)}
+                className="py-2 px-4 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
+              >
+                Transfer
+              </button>
             </div>
           </div>
         </article>

@@ -33,9 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Dynamic>
-          {children}
-        </Dynamic>
+        <Dynamic>{children}</Dynamic>
       </body>
     </html>
   );

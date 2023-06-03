@@ -19,14 +19,21 @@ import Nav_User from './nav_user';
 import Image from 'next/image';
 import Link from 'next/link';
 
-
 const navigation = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
   { name: 'AI Tools', href: '/dashboard/aitools', icon: PaintBrushIcon },
   { name: 'AI Content', href: '/dashboard/aicontent', icon: FilmIcon },
   { name: 'Upload', href: '/dashboard/upload', icon: DocumentDuplicateIcon },
-  { name: 'Communities', href: '/dashboard/communities', icon: BuildingStorefrontIcon },
-  { name: 'Learning Center', href: '/dashboard/learning', icon: AcademicCapIcon },
+  {
+    name: 'Communities',
+    href: '/dashboard/communities',
+    icon: BuildingStorefrontIcon,
+  },
+  {
+    name: 'Learning Center',
+    href: '/dashboard/learning',
+    icon: AcademicCapIcon,
+  },
 ];
 const user = [
   { id: 1, name: 'Profile', href: '#', initial: 'P', current: false },
@@ -49,12 +56,15 @@ export default function Navigation({ children }) {
       console.log(request.result);
       if (request.result.objectStoreNames.length > 0) {
         setLogin(true);
+      } else {
+        window.indexedDB.deleteDatabase('auth-client-db');
       }
     };
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     request.onerror = (_) => {
       setLogin(false);
     };
+
     navigation.forEach((nav, index) => {
       if (isSelected(nav)) {
         setCurrentNavIndex(index);
@@ -126,7 +136,12 @@ export default function Navigation({ children }) {
                   {/* Sidebar component */}
                   <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
                     <div className="flex h-16 shrink-0 items-center -ml-2 mt-2 -mb-4">
-                      <Image src="/images/logos/vibeverse.png" alt="logo" width={150} height={75} />
+                      <Image
+                        src="/images/logos/vibeverse.png"
+                        alt="logo"
+                        width={150}
+                        height={75}
+                      />
                     </div>
                     <nav className="flex flex-1 flex-col">
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -208,7 +223,12 @@ export default function Navigation({ children }) {
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 border-r-2 border-fuchsia-900">
             <div className="flex items-center">
               <div className="-ml-2 mt-6">
-                <Image src="/images/logos/vibeverse.png" alt="logo" width={150} height={75} />
+                <Image
+                  src="/images/logos/vibeverse.png"
+                  alt="logo"
+                  width={150}
+                  height={75}
+                />
               </div>
             </div>
             <nav className="flex flex-1 flex-col z-40">
@@ -261,7 +281,7 @@ export default function Navigation({ children }) {
                       </li>
                     ))}
                   </ul>
-                </li>  
+                </li>
               </ul>
             </nav>
           </div>
@@ -315,8 +335,6 @@ export default function Navigation({ children }) {
                     </button>
                   </Link>
                 )}
-
-                
               </div>
             </div>
           </div>

@@ -4,7 +4,7 @@ import { Poppins } from 'next/font/google';
 
 const poppins = Poppins({
   weight: '300',
-  subsets: ['latin']
+  subsets: ['latin'],
 });
 
 // import React, { useState } from 'react';
@@ -30,9 +30,11 @@ const ProfilePage = () => {
 
   return (
     <>
-      <div className={`${poppins.className} bg-[#1f1f38] text-white m-0 p-0 border-none outline-none box-border list-none no-underline scroll-smooth leading-7 profile`}>
+      <div
+        className={`${poppins.className} bg-[#1f1f38] text-white m-0 p-0 border-none outline-none box-border list-none no-underline scroll-smooth leading-7 profile`}
+      >
         <About />
-    
+
         {/* <Portals setSelectedPortal={setSelectedPortal} /> */}
         {/* The location.state.provider is not the whole provider object */}
         {/* <TransferNFT provider={location.state.provider} transferPortal={transferPortal} setTransferPortal={setTransferPortal} portalId={portal}/> */}

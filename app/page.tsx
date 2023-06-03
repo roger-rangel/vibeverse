@@ -92,9 +92,8 @@ function Login() {
               </p>
             </Link>
           </div>
-          <div className="pt-16 sm:pt-24 lg:pt-32">        
+          <div className="pt-16 sm:pt-24 lg:pt-32">
             <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
-              
               <div className="lg:max-w-lg items-center">
                 <div className="relative lg:hidden">
                   <Image
@@ -106,9 +105,20 @@ function Login() {
                   />
                 </div>
                 <div className="flex gap-4 mb-4 text-gray-200 items-center text-3xl xs:justify-center lg:justify-start">
-                  <Image src="/images/logos/vibeverse.png" alt="logo" width={150} height={50} />
+                  <Image
+                    src="/images/logos/vibeverse.png"
+                    alt="logo"
+                    width={150}
+                    height={50}
+                  />
                   +{' '}
-                  <Image src="/images/logos/segenie.png" alt="logo" width={150} height={150} className="ml-2" />
+                  <Image
+                    src="/images/logos/segenie.png"
+                    alt="logo"
+                    width={150}
+                    height={150}
+                    className="ml-2"
+                  />
                 </div>
                 <h1 className="text-4xl font-bold tracking-tight text-gray-200 sm:text-6xl">
                   Converging the Power of AI and Web3
@@ -123,23 +133,20 @@ function Login() {
                     onClick={() => connect(new NFID().meta.id)}
                     className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl"
                   >
-                  Sign in
+                    Sign in
                   </button>
                   <div className="flex space-x-4">
                     <button
                       onClick={() => (window.location.href = '/dashboard')}
                       className="mt-10 w-full button-guest text-cyan-950 font-bold py-2 rounded-3xl"
                     >
-                  Continue as Guest
+                      Continue as Guest
                     </button>
-                    <button
-                      className="mt-10 w-full button-discord text-cyan-950 font-bold py-2 rounded-3xl"
-                    >
-                  Join our Discord
+                    <button className="mt-10 w-full button-discord text-cyan-950 font-bold py-2 rounded-3xl">
+                      Join our Discord
                     </button>
                   </div>
                 </div>
-
               </div>
               <div>
                 <div className="mt-10">

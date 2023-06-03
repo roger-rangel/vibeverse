@@ -57,11 +57,10 @@ export default function Nav_User() {
               )}
             </Menu.Item>
           ))} */}
-          
+
           <Menu.Item className="flex relative z-[max] justify-center align-middle">
             <About />
           </Menu.Item>
-  
         </Menu.Items>
       </Transition>
     </Menu>
