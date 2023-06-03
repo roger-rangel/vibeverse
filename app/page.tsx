@@ -10,8 +10,6 @@ import { useConnect } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
 import { NFID } from '@connect2ic/core/providers/nfid';
 
-const client = createClient({ providers: [new NFID()] });
-
 const images1 = [
   '/images/imageSlider/1/planets.png',
   '/images/imageSlider/1/morocco.png',
@@ -34,175 +32,173 @@ const images2 = [
 ];
 
 function Login() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { connect, disconnect } = useConnect({
+  useEffect(() => {
+    console.log('');
+  }, []);
+
+  const { connect } = useConnect({
     onConnect: () => console.log('hello'),
     onDisconnect: () => console.log('bye'),
   });
 
-  useEffect(() => {
-    Mixpanel.track('Landing page visited');
-  }, []);
   return (
-    <Connect2ICProvider client={client}>
-      <div className="h-screen bg-slate-950">
-        <video
-          autoPlay
-          loop
-          muted
-          className="absolute z-1 min-w-full min-h-full object-cover"
-          src={'/video/astronaut_kayak.mp4'}
-        />
-        <header className="h-screen relative overflow-hidden">
-          {/* Hero section */}
-          <div className="flex absolute gap-4 left-2 top-2 -z-10">
-            <Link href="/dashboard">
-              <p className="flex ml-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
-                1
+    <div className="h-screen bg-slate-950">
+      <video
+        autoPlay
+        loop
+        muted
+        className="absolute z-1 min-w-full min-h-full object-cover"
+        src={'/video/astronaut_kayak.mp4'}
+      />
+      <header className="h-screen relative overflow-hidden">
+        {/* Hero section */}
+        <div className="flex absolute gap-4 left-2 top-2 -z-10">
+          <Link href="/dashboard">
+            <p className="flex ml-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+              1
+            </p>
+          </Link>
+          <Link href="/dashboard/aitools">
+            <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+              2
+            </p>
+          </Link>
+          <Link href="/dashboard/aitools/list">
+            <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+              3
+            </p>
+          </Link>
+          <Link href="/dashboard/aicontent">
+            <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+              4
+            </p>
+          </Link>
+          <Link href="/dashboard/upload">
+            <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+              5
+            </p>
+          </Link>
+          <Link href="/dashboard/communities">
+            <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+              6
+            </p>
+          </Link>
+          <Link href="/dashboard/profile">
+            <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+              7
+            </p>
+          </Link>
+        </div>
+        <div className="pt-16 sm:pt-24 lg:pt-32">
+          <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
+            <div className="lg:max-w-lg items-center">
+              <div className="relative lg:hidden">
+                <Image
+                  src="/images/dashboard/magical_place.png"
+                  alt="logo"
+                  className="h-44 w-full rounded-2xl object-cover mb-10"
+                  width={1000}
+                  height={100}
+                />
+              </div>
+              <div className="flex gap-4 mb-4 text-gray-200 items-center text-3xl xs:justify-center lg:justify-start">
+                <Image
+                  src="/images/logos/vibeverse.png"
+                  alt="logo"
+                  width={150}
+                  height={50}
+                />
+                +{' '}
+                <Image
+                  src="/images/logos/segenie.png"
+                  alt="logo"
+                  width={150}
+                  height={150}
+                  className="ml-2"
+                />
+              </div>
+              <h1 className="text-4xl font-bold tracking-tight text-gray-200 sm:text-6xl">
+                Converging the Power of AI and Web3
+              </h1>
+              <p className="mt-4 text-xl text-gray-200 p-2 pl-4 backdrop-blur rounded-xl">
+                Welcome to a vibrant ecosystem where users can seamlessly share,
+                discover, and collaborate on AI-generated content in the Film
+                Industry and beyond.
               </p>
-            </Link>
-            <Link href="/dashboard/aitools">
-              <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
-                2
-              </p>
-            </Link>
-            <Link href="/dashboard/aitools/list">
-              <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
-                3
-              </p>
-            </Link>
-            <Link href="/dashboard/aicontent">
-              <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
-                4
-              </p>
-            </Link>
-            <Link href="/dashboard/upload">
-              <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
-                5
-              </p>
-            </Link>
-            <Link href="/dashboard/communities">
-              <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
-                6
-              </p>
-            </Link>
-            <Link href="/dashboard/profile">
-              <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
-                7
-              </p>
-            </Link>
-          </div>
-          <div className="pt-16 sm:pt-24 lg:pt-32">
-            <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
-              <div className="lg:max-w-lg items-center">
-                <div className="relative lg:hidden">
-                  <Image
-                    src="/images/dashboard/magical_place.png"
-                    alt="logo"
-                    className="h-44 w-full rounded-2xl object-cover mb-10"
-                    width={1000}
-                    height={100}
-                  />
-                </div>
-                <div className="flex gap-4 mb-4 text-gray-200 items-center text-3xl xs:justify-center lg:justify-start">
-                  <Image
-                    src="/images/logos/vibeverse.png"
-                    alt="logo"
-                    width={150}
-                    height={50}
-                  />
-                  +{' '}
-                  <Image
-                    src="/images/logos/segenie.png"
-                    alt="logo"
-                    width={150}
-                    height={150}
-                    className="ml-2"
-                  />
-                </div>
-                <h1 className="text-4xl font-bold tracking-tight text-gray-200 sm:text-6xl">
-                  Converging the Power of AI and Web3
-                </h1>
-                <p className="mt-4 text-xl text-gray-200 p-2 pl-4 backdrop-blur rounded-xl">
-                  Welcome to a vibrant ecosystem where users can seamlessly
-                  share, discover, and collaborate on AI-generated content in
-                  the Film Industry and beyond.
-                </p>
-                <div className="mx-8">
+              <div className="mx-8">
+                <button
+                  onClick={() => connect(new NFID().meta.id)}
+                  className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl"
+                >
+                  Sign in
+                </button>
+                <div className="flex space-x-4">
                   <button
-                    onClick={() => connect(new NFID().meta.id)}
-                    className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl"
+                    onClick={() => (window.location.href = '/dashboard')}
+                    className="mt-10 w-full button-guest text-cyan-950 font-bold py-2 rounded-3xl"
                   >
-                    Sign in
+                    Continue as Guest
                   </button>
-                  <div className="flex space-x-4">
-                    <button
-                      onClick={() => (window.location.href = '/dashboard')}
-                      className="mt-10 w-full button-guest text-cyan-950 font-bold py-2 rounded-3xl"
-                    >
-                      Continue as Guest
-                    </button>
-                    <button className="mt-10 w-full button-discord text-cyan-950 font-bold py-2 rounded-3xl">
-                      Join our Discord
-                    </button>
-                  </div>
+                  <button className="mt-10 w-full button-discord text-cyan-950 font-bold py-2 rounded-3xl">
+                    Join our Discord
+                  </button>
                 </div>
               </div>
-              <div>
-                <div className="mt-10">
-                  {/* Decorative image grid */}
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl "
-                  >
-                    <div className="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8 hidden lg:block">
-                      <div className="flex items-center space-x-6 lg:space-x-8">
-                        <div
-                          className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8 mt-40 overflow-hidden h-screen animation-linear animation-infinite"
-                          style={{
-                            animationName: 'moveUp',
-                            animationDuration: '5s',
-                          }}
-                        >
-                          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-full h-full">
-                            <ImageSlider
-                              images={images1}
-                              duration={4}
-                              startOffset={0}
-                            />
-                          </div>
+            </div>
+            <div>
+              <div className="mt-10">
+                {/* Decorative image grid */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl "
+                >
+                  <div className="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8 hidden lg:block">
+                    <div className="flex items-center space-x-6 lg:space-x-8">
+                      <div
+                        className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8 mt-40 overflow-hidden h-screen animation-linear animation-infinite"
+                        style={{
+                          animationName: 'moveUp',
+                          animationDuration: '5s',
+                        }}
+                      >
+                        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-full h-full">
+                          <ImageSlider
+                            images={images1}
+                            duration={4}
+                            startOffset={0}
+                          />
                         </div>
+                      </div>
 
-                        <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                          <div className="absolute left-72 top-1/2 transform -translate-y-1/2 w-full h-full">
-                            <ImageSlider
-                              images={images2}
-                              duration={3}
-                              startOffset={-25}
-                            />
-                          </div>
+                      <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                        <div className="absolute left-72 top-1/2 transform -translate-y-1/2 w-full h-full">
+                          <ImageSlider
+                            images={images2}
+                            duration={3}
+                            startOffset={-25}
+                          />
                         </div>
+                      </div>
 
-                        {/* this div should not deleted yet, its keeping the carousel slider working. I will delete later on */}
-                        <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                          <div className="h-64 w-44 overflow-hidden rounded-lg">
-                            <Image
-                              src="/"
-                              alt=""
-                              className="h-full w-full object-cover object-center hidden"
-                              height={100}
-                              width={100}
-                            />
-                          </div>
-                          <div className="h-64 w-44 overflow-hidden rounded-lg">
-                            <Image
-                              src="/"
-                              alt=""
-                              className="h-full w-full object-cover object-center hidden"
-                              height={100}
-                              width={100}
-                            />
-                          </div>
+                      {/* this div should not deleted yet, its keeping the carousel slider working. I will delete later on */}
+                      <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                          <Image
+                            src="/"
+                            alt=""
+                            className="h-full w-full object-cover object-center hidden"
+                            height={100}
+                            width={100}
+                          />
+                        </div>
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                          <Image
+                            src="/"
+                            alt=""
+                            className="h-full w-full object-cover object-center hidden"
+                            height={100}
+                            width={100}
+                          />
                         </div>
                       </div>
                     </div>
@@ -211,13 +207,19 @@ function Login() {
               </div>
             </div>
           </div>
-        </header>
-      </div>
-    </Connect2ICProvider>
+        </div>
+      </header>
+    </div>
   );
 }
 
 export default function LoginPage() {
+  const client = createClient({ providers: [new NFID()] });
+
+  useEffect(() => {
+    Mixpanel.track('Landing page');
+  });
+
   return (
     <Connect2ICProvider client={client}>
       <Login />
