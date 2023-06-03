@@ -32,7 +32,7 @@ const images2 = [
 
 function Login() {
   useEffect(() => {
-    console.log("");
+    console.log('');
   }, []);
   const { connect } = useConnect({
     onConnect: () => console.log('hello'),

@@ -1,16 +1,112 @@
+import { useState, useEffect } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function CreateNFT({ showCreateNFT }) {
+import BackendActor from '@/components/BackendActor';
+import { AssetManager } from '@dfinity/assets';
+import { canisterId } from '@/declarations/vibeverse_assets';
+import { HttpAgent } from '@dfinity/agent';
+import {Principal} from "@dfinity/principal";
+
+import { Connect2ICProvider, useConnect } from '@connect2ic/react';
+import { createClient } from '@connect2ic/core';
+import { NFID } from '@connect2ic/core/providers/nfid';
+import { Mixpanel } from '@/components/Mixpanel';
+
+function CreateNFT({ showCreateNFT }) {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [collectionId, setCollectionId] = useState('');
+  const { activeProvider } = useConnect();
+
+  const isLocal = !window.location.host.endsWith('ic0.app');
+
   const handleClose = () => {
     showCreateNFT(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(activeProvider);
+    console.log('Minting an NFT');
+    const actor = new BackendActor();
+
+    // TODO: don't hardcode the receiver!
+    const receiver = Principal.from("2vxsx-fae");
+
+    const result = await actor.mintNft(
+      activeProvider,
+      collectionId,
+      receiver,
+      name,
+      description,
+      imageUrl
+    );
+
+    alert(result);
+  };
+
+  const tryUploadPhoto = async (e) => {
+    try {
+      await uploadPhoto(e);
+    } catch (err) {
+      if (err.message.includes('Caller is not authorized')) {
+        alert('Caller is not authorized');
+      } else {
+        throw err;
+      }
+    }
+  };
+
+  const uploadPhoto = async (e) => {
+    const assetManager = getAssetManager();
+    const file = e.target.files[0];
+
+    const fileName = 'collection-' + Date.now() + file.type.split('/')[1];
+    const blob = file.slice(0, file.size, 'image/*');
+
+    const renamedFile = new File([blob], fileName, { type: 'image/*' });
+    const key = await assetManager.store(renamedFile);
+
+    if (isLocal) {
+      setImageUrl(
+        `http://${window.location.host}${key}?canisterId=${canisterId}`,
+      );
+    } else {
+      setImageUrl(
+        `https://${window.location.host}${key}?canisterId=${canisterId}`,
+      );
+    }
+
+    console.log(imageUrl);
+  };
+
+  const getAssetManager = () => {
+    console.log('Principal: ');
+    console.log(activeProvider.principal);
+    const agent = new HttpAgent({
+      host: isLocal
+        ? `http://127.0.0.1:${window.location.port}`
+        : `https://ic0.app`,
+      principal: activeProvider.principal,
+    });
+    agent.fetchRootKey();
+
+    const assetManager = new AssetManager({
+      canisterId,
+      agent,
+      provider: activeProvider,
+    });
+
+    return assetManager;
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-50">
       <div className="bg-gray-900 rounded-lg overflow-y-auto max-h-[calc(100%-2rem)] p-8 w-full max-w-2xl mx-4 my-8">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="space-y-12">
             <div className="border-b border-white/10 pb-12">
               <div className="flex justify-between mb-4 items-center">
@@ -85,9 +181,35 @@ export default function CreateNFT({ showCreateNFT }) {
                         name="title"
                         id="title"
                         autoComplete="title"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="Purple Monkey "
                       />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-b border-white/10 pb-12">
+                  <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div className="sm:col-span-3">
+                      <label
+                        htmlFor="collection"
+                        className="block text-sm font-medium leading-6 text-white"
+                      >
+                        CollectionId
+                      </label>
+                      <div className="mt-2">
+                        <input
+                          type="number"
+                          name="collection"
+                          id="collection"
+                          value={collectionId}
+                          onChange={(e) => setCollectionId(e.target.value)}
+                          className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
+                          placeholder="Collection Id"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -104,8 +226,9 @@ export default function CreateNFT({ showCreateNFT }) {
                       id="about"
                       name="about"
                       rows={3}
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
                       className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                      defaultValue={''}
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-400">
@@ -136,6 +259,7 @@ export default function CreateNFT({ showCreateNFT }) {
                             id="file-upload"
                             name="file-upload"
                             type="file"
+                            onChange={tryUploadPhoto}
                             className="sr-only"
                           />
                         </label>
@@ -169,5 +293,19 @@ export default function CreateNFT({ showCreateNFT }) {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function CreateNFTWrapped({ showCreateNFT }) {
+  const client = createClient({ providers: [new NFID()] });
+
+  useEffect(() => {
+    Mixpanel.track('Creating an NFT');
+  }, []);
+
+  return (
+    <Connect2ICProvider client={client}>
+      <CreateNFT showCreateNFT={showCreateNFT} />
+    </Connect2ICProvider>
   );
 }
