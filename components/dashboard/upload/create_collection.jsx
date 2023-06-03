@@ -4,9 +4,8 @@ import { useState, useEffect } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import BackendActor from '@/components/BackendActor';
 import { AssetManager } from '@dfinity/assets';
-import { canisterId } from '@/declarations/vibeverse_backend';
+import { canisterId } from '@/declarations/vibeverse_assets';
 import { HttpAgent } from '@dfinity/agent';
-import { Principal } from '@dfinity/principal';
 
 import { Connect2ICProvider, useConnect } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
@@ -20,8 +19,10 @@ function CreateCollection({ showCreateCollection }) {
   const [limit, setLimit] = useState('');
   const { activeProvider } = useConnect();
 
+  const isLocal = !window.location.host.endsWith('ic0.app');
+
   useEffect(() => {
-    console.log("");
+    console.log('');
   }, []);
 
   const handleClose = () => {
@@ -74,19 +75,26 @@ function CreateCollection({ showCreateCollection }) {
         `https://${window.location.host}${key}?canisterId=${canisterId}`,
       );
     }
+
+    console.log(imageUrl);
   };
 
   const getAssetManager = () => {
-    const isLocal = !window.location.host.endsWith('ic0.app');
-
+    console.log('Principal: ');
+    console.log(activeProvider.principal);
     const agent = new HttpAgent({
       host: isLocal
         ? `http://127.0.0.1:${window.location.port}`
         : `https://ic0.app`,
-      principal: Principal.from('2vxsx-fae'),
+      principal: activeProvider.principal,
     });
+    agent.fetchRootKey();
 
-    const assetManager = new AssetManager({ canisterId, agent });
+    const assetManager = new AssetManager({
+      canisterId,
+      agent,
+      provider: activeProvider,
+    });
 
     return assetManager;
   };

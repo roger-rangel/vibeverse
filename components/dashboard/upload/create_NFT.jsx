@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function CreateNFT({ showCreateNFT }) {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+
   const handleClose = () => {
     showCreateNFT(false);
   };
