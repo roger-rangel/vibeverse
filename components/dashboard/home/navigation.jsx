@@ -15,9 +15,6 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import { Connect2ICProvider, useConnect } from '@connect2ic/react';
-import { NFID } from '@connect2ic/core/providers/nfid';
-import { createClient } from '@connect2ic/core';
 
 import Nav_User from './nav_user';
 
@@ -46,17 +43,23 @@ function className(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-function Navigation({ children }) {
+export default function Navigation({ children }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [login, setLogin] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentNavIndex, setCurrentNavIndex] = useState(0);
-  const { activeProvider } = useConnect();
 
   useEffect(() => {
-    if (activeProvider) {
-      setLogin(true);
-    }
+    const request = window.indexedDB.open('auth-client-db');
+    request.onsuccess = (_) => {
+      console.log(request.result);
+      if (request.result.objectStoreNames.length > 0) {
+        setLogin(true);
+      }
+    };
+    request.onerror = (_) => {
+      setLogin(false);
+    };
 
     navigation.forEach((nav, index) => {
       if (isSelected(nav)) {
@@ -356,21 +359,5 @@ function Navigation({ children }) {
         </div>
       </div>
     </>
-  );
-}
-
-export default function NavigationWrapped({ children }) {
-  const client = createClient({ providers: [new NFID()] });
-
-  useEffect(() => {
-    console.log('');
-  }, []);
-
-  return (
-    <Connect2ICProvider client={client}>
-      <Navigation
-        children={children}
-      />
-    </Connect2ICProvider>
   );
 }
