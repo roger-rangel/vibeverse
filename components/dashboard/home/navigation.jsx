@@ -55,6 +55,8 @@ export default function Navigation({ children }) {
       console.log(request.result);
       if (request.result.objectStoreNames.length > 0) {
         setLogin(true);
+      } else {
+        window.indexedDB.deleteDatabase('auth-client-db');
       }
     };
     request.onerror = (_) => {

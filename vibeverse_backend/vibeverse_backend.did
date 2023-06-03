@@ -18,7 +18,7 @@ service : {
     "update_collection_metadata": (nat, text, text, opt text) -> (text);
     "get_collection": (nat) -> (opt Collection);
     "set_creator_metadata": (text) -> (text);
-    "mint_nft": (nat, principal) -> (text);
+    "mint_nft": (nat, principal, text, text, opt text) -> (text);
     "transfer_nft": (nat, principal) -> (text);
     "creator_metadata": () -> (opt Creator);
     "collections_created_by": (principal) -> (vec Collection);
