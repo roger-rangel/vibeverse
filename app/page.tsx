@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Mixpanel } from '@/components/Mixpanel';
 import ImageSlider from '../components/login/imageSlider';
 import { Connect2ICProvider } from '@connect2ic/react';
@@ -39,10 +40,6 @@ function Login() {
     onDisconnect: () => console.log('bye'),
   });
 
-  const handleButtonClick = () => {
-    window.location.href = '/dashboard';
-  };
-
   useEffect(() => {
     Mixpanel.track('Landing page visited');
   }, []);
@@ -58,8 +55,46 @@ function Login() {
         />
         <header className="h-screen relative overflow-hidden">
           {/* Hero section */}
-          <div className="pt-16 sm:pt-24 lg:pt-32">
+          <div className="flex absolute gap-4 left-2 top-2 -z-10">
+            <Link href="/dashboard">
+              <p className="flex ml-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+                1
+              </p>
+            </Link>
+            <Link href="/dashboard/aitools">
+              <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+                2
+              </p>
+            </Link>
+            <Link href="/dashboard/aitools/list">
+              <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+                3
+              </p>
+            </Link>
+            <Link href="/dashboard/aicontent">
+              <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+                4
+              </p>
+            </Link>
+            <Link href="/dashboard/upload">
+              <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+                5
+              </p>
+            </Link>
+            <Link href="/dashboard/communities">
+              <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+                6
+              </p>
+            </Link>
+            <Link href="/dashboard/profile">
+              <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
+                7
+              </p>
+            </Link>
+          </div>
+          <div className="pt-16 sm:pt-24 lg:pt-32">        
             <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
+              
               <div className="lg:max-w-lg items-center">
                 <div className="relative lg:hidden">
                   <Image
@@ -104,7 +139,6 @@ function Login() {
                     </button>
                   </div>
                 </div>
-               
 
               </div>
               <div>

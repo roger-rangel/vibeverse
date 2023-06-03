@@ -8,8 +8,7 @@ const poppins = Poppins({
 });
 
 // import React, { useState } from 'react';
-import About from '@/components/dashboard/profile/About';
-import Portals from '@/components/dashboard/profile/Portals';
+import About from '@/components/dashboard/profile/about';
 
 // import TransferNFT from '../Dashboard/components/TransferNFT';
 // import {useLocation} from 'react-router-dom';

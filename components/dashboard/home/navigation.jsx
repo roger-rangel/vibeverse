@@ -3,40 +3,33 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import {
+  AcademicCapIcon,
   Bars3Icon,
   BellIcon,
-  CalendarIcon,
-  ChartPieIcon,
+  BuildingStorefrontIcon,
   Cog6ToothIcon,
   DocumentDuplicateIcon,
-  FolderIcon,
+  FilmIcon,
   HomeIcon,
-  UsersIcon,
+  PaintBrushIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 
 import Nav_User from './nav_user';
 import Image from 'next/image';
 import Link from 'next/link';
 
+
 const navigation = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
-  {
-    name: 'Shorts',
-    href: '/dashboard/shorts',
-    icon: UsersIcon,
-  },
-  { name: 'AI Tools', href: '/dashboard/aitools', icon: FolderIcon },
-  { name: 'AI Content', href: '/dashboard/aicontent', icon: CalendarIcon },
+  { name: 'AI Tools', href: '/dashboard/aitools', icon: PaintBrushIcon },
+  { name: 'AI Content', href: '/dashboard/aicontent', icon: FilmIcon },
   { name: 'Upload', href: '/dashboard/upload', icon: DocumentDuplicateIcon },
-  { name: 'Communities', href: '/dashboard/communities', icon: ChartPieIcon },
+  { name: 'Communities', href: '/dashboard/communities', icon: BuildingStorefrontIcon },
+  { name: 'Learning Center', href: '/dashboard/learning', icon: AcademicCapIcon },
 ];
 const user = [
   { id: 1, name: 'Profile', href: '#', initial: 'P', current: false },
-  { id: 2, name: 'My Tools', href: '#', initial: 'T', current: false },
-  { id: 3, name: 'My Content', href: '#', initial: 'C', current: false },
-  { id: 4, name: 'Favorites', href: '#', initial: 'F', current: false },
 ];
 
 function className(...classes) {
@@ -51,12 +44,14 @@ export default function Navigation({ children }) {
 
   useEffect(() => {
     const request = window.indexedDB.open('auth-client-db');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     request.onsuccess = (_) => {
       console.log(request.result);
       if (request.result.objectStoreNames.length > 0) {
         setLogin(true);
       }
     };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     request.onerror = (_) => {
       setLogin(false);
     };
@@ -79,7 +74,7 @@ export default function Navigation({ children }) {
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            className="relative z-50 lg:hidden"
+            className="relative z-49 lg:hidden"
             onClose={setSidebarOpen}
           >
             <Transition.Child
@@ -208,7 +203,7 @@ export default function Navigation({ children }) {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+        <div className="hidden lg:fixed lg:inset-y-0 sm:z-11 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 border-r-2 border-fuchsia-900">
             <div className="flex items-center">
@@ -216,7 +211,7 @@ export default function Navigation({ children }) {
                 <Image src="/images/logos/vibeverse.png" alt="logo" width={150} height={75} />
               </div>
             </div>
-            <nav className="flex flex-1 flex-col">
+            <nav className="flex flex-1 flex-col z-40">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <ul role="list" className="-mx-2 space-y-1">
@@ -266,19 +261,7 @@ export default function Navigation({ children }) {
                       </li>
                     ))}
                   </ul>
-                </li>
-                <li className="mt-auto">
-                  <a
-                    href="#"
-                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
-                  >
-                    <Cog6ToothIcon
-                      className="h-6 w-6 shrink-0"
-                      aria-hidden="true"
-                    />
-                    Settings
-                  </a>
-                </li>
+                </li>  
               </ul>
             </nav>
           </div>
@@ -302,22 +285,10 @@ export default function Navigation({ children }) {
             />
 
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 ">
-              <form className="relative flex flex-1" action="#" method="GET">
-                <label htmlFor="search-field" className="sr-only">
-                  Search
-                </label>
-                <MagnifyingGlassIcon
-                  className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
-                  aria-hidden="true"
-                />
-                <input
-                  id="search-field"
-                  className="block bg-transparent h-full w-full border-0 py-0 pl-8 pr-0 text-gray-400 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                  placeholder="Search..."
-                  type="search"
-                  name="search"
-                />
-              </form>
+              <div className="relative flex flex-1 text-white font-bold py-4 px-4">
+                {/* TODO : add demo button */}
+              </div>
+              {/* TODO SUMMER: ADD FORM HERE FOR SEARCH BAR */}
               <div className="flex items-center gap-x-4 lg:gap-x-4">
                 <button
                   type="button"
@@ -334,6 +305,7 @@ export default function Navigation({ children }) {
                 />
 
                 {/* Profile dropdown */}
+
                 {login ? (
                   <Nav_User />
                 ) : (
@@ -343,6 +315,8 @@ export default function Navigation({ children }) {
                     </button>
                   </Link>
                 )}
+
+                
               </div>
             </div>
           </div>
