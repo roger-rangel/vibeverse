@@ -1,6 +1,8 @@
 #[cfg(test)]
 mod tests;
 
+pub mod administrative;
+
 use candid::types::number::Nat;
 use ic_cdk::export::{candid::CandidType, Principal};
 use std::{cell::RefCell, collections::BTreeMap};
@@ -72,9 +74,6 @@ thread_local! {
     static COLLECTIONS_OF: RefCell<CreatorCollectionsStore> = RefCell::default();
     static COLLECTION_COUNT: RefCell<CollectionId> = RefCell::new(Nat::from(0));
     static NFTS_OF: RefCell<NftsOfStore> = RefCell::default();
-    static COLLECTION_FEE: RefCell<u64> = RefCell::default();
-    static MINT_FEE: RefCell<u64> = RefCell::default();
-    static VIBE_TOKEN: RefCell<Option<Principal>> = RefCell::default();
 }
 
 pub fn collection_count() -> CollectionId {
@@ -315,37 +314,4 @@ pub fn nft_transfer(caller: Principal, receiver: Principal, nft_id: NftId) -> Re
 
         Ok(())
     })
-}
-
-pub fn set_collection_fee(fee: u64) {
-    COLLECTION_FEE.with(|f| *f.borrow_mut() = fee);
-}
-
-pub fn set_mint_fee(fee: u64) {
-    MINT_FEE.with(|f| *f.borrow_mut() = fee);
-}
-
-pub fn collection_fee() -> u64 {
-    COLLECTION_FEE.with(|fee| fee.borrow().clone())
-}
-
-pub fn mint_fee() -> u64 {
-    MINT_FEE.with(|fee| fee.borrow().clone())
-}
-
-pub fn set_vibe_token(vibe: Principal) -> Result<Nat, &'static str> {
-    VIBE_TOKEN.with(|token| -> Result<(), &'static str> {
-        let mut maybe_vibe = token.borrow_mut();
-        if maybe_vibe.is_some() {
-            return Err("The address of VIBE token already set");
-        }
-        *maybe_vibe = Some(vibe);
-        Ok(())
-    })?;
-
-    Ok(Nat::from(0))
-}
-
-pub fn vibe_token() -> Option<Principal> {
-    VIBE_TOKEN.with(|vibe| *vibe.borrow())
 }

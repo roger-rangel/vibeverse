@@ -105,32 +105,47 @@ fn collection_count() -> CollectionId {
     nfts::collection_count()
 }
 
+// Administrative functions
+
 #[update]
-fn set_collection_fee(fee: u64) {
-    nfts::set_collection_fee(fee)
+fn set_collection_fee(fee: u64) -> Result<(), &'static str> {
+    let caller = ic_cdk::api::caller();
+    nfts::administrative::set_collection_fee(caller, fee)
 }
 
 #[update]
-fn set_mint_fee(fee: u64) {
-    nfts::set_mint_fee(fee)
+fn set_mint_fee(fee: u64) -> Result<(), &'static str> {
+    let caller = ic_cdk::api::caller();
+    nfts::administrative::set_mint_fee(caller, fee)
+}
+
+#[update]
+fn set_vibe_token(vibe: Principal) -> Result<(), &'static str> {
+    let caller = ic_cdk::api::caller();
+    nfts::administrative::set_vibe_token(caller, vibe)
+}
+
+#[update]
+fn set_admin(admin: Principal) -> Result<(), &'static str> {
+    nfts::administrative::set_admin(admin)
 }
 
 #[ic_cdk_macros::query]
-fn create_collection_fee() -> u64 {
-    nfts::collection_fee()
+fn collection_fee() -> u64 {
+    nfts::administrative::collection_fee()
 }
 
 #[ic_cdk_macros::query]
 fn mint_fee() -> u64 {
-    nfts::mint_fee()
-}
-
-#[update]
-fn set_vibe_token(vibe: Principal) -> Result<Nat, &'static str> {
-    nfts::set_vibe_token(vibe)
+    nfts::administrative::mint_fee()
 }
 
 #[ic_cdk_macros::query]
 fn vibe_token() -> Option<Principal> {
-    nfts::vibe_token()
+    nfts::administrative::vibe_token()
+}
+
+#[ic_cdk_macros::query]
+fn admin() -> Option<Principal> {
+    nfts::administrative::admin()
 }
