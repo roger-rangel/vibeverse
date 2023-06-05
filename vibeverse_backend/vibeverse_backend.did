@@ -32,4 +32,10 @@ service : {
     "collections_created_by_caller": () -> (vec Collection);
     "nfts_of_user": (principal) -> (vec Nft);
     "collection_count": () -> (nat);
+    "set_collection_fee": (nat64) -> ();
+    "set_mint_fee": (nat64) -> ();
+    "create_collection_fee": () -> (nat64);
+    "mint_fee": () -> (nat64);
+    "set_vibe_token": (principal) -> (variant { Ok : nat; Err : text });
+    "vibe_token": () -> (opt principal);
 }

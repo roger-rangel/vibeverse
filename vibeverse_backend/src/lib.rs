@@ -104,3 +104,33 @@ fn nfts_of_user(user: Principal) -> Vec<Nft> {
 fn collection_count() -> CollectionId {
     nfts::collection_count()
 }
+
+#[update]
+fn set_collection_fee(fee: u64) {
+    nfts::set_collection_fee(fee)
+}
+
+#[update]
+fn set_mint_fee(fee: u64) {
+    nfts::set_mint_fee(fee)
+}
+
+#[ic_cdk_macros::query]
+fn create_collection_fee() -> u64 {
+    nfts::collection_fee()
+}
+
+#[ic_cdk_macros::query]
+fn mint_fee() -> u64 {
+    nfts::mint_fee()
+}
+
+#[update]
+fn set_vibe_token(vibe: Principal) -> Result<Nat, &'static str> {
+    nfts::set_vibe_token(vibe)
+}
+
+#[ic_cdk_macros::query]
+fn vibe_token() -> Option<Principal> {
+    nfts::vibe_token()
+}
