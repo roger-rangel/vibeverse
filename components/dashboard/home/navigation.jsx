@@ -7,12 +7,12 @@ import {
   Bars3Icon,
   BellIcon,
   BuildingStorefrontIcon,
-  Cog6ToothIcon,
   DocumentDuplicateIcon,
   FilmIcon,
   HomeIcon,
   PaintBrushIcon,
   XMarkIcon,
+  UserCircleIcon
 } from '@heroicons/react/24/outline';
 
 import Nav_User from './nav_user';
@@ -24,19 +24,12 @@ const navigation = [
   { name: 'AI Tools', href: '/dashboard/aitools', icon: PaintBrushIcon },
   { name: 'AI Content', href: '/dashboard/aicontent', icon: FilmIcon },
   { name: 'Upload', href: '/dashboard/upload', icon: DocumentDuplicateIcon },
-  {
-    name: 'Communities',
-    href: '/dashboard/communities',
-    icon: BuildingStorefrontIcon,
-  },
-  {
-    name: 'Learning Center',
-    href: '/dashboard/learning',
-    icon: AcademicCapIcon,
-  },
+
 ];
 const user = [
-  { id: 1, name: 'Profile', href: '#', initial: 'P', current: false },
+  { id: 1, name: 'Profile', href: '/dashboard/profile', icon: UserCircleIcon, initial: 'P', current: false },
+  { name: 'My Community', href: '/dashboard/mycommunity', icon: BuildingStorefrontIcon, current: false },
+  { name: 'Learning Center', href: '/dashboard/learning', icon: AcademicCapIcon, initial: 'L', current: false },
 ];
 
 function className(...classes) {
@@ -81,10 +74,11 @@ export default function Navigation({ children }) {
   return (
     <>
       <div>
+        
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            className="relative z-49 lg:hidden"
+            className="relative lg:hidden"
             onClose={setSidebarOpen}
           >
             <Transition.Child
@@ -98,7 +92,6 @@ export default function Navigation({ children }) {
             >
               <div className="fixed inset-0 bg-gray-900/80" />
             </Transition.Child>
-
             <div className="fixed inset-0 flex">
               <Transition.Child
                 as={Fragment}
@@ -118,11 +111,11 @@ export default function Navigation({ children }) {
                     leave="ease-in-out duration-300"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
-                  >
+                  >     
                     <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
                       <button
                         type="button"
-                        className="-m-2.5 p-2.5"
+                        className="-m-2.5 p-2.5 -ml-32"
                         onClick={() => setSidebarOpen(false)}
                       >
                         <span className="sr-only">Close sidebar</span>
@@ -134,8 +127,8 @@ export default function Navigation({ children }) {
                     </div>
                   </Transition.Child>
                   {/* Sidebar component */}
-                  <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
-                    <div className="flex h-16 shrink-0 items-center -ml-2 mt-2 -mb-4">
+                  <div className="flex grow z-100 flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
+                    <div className="flex h-16 shrink-0 items-center -ml-1 mt-2 -mb-4">
                       <Image
                         src="/images/logos/vibeverse.png"
                         alt="logo"
@@ -143,7 +136,7 @@ export default function Navigation({ children }) {
                         height={75}
                       />
                     </div>
-                    <nav className="flex flex-1 flex-col">
+                    <nav className="flex flex-1 flex-col mt-2">
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
                         <li>
                           <ul role="list" className="-mx-2 space-y-1">
@@ -171,7 +164,7 @@ export default function Navigation({ children }) {
                         </li>
                         <li>
                           <div className="text-xs font-semibold leading-6 text-gray-400">
-                            Your user
+                            MY VIBE
                           </div>
                           <ul role="list" className="-mx-2 mt-2 space-y-1">
                             {user.map((section) => (
@@ -196,18 +189,6 @@ export default function Navigation({ children }) {
                             ))}
                           </ul>
                         </li>
-                        <li className="mt-auto">
-                          <a
-                            href="#"
-                            className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
-                          >
-                            <Cog6ToothIcon
-                              className="h-6 w-6 shrink-0"
-                              aria-hidden="true"
-                            />
-                            Settings
-                          </a>
-                        </li>
                       </ul>
                     </nav>
                   </div>
@@ -220,9 +201,9 @@ export default function Navigation({ children }) {
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 sm:z-11 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component */}
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 border-r-2 border-fuchsia-900">
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 border-r-2 border-indigo-500/75">
             <div className="flex items-center">
-              <div className="-ml-2 mt-6">
+              <div className="-ml-3.5 mt-6">
                 <Image
                   src="/images/logos/vibeverse.png"
                   alt="logo"
@@ -231,7 +212,7 @@ export default function Navigation({ children }) {
                 />
               </div>
             </div>
-            <nav className="flex flex-1 flex-col z-40">
+            <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <ul role="list" className="-mx-2 space-y-1">
@@ -274,7 +255,11 @@ export default function Navigation({ children }) {
                           )}
                         >
                           <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">
-                            {section.initial}
+                            <section.icon
+                              className="h-3 w-3 shrink-0"
+                              aria-hidden="true"
+                            />
+                                
                           </span>
                           <span className="truncate">{section.name}</span>
                         </a>
@@ -288,10 +273,17 @@ export default function Navigation({ children }) {
         </div>
 
         <div className="lg:pl-72">
-          <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 bg-gray-900 border-b-2 border-fuchsia-900">
+          <div className="sticky top-0 flex h-16 z-40 shrink-0 items-center gap-x-4 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 bg-gray-900 border-b-2 border-indigo-500/75">
+            <Image
+              src="/images/logos/vibe_mobile.png"
+              alt="logo"
+              width={50}
+              height={50}
+              className="lg:hidden -ml-3.5"
+            />
             <button
               type="button"
-              className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
+              className="-m-6 p-2.5 text-gray-700 lg:hidden"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
@@ -304,7 +296,7 @@ export default function Navigation({ children }) {
               aria-hidden="true"
             />
 
-            <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 ">
+            <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 z-1">
               <div className="relative flex flex-1 text-white font-bold py-4 px-4">
                 {/* TODO : add demo button */}
               </div>
@@ -327,7 +319,7 @@ export default function Navigation({ children }) {
                 {/* Profile dropdown */}
 
                 {login ? (
-                  <Nav_User />
+                  <Nav_User/>
                 ) : (
                   <Link href="/login">
                     <button className="button-gradient text-white font-bold py-2 px-4 rounded-3xl">

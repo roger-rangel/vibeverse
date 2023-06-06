@@ -41,24 +41,8 @@ export default function Nav_User() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 xs:-right-4 sm:-right-6 md:right-0 mt-4 pb-20 lg:pr-10 w-screen max-w-3xl origin-top-right rounded-3xl bg-gray-900 py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-          {/* {userNavigation.map((item) => (
-            <Menu.Item key={item.name}>
-              {({ active }) => (
-                <a
-                  href={item.href}
-                  className={[
-                    active ? 'bg-gray-50' : '',
-                    'block px-3 py-1 text-sm leading-6 text-gray-900',
-                  ]}
-                >
-                  {item.name}
-                </a>
-              )}
-            </Menu.Item>
-          ))} */}
-
-          <Menu.Item className="flex relative z-[max] justify-center align-middle">
+        <Menu.Items className="absolute right-0 xs:-right-4 sm:-right-6 md:right-0 mt-4 pb-20 lg:pr-10 w-screen max-w-3xl origin-top-right rounded-3xl bg-gray-900 py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"> 
+          <Menu.Item className="flex relative justify-center align-middle">
             <About />
           </Menu.Item>
         </Menu.Items>

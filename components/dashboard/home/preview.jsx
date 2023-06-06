@@ -10,7 +10,7 @@ export default function Preview() {
     <div>
       <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8">
         <div
-          onClick={() => (window.location.href = 'https://kaiber.ai/')}
+          onClick={() => window.open('https://kaiber.ai/', '_blank')}
           className="group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2"
         >
           <div className="absolute inset-0 flex items-center justify-center bg-black">
@@ -56,9 +56,7 @@ export default function Preview() {
           </div>
         </div>
         <div
-          onClick={() =>
-            (window.location.href = 'https://www.whitemirror.xyz/')
-          }
+          onClick={() => window.open('https://www.whitemirror.xyz/', '_blank')}
           className="group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full"
         >
           <ReactPlayer
