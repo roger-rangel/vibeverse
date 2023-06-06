@@ -2,7 +2,7 @@ use candid::Nat;
 use creators::Creator;
 use ic_cdk::export::Principal;
 use ic_cdk_macros::*;
-use nfts::{Collection, CollectionId, Nft, NftId};
+use nfts::{Collection, CollectionId, Nft};
 
 #[update]
 fn create_collection(
@@ -87,9 +87,9 @@ fn mint_nft(
 }
 
 #[update]
-fn transfer_nft(nft: NftId, receiver: Principal) -> String {
+fn transfer_nft(collection_id: CollectionId, nft_id: Nat, receiver: Principal) -> String {
     let caller = ic_cdk::api::caller();
-    match nfts::nft_transfer(caller, receiver, nft) {
+    match nfts::nft_transfer(caller, receiver, (collection_id, nft_id)) {
         Ok(_) => format!("Collection transfered successfully."),
         Err(e) => format!("Error while transfering the nft: {:?}", e),
     }
