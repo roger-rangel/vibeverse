@@ -13,16 +13,31 @@ type Creator = record {
     "name": text;
 };
 
+type Nft = record {
+    "id": record {nat; nat};
+    "name": text;
+    "description": text;
+    "asset_url": opt text;
+}
+
 service : {
     "create_collection": (text, text, bool, opt nat, opt text) -> (text);
     "update_collection_metadata": (nat, text, text, opt text) -> (text);
     "get_collection": (nat) -> (opt Collection);
     "set_creator_metadata": (text) -> (text);
     "mint_nft": (nat, principal, text, text, opt text) -> (text);
-    "transfer_nft": (nat, principal) -> (text);
+    "transfer_nft": (nat, nat, principal) -> (text);
     "creator_metadata": () -> (opt Creator);
     "collections_created_by": (principal) -> (vec Collection);
     "collections_created_by_caller": () -> (vec Collection);
-    "nfts_of_user": (principal) -> (vec Collection);
+    "nfts_of_user": (principal) -> (vec Nft);
     "collection_count": () -> (nat);
+    "set_collection_fee": (nat64) -> (variant { Ok : null; Err : text });
+    "set_mint_fee": (nat64) -> (variant { Ok : null; Err : text });
+    "set_vibe_token": (principal) -> (variant { Ok : null; Err : text });
+    "set_admin": (principal) -> (variant { Ok : null; Err : text });
+    "collection_fee": () -> (nat64);
+    "mint_fee": () -> (nat64);
+    "vibe_token": () -> (opt principal);
+    "admin": () -> (opt principal);
 }

@@ -1,9 +1,14 @@
 #[cfg(test)]
 mod tests;
 
+pub mod administrative;
+
 use candid::types::number::Nat;
 use ic_cdk::export::{candid::CandidType, Principal};
 use std::{cell::RefCell, collections::BTreeMap};
+
+use ic_cdk::api::call::CallResult;
+use ic_cdk::call;
 
 /// Errors related to the nfts module.
 #[derive(PartialEq, Debug)]
@@ -87,6 +92,9 @@ pub fn create_collection(
     limit: Option<Nat>,
     image_url: Option<String>,
 ) -> CollectionId {
+    // CALL THIS FUNCTION ONCE WE WANT TO CHARGE A FEE
+    // ensure_fee_payment(creator, into_units(crate::administrative::collection_fee())).await?;
+
     let mut id = Nat::from(0);
     COLLECTION_COUNT.with(|count| {
         id = (count.borrow()).clone();
@@ -312,4 +320,59 @@ pub fn nft_transfer(caller: Principal, receiver: Principal, nft_id: NftId) -> Re
 
         Ok(())
     })
+}
+
+#[allow(dead_code)]
+async fn ensure_fee_payment(payer: Principal, required_fee: u128) -> Result<(), &'static str> {
+    let vibe_token = crate::administrative::vibe_token();
+    if vibe_token.is_none() {
+        return Ok(());
+    }
+    let vibe_token = vibe_token.unwrap();
+
+    if required_fee == 0 {
+        return Ok(());
+    }
+
+    let maybe_allowance: CallResult<((Principal, Nat),)> =
+        call(vibe_token, "allowance", (payer,)).await;
+
+    match maybe_allowance {
+        Ok(allowance) => {
+            let allowed_principal = allowance.0 .0;
+            let allowance = allowance.0 .1;
+
+            if allowance < required_fee || allowed_principal == payer {
+                return Err("Fee needs to be payed");
+            }
+
+            let maybe_treasuery = administrative::admin();
+
+            if let Some(treasuery) = maybe_treasuery {
+                // Send vibe tokens to the treasury
+
+                // let transfer_arg = Construct the transfer arg
+
+                let result: CallResult<(Result<Nat, ()>,)> = call(
+                    vibe_token,
+                    "transfer_from",
+                    (payer, treasuery, required_fee),
+                )
+                .await;
+
+                if let Err(_) = result {
+                    return Err("Token transfer failed");
+                }
+            } else {
+                return Err("Treasuery not set");
+            }
+        }
+        Err(_) => return Err("Couldn't get allowance"),
+    }
+
+    Ok(())
+}
+
+pub fn into_units(amount: u64) -> u128 {
+    amount as u128 * 10u64.pow(administrative::VIBE_DECIMALS.into()) as u128
 }

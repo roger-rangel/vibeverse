@@ -2,7 +2,7 @@ use candid::Nat;
 use creators::Creator;
 use ic_cdk::export::Principal;
 use ic_cdk_macros::*;
-use nfts::{Collection, CollectionId, Nft, NftId};
+use nfts::{Collection, CollectionId, Nft};
 
 #[update]
 fn create_collection(
@@ -87,9 +87,9 @@ fn mint_nft(
 }
 
 #[update]
-fn transfer_nft(nft: NftId, receiver: Principal) -> String {
+fn transfer_nft(collection_id: CollectionId, nft_id: Nat, receiver: Principal) -> String {
     let caller = ic_cdk::api::caller();
-    match nfts::nft_transfer(caller, receiver, nft) {
+    match nfts::nft_transfer(caller, receiver, (collection_id, nft_id)) {
         Ok(_) => format!("Collection transfered successfully."),
         Err(e) => format!("Error while transfering the nft: {:?}", e),
     }
@@ -103,4 +103,49 @@ fn nfts_of_user(user: Principal) -> Vec<Nft> {
 #[ic_cdk_macros::query]
 fn collection_count() -> CollectionId {
     nfts::collection_count()
+}
+
+// Administrative functions
+
+#[update]
+fn set_collection_fee(fee: u64) -> Result<(), &'static str> {
+    let caller = ic_cdk::api::caller();
+    nfts::administrative::set_collection_fee(caller, fee)
+}
+
+#[update]
+fn set_mint_fee(fee: u64) -> Result<(), &'static str> {
+    let caller = ic_cdk::api::caller();
+    nfts::administrative::set_mint_fee(caller, fee)
+}
+
+#[update]
+fn set_vibe_token(vibe: Principal) -> Result<(), &'static str> {
+    let caller = ic_cdk::api::caller();
+    nfts::administrative::set_vibe_token(caller, vibe)
+}
+
+#[update]
+fn set_admin(admin: Principal) -> Result<(), &'static str> {
+    nfts::administrative::set_admin(admin)
+}
+
+#[ic_cdk_macros::query]
+fn collection_fee() -> u64 {
+    nfts::administrative::collection_fee()
+}
+
+#[ic_cdk_macros::query]
+fn mint_fee() -> u64 {
+    nfts::administrative::mint_fee()
+}
+
+#[ic_cdk_macros::query]
+fn vibe_token() -> Option<Principal> {
+    nfts::administrative::vibe_token()
+}
+
+#[ic_cdk_macros::query]
+fn admin() -> Option<Principal> {
+    nfts::administrative::admin()
 }
