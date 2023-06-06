@@ -1,6 +1,8 @@
 use ic_cdk::export::Principal;
 use std::cell::RefCell;
 
+pub const VIBE_DECIMALS: u8 = 8u8;
+
 thread_local! {
     static COLLECTION_FEE: RefCell<u64> = RefCell::default();
     static MINT_FEE: RefCell<u64> = RefCell::default();
