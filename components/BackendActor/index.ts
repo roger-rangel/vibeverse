@@ -66,6 +66,7 @@ class BackendActor {
 
   public async getNfts(rawPrincipal: any): Promise<any> {
     console.log("Getting nfts of a user");
+    console.log(rawPrincipal);
 
     const actor = createActor(canisterId, idlFactory);
     const principal = Principal.from(rawPrincipal);

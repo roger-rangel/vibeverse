@@ -169,7 +169,7 @@ export default function Navigation({ children }) {
                           <ul role="list" className="-mx-2 mt-2 space-y-1">
                             {user.map((section) => (
                               <li key={section.name}>
-                                <a
+                                <Link
                                   href={section.href}
                                   className={className(
                                     section.current
@@ -184,7 +184,7 @@ export default function Navigation({ children }) {
                                   <span className="truncate">
                                     {section.name}
                                   </span>
-                                </a>
+                                </Link>
                               </li>
                             ))}
                           </ul>
@@ -245,7 +245,7 @@ export default function Navigation({ children }) {
                   <ul role="list" className="-mx-2 mt-2 space-y-1">
                     {user.map((section) => (
                       <li key={section.name}>
-                        <a
+                        <Link
                           href={section.href}
                           className={className(
                             section.current
@@ -259,10 +259,9 @@ export default function Navigation({ children }) {
                               className="h-3 w-3 shrink-0"
                               aria-hidden="true"
                             />
-                                
                           </span>
                           <span className="truncate">{section.name}</span>
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
