@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import styles from './About.module.scss';
 import { classnames } from 'tailwindcss-classnames';
@@ -7,6 +7,14 @@ import { FiUsers } from 'react-icons/fi';
 import { VscFolderLibrary } from 'react-icons/vsc';
 
 const About = () => {
+  useEffect(async() => { 
+    const actor = new BackendActor();
+    const result = await actor.createCollection(
+      "2vxsx-fae",
+    );
+    alert(result);
+  }, []);
+
   return (
     <section id="about">
       <div className="pt-8 pb-10">

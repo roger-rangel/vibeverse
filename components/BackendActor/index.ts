@@ -63,6 +63,15 @@ class BackendActor {
       [assetUrl],
     );
   }
+
+  public async getNfts(rawPrincipal: any): Promise<any> {
+    console.log("Getting nfts of a user");
+
+    const actor = createActor(canisterId, idlFactory);
+    const principal = Principal.from(rawPrincipal);
+
+    return await actor.nfts_of_user(principal);
+  }
 }
 
 export default BackendActor;
