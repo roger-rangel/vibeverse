@@ -133,12 +133,13 @@ function Login() {
                   Sign in
                 </button>
                 <div className="flex space-x-4">
-                  <button
-                    onClick={() => (window.location.href = '/dashboard')}
-                    className="mt-10 w-full button-guest text-cyan-950 font-bold py-2 rounded-3xl"
-                  >
-                    Continue as Guest
-                  </button>
+                  <Link href="/dashboard">
+                    <button
+                      className="mt-10 w-full button-guest text-cyan-950 font-bold py-2 rounded-3xl"
+                    >
+                      Continue as Guest
+                    </button>
+                  </Link>
                   <button className="mt-10 w-full button-discord text-cyan-950 font-bold py-2 rounded-3xl">
                     Join our Discord
                   </button>
