@@ -12,7 +12,7 @@ import {
   HomeIcon,
   PaintBrushIcon,
   XMarkIcon,
-  UserCircleIcon
+  UserCircleIcon,
 } from '@heroicons/react/24/outline';
 
 import Nav_User from './nav_user';
@@ -24,12 +24,29 @@ const navigation = [
   { name: 'AI Tools', href: '/dashboard/aitools', icon: PaintBrushIcon },
   { name: 'AI Content', href: '/dashboard/aicontent', icon: FilmIcon },
   { name: 'Upload', href: '/dashboard/upload', icon: DocumentDuplicateIcon },
-
 ];
 const user = [
-  { id: 1, name: 'Profile', href: '/dashboard/profile', icon: UserCircleIcon, initial: 'P', current: false },
-  { name: 'My Community', href: '/dashboard/mycommunity', icon: BuildingStorefrontIcon, current: false },
-  { name: 'Learning Center', href: '/dashboard/learning', icon: AcademicCapIcon, initial: 'L', current: false },
+  {
+    id: 1,
+    name: 'Profile',
+    href: '/dashboard/profile',
+    icon: UserCircleIcon,
+    initial: 'P',
+    current: false,
+  },
+  {
+    name: 'My Community',
+    href: '/dashboard/mycommunity',
+    icon: BuildingStorefrontIcon,
+    current: false,
+  },
+  {
+    name: 'Learning Center',
+    href: '/dashboard/learning',
+    icon: AcademicCapIcon,
+    initial: 'L',
+    current: false,
+  },
 ];
 
 function className(...classes) {
@@ -74,7 +91,6 @@ export default function Navigation({ children }) {
   return (
     <>
       <div>
-        
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -111,7 +127,7 @@ export default function Navigation({ children }) {
                     leave="ease-in-out duration-300"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
-                  >     
+                  >
                     <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
                       <button
                         type="button"
@@ -318,7 +334,7 @@ export default function Navigation({ children }) {
                 {/* Profile dropdown */}
 
                 {login ? (
-                  <Nav_User/>
+                  <Nav_User />
                 ) : (
                   <Link href="/login">
                     <button className="button-gradient text-white font-bold py-2 px-4 rounded-3xl">

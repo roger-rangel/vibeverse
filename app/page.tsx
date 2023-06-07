@@ -134,9 +134,7 @@ function Login() {
                 </button>
                 <div className="flex space-x-4">
                   <Link href="/dashboard">
-                    <button
-                      className="mt-10 w-full button-guest text-cyan-950 font-bold py-2 rounded-3xl"
-                    >
+                    <button className="mt-10 w-full button-guest text-cyan-950 font-bold py-2 rounded-3xl">
                       Continue as Guest
                     </button>
                   </Link>
