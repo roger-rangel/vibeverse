@@ -1,5 +1,5 @@
 .about__container {
-  width: var(--container-width-lg);
+  width: var(--container-width-md);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 35% 50%;
@@ -61,6 +61,7 @@
 
 .about__card h5 {
   font-size: 0.95rem;
+  color: var(--color-light);
 }
 
 .about__card small {
@@ -82,6 +83,7 @@
   .about__container {
     grid-template-columns: 1fr;
     gap: 0;
+    
   }
 
   .about__me {
