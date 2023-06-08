@@ -38,6 +38,7 @@ const user = [
     name: 'My Community',
     href: '/dashboard/mycommunity',
     icon: BuildingStorefrontIcon,
+    initial: 'C',
     current: false,
   },
   {

@@ -133,14 +133,12 @@ function Login() {
                   Sign in
                 </button>
                 <div className="flex space-x-4">
-                  <Link href="/dashboard">
-                    <button className="mt-10 w-full button-guest text-cyan-950 font-bold py-2 rounded-3xl">
+                  <Link href="/dashboard" className="mt-10 w-full button-guest flex justify-center text-cyan-950 font-bold py-2 rounded-3xl">
                       Continue as Guest
-                    </button>
                   </Link>
-                  <button className="mt-10 w-full button-discord text-cyan-950 font-bold py-2 rounded-3xl">
-                    Join our Discord
-                  </button>
+                  <Link href="https://discord.gg/HgCafGhHxh" className="mt-10 w-full button-discord flex justify-center text-cyan-950 font-bold py-2 rounded-3xl">
+                      Join Discord
+                  </Link>
                 </div>
               </div>
             </div>
