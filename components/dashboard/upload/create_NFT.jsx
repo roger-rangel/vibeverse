@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import BackendActor from '@/components/BackendActor';
+import Dropdown from '@/components/dashboard/upload/dropdown';
 import { AssetManager } from '@dfinity/assets';
 import { canisterId } from '@/declarations/vibeverse_assets';
 import { HttpAgent } from '@dfinity/agent';
@@ -18,7 +19,7 @@ function CreateNFT({ showCreateNFT }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [collectionId, setCollectionId] = useState('');
+  // const [collectionId, setCollectionId] = useState('');
   const { activeProvider } = useConnect();
 
   const isLocal = !window.location.host.endsWith('ic0.app');
@@ -104,10 +105,10 @@ function CreateNFT({ showCreateNFT }) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-50">
-      <div className="bg-gray-900 rounded-lg overflow-y-auto max-h-[calc(100%-2rem)] p-8 w-full max-w-2xl mx-4 my-8">
+    <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-50 ">
+      <div className="bg-gray-900 rounded-lg overflow-y-auto max-h-[calc(100%-2rem)] p-8 w-full max-w-2xl mx-4 my-8 border border-indigo-600">
         <form onSubmit={handleSubmit}>
-          <div className="space-y-12">
+          <div className="space-y-12 ">
             <div className="border-b border-white/10 pb-12">
               <div className="flex justify-between mb-4 items-center">
                 <h2 className="text-3xl font-semibold leading-7 text-white">
@@ -190,7 +191,7 @@ function CreateNFT({ showCreateNFT }) {
                   </div>
                 </div>
 
-                <div className="border-b border-white/10 pb-12">
+                {/* <div className="border-b border-white/10 pb-12">
                   <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
                       <label
@@ -212,7 +213,8 @@ function CreateNFT({ showCreateNFT }) {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
+                <Dropdown className="block"/>
 
                 <div className="col-span-full">
                   <label

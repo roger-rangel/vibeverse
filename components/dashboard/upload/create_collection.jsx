@@ -101,7 +101,7 @@ function CreateCollection({ showCreateCollection }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-50">
-      <div className="bg-gray-900 rounded-lg overflow-y-auto max-h-[calc(100%-2rem)] p-8 w-full max-w-2xl mx-4 my-8">
+      <div className="bg-gray-900 rounded-lg overflow-y-auto max-h-[calc(100%-2rem)] p-8 w-full max-w-2xl mx-4 my-8 border border-indigo-600">
         <form onSubmit={handleSubmit}>
           <div className="space-y-12">
             <div className="border-b border-white/10 pb-12">

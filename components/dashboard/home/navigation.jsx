@@ -145,7 +145,7 @@ export default function Navigation({ children }) {
                   </Transition.Child>
                   {/* Sidebar component */}
                   <div className="flex grow z-100 flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
-                    <div className="flex h-16 shrink-0 items-center -ml-1 mt-2 -mb-4">
+                    <div className="flex h-16 shrink-0 items-center ml-8 mt-2 -mb-4">
                       <Image
                         src="/images/logos/vibeverse.png"
                         alt="logo"
@@ -220,12 +220,13 @@ export default function Navigation({ children }) {
           {/* Sidebar component */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 border-r-2 border-indigo-500/75">
             <div className="flex items-center">
-              <div className="-ml-3.5 mt-6">
+              <div className="-ml-2 mt-2 -mb-2">
                 <Image
                   src="/images/logos/vibeverse.png"
                   alt="logo"
                   width={150}
                   height={75}
+                  className="w-32 h-auto sm:w-40 md:w-48 lg:w-56"
                 />
               </div>
             </div>
@@ -295,7 +296,7 @@ export default function Navigation({ children }) {
               alt="logo"
               width={50}
               height={50}
-              className="lg:hidden -ml-3.5"
+              className="lg:hidden -ml-2.5"
             />
             <button
               type="button"

@@ -41,7 +41,7 @@ export default function ModalCollection({ showModal, showCreateCollection }) {
         <RadioGroup.Label className="sr-only">
           Collection setting
         </RadioGroup.Label>
-        <div className="-space-y-px rounded-md bg-gray-900 p-8 ">
+        <div className="-space-y-px rounded-md bg-gray-900 p-8 border border-indigo-600">
           <div className="flex justify-between mb-4 items-center">
             <h2 className="text-xl font-semibold text-gray-200">
               Create Collection
