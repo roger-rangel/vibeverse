@@ -2,7 +2,7 @@
 import { createActor, canisterId } from '@/declarations/vibeverse_backend';
 // @ts-ignore
 import { idlFactory } from '@/declarations/vibeverse_backend/vibeverse_backend.did.js';
-import {Principal} from "@dfinity/principal";
+import { Principal } from '@dfinity/principal';
 
 class BackendActor {
   public async createCollection(
@@ -60,9 +60,27 @@ class BackendActor {
       receiver,
       name,
       description,
-      [assetUrl]
+      [assetUrl],
     );
-  } 
+  }
+
+  public async getNfts(rawPrincipal: any): Promise<any> {
+    console.log('Getting nfts of a: ' + rawPrincipal);
+
+    const actor = createActor(canisterId, idlFactory);
+    const principal = Principal.from(rawPrincipal);
+
+    return await actor.nfts_of_user(principal);
+  }
+
+  public async collectionsCreatedBy(rawPrincipal: any): Promise<any> {
+    console.log('Getting collections created by ' + rawPrincipal);
+
+    const actor = createActor(canisterId, idlFactory);
+    const principal = Principal.from(rawPrincipal);
+
+    return await actor.collections_created_by(principal);
+  }
 }
 
 export default BackendActor;

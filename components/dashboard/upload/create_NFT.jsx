@@ -4,10 +4,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import BackendActor from '@/components/BackendActor';
+import Dropdown from '@/components/dashboard/upload/dropdown';
 import { AssetManager } from '@dfinity/assets';
 import { canisterId } from '@/declarations/vibeverse_assets';
 import { HttpAgent } from '@dfinity/agent';
-import {Principal} from "@dfinity/principal";
+import { Principal } from '@dfinity/principal';
 
 import { Connect2ICProvider, useConnect } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
@@ -18,7 +19,7 @@ function CreateNFT({ showCreateNFT }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [collectionId, setCollectionId] = useState('');
+  const [collection, setCollection] = useState({name: "Options", id: -1});
   const { activeProvider } = useConnect();
 
   const isLocal = !window.location.host.endsWith('ic0.app');
@@ -34,15 +35,15 @@ function CreateNFT({ showCreateNFT }) {
     const actor = new BackendActor();
 
     // TODO: don't hardcode the receiver!
-    const receiver = Principal.from("2vxsx-fae");
+    const receiver = Principal.from('2vxsx-fae');
 
     const result = await actor.mintNft(
       activeProvider,
-      collectionId,
+      collection.id,
       receiver,
       name,
       description,
-      imageUrl
+      imageUrl,
     );
 
     alert(result);
@@ -84,13 +85,19 @@ function CreateNFT({ showCreateNFT }) {
   };
 
   const getAssetManager = () => {
+    let principal = '2vxsx-fae';
+    if(activeProvider) {
+      principal = activeProvider.principal;
+    }
+
     console.log('Principal: ');
-    console.log(activeProvider.principal);
+    console.log(principal);
+
     const agent = new HttpAgent({
       host: isLocal
         ? `http://127.0.0.1:${window.location.port}`
         : `https://ic0.app`,
-      principal: activeProvider.principal,
+      principal,
     });
     agent.fetchRootKey();
 
@@ -104,10 +111,10 @@ function CreateNFT({ showCreateNFT }) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-50">
-      <div className="bg-gray-900 rounded-lg overflow-y-auto max-h-[calc(100%-2rem)] p-8 w-full max-w-2xl mx-4 my-8">
+    <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-50 ">
+      <div className="bg-gray-900 rounded-lg overflow-y-auto max-h-[calc(100%-2rem)] p-8 w-full max-w-2xl mx-4 my-8 border border-indigo-600">
         <form onSubmit={handleSubmit}>
-          <div className="space-y-12">
+          <div className="space-y-12 ">
             <div className="border-b border-white/10 pb-12">
               <div className="flex justify-between mb-4 items-center">
                 <h2 className="text-3xl font-semibold leading-7 text-white">
@@ -190,29 +197,7 @@ function CreateNFT({ showCreateNFT }) {
                   </div>
                 </div>
 
-                <div className="border-b border-white/10 pb-12">
-                  <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div className="sm:col-span-3">
-                      <label
-                        htmlFor="collection"
-                        className="block text-sm font-medium leading-6 text-white"
-                      >
-                        CollectionId
-                      </label>
-                      <div className="mt-2">
-                        <input
-                          type="number"
-                          name="collection"
-                          id="collection"
-                          value={collectionId}
-                          onChange={(e) => setCollectionId(e.target.value)}
-                          className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
-                          placeholder="Collection Id"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Dropdown setCollection={setCollection} collection={collection} className="block"/>
 
                 <div className="col-span-full">
                   <label
@@ -268,6 +253,29 @@ function CreateNFT({ showCreateNFT }) {
                       <p className="text-xs leading-5 text-gray-400">
                         PNG, JPG, GIF, 3D Item, or Video
                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-span-full">
+                  <label
+                    htmlFor="username"
+                    className="block text-sm font-medium leading-6 text-white"
+                  >
+                    Receiver:
+                  </label>
+                  <div className="mt-2">
+                    <div className="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+                      <input
+                        type="text"
+                        name="title"
+                        id="title"
+                        autoComplete="title"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
+                        placeholder="wallet ID"
+                      />
                     </div>
                   </div>
                 </div>
