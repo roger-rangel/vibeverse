@@ -6,19 +6,24 @@ import { classnames } from 'tailwindcss-classnames';
 
 import IMG from '@/public/images/items/item_1.png';
 
-export default function Modal_Item({showModal}) {
+export default function Modal_Item({ showModal }) {
   return (
     <>
       <div className="">
-        <article key="1" className="bg-[#262626] p-8 rounded-3xl border border-indigo-600">
-          <h3 className="flex items-center justify-center text-zinc-300 pb-2">NFT</h3>
+        <article
+          key="1"
+          className="bg-[#262626] p-8 rounded-3xl border border-indigo-600"
+        >
+          <h3 className="flex items-center justify-center text-zinc-300 pb-2">
+            NFT
+          </h3>
           <div className={classnames(styles.item__item__image)}>
             <Image src={IMG} alt="item" width="400" height="400" />
           </div>
 
           <div className="sm:col-span-2 pt-4 pb-6">
             <label className="block text-sm font-semibold leading-6 text-white">
-                  Send it to:
+              Send it to:
             </label>
             <div className="mt-2.5">
               <input
@@ -31,8 +36,19 @@ export default function Modal_Item({showModal}) {
             </div>
           </div>
           <div className={classnames(styles.item__item__cta)}>
-            <button className='py-2 px-4 text-white rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]' target='_blank'>Transfer</button>
-            <button onClick={() => showModal(false)} className='py-2 px-4 text-white rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]' target='_blank'>Close</button>
+            <button
+              className="py-2 px-4 text-white rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
+              target="_blank"
+            >
+              Transfer
+            </button>
+            <button
+              onClick={() => showModal(false)}
+              className="py-2 px-4 text-white rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
+              target="_blank"
+            >
+              Close
+            </button>
           </div>
         </article>
       </div>

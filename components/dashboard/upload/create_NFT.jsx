@@ -19,7 +19,7 @@ function CreateNFT({ showCreateNFT }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [collection, setCollection] = useState({name: "Options", id: -1});
+  const [collection, setCollection] = useState({ name: 'Options', id: -1 });
   const { activeProvider } = useConnect();
 
   const isLocal = !window.location.host.endsWith('ic0.app');
@@ -86,7 +86,7 @@ function CreateNFT({ showCreateNFT }) {
 
   const getAssetManager = () => {
     let principal = '2vxsx-fae';
-    if(activeProvider) {
+    if (activeProvider) {
       principal = activeProvider.principal;
     }
 
@@ -197,7 +197,11 @@ function CreateNFT({ showCreateNFT }) {
                   </div>
                 </div>
 
-                <Dropdown setCollection={setCollection} collection={collection} className="block"/>
+                <Dropdown
+                  setCollection={setCollection}
+                  collection={collection}
+                  className="block"
+                />
 
                 <div className="col-span-full">
                   <label
