@@ -19,7 +19,7 @@ function CreateNFT({ showCreateNFT }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  // const [collectionId, setCollectionId] = useState('');
+  const [collection, setCollection] = useState({name: "Options", id: -1});
   const { activeProvider } = useConnect();
 
   const isLocal = !window.location.host.endsWith('ic0.app');
@@ -39,7 +39,7 @@ function CreateNFT({ showCreateNFT }) {
 
     const result = await actor.mintNft(
       activeProvider,
-      collectionId,
+      collection.id,
       receiver,
       name,
       description,
@@ -85,13 +85,19 @@ function CreateNFT({ showCreateNFT }) {
   };
 
   const getAssetManager = () => {
+    let principal = '2vxsx-fae';
+    if(activeProvider) {
+      principal = activeProvider.principal;
+    }
+
     console.log('Principal: ');
-    console.log(activeProvider.principal);
+    console.log(principal);
+
     const agent = new HttpAgent({
       host: isLocal
         ? `http://127.0.0.1:${window.location.port}`
         : `https://ic0.app`,
-      principal: activeProvider.principal,
+      principal,
     });
     agent.fetchRootKey();
 
@@ -191,30 +197,7 @@ function CreateNFT({ showCreateNFT }) {
                   </div>
                 </div>
 
-                {/* <div className="border-b border-white/10 pb-12">
-                  <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div className="sm:col-span-3">
-                      <label
-                        htmlFor="collection"
-                        className="block text-sm font-medium leading-6 text-white"
-                      >
-                        CollectionId
-                      </label>
-                      <div className="mt-2">
-                        <input
-                          type="number"
-                          name="collection"
-                          id="collection"
-                          value={collectionId}
-                          onChange={(e) => setCollectionId(e.target.value)}
-                          className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
-                          placeholder="Collection Id"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
-                <Dropdown className="block"/>
+                <Dropdown setCollection={setCollection} collection={collection} className="block"/>
 
                 <div className="col-span-full">
                   <label

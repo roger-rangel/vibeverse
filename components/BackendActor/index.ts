@@ -65,13 +65,21 @@ class BackendActor {
   }
 
   public async getNfts(rawPrincipal: any): Promise<any> {
-    console.log('Getting nfts of a user');
-    console.log(rawPrincipal);
+    console.log('Getting nfts of a: ' + rawPrincipal);
 
     const actor = createActor(canisterId, idlFactory);
     const principal = Principal.from(rawPrincipal);
 
     return await actor.nfts_of_user(principal);
+  }
+
+  public async collectionsCreatedBy(rawPrincipal: any): Promise<any> {
+    console.log('Getting collections created by ' + rawPrincipal);
+
+    const actor = createActor(canisterId, idlFactory);
+    const principal = Principal.from(rawPrincipal);
+
+    return await actor.collections_created_by(principal);
   }
 }
 

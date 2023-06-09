@@ -1,25 +1,35 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Poppins } from 'next/font/google';
+
+import About from '@/components/dashboard/profile/about/about';
+import Items from '@/components/dashboard/profile/items/items';
+import Modal_Item from '@/components/dashboard/profile/items/modal_item';
+import BackendActor from '@/components/BackendActor';
 
 const poppins = Poppins({
   weight: '300',
   subsets: ['latin'],
 });
 
-import About from '@/components/dashboard/profile/about/about';
-import Items from '@/components/dashboard/profile/items/items';
-import Modal_Item from '@/components/dashboard/profile/items/modal_item';
-
 const ProfilePage = () => {
   const [modal, showModal] = useState(false);
+  const [nfts, setNfts] = useState([]);
+
+  useEffect(() => {
+    const actor = new BackendActor();
+    actor.getNfts('2vxsx-fae').then(result => {
+      console.log(result);
+      setNfts(result);
+    });
+  }, []);
 
   return (
     <>
       <div className={`${poppins.className} bg-[#1f1f38] text-white m-0 p-0 border-none outline-none box-border list-none no-underline scroll-smooth leading-7 profile`}>
         <About />
-        <Items showModal={showModal} />
+        <Items showModal={showModal} nfts={nfts.reverse()} />
       </div>
 
       {modal && (

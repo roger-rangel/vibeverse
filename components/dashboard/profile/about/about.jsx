@@ -1,22 +1,13 @@
-// import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import styles from './About.module.scss';
 import { classnames } from 'tailwindcss-classnames';
 import { FaAward } from 'react-icons/fa';
 import { FiUsers } from 'react-icons/fi';
 import { VscFolderLibrary } from 'react-icons/vsc';
-// import BackendActor from '@/components/BackendActor';
+import Link from 'next/link';
 
 const About = () => {
-  // const [nfts, setNfts] = useState([]);
-
-  // useEffect(async () => {
-  //   const actor = new BackendActor();
-  //   const result = await actor.getNfts('2vxsx-fae');
-  //   console.log(result);
-  //   setNfts(result);
-  // }, []);
-
   return (
     <section id="about">
       <div className="pt-8 pb-10">
@@ -59,24 +50,24 @@ const About = () => {
           </div>
 
           <div className="flex gap-6 justify-center lg:justify-start mt-10 text-base">
-            <a
-              href="#contact"
+            <Link
+              href="#settings"
               className="py-2 px-4 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
             >
               Settings
-            </a>
-            <a
-              href="#contact"
+            </Link>
+            <Link
+              href="/dashboard/upload"
               className="py-2 px-4 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
             >
               Create
-            </a>
-            <a
-              href="#contact"
+            </Link>
+            <Link
+              href="/dashboard"
               className="py-2 px-4 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
             >
               Explore
-            </a>
+            </Link>
           </div>
         </div>
       </div>
