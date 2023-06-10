@@ -19,7 +19,7 @@ function CreateCollection({ showCreateCollection }) {
   const [limit, setLimit] = useState('');
   const { activeProvider } = useConnect();
 
-  const isLocal = !window.location.host.endsWith('ic0.app');
+  const isLocal = !window.location.host.endsWith('icp0.io');
 
   useEffect(() => {
     console.log('');

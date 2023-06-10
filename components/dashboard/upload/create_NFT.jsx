@@ -8,7 +8,6 @@ import Dropdown from '@/components/dashboard/upload/dropdown';
 import { AssetManager } from '@dfinity/assets';
 import { canisterId } from '@/declarations/vibeverse_assets';
 import { HttpAgent } from '@dfinity/agent';
-import { Principal } from '@dfinity/principal';
 
 import { Connect2ICProvider, useConnect } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
@@ -23,7 +22,7 @@ function CreateNFT({ showCreateNFT }) {
   const [receiver, setReceiver] = useState('');
   const { activeProvider } = useConnect();
 
-  const isLocal = !window.location.host.endsWith('ic0.app');
+  const isLocal = !window.location.host.endsWith('icp0.io');
 
   const handleClose = () => {
     showCreateNFT(false);

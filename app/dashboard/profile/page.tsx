@@ -15,6 +15,7 @@ const poppins = Poppins({
 
 const ProfilePage = () => {
   const [modal, showModal] = useState(false);
+  const [selectedNft, setSelectedNft] = useState({});
   const [nfts, setNfts] = useState([]);
 
   useEffect(() => {
@@ -31,12 +32,12 @@ const ProfilePage = () => {
         className={`${poppins.className} bg-[#1f1f38] text-white m-0 p-0 border-none outline-none box-border list-none no-underline scroll-smooth leading-7 profile`}
       >
         <About />
-        <Items showModal={showModal} nfts={nfts.reverse()} />
+        <Items showModal={showModal} setSelectedNft={setSelectedNft} nfts={nfts.reverse()} />
       </div>
 
       {modal && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <Modal_Item showModal={showModal} />
+          <Modal_Item selectedNft={selectedNft} showModal={showModal} />
         </div>
       )}
     </>
