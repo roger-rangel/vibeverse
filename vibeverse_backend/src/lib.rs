@@ -81,7 +81,7 @@ fn mint_nft(
         description,
         asset_url,
     ) {
-        Ok(_) => format!("Collection minted successfully."),
+        Ok(_) => format!("Nft minted successfully."),
         Err(e) => format!("Error while minting nft: {:?}", e),
     }
 }
