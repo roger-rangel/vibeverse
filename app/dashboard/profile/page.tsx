@@ -32,7 +32,11 @@ const ProfilePage = () => {
         className={`${poppins.className} bg-[#1f1f38] text-white m-0 p-0 border-none outline-none box-border list-none no-underline scroll-smooth leading-7 profile`}
       >
         <About />
-        <Items showModal={showModal} setSelectedNft={setSelectedNft} nfts={nfts.reverse()} />
+        <Items
+          showModal={showModal}
+          setSelectedNft={setSelectedNft}
+          nfts={nfts.reverse()}
+        />
       </div>
 
       {modal && (

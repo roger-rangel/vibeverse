@@ -17,8 +17,7 @@ class BackendActor {
     if (!customProvider) {
       actor = createActor(canisterId, idlFactory);
     } else {
-      actor = createActor(canisterId, idlFactory);
-      //actor = (await customProvider.createActor(canisterId, idlFactory)).value;
+      actor = (await customProvider.createActor(canisterId, idlFactory)).value;
     }
 
     const isTranferable = true; // TODO have this passed from the UI.
@@ -51,7 +50,7 @@ class BackendActor {
       actor = createActor(canisterId, idlFactory);
     } else {
       actor = createActor(canisterId, idlFactory);
-      //actor = (await customProvider.createActor(canisterId, idlFactory)).value;
+      actor = (await customProvider.createActor(canisterId, idlFactory)).value;
     }
 
     const receiver = Principal.from(rawReceiver);

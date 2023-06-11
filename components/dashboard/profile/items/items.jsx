@@ -47,7 +47,7 @@ const Item = ({ showModal, nfts, setSelectedNft }) => {
               <div className={classnames(styles.item__item__cta)}>
                 <button
                   onClick={() => {
-                    setSelectedNft({id, asset_url, name, description});
+                    setSelectedNft({ id, asset_url, name, description });
                     showModal(true);
                   }}
                   className="py-2 px-4 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"

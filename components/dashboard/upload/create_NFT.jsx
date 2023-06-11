@@ -306,7 +306,12 @@ function CreateNFT({ showCreateNFT }) {
 }
 
 export default function CreateNFTWrapped({ showCreateNFT }) {
-  const client = createClient({ providers: [new NFID()] });
+  const client = createClient({
+    providers: [new NFID()],
+    globalProviderConfig: {
+      dev: false,
+    },
+  });
 
   useEffect(() => {
     Mixpanel.track('Creating an NFT');

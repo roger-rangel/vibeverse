@@ -18,7 +18,12 @@ export default function Modal_Item({ showModal, selectedNft }) {
             {selectedNft.name}
           </h3>
           <div className={classnames(styles.item__item__image)}>
-            <Image src={selectedNft.asset_url[0] ? selectedNft.asset_url[0] : IMG} alt="item" width="400" height="400" />
+            <Image
+              src={selectedNft.asset_url[0] ? selectedNft.asset_url[0] : IMG}
+              alt="item"
+              width="400"
+              height="400"
+            />
           </div>
 
           <div className="sm:col-span-2 pt-4 pb-6">

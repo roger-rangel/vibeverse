@@ -20,7 +20,7 @@ export const createActor = (canisterId, options = {}) => {
   });*/
   const agent = new HttpAgent({
     host: `https://h5fnl-4iaaa-aaaap-abddq-cai.icp0.io/`,
-    ...options.agentOptions
+    ...options.agentOptions,
   });
 
   if (options.agent && options.agentOptions) {

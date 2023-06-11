@@ -280,7 +280,12 @@ function CreateCollection({ showCreateCollection }) {
 }
 
 export default function CreateCollectionWrapped({ showCreateCollection }) {
-  const client = createClient({ providers: [new NFID()] });
+  const client = createClient({
+    providers: [new NFID()],
+    globalProviderConfig: {
+      dev: false,
+    },
+  });
 
   useEffect(() => {
     Mixpanel.track('Creating a collection');
