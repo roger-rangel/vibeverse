@@ -18,7 +18,7 @@ function CreateCollection({ showCreateCollection }) {
   const [imageUrl, setImageUrl] = useState('');
   const [limit, setLimit] = useState('');
   const [activeProvider, setActiveProvider] = useState(null);
-  const { } = useConnect({
+  const {} = useConnect({
     onConnect: (data) => {
       console.log(data);
       setActiveProvider(data.activeProvider);

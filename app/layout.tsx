@@ -33,9 +33,7 @@ export default function RootLayout({
   return (
     <html className="bg-black">
       <body className="h-full">
-        <Dynamic>
-          {children}
-        </Dynamic>
+        <Dynamic>{children}</Dynamic>
       </body>
     </html>
   );

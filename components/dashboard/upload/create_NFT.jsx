@@ -21,7 +21,7 @@ function CreateNFT({ showCreateNFT }) {
   const [collection, setCollection] = useState({ name: 'Options', id: -1 });
   const [receiver, setReceiver] = useState('');
   const [activeProvider, setActiveProvider] = useState(null);
-  const { } = useConnect({
+  const {} = useConnect({
     onConnect: (data) => {
       console.log(data);
       setActiveProvider(data.activeProvider);
