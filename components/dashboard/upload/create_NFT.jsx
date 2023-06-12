@@ -20,7 +20,13 @@ function CreateNFT({ showCreateNFT }) {
   const [imageUrl, setImageUrl] = useState('');
   const [collection, setCollection] = useState({ name: 'Options', id: -1 });
   const [receiver, setReceiver] = useState('');
-  const { activeProvider } = useConnect();
+  const [activeProvider, setActiveProvider] = useState(null);
+  const { } = useConnect({
+    onConnect: (data) => {
+      console.log(data);
+      setActiveProvider(data.activeProvider);
+    },
+  });
 
   const isLocal = !window.location.host.endsWith('icp0.io');
 

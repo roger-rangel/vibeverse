@@ -13,17 +13,22 @@ function classNames(...classes) {
 
 function Dropdown({ setCollection, collection }) {
   const [collections, setCollections] = useState([]);
-  const { activeProvider } = useConnect();
+  const [activeProvider, setActiveProvider] = useState(null);
+  const { } = useConnect({
+    onConnect: (data) => {
+      console.log(data);
+      setActiveProvider(data.activeProvider);
+    },
+  });
 
-  useEffect(() => {
-    const actor = new BackendActor();
-    console.log(activeProvider);
-    let principal = activeProvider ? activeProvider.principal : '2vxsx-fae';
+  const fetch = async () => {
+      const actor = new BackendActor();
+      console.log(activeProvider);
+      let principal = activeProvider ? activeProvider.principal : '2vxsx-fae';
 
-    actor.collectionsCreatedBy(principal).then((result) => {
+      const result = await actor.collectionsCreatedBy(principal);
       setCollections(result);
-    });
-  }, []);
+  };
 
   console.log(collections);
 
@@ -36,7 +41,7 @@ function Dropdown({ setCollection, collection }) {
         >
           Collection
         </label>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 mt-2 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+        <Menu.Button onClick={fetch} className="inline-flex w-full justify-center gap-x-1.5 mt-2 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
           {collection.name}
           <ChevronDownIcon
             className="-mr-1 h-5 w-5 text-gray-400"

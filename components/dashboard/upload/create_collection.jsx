@@ -17,7 +17,13 @@ function CreateCollection({ showCreateCollection }) {
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [limit, setLimit] = useState('');
-  const { activeProvider } = useConnect();
+  const [activeProvider, setActiveProvider] = useState(null);
+  const { } = useConnect({
+    onConnect: (data) => {
+      console.log(data);
+      setActiveProvider(data.activeProvider);
+    },
+  });
 
   const isLocal = !window.location.host.endsWith('icp0.io');
 

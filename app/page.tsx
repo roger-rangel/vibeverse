@@ -32,13 +32,13 @@ const images2 = [
 ];
 
 function Login() {
-  const { connect, activeProvider } = useConnect({
-    onConnect: () => console.log('hello'),
+  const { connect } = useConnect({
+    onConnect: (data) => console.log(data),
     onDisconnect: () => console.log('bye'),
   });
 
   useEffect(() => {
-    console.log(activeProvider);
+    console.log('');
   }, []);
 
   return (
