@@ -32,7 +32,7 @@ const Item = ({ showModal, nfts }) => {
       <h5 className="text-center text-sm text-gray-200 ">My Items</h5>
       <h2 className="text-xl text-center text-[#4db5ff]">Select One:</h2>
       <div className={classnames(styles.item__container)}>
-        {nfts.map(({ id, asset_url, name, description }) => {
+        {nfts.map(({ id, asset_url, name }) => {
           return (
             <article key={id} className={classnames(styles.item__item)}>
               <div className={classnames(styles.item__item__image)}>
