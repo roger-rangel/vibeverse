@@ -13,7 +13,7 @@ export default function Nav_User() {
       <Menu.Button className="-m-1.5 flex items-center p-1.5">
         <span className="sr-only">Open user menu</span>
         <Image
-          className="h-8 w-8 rounded-full bg-gray-800 border border-slate-300"
+          className="h-8 w-8 rounded-full bg-gray-800"
           src="/images/avatars/avatar_nav_right.png"
           alt=""
           width={50}
