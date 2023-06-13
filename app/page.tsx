@@ -128,7 +128,6 @@ function Login() {
               <div className="mx-8">
                 <button
                   onClick={() => {
-                    //window.indexedDB.deleteDatabase('auth-client-db');
                     connect(new NFID().meta.id);
                   }}
                   className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl"
