@@ -32,14 +32,14 @@ const images2 = [
 ];
 
 function Login() {
+  const { connect } = useConnect({
+    onConnect: (data) => console.log(data),
+    onDisconnect: () => console.log('bye'),
+  });
+
   useEffect(() => {
     console.log('');
   }, []);
-
-  const { connect } = useConnect({
-    onConnect: () => console.log('hello'),
-    onDisconnect: () => console.log('bye'),
-  });
 
   return (
     <div className="h-screen bg-slate-950">
@@ -127,7 +127,9 @@ function Login() {
               </p>
               <div className="mx-8">
                 <button
-                  onClick={() => connect(new NFID().meta.id)}
+                  onClick={() => {
+                    connect(new NFID().meta.id);
+                  }}
                   className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl"
                 >
                   Sign in
@@ -217,7 +219,12 @@ function Login() {
 }
 
 export default function LoginPage() {
-  const client = createClient({ providers: [new NFID()] });
+  const client = createClient({
+    providers: [new NFID()],
+    globalProviderConfig: {
+      dev: false,
+    },
+  });
 
   useEffect(() => {
     Mixpanel.track('Landing page');

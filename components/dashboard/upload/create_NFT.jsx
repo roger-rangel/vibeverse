@@ -8,7 +8,6 @@ import Dropdown from '@/components/dashboard/upload/dropdown';
 import { AssetManager } from '@dfinity/assets';
 import { canisterId } from '@/declarations/vibeverse_assets';
 import { HttpAgent } from '@dfinity/agent';
-import { Principal } from '@dfinity/principal';
 
 import { Connect2ICProvider, useConnect } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
@@ -20,9 +19,16 @@ function CreateNFT({ showCreateNFT }) {
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [collection, setCollection] = useState({ name: 'Options', id: -1 });
-  const { activeProvider } = useConnect();
+  const [receiver, setReceiver] = useState('');
+  const [activeProvider, setActiveProvider] = useState(null);
+  const {} = useConnect({
+    onConnect: (data) => {
+      console.log(data);
+      setActiveProvider(data.activeProvider);
+    },
+  });
 
-  const isLocal = !window.location.host.endsWith('ic0.app');
+  const isLocal = !window.location.host.endsWith('icp0.io');
 
   const handleClose = () => {
     showCreateNFT(false);
@@ -33,9 +39,6 @@ function CreateNFT({ showCreateNFT }) {
     console.log(activeProvider);
     console.log('Minting an NFT');
     const actor = new BackendActor();
-
-    // TODO: don't hardcode the receiver!
-    const receiver = Principal.from('2vxsx-fae');
 
     const result = await actor.mintNft(
       activeProvider,
@@ -275,8 +278,8 @@ function CreateNFT({ showCreateNFT }) {
                         name="title"
                         id="title"
                         autoComplete="title"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={receiver}
+                        onChange={(e) => setReceiver(e.target.value)}
                         className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="wallet ID"
                       />
@@ -309,7 +312,12 @@ function CreateNFT({ showCreateNFT }) {
 }
 
 export default function CreateNFTWrapped({ showCreateNFT }) {
-  const client = createClient({ providers: [new NFID()] });
+  const client = createClient({
+    providers: [new NFID()],
+    globalProviderConfig: {
+      dev: false,
+    },
+  });
 
   useEffect(() => {
     Mixpanel.track('Creating an NFT');

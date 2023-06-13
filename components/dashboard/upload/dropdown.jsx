@@ -3,19 +3,32 @@ import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import BackendActor from '@/components/BackendActor';
 
+import { Connect2ICProvider, useConnect } from '@connect2ic/react';
+import { createClient } from '@connect2ic/core';
+import { NFID } from '@connect2ic/core/providers/nfid';
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Dropdown({ setCollection, collection }) {
+function Dropdown({ setCollection, collection }) {
   const [collections, setCollections] = useState([]);
+  const [activeProvider, setActiveProvider] = useState(null);
+  const {} = useConnect({
+    onConnect: (data) => {
+      console.log(data);
+      setActiveProvider(data.activeProvider);
+    },
+  });
 
-  useEffect(() => {
+  const fetch = async () => {
     const actor = new BackendActor();
-    actor.collectionsCreatedBy('2vxsx-fae').then((result) => {
-      setCollections(result);
-    });
-  }, []);
+    console.log(activeProvider);
+    let principal = activeProvider ? activeProvider.principal : '2vxsx-fae';
+
+    const result = await actor.collectionsCreatedBy(principal);
+    setCollections(result);
+  };
 
   console.log(collections);
 
@@ -28,7 +41,10 @@ export default function Dropdown({ setCollection, collection }) {
         >
           Collection
         </label>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 mt-2 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+        <Menu.Button
+          onClick={fetch}
+          className="inline-flex w-full justify-center gap-x-1.5 mt-2 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+        >
           {collection.name}
           <ChevronDownIcon
             className="-mr-1 h-5 w-5 text-gray-400"
@@ -73,5 +89,24 @@ export default function Dropdown({ setCollection, collection }) {
         </Menu.Items>
       </Transition>
     </Menu>
+  );
+}
+
+export default function DropdownWrapper({ setCollection, collection }) {
+  const client = createClient({
+    providers: [new NFID()],
+    globalProviderConfig: {
+      dev: false,
+    },
+  });
+
+  useEffect(() => {
+    console.log('');
+  }, []);
+
+  return (
+    <Connect2ICProvider client={client}>
+      <Dropdown setCollection={setCollection} collection={collection} />
+    </Connect2ICProvider>
   );
 }

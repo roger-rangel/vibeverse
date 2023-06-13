@@ -15,8 +15,12 @@ export const canisterId =
 
 export const createActor = (canisterId, options = {}) => {
   //const agent = options.agent || new HttpAgent({ ...options.agentOptions });
-  const agent = new HttpAgent({
+  /*const agent = new HttpAgent({
     host: `http://127.0.0.1:4943/?canisterId=ahw5u-keaaa-aaaaa-qaaha-cai&id=aovwi-4maaa-aaaaa-qaagq-cai`,
+  });*/
+  const agent = new HttpAgent({
+    host: `https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io`,
+    ...options.agentOptions,
   });
 
   if (options.agent && options.agentOptions) {

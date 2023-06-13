@@ -17,9 +17,15 @@ function CreateCollection({ showCreateCollection }) {
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [limit, setLimit] = useState('');
-  const { activeProvider } = useConnect();
+  const [activeProvider, setActiveProvider] = useState(null);
+  const {} = useConnect({
+    onConnect: (data) => {
+      console.log(data);
+      setActiveProvider(data.activeProvider);
+    },
+  });
 
-  const isLocal = !window.location.host.endsWith('ic0.app');
+  const isLocal = !window.location.host.endsWith('icp0.io');
 
   useEffect(() => {
     console.log('');
@@ -80,8 +86,14 @@ function CreateCollection({ showCreateCollection }) {
   };
 
   const getAssetManager = () => {
+    let principal = '2vxsx-fae';
+    if (activeProvider) {
+      principal = activeProvider.principal;
+    }
+
     console.log('Principal: ');
-    console.log(activeProvider.principal);
+    console.log(principal);
+
     const agent = new HttpAgent({
       host: isLocal
         ? `http://127.0.0.1:${window.location.port}`
@@ -280,7 +292,12 @@ function CreateCollection({ showCreateCollection }) {
 }
 
 export default function CreateCollectionWrapped({ showCreateCollection }) {
-  const client = createClient({ providers: [new NFID()] });
+  const client = createClient({
+    providers: [new NFID()],
+    globalProviderConfig: {
+      dev: false,
+    },
+  });
 
   useEffect(() => {
     Mixpanel.track('Creating a collection');
