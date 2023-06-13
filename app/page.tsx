@@ -9,6 +9,7 @@ import { Connect2ICProvider } from '@connect2ic/react';
 import { useConnect } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
 import { NFID } from '@connect2ic/core/providers/nfid';
+import {AuthClient} from "@dfinity/auth-client";
 
 const images1 = [
   '/images/imageSlider/1/planets.png',
@@ -38,7 +39,9 @@ function Login() {
   });
 
   useEffect(() => {
-    console.log('');
+    AuthClient.create().then((authClient) => {
+      console.log(authClient.getIdentity());
+    });
   }, []);
 
   return (
