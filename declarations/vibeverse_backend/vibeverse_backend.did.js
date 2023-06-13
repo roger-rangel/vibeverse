@@ -19,7 +19,9 @@ export const idlFactory = ({ IDL }) => {
     asset_url: IDL.Opt(IDL.Text),
   });
   return IDL.Service({
+    admin: IDL.Func([], [IDL.Opt(IDL.Principal)], []),
     collection_count: IDL.Func([], [IDL.Nat], []),
+    collection_fee: IDL.Func([], [IDL.Nat64], []),
     collections_created_by: IDL.Func(
       [IDL.Principal],
       [IDL.Vec(Collection)],
@@ -33,19 +35,41 @@ export const idlFactory = ({ IDL }) => {
     ),
     creator_metadata: IDL.Func([], [IDL.Opt(Creator)], []),
     get_collection: IDL.Func([IDL.Nat], [IDL.Opt(Collection)], []),
+    mint_fee: IDL.Func([], [IDL.Nat64], []),
     mint_nft: IDL.Func(
       [IDL.Nat, IDL.Principal, IDL.Text, IDL.Text, IDL.Opt(IDL.Text)],
       [IDL.Text],
       [],
     ),
     nfts_of_user: IDL.Func([IDL.Principal], [IDL.Vec(Nft)], []),
+    set_admin: IDL.Func(
+      [IDL.Principal],
+      [IDL.Variant({ Ok: IDL.Null, Err: IDL.Text })],
+      [],
+    ),
+    set_collection_fee: IDL.Func(
+      [IDL.Nat64],
+      [IDL.Variant({ Ok: IDL.Null, Err: IDL.Text })],
+      [],
+    ),
     set_creator_metadata: IDL.Func([IDL.Text], [IDL.Text], []),
+    set_mint_fee: IDL.Func(
+      [IDL.Nat64],
+      [IDL.Variant({ Ok: IDL.Null, Err: IDL.Text })],
+      [],
+    ),
+    set_vibe_token: IDL.Func(
+      [IDL.Principal],
+      [IDL.Variant({ Ok: IDL.Null, Err: IDL.Text })],
+      [],
+    ),
     transfer_nft: IDL.Func([IDL.Nat, IDL.Nat, IDL.Principal], [IDL.Text], []),
     update_collection_metadata: IDL.Func(
       [IDL.Nat, IDL.Text, IDL.Text, IDL.Opt(IDL.Text)],
       [IDL.Text],
       [],
     ),
+    vibe_token: IDL.Func([], [IDL.Opt(IDL.Principal)], []),
   });
 };
 export const init = ({ IDL }) => {

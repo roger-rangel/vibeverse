@@ -86,8 +86,14 @@ function CreateCollection({ showCreateCollection }) {
   };
 
   const getAssetManager = () => {
+    let principal = '2vxsx-fae';
+    if (activeProvider) {
+      principal = activeProvider.principal;
+    }
+
     console.log('Principal: ');
-    console.log(activeProvider.principal);
+    console.log(principal);
+
     const agent = new HttpAgent({
       host: isLocal
         ? `http://127.0.0.1:${window.location.port}`
