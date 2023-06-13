@@ -3,7 +3,7 @@ import { createActor, canisterId } from '@/declarations/vibeverse_backend';
 // @ts-ignore
 import { idlFactory } from '@/declarations/vibeverse_backend/vibeverse_backend.did.js';
 import { Principal } from '@dfinity/principal';
-import {Actor, HttpAgent} from "@dfinity/agent";
+import { Actor, HttpAgent } from '@dfinity/agent';
 
 class BackendActor {
   public async createCollection(
@@ -18,8 +18,8 @@ class BackendActor {
     if (!identity) {
       actor = createActor(canisterId, idlFactory);
     } else {
-      console.log("Creating a custom actor");
-      const agent = new HttpAgent({identity});
+      console.log('Creating a custom actor');
+      const agent = new HttpAgent({ identity });
       actor = Actor.createActor(idlFactory, {
         canisterId,
         agent,

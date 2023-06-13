@@ -9,7 +9,7 @@ import { Connect2ICProvider } from '@connect2ic/react';
 import { useConnect } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
 import { NFID } from '@connect2ic/core/providers/nfid';
-import {AuthClient} from "@dfinity/auth-client";
+import { AuthClient } from '@dfinity/auth-client';
 
 const images1 = [
   '/images/imageSlider/1/planets.png',
@@ -38,7 +38,7 @@ function Login() {
   const { connect } = useConnect({
     onConnect: (data) => {
       setSignedIn(true);
-      console.log(data)
+      console.log(data);
     },
     onDisconnect: () => console.log('bye'),
   });
@@ -134,7 +134,7 @@ function Login() {
                 Industry and beyond.
               </p>
               <div className="mx-8">
-                {signedIn?  
+                {signedIn ? (
                   <div className="flex space-x-4">
                     <Link
                       href="/dashboard"
@@ -149,7 +149,7 @@ function Login() {
                       Join Discord
                     </Link>
                   </div>
-                  :
+                ) : (
                   <>
                     <button
                       onClick={() => {
@@ -174,7 +174,7 @@ function Login() {
                       </Link>
                     </div>
                   </>
-                }
+                )}
               </div>
             </div>
             <div>

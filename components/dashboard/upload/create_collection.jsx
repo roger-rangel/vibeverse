@@ -12,7 +12,7 @@ import { createClient } from '@connect2ic/core';
 import { NFID } from '@connect2ic/core/providers/nfid';
 import { Mixpanel } from '@/components/Mixpanel';
 
-import {AuthClient} from "@dfinity/auth-client";
+import { AuthClient } from '@dfinity/auth-client';
 
 function CreateCollection({ showCreateCollection }) {
   const [name, setName] = useState('');
