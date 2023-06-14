@@ -36,12 +36,15 @@ function CreateNFT({ showCreateNFT }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(activeProvider);
     console.log('Minting an NFT');
+
+    const authClient = await AuthClient.create();
+    const identity = authClient.getIdentity();
+
     const actor = new BackendActor();
 
     const result = await actor.mintNft(
-      activeProvider,
+      identity,
       collection.id,
       receiver,
       name,

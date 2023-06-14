@@ -135,20 +135,32 @@ function Login() {
               </p>
               <div className="mx-8">
                 {signedIn ? (
-                  <div className="flex space-x-4">
-                    <Link
-                      href="/dashboard"
-                      className="mt-10 w-full button-guest flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
+                  <>
+                    <div className="flex space-x-4">
+                      <Link
+                        href="/dashboard"
+                        className="mt-10 w-full button-guest flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
+                      >
+                        Go to the dashboard
+                      </Link>
+                      <Link
+                        href="https://discord.gg/HgCafGhHxh"
+                        className="mt-10 w-full button-discord flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
+                      >
+                        Join Discord
+                      </Link>
+                    </div>
+                    <button
+                      onClick={() => {
+                        window.indexedDB.deleteDatabase('auth-client-db');
+                        window.localStorage.clear();
+                        window.location.reload();
+                      }}
+                      className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl"
                     >
-                      Go to the dashboard
-                    </Link>
-                    <Link
-                      href="https://discord.gg/HgCafGhHxh"
-                      className="mt-10 w-full button-discord flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
-                    >
-                      Join Discord
-                    </Link>
-                  </div>
+                      Logout
+                    </button>
+                  </>
                 ) : (
                   <>
                     <button

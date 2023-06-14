@@ -13,18 +13,15 @@ class BackendActor {
     coverPhoto: string,
     maybeLimit: number | null,
   ): Promise<any> {
-    let actor;
     console.log(identity);
-    if (!identity) {
-      actor = createActor(canisterId, idlFactory);
-    } else {
-      console.log('Creating a custom actor');
-      const agent = new HttpAgent({ identity });
-      actor = Actor.createActor(idlFactory, {
-        canisterId,
-        agent,
-      });
-    }
+
+    const agent = new HttpAgent({ identity });
+
+    let actor = Actor.createActor(idlFactory, {
+      canisterId,
+      agent,
+    });
+
     console.log(actor);
 
     const isTranferable = true; // TODO have this passed from the UI.
@@ -44,21 +41,21 @@ class BackendActor {
   }
 
   public async mintNft(
-    customProvider: any,
+    identity: any,
     collectionId: number,
     rawReceiver: string,
     name: string,
     description: string,
     assetUrl: string,
   ): Promise<any> {
-    let actor;
-    console.log(customProvider);
-    if (!customProvider) {
-      actor = createActor(canisterId, idlFactory);
-    } else {
-      actor = createActor(canisterId, idlFactory);
-      actor = (await customProvider.createActor(canisterId, idlFactory)).value;
-    }
+    console.log(identity);
+
+    const agent = new HttpAgent({ identity });
+
+    let actor = Actor.createActor(idlFactory, {
+      canisterId,
+      agent,
+    });
 
     const receiver = Principal.from(rawReceiver);
     return await actor.mint_nft(
