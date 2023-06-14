@@ -3,11 +3,11 @@ import { createActor, canisterId } from '@/declarations/vibeverse_backend';
 // @ts-ignore
 import { idlFactory } from '@/declarations/vibeverse_backend/vibeverse_backend.did.js';
 import { Principal } from '@dfinity/principal';
-import { Actor, HttpAgent } from '@dfinity/agent';
+import { Actor, HttpAgent, Identity } from '@dfinity/agent';
 
 class BackendActor {
   public async createCollection(
-    identity: any,
+    identity: Identity,
     name: string,
     description: string,
     coverPhoto: string,
@@ -15,14 +15,7 @@ class BackendActor {
   ): Promise<any> {
     console.log(identity);
 
-    const agent = new HttpAgent({ identity });
-
-    let actor = Actor.createActor(idlFactory, {
-      canisterId,
-      agent,
-    });
-
-    console.log(actor);
+    const actor = this.createActor(identity);
 
     const isTranferable = true; // TODO have this passed from the UI.
 
@@ -41,7 +34,7 @@ class BackendActor {
   }
 
   public async mintNft(
-    identity: any,
+    identity: Identity,
     collectionId: number,
     rawReceiver: string,
     name: string,
@@ -50,12 +43,7 @@ class BackendActor {
   ): Promise<any> {
     console.log(identity);
 
-    const agent = new HttpAgent({ identity });
-
-    let actor = Actor.createActor(idlFactory, {
-      canisterId,
-      agent,
-    });
+    const actor = this.createActor(identity);
 
     const receiver = Principal.from(rawReceiver);
     return await actor.mint_nft(
@@ -67,13 +55,12 @@ class BackendActor {
     );
   }
 
-  public async getNfts(rawPrincipal: any): Promise<any> {
-    console.log('Getting nfts of a: ' + rawPrincipal);
+  public async getNfts(identity: Identity): Promise<any> {
+    console.log('Getting nfts');
 
-    const actor = createActor(canisterId, idlFactory);
-    const principal = Principal.from(rawPrincipal);
+    const actor = this.createActor(identity);
 
-    return await actor.nfts_of_user(principal);
+    return await actor.nfts_of_caller();
   }
 
   public async collectionsCreatedBy(rawPrincipal: any): Promise<any> {
@@ -83,6 +70,17 @@ class BackendActor {
     const principal = Principal.from(rawPrincipal);
 
     return await actor.collections_created_by(principal);
+  }
+
+  createActor(identity: Identity): any {
+    const agent = new HttpAgent({ identity });
+
+    let actor = Actor.createActor(idlFactory, {
+      canisterId,
+      agent,
+    });
+
+    return actor;
   }
 }
 
