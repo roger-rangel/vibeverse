@@ -107,6 +107,11 @@ fn nfts_of_caller() -> Vec<Nft> {
 }
 
 #[ic_cdk_macros::query]
+fn all_nfts() -> Vec<Nft> {
+    nfts::all_nfts()
+}
+
+#[ic_cdk_macros::query]
 fn collection_count() -> CollectionId {
     nfts::collection_count()
 }

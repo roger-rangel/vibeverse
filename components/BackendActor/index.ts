@@ -75,7 +75,7 @@ class BackendActor {
   createActor(identity: Identity): any {
     const agent = new HttpAgent({ identity });
 
-    let actor = Actor.createActor(idlFactory, {
+    const actor = Actor.createActor(idlFactory, {
       canisterId,
       agent,
     });

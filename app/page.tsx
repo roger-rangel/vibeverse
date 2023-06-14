@@ -44,7 +44,7 @@ function Login() {
   });
 
   useEffect(() => {
-    AuthClient.create().then((authClient) => {
+    AuthClient.create().then((authClient: any) => {
       console.log(authClient.getIdentity());
     });
   }, []);
