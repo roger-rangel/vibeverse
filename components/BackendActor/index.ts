@@ -72,7 +72,25 @@ class BackendActor {
     return await actor.collections_created_by(principal);
   }
 
-  createActor(identity: Identity): any {
+  public async transferNft(
+    identity: any,
+    collectionId: number,
+    nftId: number,
+    rawReceiver: number,
+  ): Promise<any> {
+    console.log(identity);
+
+    const actor = this.createActor(identity);
+
+    const receiver = Principal.from(rawReceiver);
+    return await actor.transfer_nft(
+      BigInt(collectionId),
+      BigInt(nftId),
+      receiver,
+    );
+  }
+
+  private createActor(identity: Identity): any {
     const agent = new HttpAgent({ identity });
 
     const actor = Actor.createActor(idlFactory, {

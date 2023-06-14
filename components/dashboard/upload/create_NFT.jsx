@@ -13,7 +13,7 @@ import { Connect2ICProvider, useConnect } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
 import { NFID } from '@connect2ic/core/providers/nfid';
 import { Mixpanel } from '@/components/Mixpanel';
-import { AuthClient } from "@dfinity/auth-client";
+import { AuthClient } from '@dfinity/auth-client';
 
 function CreateNFT({ showCreateNFT }) {
   const [name, setName] = useState('');
@@ -72,7 +72,7 @@ function CreateNFT({ showCreateNFT }) {
     const assetManager = getAssetManager();
     const file = e.target.files[0];
 
-    const fileName = 'collection-' + Date.now() + "." + file.type.split('/')[1];
+    const fileName = 'collection-' + Date.now() + '.' + file.type.split('/')[1];
     const blob = file.slice(0, file.size, 'image/*');
 
     const renamedFile = new File([blob], fileName, { type: 'image/*' });
