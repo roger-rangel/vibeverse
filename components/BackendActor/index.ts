@@ -3,23 +3,19 @@ import { createActor, canisterId } from '@/declarations/vibeverse_backend';
 // @ts-ignore
 import { idlFactory } from '@/declarations/vibeverse_backend/vibeverse_backend.did.js';
 import { Principal } from '@dfinity/principal';
+import { Actor, HttpAgent, Identity } from '@dfinity/agent';
 
 class BackendActor {
   public async createCollection(
-    customProvider: any,
+    identity: Identity,
     name: string,
     description: string,
     coverPhoto: string,
     maybeLimit: number | null,
   ): Promise<any> {
-    let actor;
-    console.log(customProvider);
-    if (!customProvider) {
-      actor = createActor(canisterId, idlFactory);
-    } else {
-      actor = (await customProvider.createActor(canisterId, idlFactory)).value;
-    }
-    console.log(actor);
+    console.log(identity);
+
+    const actor = this.createActor(identity);
 
     const isTranferable = true; // TODO have this passed from the UI.
 
@@ -38,21 +34,16 @@ class BackendActor {
   }
 
   public async mintNft(
-    customProvider: any,
+    identity: Identity,
     collectionId: number,
     rawReceiver: string,
     name: string,
     description: string,
     assetUrl: string,
   ): Promise<any> {
-    let actor;
-    console.log(customProvider);
-    if (!customProvider) {
-      actor = createActor(canisterId, idlFactory);
-    } else {
-      actor = createActor(canisterId, idlFactory);
-      actor = (await customProvider.createActor(canisterId, idlFactory)).value;
-    }
+    console.log(identity);
+
+    const actor = this.createActor(identity);
 
     const receiver = Principal.from(rawReceiver);
     return await actor.mint_nft(
@@ -64,13 +55,12 @@ class BackendActor {
     );
   }
 
-  public async getNfts(rawPrincipal: any): Promise<any> {
-    console.log('Getting nfts of a: ' + rawPrincipal);
+  public async getNfts(identity: Identity): Promise<any> {
+    console.log('Getting nfts');
 
-    const actor = createActor(canisterId, idlFactory);
-    const principal = Principal.from(rawPrincipal);
+    const actor = this.createActor(identity);
 
-    return await actor.nfts_of_user(principal);
+    return await actor.nfts_of_caller();
   }
 
   public async collectionsCreatedBy(rawPrincipal: any): Promise<any> {
@@ -80,6 +70,35 @@ class BackendActor {
     const principal = Principal.from(rawPrincipal);
 
     return await actor.collections_created_by(principal);
+  }
+
+  public async transferNft(
+    identity: any,
+    collectionId: number,
+    nftId: number,
+    rawReceiver: number,
+  ): Promise<any> {
+    console.log(identity);
+
+    const actor = this.createActor(identity);
+
+    const receiver = Principal.from(rawReceiver);
+    return await actor.transfer_nft(
+      BigInt(collectionId),
+      BigInt(nftId),
+      receiver,
+    );
+  }
+
+  private createActor(identity: Identity): any {
+    const agent = new HttpAgent({ identity });
+
+    const actor = Actor.createActor(idlFactory, {
+      canisterId,
+      agent,
+    });
+
+    return actor;
   }
 }
 

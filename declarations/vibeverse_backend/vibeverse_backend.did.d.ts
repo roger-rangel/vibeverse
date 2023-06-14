@@ -22,6 +22,7 @@ export interface Nft {
 }
 export interface _SERVICE {
   admin: ActorMethod<[], [] | [Principal]>;
+  all_nfts: ActorMethod<[], Array<Nft>>;
   collection_count: ActorMethod<[], bigint>;
   collection_fee: ActorMethod<[], bigint>;
   collections_created_by: ActorMethod<[Principal], Array<Collection>>;
@@ -37,6 +38,7 @@ export interface _SERVICE {
     [bigint, Principal, string, string, [] | [string]],
     string
   >;
+  nfts_of_caller: ActorMethod<[], Array<Nft>>;
   nfts_of_user: ActorMethod<[Principal], Array<Nft>>;
   set_admin: ActorMethod<[Principal], { Ok: null } | { Err: string }>;
   set_collection_fee: ActorMethod<[bigint], { Ok: null } | { Err: string }>;

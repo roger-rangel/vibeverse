@@ -7,6 +7,7 @@ import About from '@/components/dashboard/profile/about/about';
 import Items from '@/components/dashboard/profile/items/items';
 import Modal_Item from '@/components/dashboard/profile/items/modal_item';
 import BackendActor from '@/components/BackendActor';
+import { AuthClient } from '@dfinity/auth-client';
 
 const poppins = Poppins({
   weight: '300',
@@ -19,10 +20,15 @@ const ProfilePage = () => {
   const [nfts, setNfts] = useState([]);
 
   useEffect(() => {
-    const actor = new BackendActor();
-    actor.getNfts('2vxsx-fae').then((result) => {
-      console.log(result);
-      setNfts(result);
+    AuthClient.create().then((authClient) => {
+      const identity = authClient.getIdentity();
+
+      const actor = new BackendActor();
+
+      actor.getNfts(identity).then((result) => {
+        console.log(result);
+        setNfts(result);
+      });
     });
   }, []);
 

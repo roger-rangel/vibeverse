@@ -101,6 +101,17 @@ fn nfts_of_user(user: Principal) -> Vec<Nft> {
 }
 
 #[ic_cdk_macros::query]
+fn nfts_of_caller() -> Vec<Nft> {
+    let caller = ic_cdk::api::caller();
+    nfts::nfts_of_user(caller)
+}
+
+#[ic_cdk_macros::query]
+fn all_nfts() -> Vec<Nft> {
+    nfts::all_nfts()
+}
+
+#[ic_cdk_macros::query]
 fn collection_count() -> CollectionId {
     nfts::collection_count()
 }

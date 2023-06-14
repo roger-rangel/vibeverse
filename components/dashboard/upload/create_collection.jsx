@@ -12,6 +12,8 @@ import { createClient } from '@connect2ic/core';
 import { NFID } from '@connect2ic/core/providers/nfid';
 import { Mixpanel } from '@/components/Mixpanel';
 
+import { AuthClient } from '@dfinity/auth-client';
+
 function CreateCollection({ showCreateCollection }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -37,11 +39,14 @@ function CreateCollection({ showCreateCollection }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(activeProvider);
     console.log('Creating a collection');
+
+    const authClient = await AuthClient.create();
+    const identity = authClient.getIdentity();
+
     const actor = new BackendActor();
     const result = await actor.createCollection(
-      activeProvider,
+      identity,
       name,
       description,
       imageUrl,

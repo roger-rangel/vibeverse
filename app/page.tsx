@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Mixpanel } from '@/components/Mixpanel';
@@ -9,6 +9,7 @@ import { Connect2ICProvider } from '@connect2ic/react';
 import { useConnect } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
 import { NFID } from '@connect2ic/core/providers/nfid';
+import { AuthClient } from '@dfinity/auth-client';
 
 const images1 = [
   '/images/imageSlider/1/planets.png',
@@ -32,13 +33,20 @@ const images2 = [
 ];
 
 function Login() {
+  const [signedIn, setSignedIn] = useState(false);
+
   const { connect } = useConnect({
-    onConnect: (data) => console.log(data),
+    onConnect: (data) => {
+      setSignedIn(true);
+      console.log(data);
+    },
     onDisconnect: () => console.log('bye'),
   });
 
   useEffect(() => {
-    console.log('');
+    AuthClient.create().then((authClient: any) => {
+      console.log(authClient.getIdentity());
+    });
   }, []);
 
   return (
@@ -126,28 +134,59 @@ function Login() {
                 Industry and beyond.
               </p>
               <div className="mx-8">
-                <button
-                  onClick={() => {
-                    connect(new NFID().meta.id);
-                  }}
-                  className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl"
-                >
-                  Sign in
-                </button>
-                <div className="flex space-x-4">
-                  <Link
-                    href="/dashboard"
-                    className="mt-10 w-full button-guest flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
-                  >
-                    Continue as Guest
-                  </Link>
-                  <Link
-                    href="https://discord.gg/HgCafGhHxh"
-                    className="mt-10 w-full button-discord flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
-                  >
-                    Join Discord
-                  </Link>
-                </div>
+                {signedIn ? (
+                  <>
+                    <div className="flex space-x-4">
+                      <Link
+                        href="/dashboard"
+                        className="mt-10 w-full button-guest flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
+                      >
+                        Go to the dashboard
+                      </Link>
+                      <Link
+                        href="https://discord.gg/HgCafGhHxh"
+                        className="mt-10 w-full button-discord flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
+                      >
+                        Join Discord
+                      </Link>
+                    </div>
+                    <button
+                      onClick={() => {
+                        window.indexedDB.deleteDatabase('auth-client-db');
+                        window.localStorage.clear();
+                        window.location.reload();
+                      }}
+                      className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => {
+                        connect(new NFID().meta.id);
+                      }}
+                      className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl"
+                    >
+                      Sign in
+                    </button>
+                    <div className="flex space-x-4">
+                      <Link
+                        href="/dashboard"
+                        className="mt-10 w-full button-guest flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
+                      >
+                        Continue as Guest
+                      </Link>
+                      <Link
+                        href="https://discord.gg/HgCafGhHxh"
+                        className="mt-10 w-full button-discord flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
+                      >
+                        Join Discord
+                      </Link>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
             <div>
