@@ -3,6 +3,8 @@ import { PhotoIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import Mint_Option from './mint_option.jsx';
+
 import BackendActor from '@/components/BackendActor';
 import Dropdown from '@/components/dashboard/upload/dropdown';
 import { AssetManager } from '@dfinity/assets';
@@ -259,29 +261,19 @@ function CreateNFT({ showCreateNFT }) {
                       </p>
                     </div>
                   </div>
-                </div>
-
-                <div className="col-span-full">
-                  <label
-                    htmlFor="username"
-                    className="block text-sm font-medium leading-6 text-white"
-                  >
-                    Receiver:
-                  </label>
-                  <div className="mt-2">
-                    <div className="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                      <input
-                        type="text"
-                        name="title"
-                        id="title"
-                        autoComplete="title"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
-                        placeholder="wallet ID"
-                      />
-                    </div>
-                  </div>
+                </div>           
+              </div>
+              <div className="flex flex-col">
+                <Mint_Option />
+                <div className="mt-4">
+                  <input
+                    type="text"
+                    name="wallet_receiver"
+                    id="wallet_receiver"
+                    placeholder="who will receive the NFT? put their wallet ID here :)"
+                    autoComplete="given-name"
+                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                  />
                 </div>
               </div>
             </div>
