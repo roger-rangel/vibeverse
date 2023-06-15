@@ -1,5 +1,7 @@
 'use client';
 
+import Img_Option from './img_option.jsx';
+
 import { useState, useEffect } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import BackendActor from '@/components/BackendActor';
@@ -189,9 +191,10 @@ function CreateCollection({ showCreateCollection }) {
                 </div>
 
                 <div className="col-span-full">
+                  <Img_Option />
                   <label
                     htmlFor="cover-photo"
-                    className="block text-sm font-medium leading-6 text-white"
+                    className="block mt-4 text-sm font-medium leading-6 text-white"
                   >
                     Cover photo
                   </label>
@@ -221,6 +224,16 @@ function CreateCollection({ showCreateCollection }) {
                         PNG, JPG, GIF up to 10MB
                       </p>
                     </div>
+                  </div>
+                  <div className="mt-4">
+                    <input
+                      type="text"
+                      name="existing_url"
+                      id="existing_url"
+                      placeholder="add link to your asset here :)"
+                      autoComplete="given-name"
+                      className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    />
                   </div>
                 </div>
               </div>

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import Mint_Option from './mint_option.jsx';
+import Img_Option from './img_option.jsx';
 
 import BackendActor from '@/components/BackendActor';
 import Dropdown from '@/components/dashboard/upload/dropdown';
@@ -227,10 +228,12 @@ function CreateNFT({ showCreateNFT }) {
                   </p>
                 </div>
 
+                
                 <div className="col-span-full">
+                  <Img_Option />
                   <label
                     htmlFor="cover-photo"
-                    className="block text-sm font-medium leading-6 text-white"
+                    className="block mt-4 text-sm font-medium leading-6 text-white"
                   >
                     Attach Asset
                   </label>
@@ -261,7 +264,18 @@ function CreateNFT({ showCreateNFT }) {
                       </p>
                     </div>
                   </div>
-                </div>           
+                  <div className="mt-4">
+                    <input
+                      type="text"
+                      name="existing_url"
+                      id="existing_url"
+                      placeholder="add link to your asset here :)"
+                      autoComplete="given-name"
+                      className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+                
               </div>
               <div className="flex flex-col">
                 <Mint_Option />
