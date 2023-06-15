@@ -5,7 +5,7 @@ export default function Sign() {
   return (
     <div className="h-full pt-4">
       
-      <div className="mx-auto py-6 sm:px-0 sm:py-6 lg:max-w-7xl ">
+      <div className="mx-auto py-6 sm:px-0 sm:py-6">
         <div className="bg-gradient-to-r from-[#ee9ca7] to-[#ffdde1] p-1 rounded-lg">
           <div className="relative overflow-hidden rounded-lg lg:h-96 ">
             <div className="absolute inset-0">

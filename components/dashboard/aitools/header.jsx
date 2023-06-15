@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 
@@ -38,6 +39,14 @@ export default function Example() {
             width={200}
             height={200}
           />
+        </div>
+        <div className="flex items-end justify-center">
+          <Link
+            href="/dashboard/learning"
+            className="flex items-center justify-center w-3/4 mb-4 rounded-md border border-white border-opacity-25 bg-white bg-opacity-0 px-4 py-3 text-base font-medium text-white hover:bg-opacity-10"
+          >
+              Learning Center
+          </Link>
         </div>
       </div>
       <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
@@ -107,6 +116,15 @@ export default function Example() {
             width={200}
             height={200}
           />
+
+        </div>
+        <div className="flex items-end justify-center">
+          <Link
+            href="/dashboard/aicontent"
+            className="flex items-center justify-center w-3/4 mb-4 rounded-md border border-white border-opacity-25 bg-white bg-opacity-0 px-4 py-3 text-base font-medium text-white hover:bg-opacity-10"
+          >
+              Become an AI Artist
+          </Link>
         </div>
       </div>
     </div>
