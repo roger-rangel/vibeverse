@@ -71,45 +71,31 @@ function Login() {
               2
             </p>
           </Link>
-          <Link href="/dashboard/aitools/list">
+          <Link href="/dashboard/aicontent">
             <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
               3
             </p>
           </Link>
-          <Link href="/dashboard/aicontent">
+          <Link href="/dashboard/upload">
             <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
               4
             </p>
           </Link>
-          <Link href="/dashboard/upload">
+          <Link href="/dashboard/mycommunity">
             <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
               5
             </p>
           </Link>
-          <Link href="/dashboard/communities">
-            <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
-              6
-            </p>
-          </Link>
           <Link href="/dashboard/profile">
             <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
-              7
+              6
             </p>
           </Link>
         </div>
         <div className="pt-16 sm:pt-24 lg:pt-32">
           <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
             <div className="lg:max-w-lg items-center">
-              <div className="relative lg:hidden">
-                <Image
-                  src="/images/dashboard/magical_place.png"
-                  alt="logo"
-                  className="h-44 w-full rounded-2xl object-cover mb-10"
-                  width={1000}
-                  height={100}
-                />
-              </div>
-              <div className="flex gap-4 mb-4 text-gray-200 items-center text-3xl xs:justify-center lg:justify-start">
+              <div className="flex text-center justify-center gap-4 mb-4 text-gray-200 items-center text-3xl">
                 <Image
                   src="/images/logos/vibeverse.png"
                   alt="logo"
@@ -125,9 +111,18 @@ function Login() {
                   className="ml-2"
                 />
               </div>
-              <h1 className="text-4xl font-bold tracking-tight text-gray-200 sm:text-6xl">
-                Converging the Power of AI and Web3
+              <h1 className="flex text-center justify-center text-5xl font-bold tracking-tight text-gray-200">
+                Creative AI + Web3
               </h1>
+              <div className="relative lg:hidden mt-6">
+                <Image
+                  src="/images/dashboard/magical_place.png"
+                  alt="logo"
+                  className="h-44 w-full rounded-2xl object-cover mb-10"
+                  width={1000}
+                  height={100}
+                />
+              </div>
               <p className="mt-4 text-xl text-gray-200 p-2 pl-4 backdrop-blur rounded-xl">
                 Welcome to a vibrant ecosystem where users can seamlessly share,
                 discover, and collaborate on AI-generated content in the Film

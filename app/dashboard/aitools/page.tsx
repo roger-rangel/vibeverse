@@ -1,11 +1,56 @@
-import Header from '@/components/dashboard/aitools/header';
-import Sign from '@/components/dashboard/shorts/sign';
+'use client';
+
+import Image from 'next/image';
+import { Roboto } from 'next/font/google';
+import Link from 'next/link';
+
+const roboto = Roboto({
+  weight: '300',
+  subsets: ['latin'],
+});
+
+const Modal = () => {
+  return (
+    <div
+      className={`${roboto.className} z-50 flex items-center justify-center mx-2 pb-4 border`}
+    >
+      <div className="absolute bg-gray-900 top-20 xs:w-3/4 md:w-1/2 mx-auto rounded-2xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1 hover:border-emerald-200">
+        <div className="h-full w-full bg-gray-800 rounded-2xl flex flex-col items-center">
+          <h1 className="pt-8 mb-2 sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white">
+            Early Access
+          </h1>
+
+          <h2 className="flex text-center items-center -mb-4 pt-2 xs:text-base md:text-md lg:text-base font-semibold text-gray-200">
+            signup for exclusive early-bird access
+          </h2>
+
+          <div className="flex h-40 w-full flex-row items-center justify-center">
+            <Link
+              href="https://discord.gg/HgCafGhHxh"
+              className="flex rounded-full bg-slate-900 px-10 py-4 text-center items-center justify-center font-bold text-white text-2xl"
+            >
+              Join Discord
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default function AITools() {
   return (
-    <div className="mx-auto px-4 py-10 sm:px-6 lg:px-8 bg-gradient-to-r from-[#8360c3] to-[#2ebf91]">
-      <Header />
-      <Sign />
+    <div className={`mx-auto relative`}>
+      <div className="h-screen mx-auto bg-gradient-to-r bg-black relative">
+        <Image
+          src="/images/dashboard/magical_place.png"
+          alt=""
+          className="h-full w-full object-cover object-center"
+          height={1000}
+          width={1000}
+        />
+      </div>
+      <Modal />
     </div>
   );
 }

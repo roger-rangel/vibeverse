@@ -13,7 +13,7 @@ export default function Nav_User() {
       <Menu.Button className="-m-1.5 flex items-center p-1.5">
         <span className="sr-only">Open user menu</span>
         <Image
-          className="h-8 w-8 rounded-full bg-gray-800 border border-slate-300"
+          className="h-8 w-8 rounded-full bg-gray-800"
           src="/images/avatars/avatar_nav_right.png"
           alt=""
           width={50}
@@ -35,8 +35,8 @@ export default function Nav_User() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 xs:-right-4 sm:-right-6 md:right-0 mt-4 pb-20 lg:pr-10 w-screen max-w-3xl origin-top-right rounded-3xl bg-gray-900 py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-          <Menu.Item className="flex relative justify-center align-middle">
+        <Menu.Items className="absolute right-0 xs:-right-4 sm:-right-6 md:right-0 mt-4 pb-20 lg:pr-10 w-screen max-w-3xl origin-top-right rounded-3xl bg-gray-900 py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none border border-emerald-300">
+          <Menu.Item className="flex relative justify-center align-middle ">
             <About />
           </Menu.Item>
         </Menu.Items>

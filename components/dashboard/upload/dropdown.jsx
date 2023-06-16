@@ -69,7 +69,7 @@ function Dropdown({ setCollection, collection }) {
                 {({ active }) => (
                   <a
                     href="#"
-                    onClick={(e) => {
+                    onClick={() => {
                       setCollection({
                         name: collection.name,
                         id: collection.id,
