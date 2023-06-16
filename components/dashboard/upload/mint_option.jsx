@@ -2,30 +2,28 @@ import { useState } from 'react';
 import { RadioGroup } from '@headlessui/react';
 
 const receiverOptions = [
-  { name: 'Myself', receiver: true },
-  { name: 'Fren', receiver: true },
+  { name: 'Myself', receiver: true, value: 'self' },
+  { name: 'Fren', receiver: true, value: 'other' },
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Mint_Option() {
-  const [receiver, setReceiver] = useState(receiverOptions[2]);
-
+export default function Mint_Option({setMintOption}) {
   return (
     <div>
       <div className="flex items-center justify-between">
         <h2 className="mt-8 text-sm font-medium leading-6 text-white">Send to:</h2>
       </div>
 
-      <RadioGroup value={receiver} onChange={setReceiver} className="mt-2">
+      <RadioGroup onChange={setMintOption} className="mt-2">
         <RadioGroup.Label className="sr-only">Choose the receiver</RadioGroup.Label>
         <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
           {receiverOptions.map((option) => (
             <RadioGroup.Option
               key={option.name}
-              value={option}
+              value={option.value}
               className={({ active, checked }) =>
                 classNames(
                   option.receiver ? 'cursor-pointer focus:outline-none' : 'cursor-not-allowed opacity-25',

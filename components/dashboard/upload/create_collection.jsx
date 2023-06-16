@@ -19,6 +19,7 @@ function CreateCollection({ showCreateCollection }) {
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [limit, setLimit] = useState('');
+  const [imageOption, setImageOption] = useState("upload");
   const { activeProvider } = useConnect();
 
   const isLocal = !window.location.host.endsWith('ic0.app');
@@ -191,13 +192,14 @@ function CreateCollection({ showCreateCollection }) {
                 </div>
 
                 <div className="col-span-full">
-                  <Img_Option />
+                  <Img_Option setImageOption={setImageOption} />
                   <label
                     htmlFor="cover-photo"
                     className="block mt-4 text-sm font-medium leading-6 text-white"
                   >
                     Cover photo
                   </label>
+                  {imageOption == "upload"?
                   <div className="mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-10">
                     <div className="text-center">
                       <PhotoIcon
@@ -225,6 +227,7 @@ function CreateCollection({ showCreateCollection }) {
                       </p>
                     </div>
                   </div>
+                  :
                   <div className="mt-4">
                     <input
                       type="text"
@@ -235,6 +238,7 @@ function CreateCollection({ showCreateCollection }) {
                       className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                     />
                   </div>
+                  }
                 </div>
               </div>
             </div>

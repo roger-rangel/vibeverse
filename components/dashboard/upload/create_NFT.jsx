@@ -23,6 +23,8 @@ function CreateNFT({ showCreateNFT }) {
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [collection, setCollection] = useState({ name: 'Options', id: -1 });
+  const [imageOption, setImageOption] = useState("upload");
+  const [mintOption, setMintOption] = useState("self");
   const { activeProvider } = useConnect();
 
   const isLocal = !window.location.host.endsWith('ic0.app');
@@ -230,13 +232,14 @@ function CreateNFT({ showCreateNFT }) {
 
                 
                 <div className="col-span-full">
-                  <Img_Option />
+                  <Img_Option setImageOption={setImageOption} />
                   <label
                     htmlFor="cover-photo"
                     className="block mt-4 text-sm font-medium leading-6 text-white"
                   >
                     Attach Asset
                   </label>
+                  {imageOption == "upload"?
                   <div className="mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-10">
                     <div className="text-center">
                       <PhotoIcon
@@ -252,18 +255,19 @@ function CreateNFT({ showCreateNFT }) {
                           <input
                             id="file-upload"
                             name="file-upload"
-                            type="file"
                             onChange={tryUploadPhoto}
+                            type="file"
                             className="sr-only"
                           />
                         </label>
                         <p className="pl-1">or drag and drop</p>
                       </div>
                       <p className="text-xs leading-5 text-gray-400">
-                        PNG, JPG, GIF, 3D Item, or Video
+                        PNG, JPG, GIF up to 10MB
                       </p>
                     </div>
                   </div>
+                  :
                   <div className="mt-4">
                     <input
                       type="text"
@@ -274,11 +278,12 @@ function CreateNFT({ showCreateNFT }) {
                       className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                     />
                   </div>
-                </div>
-                
+                  }
+                </div> 
               </div>
               <div className="flex flex-col">
-                <Mint_Option />
+                <Mint_Option setMintOption={setMintOption}/>
+                {mintOption == "other" &&
                 <div className="mt-4">
                   <input
                     type="text"
@@ -289,6 +294,7 @@ function CreateNFT({ showCreateNFT }) {
                     className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                   />
                 </div>
+                }
               </div>
             </div>
           </div>
