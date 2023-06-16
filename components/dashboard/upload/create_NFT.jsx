@@ -11,12 +11,12 @@ import Dropdown from '@/components/dashboard/upload/dropdown';
 import { AssetManager } from '@dfinity/assets';
 import { canisterId } from '@/declarations/vibeverse_assets';
 import { HttpAgent } from '@dfinity/agent';
-import { Principal } from '@dfinity/principal';
 
 import { Connect2ICProvider, useConnect } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
 import { NFID } from '@connect2ic/core/providers/nfid';
 import { Mixpanel } from '@/components/Mixpanel';
+import { AuthClient } from '@dfinity/auth-client';
 
 function CreateNFT({ showCreateNFT }) {
   const [name, setName] = useState('');
@@ -25,9 +25,17 @@ function CreateNFT({ showCreateNFT }) {
   const [collection, setCollection] = useState({ name: 'Options', id: -1 });
   const [imageOption, setImageOption] = useState('upload');
   const [mintOption, setMintOption] = useState('self');
-  const { activeProvider } = useConnect();
+  const [receiver, setReceiver] = useState('');
+  const [activeProvider, setActiveProvider] = useState(null);
 
-  const isLocal = !window.location.host.endsWith('ic0.app');
+  const {} = useConnect({
+    onConnect: (data) => {
+      console.log(data);
+      setActiveProvider(data.activeProvider);
+    },
+  });
+
+  const isLocal = !window.location.host.endsWith('icp0.io');
 
   const handleClose = () => {
     showCreateNFT(false);
@@ -35,15 +43,15 @@ function CreateNFT({ showCreateNFT }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(activeProvider);
     console.log('Minting an NFT');
+
+    const authClient = await AuthClient.create();
+    const identity = authClient.getIdentity();
+
     const actor = new BackendActor();
 
-    // TODO: don't hardcode the receiver!
-    const receiver = Principal.from('2vxsx-fae');
-
     const result = await actor.mintNft(
-      activeProvider,
+      identity,
       collection.id,
       receiver,
       name,
@@ -70,7 +78,7 @@ function CreateNFT({ showCreateNFT }) {
     const assetManager = getAssetManager();
     const file = e.target.files[0];
 
-    const fileName = 'collection-' + Date.now() + file.type.split('/')[1];
+    const fileName = 'collection-' + Date.now() + '.' + file.type.split('/')[1];
     const blob = file.slice(0, file.size, 'image/*');
 
     const renamedFile = new File([blob], fileName, { type: 'image/*' });
@@ -288,6 +296,8 @@ function CreateNFT({ showCreateNFT }) {
                       type="text"
                       name="wallet_receiver"
                       id="wallet_receiver"
+                      value={receiver}
+                      onChange={(e) => setReceiver(e.target.value)}
                       placeholder="who will receive the NFT? put their wallet ID here :)"
                       autoComplete="given-name"
                       className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
@@ -320,7 +330,12 @@ function CreateNFT({ showCreateNFT }) {
 }
 
 export default function CreateNFTWrapped({ showCreateNFT }) {
-  const client = createClient({ providers: [new NFID()] });
+  const client = createClient({
+    providers: [new NFID()],
+    globalProviderConfig: {
+      dev: false,
+    },
+  });
 
   useEffect(() => {
     Mixpanel.track('Creating an NFT');

@@ -31,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html className="bg-black">
+      <body className="h-full">
         <Dynamic>{children}</Dynamic>
       </body>
     </html>

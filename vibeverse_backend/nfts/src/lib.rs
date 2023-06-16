@@ -298,6 +298,33 @@ pub fn nfts_of_user(user: Principal) -> Vec<Nft> {
     nfts
 }
 
+pub fn all_nfts() -> Vec<Nft> {
+    let mut nft_ids: Vec<NftId> = vec![];
+
+    let Ok(collection_count): Result<u128, _> = collection_count().0.try_into() else { return vec![] };
+
+    (0..collection_count).for_each(|collection_id| {
+        let maybe_minted: Result<u128, _> = get_collection(collection_id.into())
+            .unwrap()
+            .minted
+            .0
+            .try_into();
+
+        if let Ok(minted) = maybe_minted {
+            (0..minted).for_each(|nft_id| nft_ids.push((collection_id.into(), nft_id.into())));
+        }
+    });
+
+    let mut nfts = vec![];
+    for id in nft_ids {
+        if let Some(nft) = get_nft(id) {
+            nfts.push(nft);
+        }
+    }
+
+    nfts
+}
+
 pub fn nft_transfer(caller: Principal, receiver: Principal, nft_id: NftId) -> Result<(), Error> {
     NFTS_OF.with(|nfts_of| -> Result<(), Error> {
         let mut nfts_of = nfts_of.borrow_mut();

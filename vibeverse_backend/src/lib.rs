@@ -81,7 +81,7 @@ fn mint_nft(
         description,
         asset_url,
     ) {
-        Ok(_) => format!("Collection minted successfully."),
+        Ok(_) => format!("Nft minted successfully."),
         Err(e) => format!("Error while minting nft: {:?}", e),
     }
 }
@@ -98,6 +98,17 @@ fn transfer_nft(collection_id: CollectionId, nft_id: Nat, receiver: Principal) -
 #[ic_cdk_macros::query]
 fn nfts_of_user(user: Principal) -> Vec<Nft> {
     nfts::nfts_of_user(user)
+}
+
+#[ic_cdk_macros::query]
+fn nfts_of_caller() -> Vec<Nft> {
+    let caller = ic_cdk::api::caller();
+    nfts::nfts_of_user(caller)
+}
+
+#[ic_cdk_macros::query]
+fn all_nfts() -> Vec<Nft> {
+    nfts::all_nfts()
 }
 
 #[ic_cdk_macros::query]
