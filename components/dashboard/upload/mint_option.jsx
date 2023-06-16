@@ -10,15 +10,19 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Mint_Option({setMintOption}) {
+export default function Mint_Option({ setMintOption }) {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h2 className="mt-8 text-sm font-medium leading-6 text-white">Send to:</h2>
+        <h2 className="mt-8 text-sm font-medium leading-6 text-white">
+          Send to:
+        </h2>
       </div>
 
       <RadioGroup onChange={setMintOption} className="mt-2">
-        <RadioGroup.Label className="sr-only">Choose the receiver</RadioGroup.Label>
+        <RadioGroup.Label className="sr-only">
+          Choose the receiver
+        </RadioGroup.Label>
         <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
           {receiverOptions.map((option) => (
             <RadioGroup.Option
@@ -26,12 +30,14 @@ export default function Mint_Option({setMintOption}) {
               value={option.value}
               className={({ active, checked }) =>
                 classNames(
-                  option.receiver ? 'cursor-pointer focus:outline-none' : 'cursor-not-allowed opacity-25',
+                  option.receiver
+                    ? 'cursor-pointer focus:outline-none'
+                    : 'cursor-not-allowed opacity-25',
                   active ? 'ring-2 ring-indigo-600 ring-offset-2' : '',
                   checked
                     ? 'bg-indigo-600 text-white hover:bg-indigo-500'
                     : 'ring-1 ring-inset ring-gray-300 bg-white text-gray-900 hover:bg-gray-50',
-                  'flex items-center justify-center rounded-md py-3 px-3 text-sm font-semibold uppercase sm:flex-1'
+                  'flex items-center justify-center rounded-md py-3 px-3 text-sm font-semibold uppercase sm:flex-1',
                 )
               }
               disabled={!option.receiver}
@@ -44,4 +50,3 @@ export default function Mint_Option({setMintOption}) {
     </div>
   );
 }
-

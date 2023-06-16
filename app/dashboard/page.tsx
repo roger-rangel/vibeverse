@@ -14,7 +14,7 @@ export default function Dashboard() {
 
   return (
     <div className="relative mx-auto px-4 py-10 sm:px-6 lg:px-8">
-      <Image 
+      <Image
         src="/images/dashboard/magical_castle.png"
         layout="fill"
         objectFit="cover"

@@ -24,10 +24,12 @@ export default function Error({
           className="h-full w-full object-cover object-center"
           height={1000}
           width={1000}
-        /> 
+        />
         <div className="absolute top-32 justify-center items-center rounded-2xl ">
           <div className="h-full w-full rounded-2xl flex flex-col justify-center items-center gap-4">
-            <h2 className="text-grey-700 p-2 pl-4 backdrop-blur rounded-lg">Holy Moly! Something went wrong :(</h2>
+            <h2 className="text-grey-700 p-2 pl-4 backdrop-blur rounded-lg">
+              Holy Moly! Something went wrong :(
+            </h2>
             <button
               className="animate-border inline-block rounded-full bg-black bg-gradient-to-r hover:from-[#29ffc6] hover:via-[#00c3ff] hover:to-[#ffff1c] from-purple-500 via-purple-100 to-blue-500 bg-[length:400%_400%] p-1"
               onClick={
@@ -36,12 +38,12 @@ export default function Error({
               }
             >
               <span className="flex rounded-full bg-slate-900 px-10 py-4 text-center items-center justify-center font-bold text-white text-2xl">
-              Try Again
+                Try Again
               </span>
             </button>
             <button className="animate-border inline-block rounded-full bg-black bg-gradient-to-r hover:from-[#29ffc6] hover:via-[#00c3ff] hover:to-[#ffff1c] from-purple-500 via-purple-100 to-blue-500 bg-[length:400%_400%] p-1">
               <span className="flex rounded-full bg-slate-900 px-10 py-4 text-center items-center justify-center font-bold text-white text-2xl">
-              Go to Home Page
+                Go to Home Page
               </span>
             </button>
           </div>
@@ -50,5 +52,3 @@ export default function Error({
     </div>
   );
 }
-
-

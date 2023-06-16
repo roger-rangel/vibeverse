@@ -45,7 +45,7 @@ export default function Example() {
             href="/dashboard/learning"
             className="flex items-center justify-center w-3/4 mb-4 rounded-md border border-white border-opacity-25 bg-white bg-opacity-0 px-4 py-3 text-base font-medium text-white hover:bg-opacity-10"
           >
-              Learning Center
+            Learning Center
           </Link>
         </div>
       </div>
@@ -104,7 +104,6 @@ export default function Example() {
               }}
             />
           </div>
- 
         </div>
       </div>
       <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
@@ -116,18 +115,16 @@ export default function Example() {
             width={200}
             height={200}
           />
-
         </div>
         <div className="flex items-end justify-center">
           <Link
             href="/dashboard/aicontent"
             className="flex items-center justify-center w-3/4 mb-4 rounded-md border border-white border-opacity-25 bg-white bg-opacity-0 px-4 py-3 text-base font-medium text-white hover:bg-opacity-10"
           >
-              Become an AI Artist
+            Become an AI Artist
           </Link>
         </div>
       </div>
     </div>
-
   );
 }

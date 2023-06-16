@@ -19,7 +19,7 @@ function CreateCollection({ showCreateCollection }) {
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [limit, setLimit] = useState('');
-  const [imageOption, setImageOption] = useState("upload");
+  const [imageOption, setImageOption] = useState('upload');
   const { activeProvider } = useConnect();
 
   const isLocal = !window.location.host.endsWith('ic0.app');
@@ -199,46 +199,46 @@ function CreateCollection({ showCreateCollection }) {
                   >
                     Cover photo
                   </label>
-                  {imageOption == "upload"?
-                  <div className="mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-10">
-                    <div className="text-center">
-                      <PhotoIcon
-                        className="mx-auto h-12 w-12 text-gray-500"
-                        aria-hidden="true"
-                      />
-                      <div className="mt-4 flex text-sm leading-6 text-gray-400">
-                        <label
-                          htmlFor="file-upload"
-                          className="relative cursor-pointer rounded-md bg-gray-900 font-semibold text-white focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500"
-                        >
-                          <span>Upload a file</span>
-                          <input
-                            id="file-upload"
-                            name="file-upload"
-                            onChange={tryUploadPhoto}
-                            type="file"
-                            className="sr-only"
-                          />
-                        </label>
-                        <p className="pl-1">or drag and drop</p>
+                  {imageOption == 'upload' ? (
+                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-10">
+                      <div className="text-center">
+                        <PhotoIcon
+                          className="mx-auto h-12 w-12 text-gray-500"
+                          aria-hidden="true"
+                        />
+                        <div className="mt-4 flex text-sm leading-6 text-gray-400">
+                          <label
+                            htmlFor="file-upload"
+                            className="relative cursor-pointer rounded-md bg-gray-900 font-semibold text-white focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500"
+                          >
+                            <span>Upload a file</span>
+                            <input
+                              id="file-upload"
+                              name="file-upload"
+                              onChange={tryUploadPhoto}
+                              type="file"
+                              className="sr-only"
+                            />
+                          </label>
+                          <p className="pl-1">or drag and drop</p>
+                        </div>
+                        <p className="text-xs leading-5 text-gray-400">
+                          PNG, JPG, GIF up to 10MB
+                        </p>
                       </div>
-                      <p className="text-xs leading-5 text-gray-400">
-                        PNG, JPG, GIF up to 10MB
-                      </p>
                     </div>
-                  </div>
-                  :
-                  <div className="mt-4">
-                    <input
-                      type="text"
-                      name="existing_url"
-                      id="existing_url"
-                      placeholder="add link to your asset here :)"
-                      autoComplete="given-name"
-                      className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                    />
-                  </div>
-                  }
+                  ) : (
+                    <div className="mt-4">
+                      <input
+                        type="text"
+                        name="existing_url"
+                        id="existing_url"
+                        placeholder="add link to your asset here :)"
+                        autoComplete="given-name"
+                        className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
