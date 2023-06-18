@@ -25,7 +25,7 @@ const Modal = () => {
               </Link>
             </div>
           </div>
-          <h1 className="text-base text-white">
+          <h1 className="text-base text-white mb-12">
             Open Beta Coming Soon | Free for Everybody
           </h1>
         </div>
