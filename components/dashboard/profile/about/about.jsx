@@ -12,7 +12,7 @@ const About = () => {
     <section id="about">
       <div className="pt-8 pb-10">
         <h5 className="text-center text-sm text-gray-200">Creator</h5>
-        <h2 className="text-xl text-center text-[#4db5ff]">Alexandra Milton</h2>
+        <h2 className="text-xl text-center text-[#4db5ff]">My Profile</h2>
       </div>
 
       <div className={classnames(styles.about__container)}>

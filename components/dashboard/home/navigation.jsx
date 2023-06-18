@@ -19,11 +19,34 @@ import Nav_User from './nav_user';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { Banner } from '@/components/dashboard/home';
+
 const navigation = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
-  { name: 'AI Tools', href: '/dashboard/aitools', icon: PaintBrushIcon },
-  { name: 'AI Content', href: '/dashboard/aicontent', icon: FilmIcon },
-  { name: 'Upload', href: '/dashboard/upload', icon: DocumentDuplicateIcon },
+  {
+    name: 'Home',
+    href: '/dashboard',
+    icon: HomeIcon,
+    current: true,
+    color: 'bg-pink-400',
+  },
+  {
+    name: 'AI Tools',
+    href: '/dashboard/aitools',
+    icon: PaintBrushIcon,
+    color: 'bg-orange-400',
+  },
+  {
+    name: 'AI Content',
+    href: '/dashboard/aicontent',
+    icon: FilmIcon,
+    color: 'bg-blue-400',
+  },
+  {
+    name: 'Upload',
+    href: '/dashboard/upload',
+    icon: DocumentDuplicateIcon,
+    color: 'bg-green-400',
+  },
 ];
 const user = [
   {
@@ -59,6 +82,8 @@ export default function Navigation({ children }) {
   const [login, setLogin] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentNavIndex, setCurrentNavIndex] = useState(0);
+  const [currentUserIndex, setCurrentUserIndex] = useState(-1);
+  const [isBannerOpen, setIsBannerOpen] = useState(true);
 
   useEffect(() => {
     const request = window.indexedDB.open('auth-client-db');
@@ -160,7 +185,10 @@ export default function Navigation({ children }) {
                             {navigation.map((item, index) => (
                               <li key={item.name}>
                                 <Link
-                                  onClick={() => setCurrentNavIndex(index)}
+                                  onClick={() => {
+                                    setCurrentUserIndex(-1);
+                                    setCurrentNavIndex(index);
+                                  }}
                                   href={item.href}
                                   className={className(
                                     currentNavIndex == index
@@ -184,12 +212,16 @@ export default function Navigation({ children }) {
                             MY VIBE
                           </div>
                           <ul role="list" className="-mx-2 mt-2 space-y-1">
-                            {user.map((section) => (
+                            {user.map((section, index) => (
                               <li key={section.name}>
                                 <Link
                                   href={section.href}
+                                  onClick={() => {
+                                    setCurrentNavIndex(-1);
+                                    setCurrentUserIndex(index);
+                                  }}
                                   className={className(
-                                    section.current
+                                    currentNavIndex == index
                                       ? 'bg-gray-800 text-white'
                                       : 'text-gray-400 hover:text-white hover:bg-gray-800',
                                     'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
@@ -216,7 +248,7 @@ export default function Navigation({ children }) {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 sm:z-11 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+        <div className="hidden lg:fixed lg:inset-y-0 sm:z-10 lg:z-40 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 border-r-2 border-indigo-500/75">
             <div className="flex items-center">
@@ -237,11 +269,14 @@ export default function Navigation({ children }) {
                     {navigation.map((item, index) => (
                       <li key={item.name}>
                         <Link
-                          onClick={() => setCurrentNavIndex(index)}
+                          onClick={() => {
+                            setCurrentUserIndex(-1);
+                            setCurrentNavIndex(index);
+                          }}
                           href={item.href}
                           className={className(
                             currentNavIndex == index
-                              ? 'bg-gray-800 text-white'
+                              ? `${item.color} text-white`
                               : 'text-gray-400 hover:text-white hover:bg-gray-800',
                             'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
                           )}
@@ -261,12 +296,16 @@ export default function Navigation({ children }) {
                     MY VIBE
                   </div>
                   <ul role="list" className="-mx-2 mt-2 space-y-1">
-                    {user.map((section) => (
+                    {user.map((section, index) => (
                       <li key={section.name}>
                         <Link
                           href={section.href}
+                          onClick={() => {
+                            setCurrentNavIndex(-1);
+                            setCurrentUserIndex(index);
+                          }}
                           className={className(
-                            section.current
+                            currentUserIndex == index
                               ? 'bg-gray-800 text-white'
                               : 'text-gray-400 hover:text-white hover:bg-gray-800',
                             'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
@@ -353,6 +392,7 @@ export default function Navigation({ children }) {
           </main>
         </div>
       </div>
+      {isBannerOpen && <Banner setIsBannerOpen={setIsBannerOpen} />}
     </>
   );
 }

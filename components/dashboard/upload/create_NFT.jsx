@@ -22,6 +22,7 @@ function CreateNFT({ showCreateNFT }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [customImageUrl, setCustomImageUrl] = useState('');
   const [collection, setCollection] = useState({ name: 'Options', id: -1 });
   const [imageOption, setImageOption] = useState('upload');
   const [mintOption, setMintOption] = useState('self');
@@ -50,13 +51,26 @@ function CreateNFT({ showCreateNFT }) {
 
     const actor = new BackendActor();
 
+    let actualReceiver = receiver;
+    if (mintOption == 'self') {
+      actualReceiver = '2vxsx-fae';
+      if (activeProvider) {
+        actualReceiver = activeProvider.principal;
+      }
+    }
+
+    let finalUrl = imageUrl;
+    if (imageOption == 'url') {
+      finalUrl = customImageUrl;
+    }
+
     const result = await actor.mintNft(
       identity,
       collection.id,
-      receiver,
+      actualReceiver,
       name,
       description,
-      imageUrl,
+      finalUrl,
     );
 
     alert(result);
@@ -280,6 +294,8 @@ function CreateNFT({ showCreateNFT }) {
                         type="text"
                         name="existing_url"
                         id="existing_url"
+                        value={customImageUrl}
+                        onChange={(e) => setCustomImageUrl(e.target.value)}
                         placeholder="add link to your asset here :)"
                         autoComplete="given-name"
                         className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"

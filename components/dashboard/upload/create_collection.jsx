@@ -20,6 +20,7 @@ function CreateCollection({ showCreateCollection }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [customImageUrl, setCustomImageUrl] = useState('');
   const [limit, setLimit] = useState('');
   const [imageOption, setImageOption] = useState('upload');
   const [activeProvider, setActiveProvider] = useState(null);
@@ -48,12 +49,17 @@ function CreateCollection({ showCreateCollection }) {
     const authClient = await AuthClient.create();
     const identity = authClient.getIdentity();
 
+    let finalUrl = imageUrl;
+    if (imageOption == 'url') {
+      finalUrl = customImageUrl;
+    }
+
     const actor = new BackendActor();
     const result = await actor.createCollection(
       identity,
       name,
       description,
-      imageUrl,
+      finalUrl,
       Number(limit),
     );
     alert(result);
@@ -251,6 +257,8 @@ function CreateCollection({ showCreateCollection }) {
                         type="text"
                         name="existing_url"
                         id="existing_url"
+                        value={customImageUrl}
+                        onChange={(e) => setCustomImageUrl(e.target.value)}
                         placeholder="add link to your asset here :)"
                         autoComplete="given-name"
                         className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
