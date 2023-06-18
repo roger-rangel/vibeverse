@@ -21,7 +21,7 @@ export default function Dashboard() {
         quality={100}
         alt="Background"
       />
-      <div className="relative">
+      <div className="relative mb-20">
         <Preview />
         <Sign />
         <Header />
