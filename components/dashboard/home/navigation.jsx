@@ -82,6 +82,7 @@ export default function Navigation({ children }) {
   const [login, setLogin] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentNavIndex, setCurrentNavIndex] = useState(0);
+  const [currentUserIndex, setCurrentUserIndex] = useState(-1);
   const [isBannerOpen, setIsBannerOpen] = useState(true);
 
   useEffect(() => {
@@ -184,7 +185,10 @@ export default function Navigation({ children }) {
                             {navigation.map((item, index) => (
                               <li key={item.name}>
                                 <Link
-                                  onClick={() => setCurrentNavIndex(index)}
+                                  onClick={() => {
+                                    setCurrentUserIndex(-1);
+                                    setCurrentNavIndex(index);
+                                  }}
                                   href={item.href}
                                   className={className(
                                     currentNavIndex == index
@@ -208,12 +212,16 @@ export default function Navigation({ children }) {
                             MY VIBE
                           </div>
                           <ul role="list" className="-mx-2 mt-2 space-y-1">
-                            {user.map((section) => (
+                            {user.map((section, index) => (
                               <li key={section.name}>
                                 <Link
                                   href={section.href}
+                                  onClick={() => {
+                                    setCurrentNavIndex(-1);
+                                    setCurrentUserIndex(index);
+                                  }}
                                   className={className(
-                                    section.current
+                                    currentNavIndex == index
                                       ? 'bg-gray-800 text-white'
                                       : 'text-gray-400 hover:text-white hover:bg-gray-800',
                                     'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
@@ -261,7 +269,10 @@ export default function Navigation({ children }) {
                     {navigation.map((item, index) => (
                       <li key={item.name}>
                         <Link
-                          onClick={() => setCurrentNavIndex(index)}
+                          onClick={() => {
+                            setCurrentUserIndex(-1);
+                            setCurrentNavIndex(index);
+                          }}
                           href={item.href}
                           className={className(
                             currentNavIndex == index
@@ -285,12 +296,16 @@ export default function Navigation({ children }) {
                     MY VIBE
                   </div>
                   <ul role="list" className="-mx-2 mt-2 space-y-1">
-                    {user.map((section) => (
+                    {user.map((section, index) => (
                       <li key={section.name}>
                         <Link
                           href={section.href}
+                          onClick={() => {
+                            setCurrentNavIndex(-1);
+                            setCurrentUserIndex(index);
+                          }}
                           className={className(
-                            section.current
+                            currentUserIndex == index
                               ? 'bg-gray-800 text-white'
                               : 'text-gray-400 hover:text-white hover:bg-gray-800',
                             'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
