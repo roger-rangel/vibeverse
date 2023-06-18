@@ -29,8 +29,8 @@ const Item = ({ showModal, nfts, setSelectedNft }) => {
 
   return (
     <section id="item" className="h-full mt-10">
-      <h5 className="text-center text-sm text-gray-200 ">My Items</h5>
-      <h2 className="text-xl text-center text-[#4db5ff]">Select One:</h2>
+      <h5 className="text-center text-sm text-gray-200 ">All Items</h5>
+      <h2 className="text-xl text-center text-[#4db5ff]">NFTs and More:</h2>
       <div className={classnames(styles.item__container)}>
         {nfts.map(({ id, asset_url, name }) => {
           return (
