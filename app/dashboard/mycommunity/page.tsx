@@ -27,7 +27,8 @@ const Modal = () => {
             <div className="animate-border inline-block rounded-full bg-black bg-gradient-to-r hover:from-[#29ffc6] hover:via-[#00c3ff] hover:to-[#ffff1c] from-purple-500 via-purple-100 to-blue-500 bg-[length:400%_400%] p-1">
               <Link
                 href="https://discord.gg/yRNSEWxEUM"
-                className="flex rounded-full bg-slate-900 px-10 py-4 text-center items-center justify-center font-bold text-white text-2xl">
+                className="flex rounded-full bg-slate-900 px-10 py-4 text-center items-center justify-center font-bold text-white text-2xl"
+              >
                 Join now
               </Link>
             </div>

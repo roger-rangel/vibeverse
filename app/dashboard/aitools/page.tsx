@@ -30,7 +30,7 @@ const Modal = () => {
                 href="https://discord.gg/HgCafGhHxh"
                 className="flex rounded-full bg-slate-900 px-10 py-4 text-center items-center justify-center font-bold text-white text-2xl"
               >
-              Join Discord
+                Join Discord
               </Link>
             </div>
           </div>

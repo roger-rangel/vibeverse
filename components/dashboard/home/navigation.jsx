@@ -22,10 +22,31 @@ import Link from 'next/link';
 import { Banner } from '@/components/dashboard/home';
 
 const navigation = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true, color: 'bg-pink-400' },
-  { name: 'AI Tools', href: '/dashboard/aitools', icon: PaintBrushIcon, color: 'bg-orange-400' },
-  { name: 'AI Content', href: '/dashboard/aicontent', icon: FilmIcon, color: 'bg-blue-400' },
-  { name: 'Upload', href: '/dashboard/upload', icon: DocumentDuplicateIcon, color: 'bg-green-400' },
+  {
+    name: 'Home',
+    href: '/dashboard',
+    icon: HomeIcon,
+    current: true,
+    color: 'bg-pink-400',
+  },
+  {
+    name: 'AI Tools',
+    href: '/dashboard/aitools',
+    icon: PaintBrushIcon,
+    color: 'bg-orange-400',
+  },
+  {
+    name: 'AI Content',
+    href: '/dashboard/aicontent',
+    icon: FilmIcon,
+    color: 'bg-blue-400',
+  },
+  {
+    name: 'Upload',
+    href: '/dashboard/upload',
+    icon: DocumentDuplicateIcon,
+    color: 'bg-green-400',
+  },
 ];
 const user = [
   {
@@ -61,6 +82,7 @@ export default function Navigation({ children }) {
   const [login, setLogin] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentNavIndex, setCurrentNavIndex] = useState(0);
+  const [isBannerOpen, setIsBannerOpen] = useState(true);
 
   useEffect(() => {
     const request = window.indexedDB.open('auth-client-db');
@@ -92,7 +114,7 @@ export default function Navigation({ children }) {
   }
 
   return (
-    <> 
+    <>
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
@@ -354,9 +376,8 @@ export default function Navigation({ children }) {
             {children}
           </main>
         </div>
-        
       </div>
-      <Banner />
+      {isBannerOpen && <Banner setIsBannerOpen={setIsBannerOpen} />}
     </>
   );
 }

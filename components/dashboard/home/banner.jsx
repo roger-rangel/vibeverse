@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 
-export default function Banner() {
+export default function Banner({ setIsBannerOpen }) {
   return (
     <div className="fixed bottom-0 left-0 w-full flex z-50 isolate items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
       <div
@@ -31,7 +31,11 @@ export default function Banner() {
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 xs:justify-center">
         <p className="text-sm leading-6 text-gray-900">
           <strong className="font-semibold">Summer 2023</strong>
-          <svg viewBox="0 0 2 2" className="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true">
+          <svg
+            viewBox="0 0 2 2"
+            className="mx-2 inline h-0.5 w-0.5 fill-current"
+            aria-hidden="true"
+          >
             <circle cx={1} cy={1} r={1} />
           </svg>
           Stay updated to see what’s coming next.
@@ -44,7 +48,11 @@ export default function Banner() {
         </Link>
       </div>
       <div className="flex flex-1 justify-end">
-        <button type="button" className="-m-3 p-3 focus-visible:outline-offset-[-4px]">
+        <button
+          onClick={() => setIsBannerOpen(false)}
+          type="button"
+          className="-m-3 p-3 focus-visible:outline-offset-[-4px]"
+        >
           <span className="sr-only">Dismiss</span>
           <XMarkIcon className="h-5 w-5 text-gray-900" aria-hidden="true" />
         </button>
