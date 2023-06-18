@@ -19,6 +19,8 @@ import Nav_User from './nav_user';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { Banner } from '@/components/dashboard/home';
+
 const navigation = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
   { name: 'AI Tools', href: '/dashboard/aitools', icon: PaintBrushIcon },
@@ -90,7 +92,7 @@ export default function Navigation({ children }) {
   }
 
   return (
-    <>
+    <> 
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
@@ -216,7 +218,7 @@ export default function Navigation({ children }) {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 sm:z-11 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+        <div className="hidden lg:fixed lg:inset-y-0 sm:z-10 lg:z-40 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 border-r-2 border-indigo-500/75">
             <div className="flex items-center">
@@ -352,7 +354,9 @@ export default function Navigation({ children }) {
             {children}
           </main>
         </div>
+        
       </div>
+      <Banner />
     </>
   );
 }
