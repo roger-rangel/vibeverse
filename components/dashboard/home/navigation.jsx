@@ -22,10 +22,10 @@ import Link from 'next/link';
 import { Banner } from '@/components/dashboard/home';
 
 const navigation = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true, color: 'pink' },
-  { name: 'AI Tools', href: '/dashboard/aitools', icon: PaintBrushIcon, color: 'orange' },
-  { name: 'AI Content', href: '/dashboard/aicontent', icon: FilmIcon, color: 'blue' },
-  { name: 'Upload', href: '/dashboard/upload', icon: DocumentDuplicateIcon, color: 'green' },
+  { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true, color: 'bg-pink-400' },
+  { name: 'AI Tools', href: '/dashboard/aitools', icon: PaintBrushIcon, color: 'bg-orange-400' },
+  { name: 'AI Content', href: '/dashboard/aicontent', icon: FilmIcon, color: 'bg-blue-400' },
+  { name: 'Upload', href: '/dashboard/upload', icon: DocumentDuplicateIcon, color: 'bg-green-400' },
 ];
 const user = [
   {
@@ -243,7 +243,7 @@ export default function Navigation({ children }) {
                           href={item.href}
                           className={className(
                             currentNavIndex == index
-                              ? `bg-${item.color}-400 text-white`
+                              ? `${item.color} text-white`
                               : 'text-gray-400 hover:text-white hover:bg-gray-800',
                             'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
                           )}
