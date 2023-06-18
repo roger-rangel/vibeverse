@@ -50,10 +50,18 @@ function CreateNFT({ showCreateNFT }) {
 
     const actor = new BackendActor();
 
+    let actualReceiver = receiver;
+    if(mintOption == 'self') {
+      actualReceiver = '2vxsx-fae';
+      if (activeProvider) {
+        actualReceiver = activeProvider.principal;
+      }
+    }
+
     const result = await actor.mintNft(
       identity,
       collection.id,
-      receiver,
+      actualReceiver,
       name,
       description,
       imageUrl,
