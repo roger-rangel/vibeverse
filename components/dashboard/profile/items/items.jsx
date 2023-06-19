@@ -39,6 +39,10 @@ const Item = ({ showModal, nfts, setSelectedNft }) => {
                 <Image
                   src={asset_url[0] ? asset_url[0] : IMG1}
                   alt={name}
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null; // prevents looping
+                    currentTarget.src="/images/items/item_1.png";
+                  }}
                   width="400"
                   height="400"
                 />
