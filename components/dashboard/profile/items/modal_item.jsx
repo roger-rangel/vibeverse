@@ -46,7 +46,15 @@ function TransferModal({ showModal, selectedNft }) {
           </h3>
           <div className={classnames(styles.item__item__image)}>
             <Image
-              src={selectedNft.asset_url[0] ? selectedNft.asset_url[0] : IMG}
+              src={
+                selectedNft.asset_url[0]
+                  ? selectedNft.asset_url[0]
+                  : '/images/items/item_1.png'
+              }
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = '/images/items/item_1.png';
+              }}
               alt="item"
               width="400"
               height="400"

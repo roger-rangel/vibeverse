@@ -50,7 +50,9 @@ export default function AIContent() {
   return (
     <div className={`mx-auto relative`}>
       <div className="h-screen mx-auto bg-gradient-to-r bg-black relative">
-        {isLoading ? <Loading /> : (
+        {isLoading ? (
+          <Loading />
+        ) : (
           <video
             autoPlay
             loop
@@ -64,4 +66,3 @@ export default function AIContent() {
     </div>
   );
 }
-
