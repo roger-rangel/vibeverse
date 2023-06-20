@@ -45,6 +45,7 @@ const Item = ({ showModal, nfts, setSelectedNft }) => {
                   }}
                   width="400"
                   height="400"
+                  className="min-h-[300px] object-cover"
                 />
               </div>
               <h3>{name}</h3>
@@ -54,7 +55,7 @@ const Item = ({ showModal, nfts, setSelectedNft }) => {
                     setSelectedNft({ id, asset_url, name, description });
                     showModal(true);
                   }}
-                  className="py-2 px-4 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
+                  className="py-2 px-4 text-base rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
                   target="_blank"
                 >
                   Transfer
