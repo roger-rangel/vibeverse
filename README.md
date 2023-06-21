@@ -17,6 +17,8 @@
     <a href="https://github.com/roger-rangel/vibeverse/issues/new"><b>Issues</b></a>
 </div>
 
+## About Vibeverse 🍿
+
 Welcome to Vibeerse, a vibrant ecosystem for sharing, discovering, and collaborating on AI-generated content in the Film Industry and beyond. Our platform provides users with the tools and resources to create new content using AI, while also enabling seamless collaboration and community building.
 
 # Demo
