@@ -1,5 +1,5 @@
 <div align="center">
-     <img src="https://github.com/roger-rangel/vibeverse/blob/main/public/images/dashboard/magical_place.png" object-fit="cover" height="300px" width="100%" style="border-radius: 10px;" alt="Vibeverse Intro">
+     <img src="https://github.com/roger-rangel/vibeverse/blob/main/public/images/dashboard/magical_place.png" height="300px" width="100%" style="object-fit=cover;" alt="Vibeverse Intro">
     <h1>Vibeverse ✨</h1>
     <strong>AI Movies, Tools, and More 🌿</strong>
     <strong>Creative AI: NFTs as magic keys for AI-generated projects</strong>
@@ -9,7 +9,7 @@
   
 </div>
 <div align="center">
-    <br>
+    
     <a href="https://h5fnl-4iaaa-aaaap-abddq-cai.icp0.io/"><b>vibeverse.xyz »</b></a>
     <br><br>
     <a href="https://twitter.com/vibeverse.xyz"><b>🪺 Twitter</b></a>
@@ -69,15 +69,19 @@ We welcome contributions from the community to make Vibeverse and the Internet C
 Contact Us
 If you have any questions, suggestions, or just want to say hello, feel free to reach out to our team. You can contact us at roger.rangel.ee@gmail.com or visit our website www.segenie.xyz for more information.
 
-Connect with us on social media:
+
 
 <div align="center">
+     Connect with us on social media:
+     <br>
     <a href="https://twitter.com/vibeverse.xyz"><b>🪺 Twitter: @vibeversexyz</b></a>
     •
     <a href="https://www.instagram.com/vibeverse.xyz/"><b>🎨 Instagram: @vibeverse.xyz</b></a>
+     <br>
+     We look forward to seeing you on the Vibeverse platform! Happy creating and collaborating!
 </div>
 
-We look forward to seeing you on the Vibeverse platform! Happy creating and collaborating!
+
 
 <div align="center">
     <img src="https://github.com/roger-rangel/vibeverse/blob/main/public/images/dashboard/wizard.png" alt="Vibeverse Intro">
