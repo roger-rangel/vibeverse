@@ -38,8 +38,6 @@ To learn more before you start working with vibeverse, see the following documen
 - [Candid Introduction](https://internetcomputer.org/docs/candid-guide/candid-intro)
 - [JavaScript API Reference](https://erxue-5aaaa-aaaab-qaagq-cai.raw.icp0.io)
 
-&ensp;
-
 # Features
 
 ### Content Sharing: 
@@ -57,9 +55,7 @@ Access a rich selection of AI tools specifically designed for the Film Industry,
 ### Community Building: 
 Join various communities within Vibeverse, including our exclusive "White Mirror" community, to connect with fellow creators and enthusiasts.
 
-&ensp;
-
-## NPM Package - Token-Gating
+# NPM Package - Token-Gating
 We have developed an npm package called <a href="https://github.com/Szegoo/Segenie-Js"><b>Segenie-Js</b></a> that provides token-gating functionality for your applications. You can find the package on <a href="https://npmjs.com/package/segenie-js"><b>npm</b></a> as well. Follow the instructions in the package documentation to integrate it into your projects.
   • For more information about this feature, please visit <a href="https://github.com/roger-rangel/Segenie"><b>Segenie</b></a>
 
@@ -72,7 +68,7 @@ We welcome contributions from the community to make Vibeverse and the Internet C
 Contact Us
 If you have any questions, suggestions, or just want to say hello, feel free to reach out to our team. You can contact us at roger.rangel.ee@gmail.com or visit our website www.segenie.xyz for more information.
 
-
+&ensp;
 
 <div align="center">
      Connect with us on social media:
