@@ -18,7 +18,7 @@
     <a href="https://github.com/roger-rangel/vibeverse/issues/new"><b>🧞‍♂️ Issues</b></a>
 </div>
 
-## About Vibeverse 🍿
+## About Vibeverse 🌎 
 
 Welcome to Vibeverse, a vibrant ecosystem for sharing, discovering, and collaborating on AI-generated content in the Film Industry and beyond. Our platform provides users with the tools and resources to create new content using AI, while also enabling seamless collaboration and community building.
 
@@ -82,10 +82,10 @@ If you have any questions, suggestions, or just want to say hello, feel free to 
      We look forward to seeing you on the Vibeverse platform! Happy creating and collaborating!
 </div>
 
-
+&ensp;
 
 <div align="center">
-    <img src="https://github.com/roger-rangel/vibeverse/blob/main/public/images/dashboard/wizard.png" alt="Vibeverse Intro">
+    <img src="https://github.com/roger-rangel/vibeverse/blob/main/public/images/dashboard/sofa.png" alt="Vibeverse Intro">
 </div>
 
 If you want to start working on your project right away, you might want to try the following commands:
