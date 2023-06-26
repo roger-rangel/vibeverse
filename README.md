@@ -1,5 +1,5 @@
 <div align="center">
-     <img src="https://github.com/roger-rangel/vibeverse/blob/main/public/images/dashboard/magical_place.png" height="300px" width="100%" style="object-fit=cover;" alt="Vibeverse Intro">
+     <img src="https://github.com/roger-rangel/vibeverse/blob/main/public/images/dashboard/magical_place.png" height="300px" width="300px" style="object-fit=cover;" alt="Vibeverse Intro">
     <h1>Vibeverse ✨</h1>
     <strong>AI Movies, Tools, and More 🌿</strong>
     <strong>Creative AI: NFTs as magic keys for AI-generated projects</strong>
