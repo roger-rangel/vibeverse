@@ -8,8 +8,9 @@
 <div align="center">
   
 </div>
+
 <div align="center">
-    
+    <br>
     <a href="https://h5fnl-4iaaa-aaaap-abddq-cai.icp0.io/"><b>vibeverse.xyz »</b></a>
     <br><br>
     <a href="https://twitter.com/vibeverse.xyz"><b>🪺 Twitter</b></a>
