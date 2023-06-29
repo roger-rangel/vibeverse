@@ -178,8 +178,8 @@ function CreateNFT({ showCreateNFT }) {
               </p>
               <div className="flex items-center mt-4">
                 <Image
-                  src={`/images/dashboard/what_is_nft.gif`}
-                  alt=""
+                  src={`/images/dashboard/what_is_nft.png`}
+                  alt="what_is_nft"
                   className={`flex h-8 w-8 rounded-full items-center`}
                   width="40"
                   height="40"

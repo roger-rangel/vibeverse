@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { Mixpanel } from '@/components/Mixpanel';
 
 // Dynamically import ReactPlayer with SSR turned off
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
@@ -93,7 +94,12 @@ export default function Preview() {
                   White Mirror
                 </p>
                 <h3 className="font-semibold text-white">
-                  <a href="#">
+                  <a
+                    href="#"
+                    onClick={() => {
+                      Mixpanel.track('White Mirror join a community');
+                    }}
+                  >
                     <span className="absolute inset-0" />
                     Join a Community
                   </a>

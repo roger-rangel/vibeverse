@@ -1,5 +1,7 @@
 'use client';
 
+import Loading from './loading';
+import { useEffect, useState } from 'react';
 import { Roboto } from 'next/font/google';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -41,6 +43,16 @@ const Modal = () => {
 };
 
 export default function AIContent() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className={`mx-auto relative`}>
       <div className="h-screen mx-auto bg-gradient-to-r bg-black relative">
