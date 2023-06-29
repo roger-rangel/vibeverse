@@ -4,33 +4,11 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Mixpanel } from '@/components/Mixpanel';
-import ImageSlider from '../components/login/imageSlider';
 import { Connect2ICProvider } from '@connect2ic/react';
 import { useConnect } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
 import { NFID } from '@connect2ic/core/providers/nfid';
 import { AuthClient } from '@dfinity/auth-client';
-
-const images1 = [
-  '/images/imageSlider/1/planets.png',
-  '/images/imageSlider/1/morocco.png',
-  '/images/imageSlider/1/green.png',
-  '/images/imageSlider/1/world.png',
-  '/images/imageSlider/1/house_ballons.png',
-  '/images/imageSlider/1/fantasy.png',
-  '/images/imageSlider/1/italy.png',
-  '/images/imageSlider/1/atlantis.png',
-];
-
-const images2 = [
-  '/images/imageSlider/2/pink.png',
-  '/images/imageSlider/2/aztec.png',
-  '/images/imageSlider/2/desert.png',
-  '/images/imageSlider/2/train.png',
-  '/images/imageSlider/2/amazon.png',
-  '/images/imageSlider/2/castle.png',
-  '/images/imageSlider/2/mystery.png',
-];
 
 function Login() {
   const [signedIn, setSignedIn] = useState(false);
@@ -50,13 +28,13 @@ function Login() {
   }, []);
 
   return (
-    <div className="h-screen bg-slate-950">
-      <video
-        autoPlay
-        loop
-        muted
-        className="absolute z-1 min-w-full min-h-full object-cover"
-        src={'/video/astronaut_kayak.mp4'}
+    <div className="h-screen bg-gradient-to-r from-[#8360c3] to-[#2ebf91]">
+      <Image
+        src="/images/dashboard/error.png"
+        layout="fill"
+        objectFit="cover"
+        quality={100}
+        alt="Background"
       />
       <header className="h-screen relative overflow-hidden">
         {/* Hero section */}
@@ -92,10 +70,10 @@ function Login() {
             </p>
           </Link>
         </div>
-        <div className="pt-16 sm:pt-24 lg:pt-32">
-          <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
-            <div className="lg:max-w-lg items-center">
-              <div className="flex text-center justify-center gap-4 mb-4 text-gray-200 items-center text-3xl">
+        <div className=" flex justify-center items-center h-screen">
+          <div className="relative mx-auto max-w-9xl px-4 sm:static sm:px-6 lg:px-8">
+            <div className="items-center">
+              <div className="flex text-center justify-center gap-4 mb-4 text-gray-200 items-center text-3xl backdrop-blur backdrop-brightness-75 p-2 rounded-xl">
                 <Image
                   src="/images/logos/vibeverse.png"
                   alt="logo"
@@ -111,7 +89,7 @@ function Login() {
                   className="ml-2"
                 />
               </div>
-              <h1 className="flex text-center justify-center text-5xl font-bold tracking-tight text-gray-200">
+              <h1 className="flex text-center justify-center text-7xl font-bold tracking-tight text-gray-200 backdrop-blur backdrop-brightness-75 p-2 rounded-xl">
                 Creative AI + Web3
               </h1>
               <div className="relative lg:hidden mt-6">
@@ -123,12 +101,12 @@ function Login() {
                   height={100}
                 />
               </div>
-              <p className="mt-4 text-xl text-gray-200 p-2 pl-4 backdrop-blur rounded-xl">
-                Welcome to a vibrant ecosystem where users can seamlessly share,
+              <p className="mt-4 mx-auto xs:text-xl sm:text-2xl text-center text-gray-200 p-2 backdrop-blur backdrop-brightness-75 rounded-xl lg:max-w-2xl ">
+                Welcome to a vibrant ecosystem where you can seamlessly share,
                 discover, and collaborate on AI-generated content in the Film
                 Industry and beyond.
               </p>
-              <div className="mx-8">
+              <div className="flex justify-center flex-col lg:max-w-lg mx-auto">
                 {signedIn ? (
                   <>
                     <div className="flex space-x-4">
@@ -182,67 +160,6 @@ function Login() {
                     </div>
                   </>
                 )}
-              </div>
-            </div>
-            <div>
-              <div className="mt-10">
-                {/* Decorative image grid */}
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl "
-                >
-                  <div className="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8 hidden lg:block">
-                    <div className="flex items-center space-x-6 lg:space-x-8">
-                      <div
-                        className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8 mt-40 overflow-hidden h-screen animation-linear animation-infinite"
-                        style={{
-                          animationName: 'moveUp',
-                          animationDuration: '5s',
-                        }}
-                      >
-                        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-full h-full">
-                          <ImageSlider
-                            images={images1}
-                            duration={4}
-                            startOffset={0}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                        <div className="absolute left-72 top-1/2 transform -translate-y-1/2 w-full h-full">
-                          <ImageSlider
-                            images={images2}
-                            duration={3}
-                            startOffset={-25}
-                          />
-                        </div>
-                      </div>
-
-                      {/* this div should not deleted yet, its keeping the carousel slider working. I will delete later on */}
-                      <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                          <Image
-                            src="/"
-                            alt=""
-                            className="h-full w-full object-cover object-center hidden"
-                            height={100}
-                            width={100}
-                          />
-                        </div>
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                          <Image
-                            src="/"
-                            alt=""
-                            className="h-full w-full object-cover object-center hidden"
-                            height={100}
-                            width={100}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import Loading from './loading';
 import { useEffect, useState } from 'react';
 import { Roboto } from 'next/font/google';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const roboto = Roboto({
   weight: '300',
@@ -15,7 +16,7 @@ const Modal = () => {
     <div
       className={`${roboto.className} z-50 flex items-center justify-center mx-2 pb-4 border`}
     >
-      <div className="absolute bg-gray-900 top-20 xs:w-3/4 md:w-1/2 mx-auto rounded-2xl bg-gradient-to-r from-[#00F260] via-[#c471ed] to-[#0575E6] p-1 hover:border-emerald-200">
+      <div className="absolute bg-gray-900 top-60 xs:w-3/4 md:w-1/2 mx-auto rounded-2xl bg-gradient-to-r from-[#00F260] via-[#c471ed] to-[#0575E6] p-1 hover:border-emerald-200">
         <div className="h-full w-full bg-gray-800 rounded-2xl flex flex-col items-center">
           <h1 className="pt-8 mb-2 sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white">
             Early Access
@@ -55,17 +56,13 @@ export default function AIContent() {
   return (
     <div className={`mx-auto relative`}>
       <div className="h-screen mx-auto bg-gradient-to-r bg-black relative">
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <video
-            autoPlay
-            loop
-            muted
-            className="absolute z-1 min-w-full min-h-full object-cover"
-            src={'/video/aicontent.mp4'}
-          />
-        )}
+        <Image
+          src="/images/dashboard/content_background.png"
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+          alt="Background"
+        />
       </div>
       <Modal />
     </div>

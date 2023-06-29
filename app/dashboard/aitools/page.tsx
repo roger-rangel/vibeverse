@@ -14,7 +14,7 @@ const Modal = () => {
     <div
       className={`${roboto.className} z-50 flex items-center justify-center mx-2 pb-4 border`}
     >
-      <div className="absolute bg-gray-900 top-20 xs:w-3/4 md:w-1/2 mx-auto rounded-2xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1 hover:border-emerald-200">
+      <div className="absolute bg-gray-900 top-60 xs:w-3/4 md:w-1/2 mx-auto rounded-2xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1 hover:border-emerald-200">
         <div className="h-full w-full bg-gray-800 rounded-2xl flex flex-col items-center">
           <h1 className="pt-8 mb-2 sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white">
             Early Access
@@ -45,7 +45,7 @@ export default function AITools() {
     <div className={`mx-auto relative`}>
       <div className="h-screen mx-auto bg-gradient-to-r bg-black relative">
         <Image
-          src="/images/dashboard/magical_place.png"
+          src="/images/dashboard/tools_background.png"
           alt=""
           className="h-full w-full object-cover object-center"
           height={1000}
