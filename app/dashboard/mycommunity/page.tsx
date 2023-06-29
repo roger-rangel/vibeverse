@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Roboto } from 'next/font/google';
+import { Mixpanel } from '@/components/Mixpanel';
 
 const roboto = Roboto({
   weight: '300',
@@ -26,6 +27,9 @@ const Modal = () => {
           <div className="flex h-40 w-full flex-row items-center justify-center">
             <div className="animate-border inline-block rounded-full bg-black bg-gradient-to-r hover:from-[#29ffc6] hover:via-[#00c3ff] hover:to-[#ffff1c] from-purple-500 via-purple-100 to-blue-500 bg-[length:400%_400%] p-1">
               <Link
+                onClick={() => {
+                  Mixpanel.track('Getting redirected to White Mirror discord');
+                }}
                 href="https://discord.gg/yRNSEWxEUM"
                 className="flex rounded-full bg-slate-900 px-10 py-4 text-center items-center justify-center font-bold text-white text-2xl"
               >

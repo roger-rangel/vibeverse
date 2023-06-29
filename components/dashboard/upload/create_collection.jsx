@@ -113,7 +113,7 @@ function CreateCollection({ showCreateCollection }) {
       host: isLocal
         ? `http://127.0.0.1:${window.location.port}`
         : `https://ic0.app`,
-      principal: activeProvider.principal,
+      principal,
     });
     agent.fetchRootKey();
 
