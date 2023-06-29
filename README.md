@@ -18,7 +18,7 @@
     <a href="https://github.com/roger-rangel/vibeverse/issues/new"><b>🧞‍♂️ Issues</b></a>
 </div>
 
-## About Vibeverse 🌎 
+## About Vibeverse 🌎
 
 Welcome to Vibeverse, a vibrant ecosystem for sharing, discovering, and collaborating on AI-generated content in the Film Industry and beyond. Our platform provides users with the tools and resources to create new content using AI, while also enabling seamless collaboration and community building.
 
@@ -33,24 +33,30 @@ Check out our platform in action by trying our demo on <a href="https://h5fnl-4i
 
 # Features
 
-### Content Sharing: 
+### Content Sharing:
+
 Share your AI-generated content with the White Mirror community and receive feedback and collaboration opportunities.
 
-### Content Discovery: 
+### Content Discovery:
+
 Discover and explore a wide range of AI-generated content from other talented creators in the Film Industry and other creative industries that are integrating AI into their workflow.
 
-### Collaboration: 
+### Collaboration:
+
 Connect with like-minded individuals, collaborate on projects, and create amazing content together.
 
-### AI Tools: 
+### AI Tools:
+
 Access a rich selection of AI tools specifically designed for the Film Industry, empowering you to create new and innovative content. We are launching this feature in July-August 2023. [50+ tools]
 
-### Community Building: 
+### Community Building:
+
 Join various communities within Vibeverse, including our exclusive "White Mirror" community, to connect with fellow creators and enthusiasts.
 
 # NPM Package - Token-Gating
+
 We have developed an npm package called <a href="https://github.com/Szegoo/Segenie-Js"><b>Segenie-Js</b></a> that provides token-gating functionality for your applications. You can find the package on <a href="https://npmjs.com/package/segenie-js"><b>npm</b></a> as well. Follow the instructions in the package documentation to integrate it into your projects.
-  • For more information about this feature, please visit <a href="https://github.com/roger-rangel/Segenie"><b>Segenie</b></a>
+• For more information about this feature, please visit <a href="https://github.com/roger-rangel/Segenie"><b>Segenie</b></a>
 
 Vibe Token [new feature]
 We have also created a token specifically for the ICP platform. This token allows you to access premium features and unlock additional functionalities within the platform. To learn more about the Vibe token and how to obtain it, please visit our <a href="https://github.com/roger-rangel/vibe-token#readme"><b>Token Documentation</b></a>.
