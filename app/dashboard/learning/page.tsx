@@ -2,6 +2,7 @@
 
 import { Roboto } from 'next/font/google';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const roboto = Roboto({
   weight: '300',
@@ -38,12 +39,12 @@ export default function AIContent() {
   return (
     <div className={`mx-auto relative`}>
       <div className="h-screen mx-auto bg-gradient-to-r bg-black relative">
-        <video
-          autoPlay
-          loop
-          muted
-          className="absolute z-1 min-w-full min-h-full object-cover"
-          src={'/video/learning.mp4'}
+        <Image
+          src="/images/dashboard/learning_background.png"
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+          alt="Background"
         />
       </div>
       <Modal />
