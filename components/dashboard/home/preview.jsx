@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Mixpanel } from '@/components/Mixpanel';
 
 // Dynamically import ReactPlayer with SSR turned off
@@ -15,29 +16,16 @@ export default function Preview() {
           onClick={() => window.open('https://kaiber.ai/', '_blank')}
           className="group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 border-4 border-[#38ef7d]"
         >
-          <div className="absolute inset-0 flex items-center justify-center bg-black ">
-            <ReactPlayer
-              url="https://player.vimeo.com/797542275"
-              playing
-              loop
-              muted // Add the "muted" prop to mute the video
-              style={{
-                position: 'absolute',
-                transform: 'translate(-50%, -50%)',
-                top: '50%',
-                left: '50%',
-              }}
-              config={{
-                vimeo: {
-                  playerOptions: {
-                    background: true,
-                    muted: true,
-                    autopause: false,
-                    controls: false,
-                  },
-                },
-              }}
-            />
+          <div className="absolute inset-0 flex items-center justify-center bg-black">
+            <div className="relative top-20">
+              <Image
+                src={"/images/dashboard/lion.png"}
+                alt={"kaiber"} 
+                className="h-full w-full object-cover object-center"
+                width={200}
+                height={200}
+              />
+            </div>
           </div>
           <div
             aria-hidden="true"
