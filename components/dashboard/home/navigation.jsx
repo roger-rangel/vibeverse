@@ -392,7 +392,7 @@ export default function Navigation({ children }) {
           </main>
         </div>
       </div>
-      {isBannerOpen && <Banner setIsBannerOpen={setIsBannerOpen} />}
+      {/* {isBannerOpen && <Banner setIsBannerOpen={setIsBannerOpen} />} */}
     </>
   );
 }

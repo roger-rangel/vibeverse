@@ -73,7 +73,7 @@ function Login() {
         <div className=" flex justify-center items-center h-screen">
           <div className="relative mx-auto max-w-9xl px-4 sm:static sm:px-6 lg:px-8">
             <div className="items-center">
-              <div className="flex text-center justify-center gap-4 mb-4 text-gray-200 items-center text-3xl backdrop-blur backdrop-brightness-75 p-2 rounded-xl">
+              <div className="flex text-center justify-center gap-4 mb-4 text-gray-200 items-center text-3xl backdrop-blur backdrop-brightness-75 p-2 rounded-xl border">
                 <Image
                   src="/images/logos/vibeverse.png"
                   alt="logo"
@@ -89,7 +89,7 @@ function Login() {
                   className="ml-2"
                 />
               </div>
-              <h1 className="flex text-center justify-center text-7xl font-bold tracking-tight text-gray-200 backdrop-blur backdrop-brightness-75 p-2 rounded-xl">
+              <h1 className="flex text-center justify-center text-7xl font-bold tracking-tight text-gray-200 backdrop-blur backdrop-brightness-75 p-2 rounded-xl border">
                 Creative AI + Web3
               </h1>
               <div className="relative lg:hidden mt-6">
@@ -101,24 +101,24 @@ function Login() {
                   height={100}
                 />
               </div>
-              <p className="mt-4 mx-auto xs:text-xl sm:text-2xl text-center text-gray-200 p-2 backdrop-blur backdrop-brightness-75 rounded-xl lg:max-w-2xl ">
+              <p className="mt-4 mx-auto xs:text-xl sm:text-2xl text-center text-gray-200 p-2 backdrop-blur backdrop-brightness-75 rounded-xl lg:max-w-2xl border">
                 Welcome to a vibrant ecosystem where you can seamlessly share,
                 discover, and collaborate on AI-generated content in the Film
                 Industry and beyond.
               </p>
-              <div className="flex justify-center flex-col lg:max-w-lg mx-auto">
+              <div className="flex justify-center flex-col  mx-auto">
                 {signedIn ? (
                   <>
                     <div className="flex space-x-4">
                       <Link
                         href="/dashboard"
-                        className="mt-10 w-full button-guest flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
+                        className="mt-10 w-full button-guest flex justify-center text-emerald-800 font-bold py-2 rounded-3xl border"
                       >
                         Go to the dashboard
                       </Link>
                       <Link
                         href="https://discord.gg/HgCafGhHxh"
-                        className="mt-10 w-full button-discord flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
+                        className="mt-10 w-full button-discord flex justify-center text-teal-300 font-bold py-2 rounded-3xl border"
                       >
                         Join Discord
                       </Link>
@@ -129,7 +129,7 @@ function Login() {
                         window.localStorage.clear();
                         window.location.reload();
                       }}
-                      className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl"
+                      className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl border"
                     >
                       Logout
                     </button>
@@ -140,20 +140,20 @@ function Login() {
                       onClick={() => {
                         connect(new NFID().meta.id);
                       }}
-                      className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl"
+                      className="mt-10 w-full button-signin text-stone-100 font-bold py-2 rounded-3xl border "
                     >
                       Sign in
                     </button>
                     <div className="flex space-x-4">
                       <Link
                         href="/dashboard"
-                        className="mt-10 w-full button-guest flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
+                        className="mt-10 w-full button-guest flex justify-center text-emerald-800 font-bold py-2 rounded-3xl border"
                       >
                         Continue as Guest
                       </Link>
                       <Link
                         href="https://discord.gg/HgCafGhHxh"
-                        className="mt-10 w-full button-discord flex justify-center text-cyan-950 font-bold py-2 rounded-3xl"
+                        className="mt-10 w-full button-discord flex justify-center text-teal-300 font-bold py-2 rounded-3xl border"
                       >
                         Join Discord
                       </Link>
