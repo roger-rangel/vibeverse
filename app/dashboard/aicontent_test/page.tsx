@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import { Mixpanel } from '@/components/Mixpanel';
 
+import Gallery from '../../../components/dashboard/aicontent/gallery';
+
 import { AiFillStar } from "react-icons/ai";
 import { BsArrowUp } from "react-icons/bs";
 
@@ -38,14 +40,15 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="mx-auto relative">
-      <div className="h-screen mx-auto bg-gradient-to-r bg-black relative rounded-xl">
+    <div className="h-screen mx-auto relative">
+      <div className=" mx-auto bg-gradient-to-r  relative rounded-xl">
         <Image
           src="/images/dashboard/test_background.png"
-          alt=""
-          className="h-full w-full object-cover object-center"
           layout="fill"
-        />
+          objectFit="cover"
+          quality={1000}
+          alt="Background"
+        /> 
         <div className="relative w-full justify-center items-center mx-auto px-4  pt-8 sm:px-6 lg:px-8 gap-1">
           <div className="xs:flex xs:flex-wrap min-h-full w-full sm:grid sm:grid-cols-1 sm:grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 gap-1">
             <div className="relative rounded-lg flex flex-col justify-between sm:h-full overflow-hidden">
@@ -172,7 +175,7 @@ export default function Dashboard() {
         </div>
 
         {/* second row */}
-        <div className="grid min-h-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 sm:px-6 lg:px-8 gap-1 pt-1 px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 sm:px-6 lg:px-8 gap-1 pt-1 px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
             <div className="col-span-1">
               <div className="bg-gradient-to-r from-gray-700 via-gray-900 to-black relative flex justify-between items-center rounded-lg h-full sm:h-48">
@@ -230,7 +233,9 @@ export default function Dashboard() {
           </div>
         </div>
 
+        {/* third row */}
 
+        <Gallery />
 
 
                   
