@@ -193,9 +193,6 @@ export default function Dashboard() {
             </div>
             <div className="col-span-1">
               <div className="bg-gradient-to-l from-pink-300 via-purple-300 to-indigo-400 relative flex flex-col rounded-lg h-full sm:h-48 items-center justify-center">
-                {/* <span className="bg-[conic-gradient(at_left,_var(--tw-gradient-stops))] from-rose-500 to-indigo-700 text-9xl xs:h-16 xs:w-16 sm:h-32 sm:w-32 rounded-full border-white flex items-center justify-center text-white xs:text-2xl">
-                  <BsArrowDown />
-                </span>      */}
                 <Image
                   className="max-w-[80%]"
                   src={'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_5.png'}
