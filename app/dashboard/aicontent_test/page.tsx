@@ -141,11 +141,11 @@ export default function Dashboard() {
 
               
               <div className="grid grid-cols-1 xs:grid-cols-1 gap-1">
-                <div className="bg-gradient-to-b from-green-300 via-yellow-300 to-pink-300 rounded-xl h-16 sm:h-full sm:pt-4 flex xs:flex-row xs:items-center xs:justify-center items-center sm:flex-col xs:h-32 xs:space-x-2 sm:space-x-0">
+                <div className="bg-gradient-to-b from-green-300 via-yellow-300 to-pink-300 rounded-xl h-16 sm:h-full sm:pt-4 flex xs:flex-row xxs:items-center xxs:justify-center items-center sm:flex-col xxs:h-32 xxs:space-x-2 sm:space-x-0">
                   {data.map((item) => (
                     <div key={item.id} className="">
                       <Image
-                        className="mx-auto xs:h-16 xs:w-16 sm:h-12 sm:w-12 rounded-full object-cover xs:mb-0 sm:mb-2 border border-white"
+                        className="mx-auto xxs:h-12 xxs:w-12 xs:h-16 xs:w-16 sm:h-12 sm:w-12 rounded-full object-cover xxs:mb-0 sm:mb-2 border border-white"
                         src={item.image}
                         height={200}
                         width={200}
@@ -156,7 +156,7 @@ export default function Dashboard() {
                   <h2 className="flex text-slate-700 items-center justify-center xs:text-5xl sm:text-base xs:pl-2 sm:pl-0 sm:py-4">Creators</h2>
                 </div>
 
-                <div className="grid grid-rows-3 xs:hidden sm:grid gap-1">
+                <div className="grid grid-rows-3 xxs:hidden sm:grid gap-1">
                   <div className="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-400 to-rose-400 rounded-xl h-40 sm:h-full flex justify-center items-center">
                     <h2 className=" text-white text-base py-4">Shorts</h2>
                   </div>
@@ -186,7 +186,7 @@ export default function Dashboard() {
                   width={200}
                   alt=""
                 />  
-                <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 mx-auto xs:h-16 xs:w-16 sm:h-14 sm:w-14 rounded-full object-cover border border-white flex items-center justify-center text-white text-base sm:text-sm xs:text-2xl">
+                <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 mx-auto xxs:h-16 xxs:w-16 sm:h-14 sm:w-14 rounded-full object-cover border border-white flex items-center justify-center text-white text-base sm:text-sm xs:text-2xl">
                   NFT
                 </span>     
               </div>
@@ -206,7 +206,7 @@ export default function Dashboard() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
             <div className="col-span-1">
               <div
-                className="bg-gradient-to-r from-fuchsia-600 to-pink-600 relative flex flex-col items-center justify-center rounded-lg h-full sm:h-48"
+                className="bg-gradient-to-r from-fuchsia-600 to-pink-600 relative flex flex-col items-center justify-center rounded-lg h-full xxs:h-48"
                 style={{ 
                   backgroundImage: "url('https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trailer.png')",
                   backgroundSize: 'cover',
