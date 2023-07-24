@@ -29,6 +29,9 @@ module.exports = {
       },
     },
     screens: {
+      xxs: '360px',
+      // => @media (min-width: 360px) { ... }
+
       xs: '475px',
       // => @media (min-width: 475px) { ... }
 

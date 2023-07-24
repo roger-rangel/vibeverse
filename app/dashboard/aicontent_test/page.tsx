@@ -49,7 +49,7 @@ export default function Dashboard() {
           quality={1000}
           alt="Background"
         /> 
-        <div className="relative w-full justify-center items-center mx-auto px-4  pt-8 sm:px-6 lg:px-8 gap-1">
+        <div className="relative w-full justify-center items-center mx-auto px-4 pt-8 sm:px-6 lg:px-8 gap-1">
           <div className="xs:flex xs:flex-wrap min-h-full w-full sm:grid sm:grid-cols-1 sm:grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 gap-1">
             <div className="relative rounded-lg flex flex-col justify-between sm:h-full overflow-hidden">
               <Image
@@ -85,22 +85,22 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="h-full w-full grid grid-cols-1 sm:grid-cols-5 xs:gap-y-1 sm:gap-1 gap-y-2">
-              <div className=" col-span-1 sm:col-span-1 bg-gradient-to-b from-sky-950 to-violet-400 rounded-xl flex sm:flex-col items-center justify-between overflow-hidden h-full xs:py-10 sm:py-0 sm:h-auto"> 
+            <div className="h-full w-full grid grid-cols-1 sm:grid-cols-5 xxs:gap-y-1 sm:gap-1 gap-y-2 xxs:mt-1 xs:mt-0">
+              <div className=" col-span-1 sm:col-span-1 bg-gradient-to-b from-sky-950 to-violet-400 rounded-xl flex sm:flex-col items-center justify-between overflow-hidden h-full xxs:py-10 sm:py-0 sm:h-auto"> 
                 <Image
                   src="/images/dashboard/hand.png"
                   alt="Image"
-                  className="flex h-36 object-contain sm:-mt-8 xs:-ml-8 sm:ml-0 xs:-mt-14"
+                  className="flex xxs:h-32 xs:h-36 object-contain xxs:-ml-10 xs:-ml-8 xxs:-mt-14 xs:-mt-10 sm:ml-0 "
                   height={200}
                   width={200}
                 />
                 <div className="flex flex-col">
-                  <span className="text-white transform sm:-rotate-90 whitespace-nowrap sm:-mb-4">Become an AI Artist</span>
+                  <span className="text-white transform sm:-rotate-90 whitespace-nowrap sm:-mb-4 xxs:text-lg xs:text-2xl">Become an AI Artist</span>
                   <button className="bg-white hover:bg-black hover:text-white px-4 border py-2 rounded-2xl text-lg mt-4 sm:invisible">Take me there</button>     
                 </div>
       
                 <div className="flex flex-col">   
-                  <button className="bg-sky-950 flex items-center justify-center xs:invisible sm:visible sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 rounded-full text-lg xs:-mb-6 sm:-mb-6 lg:-mb-8 z-10 text-white"><BsArrowUp /></button>
+                  <button className="bg-sky-950 flex items-center justify-center xxs:invisible sm:visible sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 rounded-full text-lg xs:-mb-6 sm:-mb-6 lg:-mb-8 z-10 text-white"><BsArrowUp /></button>
                   <button className="bg-violet-700 xs:invisible sm:visible sm:h-8 sm:w-8  md:h-10 md:w-10 lg:h-12 lg:w-12 rounded-full text-lg sm:mb-4 md:mb-6 lg:mb-8"></button>
                 </div>
               </div>
