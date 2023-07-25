@@ -13,6 +13,7 @@ const data = [
     id: 1,
     creator: 'Monet',
     title: 'The AI Girl',
+    views: 10052,
     profileImage: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/creator_10.png',
     image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/ai_influencer.png',
     communities: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/white_miorror.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious-1.png'],
@@ -24,6 +25,7 @@ const data = [
     id: 2,
     creator: 'Picasso',
     title: 'Naruto\'s Dream',
+    views: 34300,
     profileImage: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/creator_4.png',
     image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/landscape.png',
     communities: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/white_miorror.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious-1.png'],
@@ -35,6 +37,7 @@ const data = [
     id: 3,
     creator: 'Van Gogh',
     title: 'Universe Battles',
+    views: 209,
     profileImage: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/creator_1.png',
     image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/user_3.png ',
     communities: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/white_miorror.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious-1.png'],
@@ -46,6 +49,7 @@ const data = [
     id: 4,
     creator: 'Monet',
     title: 'Music Album Cover',
+    views: 44022,
     profileImage: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/creator_8.png',
     image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/artworks-000365885514-ln1u97-t500x500.jpeg',
     communities: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/white_miorror.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious-1.png'],
@@ -57,17 +61,19 @@ const data = [
     id: 5,
     creator: 'Picasso',
     title: 'Secrets of a Geisha',
+    views: 99,
     profileImage: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/creator_7.png',
     image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/87bf7b08de0782a7ceeb848c8346c955.jpeg',
     communities: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/white_miorror.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious-1.png'],
     awards: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/58gdsfg_A_matte_gold_trophy_icon_smooth_textured_cup_outline_wh_bb101e0d-ac08-4551-a5bb-8e6df892ae8d-removebg-preview.png'],
-    ai_tools: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/adobe_cloud.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/chatgpt.png'],
-    emoticons: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/party-blob.gif', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/pink_heart.gif']
+    ai_tools: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/runway.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/chatgpt.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/topaz.png'],
+    emoticons: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/party-blob.gif', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/naruto.gif']
   },
   {
     id: 6,
     creator: 'Van Gogh',
     title: 'Cyborg dilemma',
+    views: 112282,
     profileImage: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/creator_6.png',
     image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/user_2.png',
     communities: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/white_miorror.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious-1.png'],
@@ -79,6 +85,7 @@ const data = [
     id: 7,
     creator: 'Monet',
     title: 'Krishna AI Art',
+    views: 750,
     profileImage: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/creator_3.png',
     image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/krishna.png',
     communities: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/white_miorror.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious-1.png'],
@@ -90,6 +97,7 @@ const data = [
     id: 8,
     creator: 'Picasso',
     title: 'Future of the Metaverse',
+    views: 22018,
     profileImage: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/creator_2.png',
     image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/building.png',
     communities: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/white_miorror.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious-1.png'],
@@ -101,28 +109,31 @@ const data = [
     id: 9,
     creator: 'Picasso',
     title: 'New Frontiers',
+    views: 476,
     profileImage: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/creator_9.png',
     image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/vibeverse.png',
     communities: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/white_miorror.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious-1.png'],
     awards: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_5.png'],
-    ai_tools: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/photoshop.webp', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/midjourney_1_1.png'],
+    ai_tools: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/premiere.png','https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/photoshop.webp', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/midjourney_1_1.png'],
     emoticons: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/purple_triangle.gif', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/pink_heart.gif']
   },
   {
     id: 10,
     creator: 'Picasso',
     title: 'Last Battle',
+    views: 977,
     profileImage: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/creator_5.png',
     image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/el_mandaloriano.png',
     communities: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/white_miorror.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious-1.png'],
     awards: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_5.png'],
     ai_tools: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/hugging.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/kaiber_2.png'],
-    emoticons: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/watermelon.gif', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/pink_heart.gif']
+    emoticons: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/watermelon.gif', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/gradient_donut.gif']
   },
   {
     id: 11,
     creator: 'Picasso',
     title: 'Alien Dreams',
+    views: 800,
     profileImage: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/creator_11.png',
     image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_2_copy.png',
     communities: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/white_miorror.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious-1.png'],
@@ -145,6 +156,7 @@ const data = [
     id: 13,
     creator: 'Picasso',
     title: 'Autumn Adventures',
+    views: 45300,
     profileImage: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/creator_13.png',
     image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_1_(1)_copy.png',
     communities: ['https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/white_miorror.png', 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious-1.png'],
@@ -231,7 +243,7 @@ export default function Gallery() {
                           </div>
  
                           <div className="bg-slate-800 py-2 px-4 rounded-full text-xs">
-                            1M Views
+                            {item.views} Views
                           </div>
                         </div>
                         <div className="flex justify-between bg-black bg-opacity-40 px-2 rounded-t-lg">
@@ -248,9 +260,22 @@ export default function Gallery() {
                                   alt=""
                                 />
                               ))}
-                              <button className="bg-sky-950 flex items-center justify-center rounded-full xxs:h-10 xxs:w-10 sm:h-6 sm:w-6 text-xs z-1 text-white">+ 2</button>
+                              <button className="bg-sky-950 flex items-center justify-center rounded-full w-12 h-6 text-xs z-1 text-white">
+                                <div className='mr-1'>
+                                  + 2
+                                </div>
+                                <div className=''>
+                                  <Image
+                                    className="xxs:h-4 xxs:w-4 rounded-full object-cover"
+                                    src={'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/community.png'}
+                                    height={200}
+                                    width={200}
+                                    alt=""
+                                  />
+                                </div>
+                              </button>
                             </div>
-                            <div className="flex gap-1 items-center">
+                            <div className="flex items-center">
                               {item.awards && item.awards.map((award, index) => (
                                 <Image
                                   key={index}
@@ -261,7 +286,20 @@ export default function Gallery() {
                                   alt=""
                                 />
                               ))}
-                              <button className=" flex items-center justify-center rounded-full xxs:h-12 xxs:w-12 sm:h-6 sm:w-6 text-xs z-1 text-white pb-0.5">+ 4</button>
+                              <button className="bg-sky-950 flex items-center justify-center rounded-full w-12 h-6 text-xs z-1 text-white">
+                                <div className='mr-1'>
+                                  + 4
+                                </div>
+                                <div className=''>
+                                  <Image
+                                    className="xxs:h-4 xxs:w-4 rounded-full object-cover"
+                                    src={'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/winner.png'}
+                                    height={200}
+                                    width={200}
+                                    alt=""
+                                  />
+                                </div>
+                              </button>
                             </div>
                           </div>
                           {/* bg-green-300 side, next div */}

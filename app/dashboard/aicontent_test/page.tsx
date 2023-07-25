@@ -181,25 +181,29 @@ export default function Dashboard() {
               <div className="bg-gradient-to-r from-gray-700 via-gray-900 to-black relative flex justify-between items-center rounded-lg h-full sm:h-48">
                 <Image
                   className="max-w-[60%]"
-                  src={'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/NFT_ticket-removebg-preview.png'}
+                  src={'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/NFT-ticket.png'}
                   height={200}
                   width={200}
                   alt=""
                 />  
-                <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 mx-auto xxs:h-16 xxs:w-16 sm:h-14 sm:w-14 rounded-full object-cover border border-white flex items-center justify-center text-white text-base sm:text-sm xs:text-2xl">
-                  NFT
+                <span className=" mx-auto xxs:h-16 xxs:w-16 sm:h-14 sm:w-14 rounded-full object-cover flex items-center justify-center text-white text-base xs:text-3xl pr-6">
+                  NFT Tickets
                 </span>     
               </div>
             </div>
             <div className="col-span-1">
-              <div className="bg-gradient-to-l from-pink-300 via-purple-300 to-indigo-400 relative flex flex-col rounded-lg h-full sm:h-48 items-center justify-center">
-                <Image
-                  className="max-w-[80%]"
-                  src={'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_5.png'}
-                  height={200}
-                  width={200}
-                  alt=""
-                />  
+              <div
+                className="bg-gradient-to-l from-pink-300 via-purple-300 to-indigo-400 relative flex flex-col rounded-lg h-full sm:h-48 items-center justify-center "
+                style={{ 
+                  backgroundImage: "url('https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/min.png')",
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  
+                }}>
+                <h2 className="text-5xl text-white">
+                  새로운 대회
+                </h2>
               </div>
             </div>
           </div>
@@ -213,7 +217,7 @@ export default function Dashboard() {
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat'
                 }}>
-                <h2 className={`${wallpoet.className} text-white xs:text-4xl sm:text-base md:text-lg bg-black bg-opacity-40 w-full flex items-center justify-center py-8`}>AI CHALLENGES</h2>
+                <h2 className={`${wallpoet.className} text-white xs:text-4xl sm:text-base md:text-2xl bg-black bg-opacity-40 w-full flex items-center justify-center py-8`}>AI CHALLENGES</h2>
               </div>
             </div>
             <div className="col-span-1">
