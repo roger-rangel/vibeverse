@@ -18,7 +18,7 @@ export default function Dashboard() {
         src="/images/dashboard/magical_castle.png"
         layout="fill"
         objectFit="cover"
-        quality={100}
+        quality={1000}
         alt="Background"
       />
       <div className="relative mb-20">
