@@ -45,7 +45,7 @@ export default function AITools() {
     <div className={`mx-auto relative`}>
       <div className="h-screen mx-auto bg-gradient-to-r bg-black relative">
         <Image
-          src="/images/dashboard/tools_background.png"
+          src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/tools_background_copy.png"
           alt=""
           className="h-full w-full object-cover object-center"
           height={1000}

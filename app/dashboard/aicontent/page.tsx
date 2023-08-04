@@ -57,7 +57,7 @@ export default function AIContent() {
     <div className={`mx-auto relative`}>
       <div className="h-screen mx-auto bg-gradient-to-r bg-black relative">
         <Image
-          src="/images/dashboard/content_background.png"
+          src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/rogerweb3_Full_body_Portrait_of_a_holy_knight_wearing_brilliant_a1a93237-61e0-469d-888a-915267415622.png"
           layout="fill"
           objectFit="cover"
           quality={100}
