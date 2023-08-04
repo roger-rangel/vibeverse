@@ -52,7 +52,7 @@ export default function AIContent() {
     <div className={`mx-auto relative`}>
       <div className="h-screen mx-auto bg-gradient-to-r bg-black relative">
         <Image
-          src="/images/dashboard/learning_background.png"
+          src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/ai_influencer.png"
           layout="fill"
           objectFit="cover"
           quality={100}
