@@ -30,7 +30,7 @@ function Login() {
   return (
     <div className="h-screen bg-gradient-to-r from-[#8360c3] to-[#2ebf91]">
       <Image
-        src="/images/dashboard/error.png"
+        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/login_background_copy.png"
         layout="fill"
         objectFit="cover"
         quality={100}

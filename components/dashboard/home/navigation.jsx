@@ -333,9 +333,9 @@ export default function Navigation({ children }) {
             <Image
               src="/images/logos/vibe_mobile.png"
               alt="logo"
-              width={50}
-              height={50}
-              className="lg:hidden -ml-2.5"
+              width={30}
+              height={30}
+              className="lg:hidden mr-2"
             />
             <button
               type="button"
@@ -392,7 +392,7 @@ export default function Navigation({ children }) {
           </main>
         </div>
       </div>
-      {/* {isBannerOpen && <Banner setIsBannerOpen={setIsBannerOpen} />} */}
+      {isBannerOpen && <Banner setIsBannerOpen={setIsBannerOpen} />}
     </>
   );
 }
