@@ -12,7 +12,7 @@ import { NFID } from '@connect2ic/core/providers/nfid';
 import { Mixpanel } from '@/components/Mixpanel';
 import { AuthClient } from '@dfinity/auth-client';
 
-import IMG from '@/public/images/items/item_1.png';
+// import IMG from '@/public/images/items/item_1.png';
 
 function TransferModal({ showModal, selectedNft }) {
   const [receiver, setReceiver] = useState('');
