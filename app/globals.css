@@ -63,7 +63,7 @@ body {
 }
 
 .button-signin {
-  background: linear-gradient(-45deg, #009FFF, #24C6DC);
+  background: linear-gradient(-45deg, #009fff, #24c6dc);
   background-size: 300% 50%;
   animation: gradient 4s linear infinite;
 }
@@ -75,7 +75,7 @@ body {
 }
 
 .button-discord {
-  background: linear-gradient(-45deg,#7F00FF, #fc00ff);
+  background: linear-gradient(-45deg, #7f00ff, #fc00ff);
   background-size: 600% 100%;
   animation: gradient 3s linear infinite;
 }

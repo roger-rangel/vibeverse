@@ -26,7 +26,7 @@ const Item = ({ showModal, nfts, setSelectedNft }) => {
   //   nfts = data;
   // }
   nfts = data;
-  console.log("NFTs are:");
+  console.log('NFTs are:');
   console.log(nfts);
 
   return (

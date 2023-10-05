@@ -19,8 +19,8 @@ export default function Preview() {
           <div className="absolute inset-0 flex items-center justify-center bg-black">
             <div className="relative top-20">
               <Image
-                src={"/images/dashboard/lion.png"}
-                alt={"kaiber"} 
+                src={'/images/dashboard/lion.png'}
+                alt={'kaiber'}
                 className="h-full w-full object-cover object-center"
                 width={200}
                 height={200}

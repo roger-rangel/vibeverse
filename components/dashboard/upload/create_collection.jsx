@@ -51,7 +51,7 @@ function CreateCollection({ showCreateCollection }) {
 
     let finalUrl = imageUrl;
     if (imageOption == 'url') {
-      finalUrl = customImageUrl; 
+      finalUrl = customImageUrl;
     }
 
     const actor = new BackendActor();
