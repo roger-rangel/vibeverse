@@ -22,9 +22,11 @@ const data = [
 ];
 
 const Item = ({ showModal, nfts, setSelectedNft }) => {
-  if (!nfts || nfts == []) {
-    nfts = data;
-  }
+  // if (!nfts || nfts == []) {
+  //   nfts = data;
+  // }
+  nfts = data;
+  console.log('NFTs are:');
   console.log(nfts);
 
   return (
