@@ -9,31 +9,31 @@ import Gallery from '../../../components/dashboard/aicontent/gallery';
 import { AiFillStar } from 'react-icons/ai';
 import { BsArrowUp } from 'react-icons/bs';
 
-import { Wallpoet } from 'next/font/google';
+// import { Wallpoet } from 'next/font/google';
 
-const wallpoet = Wallpoet({
-  subsets: ['latin'],
-  weight: ['400'],
-});
+// const wallpoet = Wallpoet({
+//   subsets: ['latin'],
+//   weight: ['400'],
+// });
 
-const data = [
+const creators = [
   {
     id: 1,
     creator: 'Monet',
     image:
-      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/user_1.png',
+      'https://pbs.twimg.com/media/F70cK39W4AExd1F?format=jpg&name=large',
   },
   {
     id: 2,
     creator: 'Picasso',
     image:
-      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/user_2.png',
+      'https://pbs.twimg.com/media/F7m2u04WwAAsx2E?format=jpg&name=large',
   },
   {
     id: 3,
     creator: 'Van Gogh',
     image:
-      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/user_3.png',
+      'https://pbs.twimg.com/media/F7ShNV8XQAA1qMt?format=jpg&name=large',
   },
 ];
 
@@ -158,7 +158,7 @@ export default function Dashboard() {
 
               <div className="grid grid-cols-1 xs:grid-cols-1 gap-1">
                 <div className="bg-gradient-to-b from-green-300 via-yellow-300 to-pink-300 rounded-xl h-16 sm:h-full sm:pt-4 flex xs:flex-row xxs:items-center xxs:justify-center items-center sm:flex-col xxs:h-32 xxs:space-x-2 sm:space-x-0">
-                  {data.map((item) => (
+                  {creators.map((item) => (
                     <div key={item.id} className="">
                       <Image
                         className="mx-auto xxs:h-12 xxs:w-12 xs:h-16 xs:w-16 sm:h-12 sm:w-12 rounded-full object-cover xxs:mb-0 sm:mb-2 border border-white"
@@ -191,7 +191,7 @@ export default function Dashboard() {
         </div>
 
         {/* second row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 sm:px-6 lg:px-8 gap-1 pt-1 px-4">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 sm:px-6 lg:px-8 gap-1 pt-1 px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
             <div className="col-span-1">
               <div className="bg-gradient-to-r from-gray-700 via-gray-900 to-black relative flex justify-between items-center rounded-lg h-full sm:h-48">
@@ -244,7 +244,7 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* third row */}
 
