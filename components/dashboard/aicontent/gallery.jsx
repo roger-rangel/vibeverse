@@ -24,29 +24,31 @@ const randomBackground = [
 
 const data = [
   {
-    id: 7,
+    id: 1,
     creator: 'Monet',
     title: 'Krishna AI Art',
     views: 750,
     profileImage:
-      '',
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/creator_3.png',
     image:
-      '',
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/krishna.png',
     communities: [
-      '',
-      '',
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/white_miorror.png',
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious-1.png',
     ],
     awards: [
-      '', '', '', '',
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_4.png',
     ],
     ai_tools: [
-      '', '', 
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/hugging.png',
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/kaiber_2.png',
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/ilumine.png',
     ],
     emoticons: [
-      '',
-      '',
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/psychedelic_heart.gif',
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/gradient_donut.gif',
     ],
-  }
+  },
 ];
 
 export default function Gallery() {

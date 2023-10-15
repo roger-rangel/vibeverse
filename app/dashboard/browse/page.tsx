@@ -1,25 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Mixpanel } from '@/components/Mixpanel';
 
 import Gallery from '../../../components/dashboard/aicontent/gallery';
 
 import { AiFillStar } from 'react-icons/ai';
 import { BsArrowUp } from 'react-icons/bs';
-
-import { Actor, HttpAgent } from '@dfinity/agent';
-import { idlFactory as nfts_idl } from './nfts.did.js'; // Import the generated IDL file
-
-
-//DO NOT DELETE THIS
-// import { Wallpoet } from 'next/font/google';
-
-// const wallpoet = Wallpoet({
-//   subsets: ['latin'],
-//   weight: ['400'],
-// });
 
 const creators = [
   {
@@ -44,32 +32,8 @@ const creators = [
 
 export default function Dashboard() {
 
-  const [nfts, setNfts] = useState([]);
-
-  useEffect(() => {
-    async function fetchNfts() {
-      // Initialize the agent
-      const agent = new HttpAgent();
-      await agent.fetchRootKey();
-
-      // Define the principal for the NFTs canister
-      const nftsCanisterId = "your_nfts_canister_id"; 
-
-      // Create an actor for the NFTs canister
-      const nftsActor = Actor.createActor(nfts_idl, { agent, canisterId: nftsCanisterId });
-
-      // Now we can use this actor to call the all_nfts method
-      const fetchedNfts = await nftsActor.all_nfts();
-
-      setNfts(fetchedNfts);
-    }
-
-    fetchNfts();
-  }, []);
-
   useEffect(() => {
     Mixpanel.track('Browsing page visited');
-   
   }, []);
 
   return (
@@ -223,6 +187,7 @@ export default function Dashboard() {
         {/* second row */}
 
         <Gallery />
+
       </div>
     </div>
   );

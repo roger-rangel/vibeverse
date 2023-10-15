@@ -1,4 +1,11 @@
-{/* second row */}
+// import { Wallpoet } from 'next/font/google';
+
+// const wallpoet = Wallpoet({
+//   subsets: ['latin'],
+//   weight: ['400'],
+// });
+
+{/* second row */ }
 {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 sm:px-6 lg:px-8 gap-1 pt-1 px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
             <div className="col-span-1">
