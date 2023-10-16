@@ -170,8 +170,7 @@ pub fn update_metadata(
     })
 }
 
-/// Returns the collection with the specified `CollectionId`.
-/// In case there is no such collection returns `None`.
+/// Returns the collection with the specified `CollectionId`.  In case there is no such collection returns `None`.
 pub fn get_collection(id: CollectionId) -> Option<Collection> {
     COLLECTIONS.with(|collections| {
         if let Some(collection) = collections.borrow().get(&id) {
@@ -323,6 +322,33 @@ pub fn all_nfts() -> Vec<Nft> {
     }
 
     nfts
+}
+
+pub fn nfts_within_collection(collection_id: CollectionId, start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
+    let maybe_minted: Result<u128, _> = get_collection(collection_id.clone().into())
+        .unwrap()
+        .minted
+        .0
+        .try_into();
+
+    if let Err(_) = maybe_minted {
+        return vec![];
+    }
+
+    let minted = maybe_minted.unwrap();
+    let start_index = start_index.unwrap_or_default();
+    let count = count.unwrap_or(minted);
+
+    if start_index > minted {
+        return vec![];
+    }
+
+    let end = start_index.checked_add(count).expect("adding `start_index` and `count` together overflowed.");
+    let end = minted.min(end);
+
+    (start_index..end).into_iter().map(|nft_id| {
+        get_nft((collection_id.clone(), Nat::from(nft_id.clone()))).expect("`nft_id` must be good, otherwise the value of `minted` is broken")
+    }).collect()
 }
 
 pub fn nft_transfer(caller: Principal, receiver: Principal, nft_id: NftId) -> Result<(), Error> {
