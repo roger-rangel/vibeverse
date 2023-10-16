@@ -338,6 +338,58 @@ fn nft_transfer_works() {
     assert_eq!(nfts_of_user(creator), vec![]);
 }
 
+#[test]
+fn nfts_within_collection_works() {
+    let creator = get_creator();
+    let name = String::from("collection");
+    let transferable = true;
+
+    let collection = create_mock_collection(creator, name, transferable);
+
+    let mut nfts: Vec<Nft> = vec![];
+    (0..50).into_iter().for_each(|i| {
+        assert_eq!(
+            mint_nft(
+                creator,
+                creator,
+                collection.id.clone(),
+                format!("Car {}", i),
+                format!("..."),
+                None
+            ),
+            Ok(())
+        );
+
+        nfts.push(Nft {
+            id: (Nat::from(0), Nat::from(i)),
+            name: format!("Car {}", i),
+            description: format!("..."),
+            asset_url: None
+        });
+    });
+
+    // Works when `start_index` or `count` are not set.
+    assert_eq!(nfts_within_collection(collection.id.clone(), None, None), nfts);
+
+    // Works when just `start_index` is set.
+    assert_eq!(nfts_within_collection(collection.id.clone(), Some(5), None), nfts.iter().cloned().skip(5).collect::<Vec<Nft>>());
+
+    // Works when just `count` is set.
+    assert_eq!(nfts_within_collection(collection.id.clone(), None, Some(42)), nfts.iter().cloned().take(42).collect::<Vec<Nft>>());
+
+    // Works when both `start_index` and `count` are set.
+    assert_eq!(nfts_within_collection(collection.id.clone(), Some(6), Some(42)), nfts.iter().cloned().skip(6).take(42).collect::<Vec<Nft>>());
+
+    // Works when both `start_index` + `count` > minted.
+    assert_eq!(nfts_within_collection(collection.id.clone(), Some(69), Some(42)), vec![]);
+
+    // Works when both `start_index` > minted.
+    assert_eq!(nfts_within_collection(collection.id.clone(), Some(69), None), vec![]);
+
+    // Works when both `count` > minted.
+    assert_eq!(nfts_within_collection(collection.id.clone(), None, Some(69)), nfts);
+}
+
 fn create_mock_collection(creator: Principal, name: String, transferable: bool) -> Collection {
     let description = format!("Description of: {}", name);
     let image_url = None;
