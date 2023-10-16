@@ -7,6 +7,7 @@ import {
   Nft,
   _SERVICE,
 } from '@/declarations/vibeverse_backend/vibeverse_backend.did';
+import { DFX_NETWORK } from '@/config';
 
 class BackendActor {
   public async createCollection(
@@ -58,9 +59,13 @@ class BackendActor {
     );
   }
 
-  public async getNfts(identity: Identity): Promise<Nft[]> {
-    console.log('Getting nfts');
+  public async getAllNfts(): Promise<Nft[]> {
+    const actor = this.createActor();
 
+    return await actor.all_nfts();
+  }
+
+  public async getNfts(identity: Identity): Promise<Nft[]> {
     const actor = this.createActor(identity);
 
     return await actor.nfts_of_caller();
@@ -95,9 +100,7 @@ class BackendActor {
 
   private createActor(identity?: Identity): ActorSubclass<_SERVICE> {
     const host =
-      process.env.DFX_NETWORK === 'local'
-        ? 'http://localhost:4943'
-        : 'https://ic0.app';
+      DFX_NETWORK === 'local' ? 'http://localhost:4943' : 'https://ic0.app';
 
     const actor = createActor(canisterId, {
       agentOptions: {
