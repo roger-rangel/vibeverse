@@ -3,9 +3,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import BackendActor from '@/components/BackendActor';
 
-import { Connect2ICProvider, useConnect } from '@connect2ic/react';
-import { createClient } from '@connect2ic/core';
-import { NFID } from '@connect2ic/core/providers/nfid';
+import { useConnect } from '@connect2ic/react';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -93,20 +91,9 @@ function Dropdown({ setCollection, collection }) {
 }
 
 export default function DropdownWrapper({ setCollection, collection }) {
-  const client = createClient({
-    providers: [new NFID()],
-    globalProviderConfig: {
-      dev: false,
-    },
-  });
-
   useEffect(() => {
     console.log('');
   }, []);
 
-  return (
-    <Connect2ICProvider client={client}>
-      <Dropdown setCollection={setCollection} collection={collection} />
-    </Connect2ICProvider>
-  );
+  return <Dropdown setCollection={setCollection} collection={collection} />;
 }

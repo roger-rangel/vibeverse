@@ -1,31 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ConnectDialog, useConnect, useDialog } from '@connect2ic/react';
+
 import { Mixpanel } from '@/components/Mixpanel';
-import { Connect2ICProvider } from '@connect2ic/react';
-import { useConnect } from '@connect2ic/react';
-import { createClient } from '@connect2ic/core';
-import { NFID } from '@connect2ic/core/providers/nfid';
-import { AuthClient } from '@dfinity/auth-client';
 
 function Login() {
-  const [signedIn, setSignedIn] = useState(false);
-
-  const { connect } = useConnect({
-    onConnect: (data) => {
-      setSignedIn(true);
-      console.log(data);
-    },
-    onDisconnect: () => console.log('bye'),
-  });
-
-  useEffect(() => {
-    AuthClient.create().then((authClient: any) => {
-      console.log(authClient.getIdentity());
-    });
-  }, []);
+  const { isConnected } = useConnect();
+  const dialog = useDialog();
 
   return (
     <div className="h-screen bg-gradient-to-r from-[#8360c3] to-[#2ebf91]">
@@ -107,7 +91,7 @@ function Login() {
                 Industry and beyond.
               </p>
               <div className="flex justify-center flex-col  mx-auto">
-                {signedIn ? (
+                {isConnected ? (
                   <>
                     <div className="flex space-x-4">
                       <Link
@@ -137,13 +121,12 @@ function Login() {
                 ) : (
                   <>
                     <button
-                      onClick={() => {
-                        connect(new NFID().meta.id);
-                      }}
+                      onClick={() => dialog.open()}
                       className="mt-10 w-full button-signin text-stone-100 font-bold py-2 rounded-3xl border "
                     >
                       Sign in
                     </button>
+                    <ConnectDialog dark={false} />
                     <div className="flex space-x-4">
                       <Link
                         href="/dashboard"
@@ -170,20 +153,9 @@ function Login() {
 }
 
 export default function LoginPage() {
-  const client = createClient({
-    providers: [new NFID()],
-    globalProviderConfig: {
-      dev: false,
-    },
-  });
-
   useEffect(() => {
     Mixpanel.track('Landing page');
   });
 
-  return (
-    <Connect2ICProvider client={client}>
-      <Login />
-    </Connect2ICProvider>
-  );
+  return <Login />;
 }

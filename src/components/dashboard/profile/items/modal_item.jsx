@@ -6,9 +6,6 @@ import styles from './Items.module.scss';
 import { classnames } from 'tailwindcss-classnames';
 
 import BackendActor from '@/components/BackendActor';
-import { Connect2ICProvider } from '@connect2ic/react';
-import { createClient } from '@connect2ic/core';
-import { NFID } from '@connect2ic/core/providers/nfid';
 import { Mixpanel } from '@/components/Mixpanel';
 import { AuthClient } from '@dfinity/auth-client';
 
@@ -100,20 +97,9 @@ function TransferModal({ showModal, selectedNft }) {
 }
 
 export default function TransferModalWrapped({ showModal, selectedNft }) {
-  const client = createClient({
-    providers: [new NFID()],
-    globalProviderConfig: {
-      dev: false,
-    },
-  });
-
   useEffect(() => {
     Mixpanel.track('Transfering an NFT');
   }, []);
 
-  return (
-    <Connect2ICProvider client={client}>
-      <TransferModal showModal={showModal} selectedNft={selectedNft} />
-    </Connect2ICProvider>
-  );
+  return <TransferModal showModal={showModal} selectedNft={selectedNft} />;
 }

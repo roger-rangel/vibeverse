@@ -1,20 +1,17 @@
 'use client';
 
-import Img_Option from './img_option.jsx';
-
 import { useState, useEffect } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
-import BackendActor from '@/components/BackendActor';
 import { AssetManager } from '@dfinity/assets';
-import { canisterId } from '@/declarations/vibeverse_assets';
 import { HttpAgent } from '@dfinity/agent';
-
-import { Connect2ICProvider, useConnect } from '@connect2ic/react';
-import { createClient } from '@connect2ic/core';
-import { NFID } from '@connect2ic/core/providers/nfid';
-import { Mixpanel } from '@/components/Mixpanel';
-
+import { useConnect } from '@connect2ic/react';
 import { AuthClient } from '@dfinity/auth-client';
+
+import BackendActor from '@/components/BackendActor';
+import { Mixpanel } from '@/components/Mixpanel';
+import { canisterId } from '@/declarations/vibeverse_assets';
+
+import Img_Option from './img_option.jsx';
 
 function CreateCollection({ showCreateCollection }) {
   const [name, setName] = useState('');
@@ -323,20 +320,9 @@ function CreateCollection({ showCreateCollection }) {
 }
 
 export default function CreateCollectionWrapped({ showCreateCollection }) {
-  const client = createClient({
-    providers: [new NFID()],
-    globalProviderConfig: {
-      dev: false,
-    },
-  });
-
   useEffect(() => {
     Mixpanel.track('Creating a collection');
   }, []);
 
-  return (
-    <Connect2ICProvider client={client}>
-      <CreateCollection showCreateCollection={showCreateCollection} />
-    </Connect2ICProvider>
-  );
+  return <CreateCollection showCreateCollection={showCreateCollection} />;
 }

@@ -1,7 +1,9 @@
 'use client';
 
-import './globals.css';
 import { useEffect, useState } from 'react';
+
+import Providers from '@/providers';
+import './globals.css';
 
 const Dynamic = ({ children }: { children: React.ReactNode }) => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -24,7 +26,9 @@ export default function RootLayout({
   return (
     <html className="bg-black">
       <body className="h-full">
-        <Dynamic>{children}</Dynamic>
+        <Dynamic>
+          <Providers>{children}</Providers>
+        </Dynamic>
       </body>
     </html>
   );

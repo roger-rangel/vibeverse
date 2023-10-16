@@ -12,9 +12,7 @@ import { AssetManager } from '@dfinity/assets';
 import { canisterId } from '@/declarations/vibeverse_assets';
 import { HttpAgent } from '@dfinity/agent';
 
-import { Connect2ICProvider, useConnect } from '@connect2ic/react';
-import { createClient } from '@connect2ic/core';
-import { NFID } from '@connect2ic/core/providers/nfid';
+import { useConnect } from '@connect2ic/react';
 import { Mixpanel } from '@/components/Mixpanel';
 import { AuthClient } from '@dfinity/auth-client';
 
@@ -346,20 +344,9 @@ function CreateNFT({ showCreateNFT }) {
 }
 
 export default function CreateNFTWrapped({ showCreateNFT }) {
-  const client = createClient({
-    providers: [new NFID()],
-    globalProviderConfig: {
-      dev: false,
-    },
-  });
-
   useEffect(() => {
     Mixpanel.track('Creating an NFT');
   }, []);
 
-  return (
-    <Connect2ICProvider client={client}>
-      <CreateNFT showCreateNFT={showCreateNFT} />
-    </Connect2ICProvider>
-  );
+  return <CreateNFT showCreateNFT={showCreateNFT} />;
 }
