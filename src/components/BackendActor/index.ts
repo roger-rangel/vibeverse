@@ -71,7 +71,9 @@ class BackendActor {
     return await actor.nfts_of_caller();
   }
 
-  public async collectionsCreatedBy(rawPrincipal: any): Promise<Collection[]> {
+  public async collectionsCreatedBy(
+    rawPrincipal: string,
+  ): Promise<Collection[]> {
     console.log('Getting collections created by ' + rawPrincipal);
 
     const actor = this.createActor();

@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { Poppins } from 'next/font/google';
+import { AuthClient } from '@dfinity/auth-client';
 
 import About from '@/components/dashboard/profile/about/about';
 import Items from '@/components/dashboard/profile/items/items';
 import Modal_Item from '@/components/dashboard/profile/items/modal_item';
 import BackendActor from '@/components/BackendActor';
-import { AuthClient } from '@dfinity/auth-client';
 import { Nft } from '@/declarations/vibeverse_backend/vibeverse_backend.did';
 
 const poppins = Poppins({

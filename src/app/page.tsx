@@ -3,12 +3,12 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ConnectDialog, useConnect, useDialog } from '@connect2ic/react';
+import { useConnect, useDialog, ConnectDialog } from '@connect2ic/react';
 
 import { Mixpanel } from '@/components/Mixpanel';
 
 function Login() {
-  const { isConnected } = useConnect();
+  const { isConnected, disconnect } = useConnect();
   const dialog = useDialog();
 
   return (
@@ -109,9 +109,8 @@ function Login() {
                     </div>
                     <button
                       onClick={() => {
-                        window.indexedDB.deleteDatabase('auth-client-db');
-                        window.localStorage.clear();
-                        window.location.reload();
+                        disconnect();
+                        dialog.close();
                       }}
                       className="mt-10 w-full button-signin text-cyan-950 font-bold py-2 rounded-3xl border"
                     >

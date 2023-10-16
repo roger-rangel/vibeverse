@@ -11,6 +11,8 @@ import { InfinityWallet } from '@connect2ic/core/providers/infinity-wallet';
 
 import '@connect2ic/core/style.css';
 
+import { ActorProvider } from './ActorProvider';
+
 export default function Providers({ children }: React.PropsWithChildren) {
   const providers = [new NFID(), new InternetIdentity(), new InfinityWallet()];
 
@@ -21,5 +23,9 @@ export default function Providers({ children }: React.PropsWithChildren) {
     },
   });
 
-  return <Connect2ICProvider client={client}>{children}</Connect2ICProvider>;
+  return (
+    <Connect2ICProvider client={client}>
+      <ActorProvider>{children}</ActorProvider>
+    </Connect2ICProvider>
+  );
 }
