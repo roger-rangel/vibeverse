@@ -324,7 +324,11 @@ pub fn all_nfts() -> Vec<Nft> {
     nfts
 }
 
-pub fn nfts_within_collection(collection_id: CollectionId, start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
+pub fn nfts_within_collection(
+    collection_id: CollectionId,
+    start_index: Option<u128>,
+    count: Option<u128>,
+) -> Vec<Nft> {
     let maybe_minted: Result<u128, _> = get_collection(collection_id.clone().into())
         .unwrap()
         .minted
@@ -343,12 +347,18 @@ pub fn nfts_within_collection(collection_id: CollectionId, start_index: Option<u
         return vec![];
     }
 
-    let end = start_index.checked_add(count).expect("adding `start_index` and `count` together overflowed.");
+    let end = start_index
+        .checked_add(count)
+        .expect("adding `start_index` and `count` together overflowed.");
     let end = minted.min(end);
 
-    (start_index..end).into_iter().map(|nft_id| {
-        get_nft((collection_id.clone(), Nat::from(nft_id.clone()))).expect("`nft_id` must be good, otherwise the value of `minted` is broken")
-    }).collect()
+    (start_index..end)
+        .into_iter()
+        .map(|nft_id| {
+            get_nft((collection_id.clone(), Nat::from(nft_id.clone())))
+                .expect("`nft_id` must be good, otherwise the value of `minted` is broken")
+        })
+        .collect()
 }
 
 pub fn nft_transfer(caller: Principal, receiver: Principal, nft_id: NftId) -> Result<(), Error> {
