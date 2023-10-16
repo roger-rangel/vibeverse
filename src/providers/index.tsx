@@ -1,20 +1,19 @@
 'use client';
 
 import React from 'react';
-import { Connect2ICProvider } from '@connect2ic/react';
 import { createClient } from '@connect2ic/core';
-import { defaultProviders } from '@connect2ic/core/providers';
+import { Connect2ICProvider } from '@connect2ic/react';
+
+// NOTE: DO NOT IMPORT FROM @connect2ic/core/providers
+import { NFID } from '@connect2ic/core/providers/nfid';
+import { InternetIdentity } from '@connect2ic/core/providers/internet-identity';
+import { InfinityWallet } from '@connect2ic/core/providers/infinity-wallet';
 
 import '@connect2ic/core/style.css';
 
 export default function Providers({ children }: React.PropsWithChildren) {
-  // const providers = [new InternetIdentity()];
+  const providers = [new NFID(), new InternetIdentity(), new InfinityWallet()];
 
-  const providers = defaultProviders({
-    providerUrl: '',
-    whitelist: [],
-    ledgerCanisterId: '',
-  });
   const client = createClient({
     providers,
     globalProviderConfig: {
