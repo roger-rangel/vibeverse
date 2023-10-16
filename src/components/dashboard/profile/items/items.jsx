@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styles from './Items.module.scss';
 import { classnames } from 'tailwindcss-classnames';
-import IMG1 from '@/public/images/items/item_1.png';
+import IMG1 from '~/images/items/item_1.png';
 
 const data = [
   {

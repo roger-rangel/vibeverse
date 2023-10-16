@@ -1,9 +1,12 @@
-/* eslint-disable eqeqeq */
-import { createActor, canisterId } from '@/declarations/vibeverse_backend';
-// @ts-ignore
-import { idlFactory } from '@/declarations/vibeverse_backend/vibeverse_backend.did.js';
 import { Principal } from '@dfinity/principal';
-import { Actor, HttpAgent, Identity } from '@dfinity/agent';
+import { ActorSubclass, Identity } from '@dfinity/agent';
+
+import { createActor, canisterId } from '@/declarations/vibeverse_backend';
+import {
+  Collection,
+  Nft,
+  _SERVICE,
+} from '@/declarations/vibeverse_backend/vibeverse_backend.did';
 
 class BackendActor {
   public async createCollection(
@@ -12,7 +15,7 @@ class BackendActor {
     description: string,
     coverPhoto: string,
     maybeLimit: number | null,
-  ): Promise<any> {
+  ): Promise<string> {
     console.log(identity);
 
     const actor = this.createActor(identity);
@@ -40,7 +43,7 @@ class BackendActor {
     name: string,
     description: string,
     assetUrl: string,
-  ): Promise<any> {
+  ): Promise<string> {
     console.log(identity);
 
     const actor = this.createActor(identity);
@@ -55,7 +58,7 @@ class BackendActor {
     );
   }
 
-  public async getNfts(identity: Identity): Promise<any> {
+  public async getNfts(identity: Identity): Promise<Nft[]> {
     console.log('Getting nfts');
 
     const actor = this.createActor(identity);
@@ -63,21 +66,21 @@ class BackendActor {
     return await actor.nfts_of_caller();
   }
 
-  public async collectionsCreatedBy(rawPrincipal: any): Promise<any> {
+  public async collectionsCreatedBy(rawPrincipal: any): Promise<Collection[]> {
     console.log('Getting collections created by ' + rawPrincipal);
 
-    const actor = createActor(canisterId, idlFactory);
+    const actor = this.createActor();
     const principal = Principal.from(rawPrincipal);
 
     return await actor.collections_created_by(principal);
   }
 
   public async transferNft(
-    identity: any,
+    identity: Identity,
     collectionId: number,
     nftId: number,
     rawReceiver: number,
-  ): Promise<any> {
+  ): Promise<string> {
     console.log(identity);
 
     const actor = this.createActor(identity);
@@ -90,12 +93,17 @@ class BackendActor {
     );
   }
 
-  private createActor(identity: Identity): any {
-    const agent = new HttpAgent({ identity });
+  private createActor(identity?: Identity): ActorSubclass<_SERVICE> {
+    const host =
+      process.env.DFX_NETWORK === 'local'
+        ? 'http://localhost:4943'
+        : 'https://ic0.app';
 
-    const actor = Actor.createActor(idlFactory, {
-      canisterId,
-      agent,
+    const actor = createActor(canisterId, {
+      agentOptions: {
+        host,
+        identity,
+      },
     });
 
     return actor;

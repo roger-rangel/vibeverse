@@ -13,25 +13,21 @@ const creators = [
   {
     id: 1,
     creator: 'Monet',
-    image:
-      'https://pbs.twimg.com/media/F70cK39W4AExd1F?format=jpg&name=large',
+    image: 'https://pbs.twimg.com/media/F70cK39W4AExd1F?format=jpg&name=large',
   },
   {
     id: 2,
     creator: 'Picasso',
-    image:
-      'https://pbs.twimg.com/media/F7m2u04WwAAsx2E?format=jpg&name=large',
+    image: 'https://pbs.twimg.com/media/F7m2u04WwAAsx2E?format=jpg&name=large',
   },
   {
     id: 3,
     creator: 'Van Gogh',
-    image:
-      'https://pbs.twimg.com/media/F7ShNV8XQAA1qMt?format=jpg&name=large',
+    image: 'https://pbs.twimg.com/media/F7ShNV8XQAA1qMt?format=jpg&name=large',
   },
 ];
 
 export default function Dashboard() {
-
   useEffect(() => {
     Mixpanel.track('Browsing page visited');
   }, []);
@@ -187,7 +183,6 @@ export default function Dashboard() {
         {/* second row */}
 
         <Gallery />
-
       </div>
     </div>
   );

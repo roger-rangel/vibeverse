@@ -8,6 +8,7 @@ import Items from '@/components/dashboard/profile/items/items';
 import Modal_Item from '@/components/dashboard/profile/items/modal_item';
 import BackendActor from '@/components/BackendActor';
 import { AuthClient } from '@dfinity/auth-client';
+import { Nft } from '@/declarations/vibeverse_backend/vibeverse_backend.did';
 
 const poppins = Poppins({
   weight: '300',
@@ -17,7 +18,7 @@ const poppins = Poppins({
 const ProfilePage = () => {
   const [modal, showModal] = useState(false);
   const [selectedNft, setSelectedNft] = useState({});
-  const [nfts, setNfts] = useState([]);
+  const [nfts, setNfts] = useState<Nft[]>([]);
 
   useEffect(() => {
     AuthClient.create().then((authClient) => {

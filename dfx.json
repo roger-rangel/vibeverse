@@ -3,7 +3,10 @@
     "vibeverse_backend": {
       "candid": "vibeverse_backend/vibeverse_backend.did",
       "package": "vibeverse_backend",
-      "type": "rust"
+      "type": "rust",
+      "declarations": {
+        "node_compatibility": true
+      }
     },
     "vibeverse_assets": {
       "dependencies": ["vibeverse_backend"],
@@ -11,13 +14,22 @@
         "entrypoint": "out/index.html"
       },
       "source": ["out"],
-      "type": "assets"
+      "type": "assets",
+      "declarations": {
+        "node_compatibility": true
+      }
     }
   },
   "defaults": {
     "build": {
       "args": "",
       "packtool": ""
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:4943",
+      "type": "ephemeral"
     }
   },
   "output_env_file": ".env",
