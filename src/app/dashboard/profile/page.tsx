@@ -1,14 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Poppins } from 'next/font/google';
-import { AuthClient } from '@dfinity/auth-client';
 
 import About from '@/components/dashboard/profile/about/about';
 import Items from '@/components/dashboard/profile/items/items';
 import Modal_Item from '@/components/dashboard/profile/items/modal_item';
-import BackendActor from '@/components/BackendActor';
-import { Nft } from '@/declarations/vibeverse_backend/vibeverse_backend.did';
+import { useGetPrincipalCollections, useGetPrincipalNfts } from '@/hooks';
 
 const poppins = Poppins({
   weight: '300',
@@ -18,20 +16,11 @@ const poppins = Poppins({
 const ProfilePage = () => {
   const [modal, showModal] = useState(false);
   const [selectedNft, setSelectedNft] = useState({});
-  const [nfts, setNfts] = useState<Nft[]>([]);
 
-  useEffect(() => {
-    AuthClient.create().then((authClient) => {
-      const identity = authClient.getIdentity();
-
-      const actor = new BackendActor();
-
-      actor.getNfts(identity).then((result) => {
-        console.log(result);
-        setNfts(result);
-      });
-    });
-  }, []);
+  const { data: collections } = useGetPrincipalCollections();
+  const { data: nfts } = useGetPrincipalNfts();
+  console.log('collections', collections);
+  console.log('nfts', nfts);
 
   return (
     <>
@@ -39,11 +28,13 @@ const ProfilePage = () => {
         className={`${poppins.className} bg-[#1f1f38] text-white m-0 p-0 border-none outline-none box-border list-none no-underline scroll-smooth leading-7 profile`}
       >
         <About />
-        <Items
-          showModal={showModal}
-          setSelectedNft={setSelectedNft}
-          nfts={nfts.reverse()}
-        />
+        {nfts && (
+          <Items
+            showModal={showModal}
+            setSelectedNft={setSelectedNft}
+            nfts={nfts.reverse()}
+          />
+        )}
       </div>
 
       {modal && (
