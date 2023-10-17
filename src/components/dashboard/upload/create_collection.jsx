@@ -9,6 +9,7 @@ import { AuthClient } from '@dfinity/auth-client';
 
 import BackendActor from '@/components/BackendActor';
 import { Mixpanel } from '@/components/Mixpanel';
+import { DFX_NETWORK } from '@/config';
 import { canisterId } from '@/declarations/vibeverse_assets';
 
 import Img_Option from './img_option.jsx';
@@ -107,9 +108,8 @@ function CreateCollection({ showCreateCollection }) {
     console.log(principal);
 
     const agent = new HttpAgent({
-      host: isLocal
-        ? `http://127.0.0.1:${window.location.port}`
-        : `https://ic0.app`,
+      host:
+        DFX_NETWORK === 'local' ? 'http://localhost:4943' : 'https://ic0.app',
       principal,
     });
     agent.fetchRootKey();

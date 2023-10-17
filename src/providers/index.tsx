@@ -11,15 +11,30 @@ import { InfinityWallet } from '@connect2ic/core/providers/infinity-wallet';
 
 import '@connect2ic/core/style.css';
 
+import { DFX_NETWORK, II_CANISTER_ID } from '@/config';
+
 import { ActorProvider } from './ActorProvider';
 
 export default function Providers({ children }: React.PropsWithChildren) {
-  const providers = [new NFID(), new InternetIdentity(), new InfinityWallet()];
+  const providers = [
+    new NFID({ appName: 'Vibeverse' }),
+    new InternetIdentity({
+      providerUrl:
+        DFX_NETWORK === 'local'
+          ? `http://127.0.0.1:4943/?canisterId=${II_CANISTER_ID}`
+          : 'https://identity.ic0.app',
+    }),
+    new InfinityWallet(),
+  ];
 
   const client = createClient({
     providers,
     globalProviderConfig: {
-      dev: false,
+      dev: true,
+      host:
+        DFX_NETWORK === 'local'
+          ? `http://127.0.0.1:4943/?canisterId=${II_CANISTER_ID}`
+          : 'https://identity.ic0.app',
     },
   });
 

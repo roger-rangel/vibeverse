@@ -2,19 +2,19 @@ import { useState, useEffect } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Image from 'next/image';
-
-import Mint_Option from './mint_option.jsx';
-import Img_Option from './img_option.jsx';
+import { useConnect } from '@connect2ic/react';
+import { AssetManager } from '@dfinity/assets';
+import { HttpAgent } from '@dfinity/agent';
+import { AuthClient } from '@dfinity/auth-client';
 
 import BackendActor from '@/components/BackendActor';
 import Dropdown from '@/components/dashboard/upload/dropdown';
-import { AssetManager } from '@dfinity/assets';
-import { canisterId } from '@/declarations/vibeverse_assets';
-import { HttpAgent } from '@dfinity/agent';
-
-import { useConnect } from '@connect2ic/react';
 import { Mixpanel } from '@/components/Mixpanel';
-import { AuthClient } from '@dfinity/auth-client';
+import { DFX_NETWORK } from '@/config';
+import { canisterId } from '@/declarations/vibeverse_assets';
+
+import Mint_Option from './mint_option.jsx';
+import Img_Option from './img_option.jsx';
 
 function CreateNFT({ showCreateNFT }) {
   const [name, setName] = useState('');
@@ -119,9 +119,8 @@ function CreateNFT({ showCreateNFT }) {
     console.log(principal);
 
     const agent = new HttpAgent({
-      host: isLocal
-        ? `http://127.0.0.1:${window.location.port}`
-        : `https://ic0.app`,
+      host:
+        DFX_NETWORK === 'local' ? 'http://localhost:4943' : 'https://ic0.app',
       principal,
     });
     agent.fetchRootKey();

@@ -125,7 +125,7 @@ function Login() {
                     >
                       Sign in
                     </button>
-                    <ConnectDialog dark={false} />
+                    <ConnectDialog />
                     <div className="flex space-x-4">
                       <Link
                         href="/dashboard"
