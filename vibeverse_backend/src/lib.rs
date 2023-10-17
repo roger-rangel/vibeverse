@@ -107,8 +107,12 @@ fn nfts_of_caller() -> Vec<Nft> {
 }
 
 #[ic_cdk_macros::query]
-fn all_nfts() -> Vec<Nft> {
-    nfts::all_nfts()
+fn all_nfts(
+    collection_id: CollectionId,
+    start_index: Option<u128>,
+    count: Option<u128>,
+) -> Vec<Nft> {
+    nfts::nfts_within_collection(collection_id, start_index, count)
 }
 
 #[ic_cdk_macros::query]
