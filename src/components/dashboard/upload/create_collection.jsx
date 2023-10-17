@@ -4,13 +4,11 @@ import { useState, useEffect } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import { AssetManager } from '@dfinity/assets';
 import { HttpAgent } from '@dfinity/agent';
-import { useConnect } from '@connect2ic/react';
-import { AuthClient } from '@dfinity/auth-client';
 
-import BackendActor from '@/components/BackendActor';
 import { Mixpanel } from '@/components/Mixpanel';
 import { DFX_NETWORK } from '@/config';
 import { canisterId } from '@/declarations/vibeverse_assets';
+import { useActor } from '@/hooks';
 
 import Img_Option from './img_option.jsx';
 
@@ -21,14 +19,8 @@ function CreateCollection({ showCreateCollection }) {
   const [customImageUrl, setCustomImageUrl] = useState('');
   const [limit, setLimit] = useState('');
   const [imageOption, setImageOption] = useState('upload');
-  const [activeProvider, setActiveProvider] = useState(null);
 
-  const {} = useConnect({
-    onConnect: (data) => {
-      console.log(data);
-      setActiveProvider(data.activeProvider);
-    },
-  });
+  const { actor } = useActor();
 
   const isLocal = !window.location.host.endsWith('icp0.io');
 
@@ -42,23 +34,27 @@ function CreateCollection({ showCreateCollection }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Creating a collection');
 
-    const authClient = await AuthClient.create();
-    const identity = authClient.getIdentity();
+    if (!actor) {
+      alert('empty actor');
+      return;
+    }
+
+    console.log('Creating a collection');
 
     let finalUrl = imageUrl;
     if (imageOption == 'url') {
       finalUrl = customImageUrl;
     }
 
-    const actor = new BackendActor();
-    const result = await actor.createCollection(
-      identity,
+    const isTranferable = true; // TODO have this passed from the UI.
+
+    const result = await actor.create_collection(
       name,
       description,
-      finalUrl,
-      Number(limit),
+      isTranferable,
+      [BigInt(limit)],
+      [finalUrl],
     );
     alert(result);
   };
@@ -112,7 +108,6 @@ function CreateCollection({ showCreateCollection }) {
         DFX_NETWORK === 'local' ? 'http://localhost:4943' : 'https://ic0.app',
       principal,
     });
-    agent.fetchRootKey();
 
     const assetManager = new AssetManager({
       canisterId,

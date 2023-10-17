@@ -14,10 +14,11 @@ import {
   XMarkIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
-
-import Nav_User from './nav_user';
+import { useConnect } from '@connect2ic/react';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import Nav_User from './nav_user';
 
 import { Banner } from '@/components/dashboard/home';
 
@@ -73,34 +74,19 @@ const user = [
   },
 ];
 
-function className(...classes) {
+function className(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Navigation({ children }) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [login, setLogin] = useState(true);
+export default function Navigation({ children }: React.PropsWithChildren) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentNavIndex, setCurrentNavIndex] = useState(0);
   const [currentUserIndex, setCurrentUserIndex] = useState(-1);
   const [isBannerOpen, setIsBannerOpen] = useState(true);
 
-  useEffect(() => {
-    const request = window.indexedDB.open('auth-client-db');
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request.onsuccess = (_) => {
-      console.log(request.result);
-      if (request.result.objectStoreNames.length > 0) {
-        setLogin(true);
-      } else {
-        window.indexedDB.deleteDatabase('auth-client-db');
-      }
-    };
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request.onerror = (_) => {
-      //setLogin(false);
-    };
+  const { isConnected } = useConnect();
 
+  useEffect(() => {
     navigation.forEach((nav, index) => {
       if (isSelected(nav)) {
         setCurrentNavIndex(index);
@@ -108,7 +94,7 @@ export default function Navigation({ children }) {
     });
   }, []);
 
-  function isSelected(item) {
+  function isSelected(item: any) {
     const parts = window.location.href.split('/');
     const path = parts[parts.length - 1];
     return item.href.endsWith(path);
@@ -374,7 +360,7 @@ export default function Navigation({ children }) {
 
                 {/* Profile dropdown */}
 
-                {login ? (
+                {isConnected ? (
                   <Nav_User />
                 ) : (
                   <Link href="/login">
