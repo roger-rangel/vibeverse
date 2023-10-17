@@ -19,7 +19,7 @@ export interface Nft {
 }
 export interface _SERVICE {
   'admin' : ActorMethod<[], [] | [Principal]>,
-  'all_nfts' : ActorMethod<[], Array<Nft>>,
+  'all_nfts' : ActorMethod<[bigint, bigint, bigint], Array<Nft>>,
   'collection_count' : ActorMethod<[], bigint>,
   'collection_fee' : ActorMethod<[], bigint>,
   'collections_created_by' : ActorMethod<[Principal], Array<Collection>>,

@@ -20,7 +20,7 @@ export const idlFactory = ({ IDL }) => {
   });
   return IDL.Service({
     'admin' : IDL.Func([], [IDL.Opt(IDL.Principal)], []),
-    'all_nfts' : IDL.Func([], [IDL.Vec(Nft)], []),
+    'all_nfts' : IDL.Func([IDL.Nat, IDL.Nat, IDL.Nat], [IDL.Vec(Nft)], []),
     'collection_count' : IDL.Func([], [IDL.Nat], []),
     'collection_fee' : IDL.Func([], [IDL.Nat64], []),
     'collections_created_by' : IDL.Func(
