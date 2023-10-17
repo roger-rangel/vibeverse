@@ -411,6 +411,60 @@ fn nfts_within_collection_works() {
     );
 }
 
+#[test]
+fn getting_all_collections_works() {
+    let creator = get_creator();
+    let transferable = true;
+
+    let mut collections: Vec<Collection> = vec![];
+    (0..50).into_iter().for_each(|i| {
+        let collection = create_mock_collection(creator, format!("collection{}", i), transferable);
+        collections.push(collection);
+    });
+
+    // Works when `start_index` or `count` are not set.
+    assert_eq!(
+        all_collections(None, None),
+        collections
+    );
+
+    // Works when just `start_index` is set.
+    assert_eq!(
+        all_collections(Some(5), None),
+        collections.iter().cloned().skip(5).collect::<Vec<Collection>>()
+    );
+
+    // Works when just `count` is set.
+    assert_eq!(
+        all_collections(None, Some(42)),
+        collections.iter().cloned().take(42).collect::<Vec<Collection>>()
+    );
+
+    // Works when both `start_index` and `count` are set.
+    assert_eq!(
+        all_collections(Some(6), Some(42)),
+        collections.iter().cloned().skip(6).take(42).collect::<Vec<Collection>>()
+    );
+
+    // Works when both `start_index` + `count` > `collection_count`.
+    assert_eq!(
+        all_collections(Some(69), Some(42)),
+        vec![]
+    );
+
+    // Works when both `start_index` > `collection_count`..
+    assert_eq!(
+        all_collections(Some(69), None),
+        vec![]
+    );
+
+    // Works when both `count` > `collection_count`..
+    assert_eq!(
+        all_collections(None, Some(69)),
+        collections
+    );
+}
+
 fn create_mock_collection(creator: Principal, name: String, transferable: bool) -> Collection {
     let description = format!("Description of: {}", name);
     let image_url = None;

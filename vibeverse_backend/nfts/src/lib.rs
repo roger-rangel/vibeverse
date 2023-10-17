@@ -361,6 +361,38 @@ pub fn nfts_within_collection(
         .collect()
 }
 
+pub fn all_collections(
+    start_index: Option<u128>,
+    count: Option<u128>,
+) -> Vec<Collection> {
+    let maybe_collection_count = collection_count().0.try_into();
+
+    if let Err(_) = maybe_collection_count {
+        return vec![]
+    }
+    let collection_count = maybe_collection_count.unwrap();
+
+    let start_index = start_index.unwrap_or_default();
+    let count = count.unwrap_or(collection_count);
+
+    if start_index > collection_count {
+        return vec![];
+    }
+
+    let end = start_index
+        .checked_add(count)
+        .expect("adding `start_index` and `count` together overflowed.");
+    let end = collection_count.min(end);
+
+    (start_index..end)
+        .into_iter()
+        .map(|collection_id| {
+            get_collection(Nat::from(collection_id.clone()))
+                .expect("`collection_id` must be good, otherwise the value of `collection_count` is broken")
+        })
+        .collect()
+}
+
 pub fn nft_transfer(caller: Principal, receiver: Principal, nft_id: NftId) -> Result<(), Error> {
     NFTS_OF.with(|nfts_of| -> Result<(), Error> {
         let mut nfts_of = nfts_of.borrow_mut();
