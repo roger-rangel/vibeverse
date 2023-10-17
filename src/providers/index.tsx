@@ -14,6 +14,7 @@ import '@connect2ic/core/style.css';
 import { DFX_NETWORK, II_CANISTER_ID } from '@/config';
 
 import { ActorProvider } from './ActorProvider';
+import { QueryProvider } from './QueryProvider';
 
 export default function Providers({ children }: React.PropsWithChildren) {
   const providers = [
@@ -40,7 +41,9 @@ export default function Providers({ children }: React.PropsWithChildren) {
 
   return (
     <Connect2ICProvider client={client}>
-      <ActorProvider>{children}</ActorProvider>
+      <ActorProvider>
+        <QueryProvider>{children}</QueryProvider>
+      </ActorProvider>
     </Connect2ICProvider>
   );
 }
