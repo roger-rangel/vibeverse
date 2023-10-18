@@ -41,6 +41,8 @@ pub struct Collection {
     transferable: bool,
     /// The url of the image for the collection.
     image_url: Option<String>,
+    /// The category to which the collection belongs.
+    category: String,
     /// The limit of how many collection instances can be minted.
     limit: Option<Nat>,
     /// The number of collections minted.
@@ -91,6 +93,7 @@ pub fn create_collection(
     transferable: bool,
     limit: Option<Nat>,
     image_url: Option<String>,
+    category: String,
 ) -> CollectionId {
     // CALL THIS FUNCTION ONCE WE WANT TO CHARGE A FEE
     // ensure_fee_payment(creator, into_units(crate::administrative::collection_fee())).await?;
@@ -104,6 +107,7 @@ pub fn create_collection(
             description,
             transferable,
             image_url,
+            category,
             limit,
             minted: Nat::from(0),
             creator,
@@ -137,6 +141,7 @@ pub fn update_metadata(
     name: String,
     description: String,
     image_url: Option<String>,
+    category: Option<String>,
 ) -> Result<(), Error> {
     let maybe_collection = get_collection(id.clone());
     if let Some(collection) = maybe_collection {
@@ -158,9 +163,10 @@ pub fn update_metadata(
                     description,
                     image_url,
                     transferable: collection.clone().transferable,
-                    limit: collection.clone().limit,
-                    minted: collection.clone().minted,
-                    creator: collection.creator,
+                    limit: collection.limit.clone(),
+                    minted: collection.minted.clone(),
+                    creator: collection.creator.clone(),
+                    category: category.unwrap_or(collection.category.clone()),
                 },
             );
             Ok(())
@@ -226,7 +232,7 @@ pub fn mint_nft(
     name: String,
     description: String,
     asset_url: Option<String>,
-) -> Result<(), Error> {
+) -> Result<NftId, Error> {
     let maybe_collection = get_collection(collection_id.clone());
     let new_nft_id;
 
@@ -262,9 +268,9 @@ pub fn mint_nft(
     NFTS_OF.with(|nfts_of| {
         let mut nfts_of = nfts_of.borrow_mut();
         if let Some(nfts) = nfts_of.get_mut(&receiver) {
-            (*nfts).push(nft);
+            (*nfts).push(nft.clone());
         } else {
-            nfts_of.insert(receiver, vec![nft]);
+            nfts_of.insert(receiver, vec![nft.clone()]);
         }
     });
 
@@ -276,7 +282,7 @@ pub fn mint_nft(
         collections.insert(collection_id, collection);
     });
 
-    Ok(())
+    Ok(nft)
 }
 
 pub fn nfts_of_user(user: Principal) -> Vec<Nft> {
@@ -357,6 +363,36 @@ pub fn nfts_within_collection(
         .map(|nft_id| {
             get_nft((collection_id.clone(), Nat::from(nft_id.clone())))
                 .expect("`nft_id` must be good, otherwise the value of `minted` is broken")
+        })
+        .collect()
+}
+
+pub fn all_collections(start_index: Option<u128>, count: Option<u128>) -> Vec<Collection> {
+    let maybe_collection_count = collection_count().0.try_into();
+
+    if let Err(_) = maybe_collection_count {
+        return vec![];
+    }
+    let collection_count = maybe_collection_count.unwrap();
+
+    let start_index = start_index.unwrap_or_default();
+    let count = count.unwrap_or(collection_count);
+
+    if start_index > collection_count {
+        return vec![];
+    }
+
+    let end = start_index
+        .checked_add(count)
+        .expect("adding `start_index` and `count` together overflowed.");
+    let end = collection_count.min(end);
+
+    (start_index..end)
+        .into_iter()
+        .map(|collection_id| {
+            get_collection(Nat::from(collection_id.clone())).expect(
+                "`collection_id` must be good, otherwise the value of `collection_count` is broken",
+            )
         })
         .collect()
 }

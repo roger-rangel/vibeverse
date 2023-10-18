@@ -16,6 +16,7 @@ fn creating_collection_works() {
         transferable.clone(),
         limit.clone(),
         image_url.clone(),
+        Default::default(),
     );
 
     assert_eq!(
@@ -29,6 +30,7 @@ fn creating_collection_works() {
             image_url,
             limit,
             minted: Nat::from(0),
+            category: Default::default(),
         })
     );
 }
@@ -49,6 +51,7 @@ fn updating_collection_metadata_works() {
         transferable.clone(),
         limit.clone(),
         image_url.clone(),
+        Default::default(),
     );
 
     assert_eq!(
@@ -62,6 +65,7 @@ fn updating_collection_metadata_works() {
             image_url,
             limit: limit.clone(),
             minted: Nat::from(0),
+            category: Default::default(),
         })
     );
 
@@ -74,7 +78,8 @@ fn updating_collection_metadata_works() {
             Nat::from(0),
             new_name.clone(),
             new_desc.clone(),
-            new_image_url.clone()
+            new_image_url.clone(),
+            None,
         ),
         Ok(())
     );
@@ -90,6 +95,7 @@ fn updating_collection_metadata_works() {
             image_url: new_image_url,
             limit,
             minted: Nat::from(0),
+            category: Default::default(),
         })
     );
 }
@@ -107,7 +113,8 @@ fn updating_collection_metadata_fails_for_non_existing_collection() {
             Nat::from(0),
             new_name.clone(),
             new_desc.clone(),
-            new_image_url
+            new_image_url,
+            None,
         ),
         Err(Error::CollectionNotFound)
     );
@@ -129,6 +136,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
         transferable.clone(),
         limit.clone(),
         image_url.clone(),
+        Default::default(),
     );
 
     assert_eq!(
@@ -142,6 +150,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
             image_url,
             limit,
             minted: Nat::from(0),
+            category: Default::default()
         })
     );
 
@@ -155,7 +164,8 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
             Nat::from(0),
             new_name.clone(),
             new_desc.clone(),
-            new_image_url.clone()
+            new_image_url.clone(),
+            None,
         ),
         Err(Error::OnlyCollectionCreatorAllowed)
     );
@@ -185,6 +195,7 @@ fn get_creator_collections_works() {
             image_url: collection.image_url,
             limit: collection.limit,
             minted: collection.minted,
+            category: Default::default(),
         }]
     );
 }
@@ -196,28 +207,24 @@ fn minting_nfts_works() {
 
     let alice = get_default_principal();
 
-    assert_eq!(
-        mint_nft(
-            creator,
-            alice,
-            collection.clone().id,
-            format!("Car 1"),
-            format!("..."),
-            None
-        ),
-        Ok(())
-    );
-    assert_eq!(
-        mint_nft(
-            creator,
-            alice,
-            collection.clone().id,
-            format!("Car 2"),
-            format!("..."),
-            None
-        ),
-        Ok(())
-    );
+    assert!(mint_nft(
+        creator,
+        alice,
+        collection.clone().id,
+        format!("Car 1"),
+        format!("..."),
+        None
+    )
+    .is_ok());
+    assert!(mint_nft(
+        creator,
+        alice,
+        collection.clone().id,
+        format!("Car 2"),
+        format!("..."),
+        None
+    )
+    .is_ok());
 
     collection.minted = Nat::from(2);
 
@@ -251,22 +258,27 @@ fn minting_limit_works() {
     let image_url = None;
     let limit: Option<Nat> = Some(Nat::from(1));
 
-    let collection_id =
-        create_collection(creator, name, description, transferable, limit, image_url);
+    let collection_id = create_collection(
+        creator,
+        name,
+        description,
+        transferable,
+        limit,
+        image_url,
+        Default::default(),
+    );
 
     let alice = get_default_principal();
 
-    assert_eq!(
-        mint_nft(
-            creator,
-            alice,
-            collection_id.clone(),
-            format!("Car 1"),
-            format!("..."),
-            None
-        ),
-        Ok(())
-    );
+    assert!(mint_nft(
+        creator,
+        alice,
+        collection_id.clone(),
+        format!("Car 1"),
+        format!("..."),
+        None
+    )
+    .is_ok());
     assert_eq!(
         mint_nft(
             creator,
@@ -289,17 +301,15 @@ fn nft_transfer_works() {
     let mut collection = create_mock_collection(creator, name, transferable);
 
     // The creator mints a nft for himself.
-    assert_eq!(
-        mint_nft(
-            creator,
-            creator,
-            collection.id.clone(),
-            format!("Car 1"),
-            format!("..."),
-            None
-        ),
-        Ok(())
-    );
+    assert!(mint_nft(
+        creator,
+        creator,
+        collection.id.clone(),
+        format!("Car 1"),
+        format!("..."),
+        None
+    )
+    .is_ok());
 
     // The supply increased.
     collection.minted = Nat::from(1);
@@ -348,17 +358,15 @@ fn nfts_within_collection_works() {
 
     let mut nfts: Vec<Nft> = vec![];
     (0..50).into_iter().for_each(|i| {
-        assert_eq!(
-            mint_nft(
-                creator,
-                creator,
-                collection.id.clone(),
-                format!("Car {}", i),
-                format!("..."),
-                None
-            ),
-            Ok(())
-        );
+        assert!(mint_nft(
+            creator,
+            creator,
+            collection.id.clone(),
+            format!("Car {}", i),
+            format!("..."),
+            None
+        )
+        .is_ok());
 
         nfts.push(Nft {
             id: (Nat::from(0), Nat::from(i)),
@@ -411,6 +419,61 @@ fn nfts_within_collection_works() {
     );
 }
 
+#[test]
+fn getting_all_collections_works() {
+    let creator = get_creator();
+    let transferable = true;
+
+    let mut collections: Vec<Collection> = vec![];
+    (0..50).into_iter().for_each(|i| {
+        let collection = create_mock_collection(creator, format!("collection{}", i), transferable);
+        collections.push(collection);
+    });
+
+    // Works when `start_index` or `count` are not set.
+    assert_eq!(all_collections(None, None), collections);
+
+    // Works when just `start_index` is set.
+    assert_eq!(
+        all_collections(Some(5), None),
+        collections
+            .iter()
+            .cloned()
+            .skip(5)
+            .collect::<Vec<Collection>>()
+    );
+
+    // Works when just `count` is set.
+    assert_eq!(
+        all_collections(None, Some(42)),
+        collections
+            .iter()
+            .cloned()
+            .take(42)
+            .collect::<Vec<Collection>>()
+    );
+
+    // Works when both `start_index` and `count` are set.
+    assert_eq!(
+        all_collections(Some(6), Some(42)),
+        collections
+            .iter()
+            .cloned()
+            .skip(6)
+            .take(42)
+            .collect::<Vec<Collection>>()
+    );
+
+    // Works when both `start_index` + `count` > `collection_count`.
+    assert_eq!(all_collections(Some(69), Some(42)), vec![]);
+
+    // Works when both `start_index` > `collection_count`..
+    assert_eq!(all_collections(Some(69), None), vec![]);
+
+    // Works when both `count` > `collection_count`..
+    assert_eq!(all_collections(None, Some(69)), collections);
+}
+
 fn create_mock_collection(creator: Principal, name: String, transferable: bool) -> Collection {
     let description = format!("Description of: {}", name);
     let image_url = None;
@@ -423,6 +486,7 @@ fn create_mock_collection(creator: Principal, name: String, transferable: bool) 
         transferable.clone(),
         limit.clone(),
         image_url.clone(),
+        Default::default(),
     );
 
     Collection {
@@ -434,6 +498,7 @@ fn create_mock_collection(creator: Principal, name: String, transferable: bool) 
         image_url,
         limit,
         minted: Nat::from(0),
+        category: Default::default(),
     }
 }
 
