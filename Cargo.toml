@@ -1,4 +1,8 @@
 [workspace]
-members = [
-    "vibeverse_backend",
-]
+members = ["vibeverse_backend"]
+resolver = "2"
+
+[workspace.dependencies]
+candid = "0.9.9"
+ic-cdk = "0.11.3"
+ic-cdk-macros = "0.8.1"

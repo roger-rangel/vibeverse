@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests;
 
-use ic_cdk::export::{candid::CandidType, Principal};
+use candid::{CandidType, Principal};
 use std::{cell::RefCell, collections::BTreeMap};
 
 /// Stores metadata about a collection creator.
