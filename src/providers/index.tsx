@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { ModalProvider } from 'react-modal-hook';
 import { createClient } from '@connect2ic/core';
 import { Connect2ICProvider, ConnectDialog } from '@connect2ic/react';
 
@@ -44,7 +45,9 @@ export default function Providers({ children }: React.PropsWithChildren) {
   return (
     <Connect2ICProvider client={client}>
       <ActorProvider>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <ModalProvider>{children}</ModalProvider>
+        </QueryProvider>
       </ActorProvider>
       <ConnectDialog />
     </Connect2ICProvider>
