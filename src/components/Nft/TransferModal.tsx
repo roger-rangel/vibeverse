@@ -1,16 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { Principal } from '@dfinity/principal';
 import { classnames } from 'tailwindcss-classnames';
 
-import { Mixpanel } from '@/components/Mixpanel';
 import { useActor } from '@/hooks';
+import { Nft } from '@/types';
 
 import styles from './Items.module.scss';
 
-function TransferModal({ showModal, selectedNft }) {
+export function TransferModal({
+  showModal,
+  nft,
+}: {
+  showModal: React.Dispatch<React.SetStateAction<boolean>>;
+  nft: Nft;
+}) {
   const [receiver, setReceiver] = useState('');
   const { actor } = useActor();
   const transfer = async () => {
@@ -20,8 +26,8 @@ function TransferModal({ showModal, selectedNft }) {
     }
 
     const result = await actor.transfer_nft(
-      selectedNft.collectionId, // collectionId
-      selectedNft.id, // nftId
+      nft.collectionId, // collectionId
+      nft.id, // nftId
       Principal.from(receiver),
     );
 
@@ -36,11 +42,11 @@ function TransferModal({ showModal, selectedNft }) {
           className="bg-[#262626] p-8 rounded-3xl border border-indigo-600"
         >
           <h3 className="flex items-center justify-center text-zinc-300 pb-2">
-            {selectedNft.name}
+            {nft.name}
           </h3>
           <div className={classnames(styles.item__item__image)}>
             <Image
-              src={selectedNft.assetUrl || '/images/items/item_1.png'}
+              src={nft.assetUrl || '/images/items/item_1.png'}
               onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
                 currentTarget.src = '/images/items/item_1.png';
@@ -71,14 +77,12 @@ function TransferModal({ showModal, selectedNft }) {
             <button
               onClick={transfer}
               className="py-2 px-4 text-white rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
-              target="_blank"
             >
               Transfer
             </button>
             <button
               onClick={() => showModal(false)}
               className="py-2 px-4 text-white rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
-              target="_blank"
             >
               Close
             </button>
@@ -87,12 +91,4 @@ function TransferModal({ showModal, selectedNft }) {
       </div>
     </>
   );
-}
-
-export default function TransferModalWrapped({ showModal, selectedNft }) {
-  useEffect(() => {
-    Mixpanel.track('Transfering an NFT');
-  }, []);
-
-  return <TransferModal showModal={showModal} selectedNft={selectedNft} />;
 }
