@@ -2,7 +2,7 @@ use candid::Nat;
 use creators::Creator;
 use ic_cdk::export::Principal;
 use ic_cdk_macros::*;
-use nfts::{Collection, CollectionId, Nft};
+use nfts::{Collection, CollectionId, Nft, NftId};
 
 #[update]
 fn create_collection(
@@ -12,11 +12,17 @@ fn create_collection(
     limit: Option<Nat>,
     image_url: Option<String>,
     category: String,
-) -> String {
+) -> CollectionId {
     let creator = ic_cdk::api::caller();
-    nfts::create_collection(creator, name, description, transferable, limit, image_url, category);
-
-    format!("Collection created successfully.")
+    nfts::create_collection(
+        creator,
+        name,
+        description,
+        transferable,
+        limit,
+        image_url,
+        category,
+    )
 }
 
 #[update]
@@ -25,7 +31,7 @@ fn update_collection_metadata(
     name: String,
     description: String,
     image_url: Option<String>,
-    category: Option<String>
+    category: Option<String>,
 ) -> String {
     let caller = ic_cdk::api::caller();
 
@@ -73,7 +79,7 @@ fn mint_nft(
     name: String,
     description: String,
     asset_url: Option<String>,
-) -> String {
+) -> Result<NftId, String> {
     let caller = ic_cdk::api::caller();
     match nfts::mint_nft(
         caller,
@@ -83,8 +89,8 @@ fn mint_nft(
         description,
         asset_url,
     ) {
-        Ok(_) => format!("Nft minted successfully."),
-        Err(e) => format!("Error while minting nft: {:?}", e),
+        Ok(id) => Ok(id),
+        Err(e) => Err(format!("Error while minting nft: {:?}", e)),
     }
 }
 
@@ -109,19 +115,12 @@ fn nfts_of_caller() -> Vec<Nft> {
 }
 
 #[ic_cdk_macros::query]
-fn nfts(
-    collection_id: CollectionId,
-    start_index: Option<u128>,
-    count: Option<u128>,
-) -> Vec<Nft> {
+fn nfts(collection_id: CollectionId, start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
     nfts::nfts_within_collection(collection_id, start_index, count)
 }
 
 #[ic_cdk_macros::query]
-fn collections(
-    start_index: Option<u128>,
-    count: Option<u128>,
-) -> Vec<Collection> {
+fn collections(start_index: Option<u128>, count: Option<u128>) -> Vec<Collection> {
     nfts::all_collections(start_index, count)
 }
 

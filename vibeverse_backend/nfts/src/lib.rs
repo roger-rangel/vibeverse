@@ -166,7 +166,7 @@ pub fn update_metadata(
                     limit: collection.limit.clone(),
                     minted: collection.minted.clone(),
                     creator: collection.creator.clone(),
-                    category: category.unwrap_or(collection.category.clone())
+                    category: category.unwrap_or(collection.category.clone()),
                 },
             );
             Ok(())
@@ -232,7 +232,7 @@ pub fn mint_nft(
     name: String,
     description: String,
     asset_url: Option<String>,
-) -> Result<(), Error> {
+) -> Result<NftId, Error> {
     let maybe_collection = get_collection(collection_id.clone());
     let new_nft_id;
 
@@ -268,9 +268,9 @@ pub fn mint_nft(
     NFTS_OF.with(|nfts_of| {
         let mut nfts_of = nfts_of.borrow_mut();
         if let Some(nfts) = nfts_of.get_mut(&receiver) {
-            (*nfts).push(nft);
+            (*nfts).push(nft.clone());
         } else {
-            nfts_of.insert(receiver, vec![nft]);
+            nfts_of.insert(receiver, vec![nft.clone()]);
         }
     });
 
@@ -282,7 +282,7 @@ pub fn mint_nft(
         collections.insert(collection_id, collection);
     });
 
-    Ok(())
+    Ok(nft)
 }
 
 pub fn nfts_of_user(user: Principal) -> Vec<Nft> {
@@ -367,14 +367,11 @@ pub fn nfts_within_collection(
         .collect()
 }
 
-pub fn all_collections(
-    start_index: Option<u128>,
-    count: Option<u128>,
-) -> Vec<Collection> {
+pub fn all_collections(start_index: Option<u128>, count: Option<u128>) -> Vec<Collection> {
     let maybe_collection_count = collection_count().0.try_into();
 
     if let Err(_) = maybe_collection_count {
-        return vec![]
+        return vec![];
     }
     let collection_count = maybe_collection_count.unwrap();
 
@@ -393,8 +390,9 @@ pub fn all_collections(
     (start_index..end)
         .into_iter()
         .map(|collection_id| {
-            get_collection(Nat::from(collection_id.clone()))
-                .expect("`collection_id` must be good, otherwise the value of `collection_count` is broken")
+            get_collection(Nat::from(collection_id.clone())).expect(
+                "`collection_id` must be good, otherwise the value of `collection_count` is broken",
+            )
         })
         .collect()
 }
