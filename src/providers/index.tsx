@@ -16,6 +16,8 @@ import { DFX_NETWORK, II_CANISTER_ID } from '@/config';
 import { ActorProvider } from './ActorProvider';
 import { QueryProvider } from './QueryProvider';
 
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 export default function Providers({ children }: React.PropsWithChildren) {
   const providers = [
     new NFID({ appName: 'Vibeverse' }),

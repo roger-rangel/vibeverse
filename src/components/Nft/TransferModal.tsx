@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Principal } from '@dfinity/principal';
 import { classnames } from 'tailwindcss-classnames';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { useActor } from '@/hooks';
 import { Nft } from '@/types';
@@ -45,15 +46,13 @@ export function TransferModal({
             {nft.name}
           </h3>
           <div className={classnames(styles.item__item__image)}>
-            <Image
+            <LazyLoadImage
               src={nft.assetUrl || '/images/items/item_1.png'}
-              onError={({ currentTarget }) => {
-                currentTarget.onerror = null; // prevents looping
-                currentTarget.src = '/images/items/item_1.png';
-              }}
-              alt="item"
-              width="400"
-              height="400"
+              effect="blur"
+              width="350"
+              height="350"
+              alt={nft.name}
+              className="rounded-2xl object-cover w-[350px] h-[350px]"
             />
           </div>
 

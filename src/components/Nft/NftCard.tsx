@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import classnames from 'tailwindcss-classnames';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { Nft } from '@/types';
 
@@ -16,21 +17,16 @@ export function NftCard({ nft }: { nft: Nft }) {
     <>
       <article
         key={`${nft.collectionId}-${nft.id}`}
-        className={classnames(styles.item__item)}
+        className={classnames(styles.item__item, 'flex flex-col items-center')}
       >
-        <div className={classnames(styles.item__item__image)}>
-          <Image
-            src={nft.assetUrl || '/images/items/item_1.png'}
-            alt={nft.name}
-            onError={({ currentTarget }) => {
-              currentTarget.onerror = null; // prevents looping
-              currentTarget.src = '/images/items/item_1.png';
-            }}
-            width="400"
-            height="400"
-            className="min-h-[300px] object-cover"
-          />
-        </div>
+        <LazyLoadImage
+          src={nft.assetUrl || '/images/items/item_1.png'}
+          effect="blur"
+          width="350"
+          height="350"
+          alt={nft.name}
+          className="rounded-2xl object-cover w-[350px] h-[350px]"
+        />
         <h3>{nft.name}</h3>
         <div className={classnames(styles.item__item__cta)}>
           <button
