@@ -1,4 +1,4 @@
-use ic_cdk::export::Principal;
+use candid::Principal;
 use std::cell::RefCell;
 
 pub const VIBE_DECIMALS: u8 = 8u8;
@@ -11,7 +11,9 @@ thread_local! {
 }
 
 pub fn set_collection_fee(caller: Principal, fee: u64) -> Result<(), &'static str> {
-    let Some(admin) = admin() else { return Err("Must specify admin first") };
+    let Some(admin) = admin() else {
+        return Err("Must specify admin first");
+    };
     if caller != admin {
         return Err("Caller must be admin");
     }
@@ -21,7 +23,9 @@ pub fn set_collection_fee(caller: Principal, fee: u64) -> Result<(), &'static st
 }
 
 pub fn set_mint_fee(caller: Principal, fee: u64) -> Result<(), &'static str> {
-    let Some(admin) = admin() else { return Err("Must specify admin first") };
+    let Some(admin) = admin() else {
+        return Err("Must specify admin first");
+    };
     if caller != admin {
         return Err("Caller must be admin");
     }
@@ -31,7 +35,9 @@ pub fn set_mint_fee(caller: Principal, fee: u64) -> Result<(), &'static str> {
 }
 
 pub fn set_vibe_token(caller: Principal, vibe: Principal) -> Result<(), &'static str> {
-    let Some(admin) = admin() else { return Err("Must specify admin first") };
+    let Some(admin) = admin() else {
+        return Err("Must specify admin first");
+    };
     if caller != admin {
         return Err("Caller must be admin");
     }

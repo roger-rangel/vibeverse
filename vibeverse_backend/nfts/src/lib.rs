@@ -4,7 +4,7 @@ mod tests;
 pub mod administrative;
 
 use candid::types::number::Nat;
-use ic_cdk::export::{candid::CandidType, Principal};
+use candid::{CandidType, Principal};
 use std::{cell::RefCell, collections::BTreeMap};
 
 use ic_cdk::api::call::CallResult;
@@ -306,7 +306,9 @@ pub fn nfts_of_user(user: Principal) -> Vec<Nft> {
 pub fn all_nfts() -> Vec<Nft> {
     let mut nft_ids: Vec<NftId> = vec![];
 
-    let Ok(collection_count): Result<u128, _> = collection_count().0.try_into() else { return vec![] };
+    let Ok(collection_count): Result<u128, _> = collection_count().0.try_into() else {
+        return vec![];
+    };
 
     (0..collection_count).for_each(|collection_id| {
         let maybe_minted: Result<u128, _> = get_collection(collection_id.into())
