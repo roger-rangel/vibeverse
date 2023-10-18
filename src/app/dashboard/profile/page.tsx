@@ -21,6 +21,7 @@ const ProfilePage = () => {
   const { data: collections } = useGetPrincipalCollections();
   const { data: nfts } = useGetPrincipalNfts();
 
+  // TODO Remove once collection & nft view
   console.log('principal', activeProvider?.principal);
   console.log('collections', collections);
   console.log('nfts', nfts);

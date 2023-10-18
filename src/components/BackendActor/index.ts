@@ -62,7 +62,7 @@ class BackendActor {
   public async getAllNfts(): Promise<Nft[]> {
     const actor = this.createActor();
 
-    return await actor.all_nfts();
+    return await actor.all_nfts(BigInt(0), BigInt(0), BigInt(0));
   }
 
   public async getNfts(identity: Identity): Promise<Nft[]> {
