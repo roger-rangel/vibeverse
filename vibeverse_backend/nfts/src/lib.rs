@@ -41,6 +41,8 @@ pub struct Collection {
     transferable: bool,
     /// The url of the image for the collection.
     image_url: Option<String>,
+    /// The category to which the collection belongs.
+    category: String,
     /// The limit of how many collection instances can be minted.
     limit: Option<Nat>,
     /// The number of collections minted.
@@ -91,6 +93,7 @@ pub fn create_collection(
     transferable: bool,
     limit: Option<Nat>,
     image_url: Option<String>,
+    category: String,
 ) -> CollectionId {
     // CALL THIS FUNCTION ONCE WE WANT TO CHARGE A FEE
     // ensure_fee_payment(creator, into_units(crate::administrative::collection_fee())).await?;
@@ -104,6 +107,7 @@ pub fn create_collection(
             description,
             transferable,
             image_url,
+            category,
             limit,
             minted: Nat::from(0),
             creator,
@@ -137,6 +141,7 @@ pub fn update_metadata(
     name: String,
     description: String,
     image_url: Option<String>,
+    category: Option<String>,
 ) -> Result<(), Error> {
     let maybe_collection = get_collection(id.clone());
     if let Some(collection) = maybe_collection {
@@ -158,9 +163,10 @@ pub fn update_metadata(
                     description,
                     image_url,
                     transferable: collection.clone().transferable,
-                    limit: collection.clone().limit,
-                    minted: collection.clone().minted,
-                    creator: collection.creator,
+                    limit: collection.limit.clone(),
+                    minted: collection.minted.clone(),
+                    creator: collection.creator.clone(),
+                    category: category.unwrap_or(collection.category.clone())
                 },
             );
             Ok(())

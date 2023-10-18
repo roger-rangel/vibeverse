@@ -16,6 +16,7 @@ fn creating_collection_works() {
         transferable.clone(),
         limit.clone(),
         image_url.clone(),
+        Default::default(),
     );
 
     assert_eq!(
@@ -29,6 +30,7 @@ fn creating_collection_works() {
             image_url,
             limit,
             minted: Nat::from(0),
+            category: Default::default(),
         })
     );
 }
@@ -49,6 +51,7 @@ fn updating_collection_metadata_works() {
         transferable.clone(),
         limit.clone(),
         image_url.clone(),
+        Default::default(),
     );
 
     assert_eq!(
@@ -62,6 +65,7 @@ fn updating_collection_metadata_works() {
             image_url,
             limit: limit.clone(),
             minted: Nat::from(0),
+            category: Default::default(),
         })
     );
 
@@ -74,7 +78,8 @@ fn updating_collection_metadata_works() {
             Nat::from(0),
             new_name.clone(),
             new_desc.clone(),
-            new_image_url.clone()
+            new_image_url.clone(),
+            None,
         ),
         Ok(())
     );
@@ -90,6 +95,7 @@ fn updating_collection_metadata_works() {
             image_url: new_image_url,
             limit,
             minted: Nat::from(0),
+            category: Default::default(),
         })
     );
 }
@@ -107,7 +113,8 @@ fn updating_collection_metadata_fails_for_non_existing_collection() {
             Nat::from(0),
             new_name.clone(),
             new_desc.clone(),
-            new_image_url
+            new_image_url,
+            None,
         ),
         Err(Error::CollectionNotFound)
     );
@@ -129,6 +136,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
         transferable.clone(),
         limit.clone(),
         image_url.clone(),
+        Default::default(),
     );
 
     assert_eq!(
@@ -142,6 +150,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
             image_url,
             limit,
             minted: Nat::from(0),
+            category: Default::default()
         })
     );
 
@@ -155,7 +164,8 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
             Nat::from(0),
             new_name.clone(),
             new_desc.clone(),
-            new_image_url.clone()
+            new_image_url.clone(),
+            None,
         ),
         Err(Error::OnlyCollectionCreatorAllowed)
     );
@@ -185,6 +195,7 @@ fn get_creator_collections_works() {
             image_url: collection.image_url,
             limit: collection.limit,
             minted: collection.minted,
+            category: Default::default(),
         }]
     );
 }
@@ -252,7 +263,7 @@ fn minting_limit_works() {
     let limit: Option<Nat> = Some(Nat::from(1));
 
     let collection_id =
-        create_collection(creator, name, description, transferable, limit, image_url);
+        create_collection(creator, name, description, transferable, limit, image_url, Default::default());
 
     let alice = get_default_principal();
 
@@ -477,6 +488,7 @@ fn create_mock_collection(creator: Principal, name: String, transferable: bool) 
         transferable.clone(),
         limit.clone(),
         image_url.clone(),
+        Default::default(),
     );
 
     Collection {
@@ -488,6 +500,7 @@ fn create_mock_collection(creator: Principal, name: String, transferable: bool) 
         image_url,
         limit,
         minted: Nat::from(0),
+        category: Default::default(),
     }
 }
 

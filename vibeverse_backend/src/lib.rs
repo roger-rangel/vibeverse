@@ -11,9 +11,10 @@ fn create_collection(
     transferable: bool,
     limit: Option<Nat>,
     image_url: Option<String>,
+    category: String,
 ) -> String {
     let creator = ic_cdk::api::caller();
-    nfts::create_collection(creator, name, description, transferable, limit, image_url);
+    nfts::create_collection(creator, name, description, transferable, limit, image_url, category);
 
     format!("Collection created successfully.")
 }
@@ -24,10 +25,11 @@ fn update_collection_metadata(
     name: String,
     description: String,
     image_url: Option<String>,
+    category: Option<String>
 ) -> String {
     let caller = ic_cdk::api::caller();
 
-    match nfts::update_metadata(caller, id, name, description, image_url) {
+    match nfts::update_metadata(caller, id, name, description, image_url, category) {
         Ok(_) => format!("Metadata updated successfully."),
         Err(e) => format!("Error while updating metadata: {:?}", e),
     }
