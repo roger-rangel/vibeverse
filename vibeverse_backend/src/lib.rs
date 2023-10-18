@@ -1,6 +1,6 @@
 use candid::Nat;
+use candid::Principal;
 use creators::Creator;
-use ic_cdk::export::Principal;
 use ic_cdk_macros::*;
 use nfts::{Collection, CollectionId, Nft, NftId};
 
@@ -173,3 +173,5 @@ fn vibe_token() -> Option<Principal> {
 fn admin() -> Option<Principal> {
     nfts::administrative::admin()
 }
+
+ic_cdk::export_candid!();
