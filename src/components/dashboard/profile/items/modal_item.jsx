@@ -2,30 +2,28 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import styles from './Items.module.scss';
+import { Principal } from '@dfinity/principal';
 import { classnames } from 'tailwindcss-classnames';
 
-import BackendActor from '@/components/BackendActor';
 import { Mixpanel } from '@/components/Mixpanel';
-import { AuthClient } from '@dfinity/auth-client';
+import { useActor } from '@/hooks';
 
-// import IMG from '~/images/items/item_1.png';
+import styles from './Items.module.scss';
 
 function TransferModal({ showModal, selectedNft }) {
   const [receiver, setReceiver] = useState('');
+  const { actor } = useActor();
 
   const transfer = async () => {
-    console.log(selectedNft);
-    const authClient = await AuthClient.create();
-    const identity = authClient.getIdentity();
+    if (!actor) {
+      alert('Please sign in');
+      return;
+    }
 
-    const actor = new BackendActor();
-
-    const result = await actor.transferNft(
-      identity,
+    const result = await actor.transfer_nft(
       selectedNft.id[0], // collectionId
       selectedNft.id[1], // nftId
-      receiver,
+      Principal.from(receiver),
     );
 
     alert(result);

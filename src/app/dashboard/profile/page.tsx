@@ -7,6 +7,7 @@ import About from '@/components/dashboard/profile/about/about';
 import Items from '@/components/dashboard/profile/items/items';
 import Modal_Item from '@/components/dashboard/profile/items/modal_item';
 import { useGetPrincipalCollections, useGetPrincipalNfts } from '@/hooks';
+import { useConnect } from '@connect2ic/react';
 
 const poppins = Poppins({
   weight: '300',
@@ -16,9 +17,11 @@ const poppins = Poppins({
 const ProfilePage = () => {
   const [modal, showModal] = useState(false);
   const [selectedNft, setSelectedNft] = useState({});
-
+  const { activeProvider } = useConnect();
   const { data: collections } = useGetPrincipalCollections();
   const { data: nfts } = useGetPrincipalNfts();
+
+  console.log('principal', activeProvider?.principal);
   console.log('collections', collections);
   console.log('nfts', nfts);
 

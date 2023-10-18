@@ -1,34 +1,8 @@
 import Image from 'next/image';
 import styles from './Items.module.scss';
 import { classnames } from 'tailwindcss-classnames';
-import IMG1 from '~/images/items/item_1.png';
-
-const data = [
-  {
-    id: 1,
-    asset_url: [IMG1],
-    name: 'NFT 1',
-  },
-  {
-    id: 2,
-    asset_url: [IMG1],
-    name: 'NFT 2',
-  },
-  {
-    id: 3,
-    asset_url: [IMG1],
-    name: 'NFT 3',
-  },
-];
 
 const Item = ({ showModal, nfts, setSelectedNft }) => {
-  // if (!nfts || nfts == []) {
-  //   nfts = data;
-  // }
-  nfts = data;
-  console.log('NFTs are:');
-  console.log(nfts);
-
   return (
     <section id="item" className="h-full mt-10">
       <h5 className="text-center text-sm text-gray-200 ">All Items</h5>
@@ -36,7 +10,10 @@ const Item = ({ showModal, nfts, setSelectedNft }) => {
       <div className={classnames(styles.item__container)}>
         {nfts.map(({ id, asset_url, name, description }) => {
           return (
-            <article key={id} className={classnames(styles.item__item)}>
+            <article
+              key={`${id[0]}-${id[1]}`}
+              className={classnames(styles.item__item)}
+            >
               <div className={classnames(styles.item__item__image)}>
                 <Image
                   src={asset_url[0] ? asset_url[0] : '/images/items/item_1.png'}
