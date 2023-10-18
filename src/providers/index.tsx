@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { createClient } from '@connect2ic/core';
-import { Connect2ICProvider } from '@connect2ic/react';
+import { Connect2ICProvider, ConnectDialog } from '@connect2ic/react';
 
 // NOTE: DO NOT IMPORT FROM @connect2ic/core/providers
 import { NFID } from '@connect2ic/core/providers/nfid';
@@ -44,6 +44,7 @@ export default function Providers({ children }: React.PropsWithChildren) {
       <ActorProvider>
         <QueryProvider>{children}</QueryProvider>
       </ActorProvider>
+      <ConnectDialog />
     </Connect2ICProvider>
   );
 }

@@ -13,7 +13,6 @@ import styles from './Items.module.scss';
 function TransferModal({ showModal, selectedNft }) {
   const [receiver, setReceiver] = useState('');
   const { actor } = useActor();
-
   const transfer = async () => {
     if (!actor) {
       alert('Please sign in');
@@ -21,8 +20,8 @@ function TransferModal({ showModal, selectedNft }) {
     }
 
     const result = await actor.transfer_nft(
-      selectedNft.id[0], // collectionId
-      selectedNft.id[1], // nftId
+      selectedNft.collectionId, // collectionId
+      selectedNft.id, // nftId
       Principal.from(receiver),
     );
 
@@ -41,11 +40,7 @@ function TransferModal({ showModal, selectedNft }) {
           </h3>
           <div className={classnames(styles.item__item__image)}>
             <Image
-              src={
-                selectedNft.asset_url[0]
-                  ? selectedNft.asset_url[0]
-                  : '/images/items/item_1.png'
-              }
+              src={selectedNft.assetUrl || '/images/items/item_1.png'}
               onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
                 currentTarget.src = '/images/items/item_1.png';

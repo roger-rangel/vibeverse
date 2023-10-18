@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { useMemo } from 'react';
 import { useConnect } from '@connect2ic/react';
 import { Principal } from '@dfinity/principal';
 import { useQuery } from '@tanstack/react-query';
 
 import { useActor } from '@/providers/ActorProvider';
-import { useMemo } from 'react';
+import { asNft } from '@/types';
 
 export function useGetPrincipalNfts(props?: { principal?: string }) {
   const { actor } = useActor();
@@ -16,7 +17,10 @@ export function useGetPrincipalNfts(props?: { principal?: string }) {
 
   return useQuery({
     queryKey: [actor, 'nfts', principal],
-    queryFn: () => actor!.nfts_of_user(Principal.from(principal)),
+    queryFn: async () => {
+      const nfts = await actor!.nfts_of_user(Principal.from(principal));
+      return nfts.map(asNft);
+    },
     enabled: !!actor,
   });
 }

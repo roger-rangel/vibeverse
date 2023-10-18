@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useConnect, useDialog, ConnectDialog } from '@connect2ic/react';
+import { useConnect, useDialog } from '@connect2ic/react';
 
 import { Mixpanel } from '@/components/Mixpanel';
 
@@ -125,7 +125,7 @@ function Login() {
                     >
                       Sign in
                     </button>
-                    <ConnectDialog />
+
                     <div className="flex space-x-4">
                       <Link
                         href="/dashboard"

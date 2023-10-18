@@ -8,16 +8,16 @@ const Item = ({ showModal, nfts, setSelectedNft }) => {
       <h5 className="text-center text-sm text-gray-200 ">All Items</h5>
       <h2 className="text-xl text-center text-[#4db5ff]">NFTs and More:</h2>
       <div className={classnames(styles.item__container)}>
-        {nfts.map(({ id, asset_url, name, description }) => {
+        {nfts.map((nft) => {
           return (
             <article
-              key={`${id[0]}-${id[1]}`}
+              key={`${nft.collectionId}-${nft.id}`}
               className={classnames(styles.item__item)}
             >
               <div className={classnames(styles.item__item__image)}>
                 <Image
-                  src={asset_url[0] ? asset_url[0] : '/images/items/item_1.png'}
-                  alt={name}
+                  src={nft.assetUrl || '/images/items/item_1.png'}
+                  alt={nft.name}
                   onError={({ currentTarget }) => {
                     currentTarget.onerror = null; // prevents looping
                     currentTarget.src = '/images/items/item_1.png';
@@ -27,11 +27,11 @@ const Item = ({ showModal, nfts, setSelectedNft }) => {
                   className="min-h-[300px] object-cover"
                 />
               </div>
-              <h3>{name}</h3>
+              <h3>{nft.name}</h3>
               <div className={classnames(styles.item__item__cta)}>
                 <button
                   onClick={() => {
-                    setSelectedNft({ id, asset_url, name, description });
+                    setSelectedNft(nft);
                     showModal(true);
                   }}
                   className="py-2 px-4 text-base rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"

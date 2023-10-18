@@ -14,7 +14,7 @@ import {
   XMarkIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
-import { useConnect } from '@connect2ic/react';
+import { useConnect, useDialog } from '@connect2ic/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -85,6 +85,7 @@ export default function Navigation({ children }: React.PropsWithChildren) {
   const [isBannerOpen, setIsBannerOpen] = useState(true);
 
   const { isConnected } = useConnect();
+  const dialog = useDialog();
 
   useEffect(() => {
     navigation.forEach((nav, index) => {
@@ -363,11 +364,12 @@ export default function Navigation({ children }: React.PropsWithChildren) {
                 {isConnected ? (
                   <Nav_User />
                 ) : (
-                  <Link href="/login">
-                    <button className="button-gradient text-white font-bold py-2 px-4 rounded-3xl">
-                      Connect Wallet
-                    </button>
-                  </Link>
+                  <button
+                    className="button-gradient text-white font-bold py-2 px-4 rounded-3xl"
+                    onClick={() => dialog.open()}
+                  >
+                    Connect Wallet
+                  </button>
                 )}
               </div>
             </div>
