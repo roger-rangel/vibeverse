@@ -38,7 +38,7 @@ const navigation = [
   },
   {
     name: 'AI Content',
-    href: '/dashboard/aicontent',
+    href: '/dashboard/browse',
     icon: FilmIcon,
     color: 'bg-blue-400',
   },
