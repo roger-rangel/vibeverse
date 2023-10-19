@@ -38,7 +38,7 @@ function initCanister() {
   }
 
   if (process.env.CANISTER_ID_VIBEVERSE_BACKEND) {
-    env[CANISTER_ID_VIBEVERSE_BACKEND] =
+    env['CANISTER_ID_VIBEVERSE_BACKEND'] =
       process.env.CANISTER_ID_VIBEVERSE_BACKEND;
   }
 
