@@ -37,6 +37,11 @@ function initCanister() {
     env[`CANISTER_ID_${canister.toUpperCase()}`] = canisters[canister][network];
   }
 
+  if (process.env.CANISTER_ID_VIBEVERSE_BACKEND) {
+    env[CANISTER_ID_VIBEVERSE_BACKEND] =
+      process.env.CANISTER_ID_VIBEVERSE_BACKEND;
+  }
+
   const envPlugin = new webpack.EnvironmentPlugin({
     ...env,
   });
