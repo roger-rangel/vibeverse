@@ -13,7 +13,7 @@ export default function Gallery() {
   }, []);
 
   const { data: nfts } = useGetNfts({ page: 0, limit: 1000 });
-
+  console.log(`total nfts`, nfts);
   return (
     <div className="h-screen mx-auto relative">
       <div className="mx-auto bg-gradient-to-r bg-black relative rounded-xl">

@@ -22,24 +22,24 @@ export function useGetNfts({ page, limit }: PaginationParams) {
         [BigInt(limit)],
       );
 
-      const nfts2 = await actor!.nfts(
-        BigInt(2),
-        [BigInt(page)],
-        [BigInt(limit)],
-      );
+      // const nfts2 = await actor!.nfts(
+      //   BigInt(2),
+      //   [BigInt(page)],
+      //   [BigInt(limit)],
+      // );
 
-      const nfts3 = await actor!.nfts(
-        BigInt(3),
-        [BigInt(page)],
-        [BigInt(limit)],
-      );
+      // const nfts3 = await actor!.nfts(
+      //   BigInt(3),
+      //   [BigInt(page)],
+      //   [BigInt(limit)],
+      // );
 
-      const nfts4 = await actor!.nfts(
-        BigInt(4),
-        [BigInt(page)],
-        [BigInt(limit)],
-      );
-      return nfts0.concat(nfts1, nfts2, nfts3, nfts4).map(asDetailedNft);
+      // const nfts4 = await actor!.nfts(
+      //   BigInt(4),
+      //   [BigInt(page)],
+      //   [BigInt(limit)],
+      // );
+      return nfts0.concat(nfts1).map(asDetailedNft);
     },
     enabled: !!actor,
   });
