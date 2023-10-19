@@ -24,10 +24,6 @@ function CreateCollection({ showCreateCollection }) {
 
   const isLocal = !window.location.host.endsWith('icp0.io');
 
-  useEffect(() => {
-    console.log('');
-  }, []);
-
   const handleClose = () => {
     showCreateCollection(false);
   };
@@ -53,7 +49,7 @@ function CreateCollection({ showCreateCollection }) {
       name,
       description,
       isTranferable,
-      [BigInt(limit)],
+      limit !== '' ? [BigInt(limit)] : [],
       [finalUrl],
       'cateory', // TODO Update
     );

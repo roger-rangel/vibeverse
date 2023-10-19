@@ -64,8 +64,12 @@ function CreateNFT({ showCreateNFT }) {
       description,
       [finalUrl],
     );
-    console.log(result.Ok);
-    alert(result);
+    if (result.Err) {
+      alert(result.Err);
+      return;
+    }
+    console.dir(result, { depth: null });
+    alert(`Minted successfuly`);
   };
 
   const tryUploadPhoto = async (e) => {
