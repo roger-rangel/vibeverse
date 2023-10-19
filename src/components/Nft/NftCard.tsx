@@ -19,6 +19,7 @@ export function NftCard({ nft }: { nft: Nft }) {
   return (
     <article
       key={`${nft.collectionId}-${nft.id}`}
+      // @ts-ignore
       className={classnames(styles.item__item, 'flex flex-col items-center')}
     >
       <LazyLoadImage
@@ -30,7 +31,11 @@ export function NftCard({ nft }: { nft: Nft }) {
         className="rounded-2xl object-cover w-[350px] h-[350px]"
       />
       <h3>{nft.name}</h3>
-      <div className={classnames(styles.item__item__cta)}>
+
+      <div
+        // @ts-ignore
+        className={classnames(styles.item__item__cta)}
+      >
         <button
           onClick={showModal}
           className="py-2 px-4 text-base rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"

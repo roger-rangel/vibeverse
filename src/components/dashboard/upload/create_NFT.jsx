@@ -3,14 +3,14 @@ import { PhotoIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useConnect } from '@connect2ic/react';
-import { AssetManager } from '@dfinity/assets';
 import { HttpAgent } from '@dfinity/agent';
-import { AuthClient } from '@dfinity/auth-client';
+import { AssetManager } from '@dfinity/assets';
+import { Principal } from '@dfinity/principal';
 
-import BackendActor from '@/components/BackendActor';
 import Dropdown from '@/components/dashboard/upload/dropdown';
 import { Mixpanel } from '@/components/Mixpanel';
 import { DFX_NETWORK } from '@/config';
+import { useActor } from '@/providers/ActorProvider';
 import { canisterId } from '@/declarations/vibeverse_assets';
 
 import Mint_Option from './mint_option.jsx';
@@ -25,14 +25,8 @@ function CreateNFT({ showCreateNFT }) {
   const [imageOption, setImageOption] = useState('upload');
   const [mintOption, setMintOption] = useState('self');
   const [receiver, setReceiver] = useState('');
-  const [activeProvider, setActiveProvider] = useState(null);
-
-  const {} = useConnect({
-    onConnect: (data) => {
-      console.log(data);
-      setActiveProvider(data.activeProvider);
-    },
-  });
+  const { actor } = useActor();
+  const { activeProvider } = useConnect();
 
   const isLocal = !window.location.host.endsWith('icp0.io');
 
@@ -42,17 +36,18 @@ function CreateNFT({ showCreateNFT }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!actor) {
+      alert('Actor not found');
+      return;
+    }
+
     console.log('Minting an NFT');
-
-    const authClient = await AuthClient.create();
-    const identity = authClient.getIdentity();
-
-    const actor = new BackendActor();
 
     let actualReceiver = receiver;
     if (mintOption == 'self') {
       actualReceiver = '2vxsx-fae';
-      if (activeProvider) {
+      if (activeProvider && activeProvider.principal) {
         actualReceiver = activeProvider.principal;
       }
     }
@@ -62,15 +57,14 @@ function CreateNFT({ showCreateNFT }) {
       finalUrl = customImageUrl;
     }
 
-    const result = await actor.mintNft(
-      identity,
-      collection.id,
-      actualReceiver,
+    const result = await actor.mint_nft(
+      BigInt(collection.id),
+      Principal.from(actualReceiver),
       name,
       description,
-      finalUrl,
+      [finalUrl],
     );
-
+    console.log(result.Ok);
     alert(result);
   };
 

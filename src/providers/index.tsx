@@ -25,7 +25,7 @@ export default function Providers({ children }: React.PropsWithChildren) {
     new InternetIdentity({
       providerUrl:
         DFX_NETWORK === 'local'
-          ? `http://127.0.0.1:4943/?canisterId=${II_CANISTER_ID}`
+          ? `http://localhost:4943/?canisterId=${II_CANISTER_ID}`
           : 'https://identity.ic0.app',
     }),
     new InfinityWallet(),
@@ -37,7 +37,7 @@ export default function Providers({ children }: React.PropsWithChildren) {
       dev: true,
       host:
         DFX_NETWORK === 'local'
-          ? `http://127.0.0.1:4943/?canisterId=${II_CANISTER_ID}`
+          ? `http://localhost:4943/?canisterId=${II_CANISTER_ID}`
           : 'https://identity.ic0.app',
     },
   });

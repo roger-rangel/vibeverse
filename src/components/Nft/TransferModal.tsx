@@ -42,7 +42,10 @@ export function TransferModal({
         <h3 className="flex items-center justify-center text-zinc-300 pb-2">
           {nft.name}
         </h3>
-        <div className={classnames(styles.item__item__image)}>
+        <div
+          // @ts-ignore
+          className={classnames(styles.item__item__image)}
+        >
           <LazyLoadImage
             src={nft.assetUrl || '/images/items/item_1.png'}
             effect="blur"
@@ -69,7 +72,10 @@ export function TransferModal({
             />
           </div>
         </div>
-        <div className={classnames(styles.item__item__cta)}>
+        <div
+          // @ts-ignore
+          className={classnames(styles.item__item__cta)}
+        >
           <button
             onClick={transfer}
             className="py-2 px-4 text-white rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"

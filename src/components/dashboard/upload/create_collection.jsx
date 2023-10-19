@@ -55,8 +55,9 @@ function CreateCollection({ showCreateCollection }) {
       isTranferable,
       [BigInt(limit)],
       [finalUrl],
+      'cateory', // TODO Update
     );
-    alert(result);
+    alert(`Created succesffuly id: ${result}`);
   };
 
   const tryUploadPhoto = async (e) => {

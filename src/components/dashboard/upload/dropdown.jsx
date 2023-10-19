@@ -1,34 +1,19 @@
-import { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import BackendActor from '@/components/BackendActor';
 
 import { useConnect } from '@connect2ic/react';
+import { useGetCollectionsCreatedByPrincipal } from '@/hooks';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-function Dropdown({ setCollection, collection }) {
-  const [collections, setCollections] = useState([]);
-  const [activeProvider, setActiveProvider] = useState(null);
-  const {} = useConnect({
-    onConnect: (data) => {
-      console.log(data);
-      setActiveProvider(data.activeProvider);
-    },
+export default function Dropdown({ setCollection, collection }) {
+  const { activeProvider } = useConnect();
+  const { data: collections } = useGetCollectionsCreatedByPrincipal({
+    principal: activeProvider?.principal,
   });
-
-  const fetch = async () => {
-    const actor = new BackendActor();
-    console.log(activeProvider);
-    let principal = activeProvider ? activeProvider.principal : '2vxsx-fae';
-
-    const result = await actor.collectionsCreatedBy(principal);
-    setCollections(result);
-  };
-
-  console.log(collections);
 
   return (
     <Menu as="div" className="relative flex text-left">
@@ -39,10 +24,7 @@ function Dropdown({ setCollection, collection }) {
         >
           Collection
         </label>
-        <Menu.Button
-          onClick={fetch}
-          className="inline-flex w-full justify-center gap-x-1.5 mt-2 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-        >
+        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 mt-2 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
           {collection.name}
           <ChevronDownIcon
             className="-mr-1 h-5 w-5 text-gray-400"
@@ -62,8 +44,8 @@ function Dropdown({ setCollection, collection }) {
       >
         <Menu.Items className="absolute right-0 z-10 w-56 origin-top-right mt-20 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            {collections.map((collection) => (
-              <Menu.Item key={collection.id}>
+            {collections?.map((collection) => (
+              <Menu.Item key={`${collection.id}`}>
                 {({ active }) => (
                   <a
                     href="#"
@@ -88,12 +70,4 @@ function Dropdown({ setCollection, collection }) {
       </Transition>
     </Menu>
   );
-}
-
-export default function DropdownWrapper({ setCollection, collection }) {
-  useEffect(() => {
-    console.log('');
-  }, []);
-
-  return <Dropdown setCollection={setCollection} collection={collection} />;
 }
