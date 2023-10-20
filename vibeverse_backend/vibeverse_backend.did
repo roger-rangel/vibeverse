@@ -31,6 +31,7 @@ service : {
   mint_fee : () -> (nat64) query;
   mint_nft : (nat, principal, text, text, opt text) -> (Result);
   nfts : (nat, opt nat, opt nat) -> (vec Nft) query;
+  all_nfts : (opt nat, opt nat) -> (vec Nft) query;
   nfts_of_caller : () -> (vec Nft) query;
   nfts_of_user : (principal) -> (vec Nft) query;
   set_admin : (principal) -> (Result_1);
