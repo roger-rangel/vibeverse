@@ -47,7 +47,7 @@ next-env.d.ts
 .dfx/
 
 # generated files
-src/declarations/
+# src/declarations/
 
 # rust
 target/
