@@ -3,7 +3,7 @@ import { PhotoIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useConnect } from '@connect2ic/react';
-import { HttpAgent } from '@dfinity/agent';
+import { Actor } from '@dfinity/agent';
 import { AssetManager } from '@dfinity/assets';
 import { Principal } from '@dfinity/principal';
 
@@ -25,10 +25,10 @@ function CreateNFT({ showCreateNFT }) {
   const [imageOption, setImageOption] = useState('upload');
   const [mintOption, setMintOption] = useState('self');
   const [receiver, setReceiver] = useState('');
-  const { actor } = useActor();
+  const { actor, assetActor } = useActor();
   const { activeProvider } = useConnect();
 
-  const isLocal = !window.location.host.endsWith('icp0.io');
+  const isLocal = DFX_NETWORK === 'local';
 
   const handleClose = () => {
     showCreateNFT(false);
@@ -85,48 +85,35 @@ function CreateNFT({ showCreateNFT }) {
   };
 
   const uploadPhoto = async (e) => {
-    const assetManager = getAssetManager();
+    const assetManager = await getAssetManager();
     const file = e.target.files[0];
 
-    const fileName = 'collection-' + Date.now() + '.' + file.type.split('/')[1];
+    const fileName = 'nft-' + Date.now() + '.' + file.type.split('/')[1];
     const blob = file.slice(0, file.size, 'image/*');
 
     const renamedFile = new File([blob], fileName, { type: 'image/*' });
     const key = await assetManager.store(renamedFile);
 
+    let imageUrl = '';
     if (isLocal) {
-      setImageUrl(
-        `http://${window.location.host}${key}?canisterId=${canisterId}`,
-      );
+      imageUrl = `http://localhost:4943${key}?canisterId=${canisterId}`;
     } else {
-      setImageUrl(
-        `https://${window.location.host}${key}?canisterId=${canisterId}`,
-      );
+      imageUrl = `https://${canisterId}.icp0.io${key}`;
     }
 
     console.log(imageUrl);
+    setImageUrl(imageUrl);
   };
 
-  const getAssetManager = () => {
-    let principal = '2vxsx-fae';
-    if (activeProvider) {
-      principal = activeProvider.principal;
+  const getAssetManager = async () => {
+    const agent = Actor.agentOf(assetActor);
+
+    if (DFX_NETWORK === 'local') {
+      agent.fetchRootKey();
     }
-
-    console.log('Principal: ');
-    console.log(principal);
-
-    const agent = new HttpAgent({
-      host:
-        DFX_NETWORK === 'local' ? 'http://localhost:4943' : 'https://ic0.app',
-      principal,
-    });
-    agent.fetchRootKey();
-
     const assetManager = new AssetManager({
       canisterId,
       agent,
-      provider: activeProvider,
     });
 
     return assetManager;

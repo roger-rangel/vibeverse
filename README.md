@@ -91,27 +91,4 @@ Before following the instructions we recommend following [this](https://internet
 
 ### Local development
 
-**Follow the following steps to locally deploy the frontend**:
-
-```
-npm i
-```
-
-```
-npm run dev # The website will be accessible at http://localhost:3000/
-# OR
-dfx start --background
-dfx deploy
-```
-
-**Follow the following steps to compile the backend and run all the tests**:
-
-```
-# To compile the backend code:
-cargo build
-```
-
-```
-# To run all the backend tests:
-cargo test
-```
+Please read [DEVELOPMENT.md](./DEVELOPMENT.MD) file

@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { PhotoIcon } from '@heroicons/react/24/solid';
+import { useConnect } from '@connect2ic/react';
 import { AssetManager } from '@dfinity/assets';
-import { HttpAgent } from '@dfinity/agent';
+import { Actor } from '@dfinity/agent';
+import { PhotoIcon } from '@heroicons/react/24/solid';
 
 import { Mixpanel } from '@/components/Mixpanel';
 import { DFX_NETWORK } from '@/config';
@@ -20,10 +21,11 @@ function CreateCollection({ showCreateCollection }) {
   const [limit, setLimit] = useState('');
   const [imageOption, setImageOption] = useState('upload');
 
-  const { actor } = useActor();
+  const { actor, assetActor } = useActor();
+  const { activeProvider } = useConnect();
 
-  const isLocal = !window.location.host.endsWith('icp0.io');
-
+  const isLocal = DFX_NETWORK === 'local';
+  console.log(activeProvider?.principal);
   const handleClose = () => {
     showCreateCollection(false);
   };
@@ -31,7 +33,7 @@ function CreateCollection({ showCreateCollection }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!actor) {
+    if (!assetActor) {
       alert('empty actor');
       return;
     }
@@ -69,47 +71,36 @@ function CreateCollection({ showCreateCollection }) {
   };
 
   const uploadPhoto = async (e) => {
-    const assetManager = getAssetManager();
+    const assetManager = await getAssetManager();
     const file = e.target.files[0];
 
-    const fileName = 'collection-' + Date.now() + file.type.split('/')[1];
+    const fileName = 'collection-' + Date.now() + '.' + file.type.split('/')[1];
     const blob = file.slice(0, file.size, 'image/*');
 
     const renamedFile = new File([blob], fileName, { type: 'image/*' });
     const key = await assetManager.store(renamedFile);
 
+    let imageUrl = '';
     if (isLocal) {
-      setImageUrl(
-        `http://${window.location.host}${key}?canisterId=${canisterId}`,
-      );
+      imageUrl = `http://localhost:4943${key}?canisterId=${canisterId}`;
     } else {
-      setImageUrl(
-        `https://${window.location.host}${key}?canisterId=${canisterId}`,
-      );
+      imageUrl = `https://${canisterId}.icp0.io${key}`;
     }
 
     console.log(imageUrl);
+    setImageUrl(imageUrl);
   };
 
-  const getAssetManager = () => {
-    let principal = '2vxsx-fae';
-    if (activeProvider) {
-      principal = activeProvider.principal;
+  console.log(activeProvider?.principal);
+  const getAssetManager = async () => {
+    const agent = Actor.agentOf(assetActor);
+
+    if (DFX_NETWORK === 'local') {
+      agent.fetchRootKey();
     }
-
-    console.log('Principal: ');
-    console.log(principal);
-
-    const agent = new HttpAgent({
-      host:
-        DFX_NETWORK === 'local' ? 'http://localhost:4943' : 'https://ic0.app',
-      principal,
-    });
-
     const assetManager = new AssetManager({
       canisterId,
       agent,
-      provider: activeProvider,
     });
 
     return assetManager;

@@ -10,36 +10,9 @@ export function useGetNfts({ page, limit }: PaginationParams) {
   return useQuery({
     queryKey: [actor, 'all-nfts', page, limit],
     queryFn: async () => {
-      const nfts0 = await actor!.nfts(
-        BigInt(0),
-        [BigInt(page)],
-        [BigInt(limit)],
-      );
+      const nfts = await actor!.all_nfts([BigInt(page)], [BigInt(limit)]);
 
-      const nfts1 = await actor!.nfts(
-        BigInt(1),
-        [BigInt(page)],
-        [BigInt(limit)],
-      );
-
-      // const nfts2 = await actor!.nfts(
-      //   BigInt(2),
-      //   [BigInt(page)],
-      //   [BigInt(limit)],
-      // );
-
-      // const nfts3 = await actor!.nfts(
-      //   BigInt(3),
-      //   [BigInt(page)],
-      //   [BigInt(limit)],
-      // );
-
-      // const nfts4 = await actor!.nfts(
-      //   BigInt(4),
-      //   [BigInt(page)],
-      //   [BigInt(limit)],
-      // );
-      return nfts0.concat(nfts1).map(asDetailedNft);
+      return nfts.map(asDetailedNft);
     },
     enabled: !!actor,
   });
