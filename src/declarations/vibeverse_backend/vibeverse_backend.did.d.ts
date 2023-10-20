@@ -25,6 +25,7 @@ export type Result_1 = { 'Ok' : null } |
   { 'Err' : string };
 export interface _SERVICE {
   'admin' : ActorMethod<[], [] | [Principal]>,
+  'all_nfts' : ActorMethod<[[] | [bigint], [] | [bigint]], Array<Nft>>,
   'collection_count' : ActorMethod<[], bigint>,
   'collection_fee' : ActorMethod<[], bigint>,
   'collections' : ActorMethod<

@@ -1,4 +1,10 @@
 export const idlFactory = ({ IDL }) => {
+  const Nft = IDL.Record({
+    'id' : IDL.Tuple(IDL.Nat, IDL.Nat),
+    'name' : IDL.Text,
+    'description' : IDL.Text,
+    'asset_url' : IDL.Opt(IDL.Text),
+  });
   const Collection = IDL.Record({
     'id' : IDL.Nat,
     'creator' : IDL.Principal,
@@ -18,15 +24,14 @@ export const idlFactory = ({ IDL }) => {
     'Ok' : IDL.Tuple(IDL.Nat, IDL.Nat),
     'Err' : IDL.Text,
   });
-  const Nft = IDL.Record({
-    'id' : IDL.Tuple(IDL.Nat, IDL.Nat),
-    'name' : IDL.Text,
-    'description' : IDL.Text,
-    'asset_url' : IDL.Opt(IDL.Text),
-  });
   const Result_1 = IDL.Variant({ 'Ok' : IDL.Null, 'Err' : IDL.Text });
   return IDL.Service({
     'admin' : IDL.Func([], [IDL.Opt(IDL.Principal)], ['query']),
+    'all_nfts' : IDL.Func(
+        [IDL.Opt(IDL.Nat), IDL.Opt(IDL.Nat)],
+        [IDL.Vec(Nft)],
+        ['query'],
+      ),
     'collection_count' : IDL.Func([], [IDL.Nat], ['query']),
     'collection_fee' : IDL.Func([], [IDL.Nat64], ['query']),
     'collections' : IDL.Func(
