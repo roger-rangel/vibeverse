@@ -7,9 +7,7 @@
     "build": "next build",
     "start": "env-cmd next start",
     "lint": "next lint",
-    "format": "prettier --write .",
-    "generate:did": "candid-extractor target/wasm32-unknown-unknown/release/vibeverse_backend.wasm > vibeverse_backend/vibeverse_backend.did",
-    "generate:declaration": "dfx generate vibeverse_backend"
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@connect2ic/react": "^0.2.0-beta.5",

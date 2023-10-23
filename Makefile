@@ -19,3 +19,9 @@ format-check:
 
 format: 
 	cargo fmt
+
+generate-did:
+	candid-extractor target/wasm32-unknown-unknown/release/vibeverse_backend.wasm > vibeverse_backend/vibeverse_backend.did
+	
+generate-declaration:
+	dfx generate vibeverse_backend

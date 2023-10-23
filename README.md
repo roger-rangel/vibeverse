@@ -91,4 +91,4 @@ Before following the instructions we recommend following [this](https://internet
 
 ### Local development
 
-Please read [DEVELOPMENT.md](./DEVELOPMENT.MD) file
+Please read [DEVELOPMENT.md](./DEVELOPMENT.md) file
