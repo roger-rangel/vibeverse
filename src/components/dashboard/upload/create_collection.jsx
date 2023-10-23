@@ -55,7 +55,12 @@ function CreateCollection({ showCreateCollection }) {
       [finalUrl],
       'cateory', // TODO Update
     );
-    alert(`Created succesffuly id: ${result}`);
+    if ('Err' in result) {
+      alert(result.Err);
+      return;
+    } else {
+      alert(`Success id:${result.Ok}`);
+    }
   };
 
   const tryUploadPhoto = async (e) => {

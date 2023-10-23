@@ -12,16 +12,18 @@ export interface Collection {
   'limit' : [] | [bigint],
   'category' : string,
 }
-export interface Creator { 'principal' : Principal, 'name' : string }
+export interface Creator { 'name' : string, 'avatar' : string }
 export interface Nft {
   'id' : [bigint, bigint],
   'name' : string,
   'description' : string,
   'asset_url' : [] | [string],
 }
-export type Result = { 'Ok' : [bigint, bigint] } |
+export type Result = { 'Ok' : bigint } |
   { 'Err' : string };
-export type Result_1 = { 'Ok' : null } |
+export type Result_1 = { 'Ok' : [bigint, bigint] } |
+  { 'Err' : string };
+export type Result_2 = { 'Ok' : null } |
   { 'Err' : string };
 export interface _SERVICE {
   'admin' : ActorMethod<[], [] | [Principal]>,
@@ -36,27 +38,27 @@ export interface _SERVICE {
   'collections_created_by_caller' : ActorMethod<[], Array<Collection>>,
   'create_collection' : ActorMethod<
     [string, string, boolean, [] | [bigint], [] | [string], string],
-    bigint
+    Result
   >,
-  'creator_metadata' : ActorMethod<[], [] | [Creator]>,
+  'creator_metadata' : ActorMethod<[Principal], [] | [Creator]>,
   'get_collection' : ActorMethod<[bigint], [] | [Collection]>,
   'mint_fee' : ActorMethod<[], bigint>,
   'mint_nft' : ActorMethod<
     [bigint, Principal, string, string, [] | [string]],
-    Result
+    Result_1
   >,
   'nfts' : ActorMethod<[bigint, [] | [bigint], [] | [bigint]], Array<Nft>>,
   'nfts_of_caller' : ActorMethod<[], Array<Nft>>,
   'nfts_of_user' : ActorMethod<[Principal], Array<Nft>>,
-  'set_admin' : ActorMethod<[Principal], Result_1>,
-  'set_collection_fee' : ActorMethod<[bigint], Result_1>,
-  'set_creator_metadata' : ActorMethod<[string], string>,
-  'set_mint_fee' : ActorMethod<[bigint], Result_1>,
-  'set_vibe_token' : ActorMethod<[Principal], Result_1>,
-  'transfer_nft' : ActorMethod<[bigint, bigint, Principal], string>,
+  'set_admin' : ActorMethod<[Principal], Result_2>,
+  'set_collection_fee' : ActorMethod<[bigint], Result_2>,
+  'set_creator_metadata' : ActorMethod<[string, string], Result_2>,
+  'set_mint_fee' : ActorMethod<[bigint], Result_2>,
+  'set_vibe_token' : ActorMethod<[Principal], Result_2>,
+  'transfer_nft' : ActorMethod<[bigint, bigint, Principal], Result_2>,
   'update_collection_metadata' : ActorMethod<
     [bigint, string, string, [] | [string], [] | [string]],
-    string
+    Result_2
   >,
   'vibe_token' : ActorMethod<[], [] | [Principal]>,
 }

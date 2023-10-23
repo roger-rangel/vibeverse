@@ -38,6 +38,9 @@
    npm run dev
    ```
 
+> [!NOTE]  
+> When backend modification is made, please update generated files by running `make generate`
+
 #### Test file upload in local
 
 ```bash
