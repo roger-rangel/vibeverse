@@ -1,5 +1,9 @@
 on:
   pull_request:
+    paths:
+      - 'vibeverse_backend/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
   push:
     branches:
       - main

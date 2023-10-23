@@ -5,7 +5,7 @@ prepare:
 build:
 	dfx build vibeverse_backend
 
-test-market: 
+test: 
 	cargo test
 
 clippy:
