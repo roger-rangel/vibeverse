@@ -66,11 +66,11 @@ pub fn set_admin(admin: Principal) -> Result<(), &'static str> {
 }
 
 pub fn collection_fee() -> u64 {
-    COLLECTION_FEE.with(|fee| fee.borrow().clone())
+    COLLECTION_FEE.with(|fee| *fee.borrow())
 }
 
 pub fn mint_fee() -> u64 {
-    MINT_FEE.with(|fee| fee.borrow().clone())
+    MINT_FEE.with(|fee| *fee.borrow())
 }
 
 pub fn vibe_token() -> Option<Principal> {

@@ -36,7 +36,7 @@ fn update_collection_metadata(
     let caller = ic_cdk::api::caller();
 
     match nfts::update_metadata(caller, id, name, description, image_url, category) {
-        Ok(_) => format!("Metadata updated successfully."),
+        Ok(_) => "Metadata updated successfully.".to_string(),
         Err(e) => format!("Error while updating metadata: {:?}", e),
     }
 }
@@ -52,7 +52,7 @@ fn set_creator_metadata(name: String) -> String {
     let caller = ic_cdk::api::caller();
     creators::set_creator_metadata(caller, name);
 
-    format!("Creator metadata set successfully.")
+    "Creator metadata set successfully.".to_string()
 }
 
 #[ic_cdk_macros::query]
@@ -98,7 +98,7 @@ fn mint_nft(
 fn transfer_nft(collection_id: CollectionId, nft_id: Nat, receiver: Principal) -> String {
     let caller = ic_cdk::api::caller();
     match nfts::nft_transfer(caller, receiver, (collection_id, nft_id)) {
-        Ok(_) => format!("Collection transfered successfully."),
+        Ok(_) => "Collection transfered successfully.".to_string(),
         Err(e) => format!("Error while transfering the nft: {:?}", e),
     }
 }
@@ -123,9 +123,18 @@ fn nfts(collection_id: CollectionId, start_index: Option<u128>, count: Option<u1
 fn all_nfts(start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
     let start_index = start_index.unwrap_or_default();
     if let Some(count) = count {
-        nfts::all_nfts().iter().cloned().skip(start_index.try_into().unwrap()).take(count.try_into().unwrap()).collect()
-    }else {
-        nfts::all_nfts().iter().cloned().skip(start_index.try_into().unwrap()).collect()
+        nfts::all_nfts()
+            .iter()
+            .skip(start_index.try_into().unwrap())
+            .take(count.try_into().unwrap())
+            .cloned()
+            .collect()
+    } else {
+        nfts::all_nfts()
+            .iter()
+            .skip(start_index.try_into().unwrap())
+            .cloned()
+            .collect()
     }
 }
 

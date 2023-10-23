@@ -1,8 +1,16 @@
 ### Prerequisties
 
 - Rust
-- Node.js
+- Node.js v18.17.1
 - dfx
+  ```bash
+  DFX_VERSION=0.15.1 sh -ci "$(curl -sSL https://internetcomputer.org/install.sh)"
+  ```
+- candid-extractor
+
+  ```bash
+  cargo install candid-extractor
+  ```
 
 ### Development
 

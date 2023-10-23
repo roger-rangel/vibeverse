@@ -165,7 +165,7 @@ pub fn update_metadata(
                     transferable: collection.clone().transferable,
                     limit: collection.limit.clone(),
                     minted: collection.minted.clone(),
-                    creator: collection.creator.clone(),
+                    creator: collection.creator,
                     category: category.unwrap_or(collection.category.clone()),
                 },
             );
@@ -178,13 +178,7 @@ pub fn update_metadata(
 
 /// Returns the collection with the specified `CollectionId`.  In case there is no such collection returns `None`.
 pub fn get_collection(id: CollectionId) -> Option<Collection> {
-    COLLECTIONS.with(|collections| {
-        if let Some(collection) = collections.borrow().get(&id) {
-            Some(collection.clone())
-        } else {
-            None
-        }
-    })
+    COLLECTIONS.with(|collections| collections.borrow().get(&id).cloned())
 }
 
 pub fn get_nft(id: NftId) -> Option<Nft> {
@@ -337,13 +331,13 @@ pub fn nfts_within_collection(
     start_index: Option<u128>,
     count: Option<u128>,
 ) -> Vec<Nft> {
-    let maybe_minted: Result<u128, _> = get_collection(collection_id.clone().into())
+    let maybe_minted: Result<u128, _> = get_collection(collection_id.clone())
         .unwrap()
         .minted
         .0
         .try_into();
 
-    if let Err(_) = maybe_minted {
+    if maybe_minted.is_err() {
         return vec![];
     }
 
@@ -361,9 +355,8 @@ pub fn nfts_within_collection(
     let end = minted.min(end);
 
     (start_index..end)
-        .into_iter()
         .map(|nft_id| {
-            get_nft((collection_id.clone(), Nat::from(nft_id.clone())))
+            get_nft((collection_id.clone(), Nat::from(nft_id)))
                 .expect("`nft_id` must be good, otherwise the value of `minted` is broken")
         })
         .collect()
@@ -372,7 +365,7 @@ pub fn nfts_within_collection(
 pub fn all_collections(start_index: Option<u128>, count: Option<u128>) -> Vec<Collection> {
     let maybe_collection_count = collection_count().0.try_into();
 
-    if let Err(_) = maybe_collection_count {
+    if maybe_collection_count.is_err() {
         return vec![];
     }
     let collection_count = maybe_collection_count.unwrap();
@@ -390,9 +383,8 @@ pub fn all_collections(start_index: Option<u128>, count: Option<u128>) -> Vec<Co
     let end = collection_count.min(end);
 
     (start_index..end)
-        .into_iter()
         .map(|collection_id| {
-            get_collection(Nat::from(collection_id.clone())).expect(
+            get_collection(Nat::from(collection_id)).expect(
                 "`collection_id` must be good, otherwise the value of `collection_count` is broken",
             )
         })
@@ -461,7 +453,7 @@ async fn ensure_fee_payment(payer: Principal, required_fee: u128) -> Result<(), 
                 )
                 .await;
 
-                if let Err(_) = result {
+                if result.is_err() {
                     return Err("Token transfer failed");
                 }
             } else {
