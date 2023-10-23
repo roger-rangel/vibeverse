@@ -123,9 +123,18 @@ fn nfts(collection_id: CollectionId, start_index: Option<u128>, count: Option<u1
 fn all_nfts(start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
     let start_index = start_index.unwrap_or_default();
     if let Some(count) = count {
-        nfts::all_nfts().iter().cloned().skip(start_index.try_into().unwrap()).take(count.try_into().unwrap()).collect()
-    }else {
-        nfts::all_nfts().iter().cloned().skip(start_index.try_into().unwrap()).collect()
+        nfts::all_nfts()
+            .iter()
+            .cloned()
+            .skip(start_index.try_into().unwrap())
+            .take(count.try_into().unwrap())
+            .collect()
+    } else {
+        nfts::all_nfts()
+            .iter()
+            .cloned()
+            .skip(start_index.try_into().unwrap())
+            .collect()
     }
 }
 
