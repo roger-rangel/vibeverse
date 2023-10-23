@@ -13,7 +13,7 @@ fn creating_collection_works() {
         creator,
         collection_name.clone(),
         collection_desc.clone(),
-        transferable.clone(),
+        transferable,
         limit.clone(),
         image_url.clone(),
         Default::default(),
@@ -48,7 +48,7 @@ fn updating_collection_metadata_works() {
         creator,
         collection_name.clone(),
         collection_desc.clone(),
-        transferable.clone(),
+        transferable,
         limit.clone(),
         image_url.clone(),
         Default::default(),
@@ -58,10 +58,10 @@ fn updating_collection_metadata_works() {
         get_collection(Nat::from(0)),
         Some(Collection {
             id: Nat::from(0),
-            creator: creator.clone(),
+            creator,
             name: collection_name,
             description: collection_desc,
-            transferable: transferable.clone(),
+            transferable,
             image_url,
             limit: limit.clone(),
             minted: Nat::from(0),
@@ -133,7 +133,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
         creator,
         collection_name.clone(),
         collection_desc.clone(),
-        transferable.clone(),
+        transferable,
         limit.clone(),
         image_url.clone(),
         Default::default(),
@@ -143,7 +143,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
         get_collection(Nat::from(0)),
         Some(Collection {
             id: Nat::from(0),
-            creator: creator.clone(),
+            creator,
             name: collection_name,
             description: collection_desc,
             transferable,
@@ -203,7 +203,7 @@ fn get_creator_collections_works() {
 fn minting_nfts_works() {
     let creator = get_creator();
 
-    let mut collection = create_mock_collection(creator, format!("Car Collection"), false);
+    let mut collection = create_mock_collection(creator, "Car Collection".to_string(), false);
 
     let alice = get_default_principal();
 
@@ -211,8 +211,8 @@ fn minting_nfts_works() {
         creator,
         alice,
         collection.clone().id,
-        format!("Car 1"),
-        format!("..."),
+        "Car 1".to_string(),
+        "...".to_string(),
         None
     )
     .is_ok());
@@ -220,8 +220,8 @@ fn minting_nfts_works() {
         creator,
         alice,
         collection.clone().id,
-        format!("Car 2"),
-        format!("..."),
+        "Car 2".to_string(),
+        "...".to_string(),
         None
     )
     .is_ok());
@@ -233,14 +233,14 @@ fn minting_nfts_works() {
         vec![
             Nft {
                 id: (Nat::from(0), Nat::from(0)),
-                name: format!("Car 1"),
-                description: format!("..."),
+                name: "Car 1".to_string(),
+                description: "...".to_string(),
                 asset_url: None
             },
             Nft {
                 id: (Nat::from(0), Nat::from(1)),
-                name: format!("Car 2"),
-                description: format!("..."),
+                name: "Car 2".to_string(),
+                description: "...".to_string(),
                 asset_url: None
             }
         ]
@@ -274,8 +274,8 @@ fn minting_limit_works() {
         creator,
         alice,
         collection_id.clone(),
-        format!("Car 1"),
-        format!("..."),
+        "Car 1".to_string(),
+        "...".to_string(),
         None
     )
     .is_ok());
@@ -284,8 +284,8 @@ fn minting_limit_works() {
             creator,
             alice,
             collection_id,
-            format!("Car 2"),
-            format!("..."),
+            "Car 2".to_string(),
+            "...".to_string(),
             None
         ),
         Err(Error::LimitReached)
@@ -305,8 +305,8 @@ fn nft_transfer_works() {
         creator,
         creator,
         collection.id.clone(),
-        format!("Car 1"),
-        format!("..."),
+        "Car 1".to_string(),
+        "...".to_string(),
         None
     )
     .is_ok());
@@ -319,8 +319,8 @@ fn nft_transfer_works() {
         nfts_of_user(creator),
         vec![Nft {
             id: (Nat::from(0), Nat::from(0)),
-            name: format!("Car 1"),
-            description: format!("..."),
+            name: "Car 1".to_string(),
+            description: "...".to_string(),
             asset_url: None
         },]
     );
@@ -340,8 +340,8 @@ fn nft_transfer_works() {
         nfts_of_user(alice),
         vec![Nft {
             id: (Nat::from(0), Nat::from(0)),
-            name: format!("Car 1"),
-            description: format!("..."),
+            name: "Car 1".to_string(),
+            description: "...".to_string(),
             asset_url: None
         },]
     );
@@ -357,13 +357,13 @@ fn nfts_within_collection_works() {
     let collection = create_mock_collection(creator, name, transferable);
 
     let mut nfts: Vec<Nft> = vec![];
-    (0..50).into_iter().for_each(|i| {
+    (0..50).for_each(|i| {
         assert!(mint_nft(
             creator,
             creator,
             collection.id.clone(),
             format!("Car {}", i),
-            format!("..."),
+            "...".to_string(),
             None
         )
         .is_ok());
@@ -371,7 +371,7 @@ fn nfts_within_collection_works() {
         nfts.push(Nft {
             id: (Nat::from(0), Nat::from(i)),
             name: format!("Car {}", i),
-            description: format!("..."),
+            description: "...".to_string(),
             asset_url: None,
         });
     });
@@ -385,19 +385,19 @@ fn nfts_within_collection_works() {
     // Works when just `start_index` is set.
     assert_eq!(
         nfts_within_collection(collection.id.clone(), Some(5), None),
-        nfts.iter().cloned().skip(5).collect::<Vec<Nft>>()
+        nfts.iter().skip(5).cloned().collect::<Vec<Nft>>()
     );
 
     // Works when just `count` is set.
     assert_eq!(
         nfts_within_collection(collection.id.clone(), None, Some(42)),
-        nfts.iter().cloned().take(42).collect::<Vec<Nft>>()
+        nfts.iter().take(42).cloned().collect::<Vec<Nft>>()
     );
 
     // Works when both `start_index` and `count` are set.
     assert_eq!(
         nfts_within_collection(collection.id.clone(), Some(6), Some(42)),
-        nfts.iter().cloned().skip(6).take(42).collect::<Vec<Nft>>()
+        nfts.iter().skip(6).take(42).cloned().collect::<Vec<Nft>>()
     );
 
     // Works when both `start_index` + `count` > minted.
@@ -425,7 +425,7 @@ fn getting_all_collections_works() {
     let transferable = true;
 
     let mut collections: Vec<Collection> = vec![];
-    (0..50).into_iter().for_each(|i| {
+    (0..50).for_each(|i| {
         let collection = create_mock_collection(creator, format!("collection{}", i), transferable);
         collections.push(collection);
     });
@@ -438,8 +438,8 @@ fn getting_all_collections_works() {
         all_collections(Some(5), None),
         collections
             .iter()
-            .cloned()
             .skip(5)
+            .cloned()
             .collect::<Vec<Collection>>()
     );
 
@@ -448,8 +448,8 @@ fn getting_all_collections_works() {
         all_collections(None, Some(42)),
         collections
             .iter()
-            .cloned()
             .take(42)
+            .cloned()
             .collect::<Vec<Collection>>()
     );
 
@@ -458,9 +458,9 @@ fn getting_all_collections_works() {
         all_collections(Some(6), Some(42)),
         collections
             .iter()
-            .cloned()
             .skip(6)
             .take(42)
+            .cloned()
             .collect::<Vec<Collection>>()
     );
 
@@ -483,7 +483,7 @@ fn create_mock_collection(creator: Principal, name: String, transferable: bool) 
         creator,
         name.clone(),
         description.clone(),
-        transferable.clone(),
+        transferable,
         limit.clone(),
         image_url.clone(),
         Default::default(),

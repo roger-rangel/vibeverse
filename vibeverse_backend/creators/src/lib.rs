@@ -31,11 +31,5 @@ pub fn set_creator_metadata(principal: Principal, name: String) {
 }
 
 pub fn creator_metadata(principal: Principal) -> Option<Creator> {
-    CREATORS.with(|creators| {
-        if let Some(creator) = creators.borrow().get(&principal) {
-            Some(creator.clone())
-        } else {
-            None
-        }
-    })
+    CREATORS.with(|creators| creators.borrow().get(&principal).cloned())
 }
