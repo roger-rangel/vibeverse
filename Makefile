@@ -25,3 +25,6 @@ generate-did:
 	
 generate-declaration:
 	dfx generate vibeverse_backend
+
+generate: generate-did
+	make generate-declaration

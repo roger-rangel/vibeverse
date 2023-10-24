@@ -4,16 +4,11 @@ use super::*;
 fn setting_creator_metadata_works() {
     let creator = get_creator();
     let name = String::from("Creator#1");
+    let avatar = String::from("https://example.com/avatar.png");
 
-    set_creator_metadata(creator, name.clone());
+    set_creator_metadata(creator, name.clone(), avatar.clone());
 
-    assert_eq!(
-        creator_metadata(creator),
-        Some(Creator {
-            principal: creator,
-            name,
-        })
-    );
+    assert_eq!(creator_metadata(creator), Some(Creator { name, avatar }));
 }
 
 #[test]

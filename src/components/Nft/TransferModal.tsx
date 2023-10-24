@@ -30,7 +30,11 @@ export function TransferModal({
       Principal.from(receiver),
     );
 
-    alert(result);
+    if ('Err' in result) {
+      alert(`Error: ${result.Err}`);
+    } else {
+      alert('Successfully transferred');
+    }
   };
 
   return (

@@ -64,7 +64,7 @@ function CreateNFT({ showCreateNFT }) {
       description,
       [finalUrl],
     );
-    if (result.Err) {
+    if ('Err' in result) {
       alert(result.Err);
       return;
     }

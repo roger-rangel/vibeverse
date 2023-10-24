@@ -1,7 +1,7 @@
 use candid::Nat;
 use candid::Principal;
 use creators::Creator;
-use ic_cdk_macros::*;
+use ic_cdk_macros::{query, update};
 use nfts::{Collection, CollectionId, Nft, NftId};
 
 #[update]
@@ -12,9 +12,9 @@ fn create_collection(
     limit: Option<Nat>,
     image_url: Option<String>,
     category: String,
-) -> CollectionId {
+) -> Result<CollectionId, String> {
     let creator = ic_cdk::api::caller();
-    nfts::create_collection(
+    let id = nfts::create_collection(
         creator,
         name,
         description,
@@ -22,7 +22,9 @@ fn create_collection(
         limit,
         image_url,
         category,
-    )
+    );
+
+    Ok(id)
 }
 
 #[update]
@@ -32,41 +34,40 @@ fn update_collection_metadata(
     description: String,
     image_url: Option<String>,
     category: Option<String>,
-) -> String {
+) -> Result<(), String> {
     let caller = ic_cdk::api::caller();
 
     match nfts::update_metadata(caller, id, name, description, image_url, category) {
-        Ok(_) => "Metadata updated successfully.".to_string(),
-        Err(e) => format!("Error while updating metadata: {:?}", e),
+        Ok(_) => Ok(()),
+        Err(e) => Err(format!("Error while updating metadata: {:?}", e)),
     }
 }
 
 /// Get a specific collection with the provided `CollectionId`.
-#[ic_cdk_macros::query]
+#[query]
 fn get_collection(id: CollectionId) -> Option<Collection> {
     nfts::get_collection(id)
 }
 
 #[update]
-fn set_creator_metadata(name: String) -> String {
+fn set_creator_metadata(name: String, avatar: String) -> Result<(), String> {
     let caller = ic_cdk::api::caller();
-    creators::set_creator_metadata(caller, name);
+    creators::set_creator_metadata(caller, name, avatar);
 
-    "Creator metadata set successfully.".to_string()
+    Ok(())
 }
 
-#[ic_cdk_macros::query]
-fn creator_metadata() -> Option<Creator> {
-    let caller = ic_cdk::api::caller();
-    creators::creator_metadata(caller)
+#[query]
+fn creator_metadata(creator: Principal) -> Option<Creator> {
+    creators::creator_metadata(creator)
 }
 
-#[ic_cdk_macros::query]
+#[query]
 fn collections_created_by(creator: Principal) -> Vec<Collection> {
     nfts::collections_created_by(creator)
 }
 
-#[ic_cdk_macros::query]
+#[query]
 fn collections_created_by_caller() -> Vec<Collection> {
     let caller = ic_cdk::api::caller();
     nfts::collections_created_by(caller)
@@ -95,31 +96,35 @@ fn mint_nft(
 }
 
 #[update]
-fn transfer_nft(collection_id: CollectionId, nft_id: Nat, receiver: Principal) -> String {
+fn transfer_nft(
+    collection_id: CollectionId,
+    nft_id: Nat,
+    receiver: Principal,
+) -> Result<(), String> {
     let caller = ic_cdk::api::caller();
     match nfts::nft_transfer(caller, receiver, (collection_id, nft_id)) {
-        Ok(_) => "Collection transfered successfully.".to_string(),
-        Err(e) => format!("Error while transfering the nft: {:?}", e),
+        Ok(_) => Ok(()),
+        Err(e) => Err(format!("Error while transfering the nft: {:?}", e)),
     }
 }
 
-#[ic_cdk_macros::query]
+#[query]
 fn nfts_of_user(user: Principal) -> Vec<Nft> {
     nfts::nfts_of_user(user)
 }
 
-#[ic_cdk_macros::query]
+#[query]
 fn nfts_of_caller() -> Vec<Nft> {
     let caller = ic_cdk::api::caller();
     nfts::nfts_of_user(caller)
 }
 
-#[ic_cdk_macros::query]
+#[query]
 fn nfts(collection_id: CollectionId, start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
     nfts::nfts_within_collection(collection_id, start_index, count)
 }
 
-#[ic_cdk_macros::query]
+#[query]
 fn all_nfts(start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
     let start_index = start_index.unwrap_or_default();
     if let Some(count) = count {
@@ -138,12 +143,12 @@ fn all_nfts(start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
     }
 }
 
-#[ic_cdk_macros::query]
+#[query]
 fn collections(start_index: Option<u128>, count: Option<u128>) -> Vec<Collection> {
     nfts::all_collections(start_index, count)
 }
 
-#[ic_cdk_macros::query]
+#[query]
 fn collection_count() -> CollectionId {
     nfts::collection_count()
 }
@@ -173,22 +178,22 @@ fn set_admin(admin: Principal) -> Result<(), &'static str> {
     nfts::administrative::set_admin(admin)
 }
 
-#[ic_cdk_macros::query]
+#[query]
 fn collection_fee() -> u64 {
     nfts::administrative::collection_fee()
 }
 
-#[ic_cdk_macros::query]
+#[query]
 fn mint_fee() -> u64 {
     nfts::administrative::mint_fee()
 }
 
-#[ic_cdk_macros::query]
+#[query]
 fn vibe_token() -> Option<Principal> {
     nfts::administrative::vibe_token()
 }
 
-#[ic_cdk_macros::query]
+#[query]
 fn admin() -> Option<Principal> {
     nfts::administrative::admin()
 }
