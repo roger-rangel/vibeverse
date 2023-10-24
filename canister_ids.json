@@ -1,8 +1,10 @@
 {
   "vibeverse_assets": {
-    "ic": "h5fnl-4iaaa-aaaap-abddq-cai"
+    "ic": "h5fnl-4iaaa-aaaap-abddq-cai",
+    "staging": "quuas-aqaaa-aaaak-afcja-cai"
   },
   "vibeverse_backend": {
-    "ic": "gqljf-taaaa-aaaap-abdea-cai"
+    "ic": "gqljf-taaaa-aaaap-abdea-cai",
+    "staging": "q5xlo-wyaaa-aaaak-afciq-cai"
   }
 }
