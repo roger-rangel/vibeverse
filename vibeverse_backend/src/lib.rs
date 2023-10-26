@@ -1,5 +1,6 @@
 use candid::Nat;
 use candid::Principal;
+
 use creators::Creator;
 use ic_cdk_macros::{query, update};
 use nfts::{Collection, CollectionId, Nft, NftId};
