@@ -41,7 +41,7 @@ pub fn add_reaction(nft_id: NftId, reaction: Reaction) -> Result<(), String> {
 
     REACTIONS.with(|reactions| {
         let mut reactions = reactions.borrow_mut();
-        let reactions_for_nft = reactions.entry(nft_id.clone()).or_insert_with(Vec::new);
+        let reactions_for_nft = reactions.entry(nft_id.clone()).or_default();
         if reactions_for_nft.contains(&reaction) {
             return Err(format!(
                 "Reaction {} already exists for NFT {}.",
@@ -61,7 +61,7 @@ pub fn remove_reaction(nft_id: NftId, reaction: Reaction) -> Result<(), String> 
 
     REACTIONS.with(|reactions| {
         let mut reactions = reactions.borrow_mut();
-        let reactions_for_nft = reactions.entry(nft_id.clone()).or_insert_with(Vec::new);
+        let reactions_for_nft = reactions.entry(nft_id.clone()).or_default();
         if !reactions_for_nft.contains(&reaction) {
             return Err(format!(
                 "Reaction {} does not exist for NFT {}.",
