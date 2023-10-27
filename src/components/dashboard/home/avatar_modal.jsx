@@ -1,65 +1,15 @@
 'use client';
 
-const avatars = [
-  {
-    title: 'IMG_4985.HEIC',
-    size: '3.9 MB',
-    source:
-      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/sdf.jpeg',
-  },
-  {
-    title: 'IMG_4985.HEIC',
-    size: '3.9 MB',
-    source:
-      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/viking_1_copy.png',
-  },
-  {
-    title: 'IMG_4985.HEIC',
-    size: '3.9 MB',
-    source:
-      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/europe.png',
-  },
-  {
-    title: 'IMG_4985.HEIC',
-    size: '3.9 MB',
-    source:
-      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/F7dfrMuW8AAGPXV.jpeg',
-  },
-    {
-    title: 'IMG_4985.HEIC',
-    size: '3.9 MB',
-    source:
-      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/rogerweb3_Roger_a_blonde_young_cowboy_with_Texan_style_very_mas_af26f9fa-fec4-4729-a58e-6b9ad138b352.png',
-  },
-  {
-    title: 'IMG_4985.HEIC',
-    size: '3.9 MB',
-    source:
-      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/gigshell_Anthropomorphic_Lion_wearing_elegant_suit_outfit_vibra_6f48e8bf-0503-4369-a707-89c317a961f0-min.png',
-  },
-  {
-    title: 'IMG_4985.HEIC',
-    size: '3.9 MB',
-    source:
-      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Frame_602.png',
-  },
-  {
-    title: 'IMG_4985.HEIC',
-    size: '3.9 MB',
-    source:
-      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/F7YAYoiXQAAHFmp.jpeg',
-  },
-  // More avatars later on...
-]
-
-
+import { useState } from 'react';
+import Image from 'next/image';
+import { avatars } from '../../../constants';
 
 // AvatarModal.js
 export default function AvatarModal({ onClose }) {
+  const [name, setName] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
- 
   };
 
   const handleClose = () => {
@@ -74,7 +24,7 @@ export default function AvatarModal({ onClose }) {
             <div className="border-white/10 pb-6">
               <div className="flex justify-between mb-4 items-center">
                 <h2 className="text-3xl font-semibold leading-7 text-white">
-                  USERNAME MODAL
+                    LET&apos;S GET STARTED
                 </h2>
                 <button
                   onClick={handleClose}
@@ -123,27 +73,52 @@ export default function AvatarModal({ onClose }) {
                       />
                     </div>
                   </div>
-                </div> 
-              </div> 
+                </div>
+              </div>
             </div>
           </div>
 
-          <label htmlFor="avatar" className="block text-sm font-medium text-white mb-4">Choose an Avatar</label>
+          <label
+            htmlFor="avatar"
+            className="block text-sm font-medium text-white mb-4"
+          >
+            Choose an Avatar
+          </label>
 
-          <ul role="list" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-            {avatars.map((avatar) => (
-              <li key={avatar.source} className="relative">
-                <div className="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg focus-within:ring-2 focus-within:ring-indigo-500 ">
-                  <img src={avatar.source} alt="" className="pointer-events-none object-cover group-hover:opacity-75" />
-                  <button type="button" className="absolute inset-0 focus:outline-none">
-                    <span className="sr-only">View details for {avatar.title}</span>
-                  </button>
-                </div>
-                <p className="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{avatar.title}</p>
-                <p className="pointer-events-none block text-sm font-medium text-gray-500">{avatar.size}</p>
-              </li>
-            ))}
-          </ul>
+          <div className="overflow-y-auto h-60">
+            <ul
+              role="list"
+              className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+            >
+              {avatars.map((avatar) => (
+                <li key={avatar.source} className="relative">
+                  <div className="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg focus-within:ring-2 focus-within:ring-indigo-500 ">
+                    <Image
+                      src={avatar.source}
+                      alt=""
+                      width={200}
+                      height={200}
+                      className="pointer-events-none object-cover group-hover:opacity-75"
+                    />
+                    <button
+                      type="button"
+                      className="absolute inset-0 focus:outline-none"
+                    >
+                      <span className="sr-only">
+                        View details for {avatar.title}
+                      </span>
+                    </button>
+                  </div>
+                  <p className="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">
+                    {avatar.title}
+                  </p>
+                  <p className="pointer-events-none block text-sm font-medium text-gray-500">
+                    {avatar.size}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button
@@ -165,4 +140,3 @@ export default function AvatarModal({ onClose }) {
     </div>
   );
 }
-
