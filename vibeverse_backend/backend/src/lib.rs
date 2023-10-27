@@ -1,8 +1,12 @@
 use candid::Nat;
 use candid::Principal;
-use creators::Creator;
 use ic_cdk_macros::{query, update};
-use nfts::{Collection, CollectionId, Nft, NftId};
+mod modules;
+use modules::{
+    administrative,
+    creators::{self, Creator},
+    nfts::{self, Collection, CollectionId, Nft, NftId},
+};
 
 #[update]
 fn create_collection(
@@ -14,15 +18,7 @@ fn create_collection(
     category: String,
 ) -> Result<CollectionId, String> {
     let creator = ic_cdk::api::caller();
-    let id = nfts::create_collection(
-        creator,
-        name,
-        description,
-        transferable,
-        limit,
-        image_url,
-        category,
-    );
+    let id = nfts::create_collection(creator, name, description, transferable, limit, image_url, category);
 
     Ok(id)
 }
@@ -52,9 +48,8 @@ fn get_collection(id: CollectionId) -> Option<Collection> {
 #[update]
 fn set_creator_metadata(name: String, avatar: String) -> Result<(), String> {
     let caller = ic_cdk::api::caller();
-    creators::set_creator_metadata(caller, name, avatar);
 
-    Ok(())
+    creators::set_creator_metadata(caller, name, avatar)
 }
 
 #[query]
@@ -82,25 +77,14 @@ fn mint_nft(
     asset_url: Option<String>,
 ) -> Result<NftId, String> {
     let caller = ic_cdk::api::caller();
-    match nfts::mint_nft(
-        caller,
-        receiver,
-        collection_id,
-        name,
-        description,
-        asset_url,
-    ) {
+    match nfts::mint_nft(caller, receiver, collection_id, name, description, asset_url) {
         Ok(id) => Ok(id),
         Err(e) => Err(format!("Error while minting nft: {:?}", e)),
     }
 }
 
 #[update]
-fn transfer_nft(
-    collection_id: CollectionId,
-    nft_id: Nat,
-    receiver: Principal,
-) -> Result<(), String> {
+fn transfer_nft(collection_id: CollectionId, nft_id: Nat, receiver: Principal) -> Result<(), String> {
     let caller = ic_cdk::api::caller();
     match nfts::nft_transfer(caller, receiver, (collection_id, nft_id)) {
         Ok(_) => Ok(()),
@@ -158,44 +142,44 @@ fn collection_count() -> CollectionId {
 #[update]
 fn set_collection_fee(fee: u64) -> Result<(), &'static str> {
     let caller = ic_cdk::api::caller();
-    nfts::administrative::set_collection_fee(caller, fee)
+    administrative::set_collection_fee(caller, fee)
 }
 
 #[update]
 fn set_mint_fee(fee: u64) -> Result<(), &'static str> {
     let caller = ic_cdk::api::caller();
-    nfts::administrative::set_mint_fee(caller, fee)
+    administrative::set_mint_fee(caller, fee)
 }
 
 #[update]
 fn set_vibe_token(vibe: Principal) -> Result<(), &'static str> {
     let caller = ic_cdk::api::caller();
-    nfts::administrative::set_vibe_token(caller, vibe)
+    administrative::set_vibe_token(caller, vibe)
 }
 
 #[update]
 fn set_admin(admin: Principal) -> Result<(), &'static str> {
-    nfts::administrative::set_admin(admin)
+    administrative::set_admin(admin)
 }
 
 #[query]
 fn collection_fee() -> u64 {
-    nfts::administrative::collection_fee()
+    administrative::collection_fee()
 }
 
 #[query]
 fn mint_fee() -> u64 {
-    nfts::administrative::mint_fee()
+    administrative::mint_fee()
 }
 
 #[query]
 fn vibe_token() -> Option<Principal> {
-    nfts::administrative::vibe_token()
+    administrative::vibe_token()
 }
 
 #[query]
 fn admin() -> Option<Principal> {
-    nfts::administrative::admin()
+    administrative::admin()
 }
 
 ic_cdk::export_candid!();

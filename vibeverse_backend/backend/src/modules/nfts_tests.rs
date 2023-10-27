@@ -1,4 +1,6 @@
-use super::*;
+use candid::{Nat, Principal};
+
+use crate::modules::nfts::*;
 
 #[test]
 fn creating_collection_works() {
@@ -108,14 +110,7 @@ fn updating_collection_metadata_fails_for_non_existing_collection() {
     let new_image_url = Some(String::from("https::/domain.com/image.jpg"));
 
     assert_eq!(
-        update_metadata(
-            creator,
-            Nat::from(0),
-            new_name.clone(),
-            new_desc.clone(),
-            new_image_url,
-            None,
-        ),
+        update_metadata(creator, Nat::from(0), new_name.clone(), new_desc.clone(), new_image_url, None,),
         Err(Error::CollectionNotFound)
     );
 }
@@ -258,15 +253,7 @@ fn minting_limit_works() {
     let image_url = None;
     let limit: Option<Nat> = Some(Nat::from(1));
 
-    let collection_id = create_collection(
-        creator,
-        name,
-        description,
-        transferable,
-        limit,
-        image_url,
-        Default::default(),
-    );
+    let collection_id = create_collection(creator, name, description, transferable, limit, image_url, Default::default());
 
     let alice = get_default_principal();
 
@@ -280,14 +267,7 @@ fn minting_limit_works() {
     )
     .is_ok());
     assert_eq!(
-        mint_nft(
-            creator,
-            alice,
-            collection_id,
-            "Car 2".to_string(),
-            "...".to_string(),
-            None
-        ),
+        mint_nft(creator, alice, collection_id, "Car 2".to_string(), "...".to_string(), None),
         Err(Error::LimitReached)
     );
 }
@@ -331,10 +311,7 @@ fn nft_transfer_works() {
     assert_eq!(nfts_of_user(alice), vec![]);
 
     // Creator transfers the token to alice.
-    assert_eq!(
-        nft_transfer(creator, alice, (collection.clone().id, Nat::from(0))),
-        Ok(())
-    );
+    assert_eq!(nft_transfer(creator, alice, (collection.clone().id, Nat::from(0))), Ok(()));
 
     assert_eq!(
         nfts_of_user(alice),
@@ -377,10 +354,7 @@ fn nfts_within_collection_works() {
     });
 
     // Works when `start_index` or `count` are not set.
-    assert_eq!(
-        nfts_within_collection(collection.id.clone(), None, None),
-        nfts
-    );
+    assert_eq!(nfts_within_collection(collection.id.clone(), None, None), nfts);
 
     // Works when just `start_index` is set.
     assert_eq!(
@@ -401,22 +375,13 @@ fn nfts_within_collection_works() {
     );
 
     // Works when both `start_index` + `count` > minted.
-    assert_eq!(
-        nfts_within_collection(collection.id.clone(), Some(69), Some(42)),
-        vec![]
-    );
+    assert_eq!(nfts_within_collection(collection.id.clone(), Some(69), Some(42)), vec![]);
 
     // Works when both `start_index` > minted.
-    assert_eq!(
-        nfts_within_collection(collection.id.clone(), Some(69), None),
-        vec![]
-    );
+    assert_eq!(nfts_within_collection(collection.id.clone(), Some(69), None), vec![]);
 
     // Works when both `count` > minted.
-    assert_eq!(
-        nfts_within_collection(collection.id.clone(), None, Some(69)),
-        nfts
-    );
+    assert_eq!(nfts_within_collection(collection.id.clone(), None, Some(69)), nfts);
 }
 
 #[test]
@@ -436,32 +401,19 @@ fn getting_all_collections_works() {
     // Works when just `start_index` is set.
     assert_eq!(
         all_collections(Some(5), None),
-        collections
-            .iter()
-            .skip(5)
-            .cloned()
-            .collect::<Vec<Collection>>()
+        collections.iter().skip(5).cloned().collect::<Vec<Collection>>()
     );
 
     // Works when just `count` is set.
     assert_eq!(
         all_collections(None, Some(42)),
-        collections
-            .iter()
-            .take(42)
-            .cloned()
-            .collect::<Vec<Collection>>()
+        collections.iter().take(42).cloned().collect::<Vec<Collection>>()
     );
 
     // Works when both `start_index` and `count` are set.
     assert_eq!(
         all_collections(Some(6), Some(42)),
-        collections
-            .iter()
-            .skip(6)
-            .take(42)
-            .cloned()
-            .collect::<Vec<Collection>>()
+        collections.iter().skip(6).take(42).cloned().collect::<Vec<Collection>>()
     );
 
     // Works when both `start_index` + `count` > `collection_count`.

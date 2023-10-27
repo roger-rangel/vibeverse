@@ -1,15 +1,12 @@
-#[cfg(test)]
-mod tests;
-
 use candid::{CandidType, Principal};
 use std::{cell::RefCell, collections::BTreeMap};
 /// Stores metadata about a collection creator.
 #[derive(Clone, CandidType, PartialEq, Debug)]
 pub struct Creator {
     /// The display name of the creator.
-    name: String,
+    pub name: String,
     /// The avatar of the creator.
-    avatar: String,
+    pub avatar: String,
 }
 
 /// Maps `Principal` to the specific Creator.
@@ -20,13 +17,14 @@ thread_local! {
 }
 
 /// Sets the metadata for the specific creator.
-pub fn set_creator_metadata(principal: Principal, name: String, avatar: String) {
+pub fn set_creator_metadata(caller: Principal, name: String, avatar: String) -> Result<(), String> {
     CREATORS.with(|creators| {
         let creator = Creator { name, avatar };
 
         let mut creators = creators.borrow_mut();
-        creators.insert(principal, creator);
-    })
+        creators.insert(caller, creator);
+    });
+    Ok(())
 }
 
 pub fn creator_metadata(principal: Principal) -> Option<Creator> {

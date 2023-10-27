@@ -1,8 +1,3 @@
-#[cfg(test)]
-mod tests;
-
-pub mod administrative;
-
 use candid::types::number::Nat;
 use candid::{CandidType, Principal};
 use std::{cell::RefCell, collections::BTreeMap};
@@ -32,36 +27,36 @@ pub type NftId = (Nat, Nat);
 #[derive(Clone, CandidType, PartialEq, Debug)]
 pub struct Collection {
     /// A unique identifier for the collection.
-    id: CollectionId,
+    pub id: CollectionId,
     /// A name for the collection.
-    name: String,
+    pub name: String,
     /// A description for the collection.
-    description: String,
+    pub description: String,
     /// Specifies whether the collection is transferable or not.
-    transferable: bool,
+    pub transferable: bool,
     /// The url of the image for the collection.
-    image_url: Option<String>,
+    pub image_url: Option<String>,
     /// The category to which the collection belongs.
-    category: String,
+    pub category: String,
     /// The limit of how many collection instances can be minted.
-    limit: Option<Nat>,
+    pub limit: Option<Nat>,
     /// The number of collections minted.
-    minted: Nat,
+    pub minted: Nat,
     /// The creator of the collection.
-    creator: Principal,
+    pub creator: Principal,
 }
 
 /// Stores all the necessary information about an nft.
 #[derive(Clone, CandidType, PartialEq, Debug)]
 pub struct Nft {
     /// A unique identifier for the nft.
-    id: NftId,
+    pub id: NftId,
     /// A name for the collection.
-    name: String,
+    pub name: String,
     /// A description for the collection.
-    description: String,
+    pub description: String,
     /// The url of the asset for the nft.
-    asset_url: Option<String>,
+    pub asset_url: Option<String>,
 }
 
 /// `CollectionId` mapped to a specific collection.
@@ -305,11 +300,7 @@ pub fn all_nfts() -> Vec<Nft> {
     };
 
     (0..collection_count).for_each(|collection_id| {
-        let maybe_minted: Result<u128, _> = get_collection(collection_id.into())
-            .unwrap()
-            .minted
-            .0
-            .try_into();
+        let maybe_minted: Result<u128, _> = get_collection(collection_id.into()).unwrap().minted.0.try_into();
 
         if let Ok(minted) = maybe_minted {
             (0..minted).for_each(|nft_id| nft_ids.push((collection_id.into(), nft_id.into())));
@@ -326,16 +317,8 @@ pub fn all_nfts() -> Vec<Nft> {
     nfts
 }
 
-pub fn nfts_within_collection(
-    collection_id: CollectionId,
-    start_index: Option<u128>,
-    count: Option<u128>,
-) -> Vec<Nft> {
-    let maybe_minted: Result<u128, _> = get_collection(collection_id.clone())
-        .unwrap()
-        .minted
-        .0
-        .try_into();
+pub fn nfts_within_collection(collection_id: CollectionId, start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
+    let maybe_minted: Result<u128, _> = get_collection(collection_id.clone()).unwrap().minted.0.try_into();
 
     if maybe_minted.is_err() {
         return vec![];
@@ -384,9 +367,8 @@ pub fn all_collections(start_index: Option<u128>, count: Option<u128>) -> Vec<Co
 
     (start_index..end)
         .map(|collection_id| {
-            get_collection(Nat::from(collection_id)).expect(
-                "`collection_id` must be good, otherwise the value of `collection_count` is broken",
-            )
+            get_collection(Nat::from(collection_id))
+                .expect("`collection_id` must be good, otherwise the value of `collection_count` is broken")
         })
         .collect()
 }
@@ -417,7 +399,7 @@ pub fn nft_transfer(caller: Principal, receiver: Principal, nft_id: NftId) -> Re
 
 #[allow(dead_code)]
 async fn ensure_fee_payment(payer: Principal, required_fee: u128) -> Result<(), &'static str> {
-    let vibe_token = crate::administrative::vibe_token();
+    let vibe_token = crate::modules::administrative::vibe_token();
     if vibe_token.is_none() {
         return Ok(());
     }
@@ -427,8 +409,7 @@ async fn ensure_fee_payment(payer: Principal, required_fee: u128) -> Result<(), 
         return Ok(());
     }
 
-    let maybe_allowance: CallResult<((Principal, Nat),)> =
-        call(vibe_token, "allowance", (payer,)).await;
+    let maybe_allowance: CallResult<((Principal, Nat),)> = call(vibe_token, "allowance", (payer,)).await;
 
     match maybe_allowance {
         Ok(allowance) => {
@@ -439,19 +420,15 @@ async fn ensure_fee_payment(payer: Principal, required_fee: u128) -> Result<(), 
                 return Err("Fee needs to be payed");
             }
 
-            let maybe_treasuery = administrative::admin();
+            let maybe_treasuery = crate::modules::administrative::admin();
 
             if let Some(treasuery) = maybe_treasuery {
                 // Send vibe tokens to the treasury
 
                 // let transfer_arg = Construct the transfer arg
 
-                let result: CallResult<(Result<Nat, ()>,)> = call(
-                    vibe_token,
-                    "transfer_from",
-                    (payer, treasuery, required_fee),
-                )
-                .await;
+                let result: CallResult<(Result<Nat, ()>,)> =
+                    call(vibe_token, "transfer_from", (payer, treasuery, required_fee)).await;
 
                 if result.is_err() {
                     return Err("Token transfer failed");
@@ -464,8 +441,4 @@ async fn ensure_fee_payment(payer: Principal, required_fee: u128) -> Result<(), 
     }
 
     Ok(())
-}
-
-pub fn into_units(amount: u64) -> u128 {
-    amount as u128 * 10u64.pow(administrative::VIBE_DECIMALS.into()) as u128
 }

@@ -1,4 +1,6 @@
-use super::*;
+use candid::Principal;
+
+use crate::modules::creators::*;
 
 #[test]
 fn setting_creator_metadata_works() {
@@ -6,7 +8,7 @@ fn setting_creator_metadata_works() {
     let name = String::from("Creator#1");
     let avatar = String::from("https://example.com/avatar.png");
 
-    set_creator_metadata(creator, name.clone(), avatar.clone());
+    set_creator_metadata(creator, name.clone(), avatar.clone()).unwrap();
 
     assert_eq!(creator_metadata(creator), Some(Creator { name, avatar }));
 }

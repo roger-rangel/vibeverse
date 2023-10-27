@@ -1,8 +1,10 @@
 [workspace]
-members = ["vibeverse_backend"]
+members = ["vibeverse_backend/backend"]
 resolver = "2"
 
 [workspace.dependencies]
 candid = "0.9.9"
 ic-cdk = "0.11.3"
 ic-cdk-macros = "0.8.1"
+serde = { version = "1.0.190", features = ["derive"] }
+ic-stable-structures = "0.6.0"

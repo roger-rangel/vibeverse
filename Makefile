@@ -21,10 +21,14 @@ format:
 	cargo fmt
 
 generate-did:
-	candid-extractor target/wasm32-unknown-unknown/release/vibeverse_backend.wasm > vibeverse_backend/vibeverse_backend.did
+	scripts/generate-did.sh
 	
 generate-declaration:
 	dfx generate vibeverse_backend
 
+gen:
+	scripts/generate-wasm.sh
+
 generate: generate-did
 	make generate-declaration
+
