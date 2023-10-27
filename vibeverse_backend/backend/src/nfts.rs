@@ -399,7 +399,7 @@ pub fn nft_transfer(caller: Principal, receiver: Principal, nft_id: NftId) -> Re
 
 #[allow(dead_code)]
 async fn ensure_fee_payment(payer: Principal, required_fee: u128) -> Result<(), &'static str> {
-    let vibe_token = crate::modules::administrative::vibe_token();
+    let vibe_token = crate::administrative::vibe_token();
     if vibe_token.is_none() {
         return Ok(());
     }
@@ -420,7 +420,7 @@ async fn ensure_fee_payment(payer: Principal, required_fee: u128) -> Result<(), 
                 return Err("Fee needs to be payed");
             }
 
-            let maybe_treasuery = crate::modules::administrative::admin();
+            let maybe_treasuery = crate::administrative::admin();
 
             if let Some(treasuery) = maybe_treasuery {
                 // Send vibe tokens to the treasury

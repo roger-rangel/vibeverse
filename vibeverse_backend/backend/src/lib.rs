@@ -1,12 +1,21 @@
 use candid::Nat;
 use candid::Principal;
+use creators::Creator;
 use ic_cdk_macros::{query, update};
-mod modules;
-use modules::{
-    administrative,
-    creators::{self, Creator},
-    nfts::{self, Collection, CollectionId, Nft, NftId},
-};
+mod administrative;
+mod creators;
+mod nfts;
+
+#[cfg(test)]
+mod creators_tests;
+
+#[cfg(test)]
+mod nfts_tests;
+
+use nfts::Collection;
+use nfts::CollectionId;
+use nfts::Nft;
+use nfts::NftId;
 
 #[update]
 pub fn create_collection(

@@ -1,6 +1,6 @@
 use candid::Principal;
 
-use crate::modules::creators::*;
+use crate::creators::*;
 
 #[test]
 fn setting_creator_metadata_works() {

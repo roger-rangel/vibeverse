@@ -6,7 +6,7 @@ build:
 	dfx build vibeverse_backend
 
 test-unit: 
-	cargo test
+	cargo test --package vibeverse_backend
 
 test-e2e:
 	./scripts/run-integration-tests.sh

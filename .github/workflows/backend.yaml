@@ -63,7 +63,7 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --workspace --exclude integration_tests
+          args: --package vibeverse_backend
 
   integration_tests:
     name: run integration tests

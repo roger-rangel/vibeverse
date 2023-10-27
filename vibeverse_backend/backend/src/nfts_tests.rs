@@ -1,6 +1,6 @@
 use candid::{Nat, Principal};
 
-use crate::modules::nfts::*;
+use crate::nfts::*;
 
 #[test]
 fn creating_collection_works() {
