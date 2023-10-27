@@ -1,12 +1,6 @@
 use candid::Principal;
-use std::cell::RefCell;
 
-thread_local! {
-    static COLLECTION_FEE: RefCell<u64> = RefCell::default();
-    static MINT_FEE: RefCell<u64> = RefCell::default();
-    static VIBE_TOKEN: RefCell<Option<Principal>> = RefCell::default();
-    static ADMIN: RefCell<Option<Principal>> = RefCell::default();
-}
+use crate::memory::{ADMIN, COLLECTION_FEE, MINT_FEE, VIBE_TOKEN};
 
 pub fn set_collection_fee(caller: Principal, fee: u64) -> Result<(), &'static str> {
     let Some(admin) = admin() else {

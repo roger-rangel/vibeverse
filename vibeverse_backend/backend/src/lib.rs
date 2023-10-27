@@ -1,10 +1,13 @@
 use candid::Nat;
 use candid::Principal;
-use creators::Creator;
+
 use ic_cdk_macros::{query, update};
 mod administrative;
 mod creators;
+mod lifecycle;
+mod memory;
 mod nfts;
+mod types;
 
 #[cfg(test)]
 mod creators_tests;
@@ -12,10 +15,7 @@ mod creators_tests;
 #[cfg(test)]
 mod nfts_tests;
 
-use nfts::Collection;
-use nfts::CollectionId;
-use nfts::Nft;
-use nfts::NftId;
+use types::*;
 
 #[update]
 pub fn create_collection(

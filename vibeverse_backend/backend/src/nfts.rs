@@ -1,9 +1,13 @@
 use candid::types::number::Nat;
-use candid::{CandidType, Principal};
-use std::{cell::RefCell, collections::BTreeMap};
+use candid::Principal;
 
 use ic_cdk::api::call::CallResult;
 use ic_cdk::call;
+
+use crate::{
+    memory::{COLLECTIONS, COLLECTIONS_OF, COLLECTION_COUNT, NFTS, NFTS_OF},
+    types::{Collection, CollectionId, Nft, NftId},
+};
 
 /// Errors related to the nfts module.
 #[derive(PartialEq, Debug)]
@@ -16,64 +20,6 @@ pub enum Error {
     LimitReached,
     /// Tried to do something with an nft that is not owned by the caller.
     NotOwned,
-}
-
-pub type CollectionId = Nat;
-
-/// (collection_id, nft_id)
-pub type NftId = (Nat, Nat);
-
-/// Stores all the necessary information about a collection.
-#[derive(Clone, CandidType, PartialEq, Debug)]
-pub struct Collection {
-    /// A unique identifier for the collection.
-    pub id: CollectionId,
-    /// A name for the collection.
-    pub name: String,
-    /// A description for the collection.
-    pub description: String,
-    /// Specifies whether the collection is transferable or not.
-    pub transferable: bool,
-    /// The url of the image for the collection.
-    pub image_url: Option<String>,
-    /// The category to which the collection belongs.
-    pub category: String,
-    /// The limit of how many collection instances can be minted.
-    pub limit: Option<Nat>,
-    /// The number of collections minted.
-    pub minted: Nat,
-    /// The creator of the collection.
-    pub creator: Principal,
-}
-
-/// Stores all the necessary information about an nft.
-#[derive(Clone, CandidType, PartialEq, Debug)]
-pub struct Nft {
-    /// A unique identifier for the nft.
-    pub id: NftId,
-    /// A name for the collection.
-    pub name: String,
-    /// A description for the collection.
-    pub description: String,
-    /// The url of the asset for the nft.
-    pub asset_url: Option<String>,
-}
-
-/// `CollectionId` mapped to a specific collection.
-type CollectionStore = BTreeMap<CollectionId, Collection>;
-/// All the collections created by a principal.
-type CreatorCollectionsStore = BTreeMap<Principal, Vec<CollectionId>>;
-/// All of the nfts in a collection.
-type NftsStore = BTreeMap<CollectionId, Vec<Nft>>;
-/// All the nfts owned by a user.
-type NftsOfStore = BTreeMap<Principal, Vec<NftId>>;
-
-thread_local! {
-    static COLLECTIONS: RefCell<CollectionStore> = RefCell::default();
-    static NFTS: RefCell<NftsStore> = RefCell::default();
-    static COLLECTIONS_OF: RefCell<CreatorCollectionsStore> = RefCell::default();
-    static COLLECTION_COUNT: RefCell<CollectionId> = RefCell::new(Nat::from(0));
-    static NFTS_OF: RefCell<NftsOfStore> = RefCell::default();
 }
 
 pub fn collection_count() -> CollectionId {

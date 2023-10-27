@@ -1,20 +1,6 @@
-use candid::{CandidType, Principal};
-use std::{cell::RefCell, collections::BTreeMap};
-/// Stores metadata about a collection creator.
-#[derive(Clone, CandidType, PartialEq, Debug)]
-pub struct Creator {
-    /// The display name of the creator.
-    pub name: String,
-    /// The avatar of the creator.
-    pub avatar: String,
-}
+use candid::Principal;
 
-/// Maps `Principal` to the specific Creator.
-type CreatorStore = BTreeMap<Principal, Creator>;
-
-thread_local! {
-    static CREATORS: RefCell<CreatorStore> = RefCell::default();
-}
+use crate::{memory::CREATORS, types::Creator};
 
 /// Sets the metadata for the specific creator.
 pub fn set_creator_metadata(caller: Principal, name: String, avatar: String) -> Result<(), String> {
