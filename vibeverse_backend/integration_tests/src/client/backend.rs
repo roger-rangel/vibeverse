@@ -18,12 +18,6 @@ pub mod happy_path {
     use super::GetCollectionCountArgs;
 
     pub fn collection_count(env: &mut PocketIc, sender: Principal, canister_id: CanisterId) -> Nat {
-        crate::client::execute_query(
-            env,
-            sender,
-            canister_id.into(),
-            "collection_count",
-            &GetCollectionCountArgs {},
-        )
+        crate::client::execute_query(env, sender, canister_id, "collection_count", &GetCollectionCountArgs {})
     }
 }

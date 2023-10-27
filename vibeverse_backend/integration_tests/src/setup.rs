@@ -52,7 +52,7 @@ pub fn setup_new_env() -> TestEnv {
 pub struct BackendInstallArgs {}
 
 fn install_canisters(env: &mut PocketIc, controller: Principal) -> CanisterIds {
-    let nns_canister_ids: Vec<_> = (0..1).map(|_| create_canister(env, controller)).collect();
+    let nns_canister_ids: Vec<_> = (0..2).map(|_| create_canister(env, controller)).collect();
 
     let nns_ledger_canister_id = nns_canister_ids[0];
     let cycles_minting_canister_id = nns_canister_ids[1];
