@@ -32,5 +32,4 @@ fi
 ic-wasm ./target/wasm32-unknown-unknown/release/$CANISTER_NAME.wasm -o ./target/wasm32-unknown-unknown/release/$CANISTER_NAME-opt.wasm shrink
 
 echo Compressing wasm
-mkdir -p wasms
-gzip -fckn target/wasm32-unknown-unknown/release/$CANISTER_NAME-opt.wasm > ./vibeverse_backend/integration_test/wasm/$CANISTER_NAME.wasm.gz
+gzip -fckn target/wasm32-unknown-unknown/release/$CANISTER_NAME-opt.wasm > ./vibeverse_backend/integration_tests/local-bin/$CANISTER_NAME.wasm.gz

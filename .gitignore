@@ -58,4 +58,5 @@ dist/
 
 # environment variables
 .env
-libraries/
+
+pocket-ic*

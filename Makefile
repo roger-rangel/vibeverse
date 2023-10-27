@@ -5,8 +5,11 @@ prepare:
 build:
 	dfx build vibeverse_backend
 
-test: 
+test-unit: 
 	cargo test
+
+test-e2e:
+	./scripts/run-integration-tests.sh
 
 clippy:
 	cargo clippy --all-targets -- -D warnings
@@ -26,9 +29,9 @@ generate-did:
 generate-declaration:
 	dfx generate vibeverse_backend
 
-gen:
+generate-wasm:
 	scripts/generate-wasm.sh
 
 generate: generate-did
 	make generate-declaration
-
+	make generate-wasm

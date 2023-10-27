@@ -1,0 +1,17 @@
+[package]
+name = "libraries"
+version = "0.1.0"
+edition = "2021"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+candid = { workspace = true }
+
+canister_logger = { path = "./canister_logger" }
+canister_state_macros = { path = "./canister_state_macros" }
+canister_time = { path = "./canister_time" }
+human_readable = { path = "./human_readable" }
+human_readable_derive = { path = "./human_readable_derive" }
+ic-cdk = { workspace = true }
+ic-cdk-macros = { workspace = true }
+sha256 = { path = "./sha256" }

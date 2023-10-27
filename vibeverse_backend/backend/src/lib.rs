@@ -9,7 +9,7 @@ use modules::{
 };
 
 #[update]
-fn create_collection(
+pub fn create_collection(
     name: String,
     description: String,
     transferable: bool,
@@ -24,7 +24,7 @@ fn create_collection(
 }
 
 #[update]
-fn update_collection_metadata(
+pub fn update_collection_metadata(
     id: CollectionId,
     name: String,
     description: String,
@@ -41,35 +41,35 @@ fn update_collection_metadata(
 
 /// Get a specific collection with the provided `CollectionId`.
 #[query]
-fn get_collection(id: CollectionId) -> Option<Collection> {
+pub fn get_collection(id: CollectionId) -> Option<Collection> {
     nfts::get_collection(id)
 }
 
 #[update]
-fn set_creator_metadata(name: String, avatar: String) -> Result<(), String> {
+pub fn set_creator_metadata(name: String, avatar: String) -> Result<(), String> {
     let caller = ic_cdk::api::caller();
 
     creators::set_creator_metadata(caller, name, avatar)
 }
 
 #[query]
-fn creator_metadata(creator: Principal) -> Option<Creator> {
+pub fn creator_metadata(creator: Principal) -> Option<Creator> {
     creators::creator_metadata(creator)
 }
 
 #[query]
-fn collections_created_by(creator: Principal) -> Vec<Collection> {
+pub fn collections_created_by(creator: Principal) -> Vec<Collection> {
     nfts::collections_created_by(creator)
 }
 
 #[query]
-fn collections_created_by_caller() -> Vec<Collection> {
+pub fn collections_created_by_caller() -> Vec<Collection> {
     let caller = ic_cdk::api::caller();
     nfts::collections_created_by(caller)
 }
 
 #[update]
-fn mint_nft(
+pub fn mint_nft(
     collection_id: CollectionId,
     receiver: Principal,
     name: String,
@@ -84,7 +84,7 @@ fn mint_nft(
 }
 
 #[update]
-fn transfer_nft(collection_id: CollectionId, nft_id: Nat, receiver: Principal) -> Result<(), String> {
+pub fn transfer_nft(collection_id: CollectionId, nft_id: Nat, receiver: Principal) -> Result<(), String> {
     let caller = ic_cdk::api::caller();
     match nfts::nft_transfer(caller, receiver, (collection_id, nft_id)) {
         Ok(_) => Ok(()),
@@ -93,23 +93,23 @@ fn transfer_nft(collection_id: CollectionId, nft_id: Nat, receiver: Principal) -
 }
 
 #[query]
-fn nfts_of_user(user: Principal) -> Vec<Nft> {
+pub fn nfts_of_user(user: Principal) -> Vec<Nft> {
     nfts::nfts_of_user(user)
 }
 
 #[query]
-fn nfts_of_caller() -> Vec<Nft> {
+pub fn nfts_of_caller() -> Vec<Nft> {
     let caller = ic_cdk::api::caller();
     nfts::nfts_of_user(caller)
 }
 
 #[query]
-fn nfts(collection_id: CollectionId, start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
+pub fn nfts(collection_id: CollectionId, start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
     nfts::nfts_within_collection(collection_id, start_index, count)
 }
 
 #[query]
-fn all_nfts(start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
+pub fn all_nfts(start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
     let start_index = start_index.unwrap_or_default();
     if let Some(count) = count {
         nfts::all_nfts()
@@ -128,57 +128,57 @@ fn all_nfts(start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
 }
 
 #[query]
-fn collections(start_index: Option<u128>, count: Option<u128>) -> Vec<Collection> {
+pub fn collections(start_index: Option<u128>, count: Option<u128>) -> Vec<Collection> {
     nfts::all_collections(start_index, count)
 }
 
 #[query]
-fn collection_count() -> CollectionId {
+pub fn collection_count() -> CollectionId {
     nfts::collection_count()
 }
 
 // Administrative functions
 
 #[update]
-fn set_collection_fee(fee: u64) -> Result<(), &'static str> {
+pub fn set_collection_fee(fee: u64) -> Result<(), &'static str> {
     let caller = ic_cdk::api::caller();
     administrative::set_collection_fee(caller, fee)
 }
 
 #[update]
-fn set_mint_fee(fee: u64) -> Result<(), &'static str> {
+pub fn set_mint_fee(fee: u64) -> Result<(), &'static str> {
     let caller = ic_cdk::api::caller();
     administrative::set_mint_fee(caller, fee)
 }
 
 #[update]
-fn set_vibe_token(vibe: Principal) -> Result<(), &'static str> {
+pub fn set_vibe_token(vibe: Principal) -> Result<(), &'static str> {
     let caller = ic_cdk::api::caller();
     administrative::set_vibe_token(caller, vibe)
 }
 
 #[update]
-fn set_admin(admin: Principal) -> Result<(), &'static str> {
+pub fn set_admin(admin: Principal) -> Result<(), &'static str> {
     administrative::set_admin(admin)
 }
 
 #[query]
-fn collection_fee() -> u64 {
+pub fn collection_fee() -> u64 {
     administrative::collection_fee()
 }
 
 #[query]
-fn mint_fee() -> u64 {
+pub fn mint_fee() -> u64 {
     administrative::mint_fee()
 }
 
 #[query]
-fn vibe_token() -> Option<Principal> {
+pub fn vibe_token() -> Option<Principal> {
     administrative::vibe_token()
 }
 
 #[query]
-fn admin() -> Option<Principal> {
+pub fn admin() -> Option<Principal> {
     administrative::admin()
 }
 
