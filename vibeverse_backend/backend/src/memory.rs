@@ -43,6 +43,6 @@ pub fn get_upgrades_memory() -> Memory {
     MEMORY_MANAGER.with(|m| m.borrow().get(UPGRADES))
 }
 
-fn get_memory(memory_id: MemoryId) -> Memory {
+pub fn get_memory(memory_id: MemoryId) -> Memory {
     MEMORY_MANAGER.with(|m| m.borrow().get(memory_id))
 }
