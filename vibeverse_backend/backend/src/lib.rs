@@ -95,7 +95,7 @@ pub fn mint_nft(
 #[update]
 pub fn transfer_nft(collection_id: CollectionId, nft_id: Nat, receiver: Principal) -> Result<(), String> {
     let caller = ic_cdk::api::caller();
-    match nfts::nft_transfer(caller, receiver, (collection_id, nft_id)) {
+    match nfts::nft_transfer(caller, receiver, (collection_id, nft_id.into())) {
         Ok(_) => Ok(()),
         Err(e) => Err(format!("Error while transfering the nft: {:?}", e)),
     }

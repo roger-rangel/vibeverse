@@ -1,13 +1,18 @@
-use candid::types::number::Nat;
-use candid::{CandidType, Principal};
+use candid::{types::number::Nat, CandidType, Principal};
+use ic_stable_structures::{storable::Bound, Storable};
+use serde::{Deserialize, Serialize};
+use std::borrow::Cow;
 
-pub type CollectionId = Nat;
+use crate::StorableNat;
+use libraries::msgpack::{deserialize_then_unwrap, serialize_then_unwrap};
+
+pub type CollectionId = StorableNat;
 
 /// (collection_id, nft_id)
-pub type NftId = (Nat, Nat);
+pub type NftId = (StorableNat, StorableNat);
 
 /// Stores all the necessary information about a collection.
-#[derive(Clone, CandidType, PartialEq, Debug)]
+#[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize)]
 pub struct Collection {
     /// A unique identifier for the collection.
     pub id: CollectionId,
@@ -29,8 +34,20 @@ pub struct Collection {
     pub creator: Principal,
 }
 
+impl Storable for Collection {
+    fn to_bytes(&self) -> Cow<[u8]> {
+        Cow::Owned(serialize_then_unwrap(self))
+    }
+
+    fn from_bytes(bytes: Cow<[u8]>) -> Self {
+        deserialize_then_unwrap(bytes.as_ref())
+    }
+
+    const BOUND: Bound = Bound::Unbounded;
+}
+
 /// Stores all the necessary information about an nft.
-#[derive(Clone, CandidType, PartialEq, Debug)]
+#[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize)]
 pub struct Nft {
     /// A unique identifier for the nft.
     pub id: NftId,
@@ -40,4 +57,16 @@ pub struct Nft {
     pub description: String,
     /// The url of the asset for the nft.
     pub asset_url: Option<String>,
+}
+
+impl Storable for Nft {
+    fn to_bytes(&self) -> Cow<[u8]> {
+        Cow::Owned(serialize_then_unwrap(self))
+    }
+
+    fn from_bytes(bytes: Cow<[u8]>) -> Self {
+        deserialize_then_unwrap(bytes.as_ref())
+    }
+
+    const BOUND: Bound = Bound::Unbounded;
 }

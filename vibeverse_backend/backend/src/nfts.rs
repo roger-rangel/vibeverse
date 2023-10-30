@@ -4,6 +4,7 @@ use candid::Principal;
 use ic_cdk::api::call::CallResult;
 use ic_cdk::call;
 
+use crate::types::StorableNat;
 use crate::{
     memory::{COLLECTIONS, COLLECTIONS_OF, COLLECTION_COUNT, NFTS, NFTS_OF},
     types::{Collection, CollectionId, Nft, NftId},
@@ -39,7 +40,7 @@ pub fn create_collection(
     // CALL THIS FUNCTION ONCE WE WANT TO CHARGE A FEE
     // ensure_fee_payment(creator, into_units(crate::administrative::collection_fee())).await?;
 
-    let mut id = Nat::from(0);
+    let mut id = Nat::from(0).into();
     COLLECTION_COUNT.with(|count| {
         id = (count.borrow()).clone();
         let collection = Collection {
@@ -95,7 +96,7 @@ pub fn update_metadata(
 
     COLLECTIONS.with(|collections| {
         let mut collections = collections.borrow_mut();
-        if let Some(collection) = collections.clone().get(&id) {
+        if let Some(collection) = collections.get(&id) {
             collections.insert(
                 id.clone(),
                 Collection {
@@ -119,7 +120,7 @@ pub fn update_metadata(
 
 /// Returns the collection with the specified `CollectionId`.  In case there is no such collection returns `None`.
 pub fn get_collection(id: CollectionId) -> Option<Collection> {
-    COLLECTIONS.with(|collections| collections.borrow().get(&id).cloned())
+    COLLECTIONS.with(|collections| collections.borrow().get(&id))
 }
 
 pub fn get_nft(id: NftId) -> Option<Nft> {
@@ -169,7 +170,7 @@ pub fn mint_nft(
     asset_url: Option<String>,
 ) -> Result<NftId, Error> {
     let maybe_collection = get_collection(collection_id.clone());
-    let new_nft_id;
+    let new_nft_id: StorableNat;
 
     if let Some(collection) = maybe_collection.clone() {
         if collection.creator != caller {
@@ -178,7 +179,7 @@ pub fn mint_nft(
         if collection.limit.is_some() && collection.minted >= collection.limit.unwrap() {
             return Err(Error::LimitReached);
         }
-        new_nft_id = collection.minted;
+        new_nft_id = collection.minted.into();
     } else {
         return Err(Error::CollectionNotFound);
     }
@@ -241,7 +242,7 @@ pub fn nfts_of_user(user: Principal) -> Vec<Nft> {
 pub fn all_nfts() -> Vec<Nft> {
     let mut nft_ids: Vec<NftId> = vec![];
 
-    let Ok(collection_count): Result<u128, _> = collection_count().0.try_into() else {
+    let Ok(collection_count): Result<u128, _> = collection_count().0 .0.try_into() else {
         return vec![];
     };
 
@@ -285,14 +286,14 @@ pub fn nfts_within_collection(collection_id: CollectionId, start_index: Option<u
 
     (start_index..end)
         .map(|nft_id| {
-            get_nft((collection_id.clone(), Nat::from(nft_id)))
+            get_nft((collection_id.clone(), Nat::from(nft_id).into()))
                 .expect("`nft_id` must be good, otherwise the value of `minted` is broken")
         })
         .collect()
 }
 
 pub fn all_collections(start_index: Option<u128>, count: Option<u128>) -> Vec<Collection> {
-    let maybe_collection_count = collection_count().0.try_into();
+    let maybe_collection_count = collection_count().0 .0.try_into();
 
     if maybe_collection_count.is_err() {
         return vec![];
@@ -313,7 +314,7 @@ pub fn all_collections(start_index: Option<u128>, count: Option<u128>) -> Vec<Co
 
     (start_index..end)
         .map(|collection_id| {
-            get_collection(Nat::from(collection_id))
+            get_collection(Nat::from(collection_id).into())
                 .expect("`collection_id` must be good, otherwise the value of `collection_count` is broken")
         })
         .collect()

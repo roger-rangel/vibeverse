@@ -405,6 +405,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "half"
+version = "1.8.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "eabb4a44450da02c90444cf74558da904edde8fb4e9035a9a6a4e15445af0bd7"
+
+[[package]]
 name = "hashbrown"
 version = "0.12.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -673,6 +679,8 @@ dependencies = [
  "human_readable_derive",
  "ic-cdk 0.11.3",
  "ic-cdk-macros 0.8.1",
+ "msgpack",
+ "serializer",
  "sha256",
 ]
 
@@ -713,6 +721,14 @@ dependencies = [
  "libc",
  "wasi",
  "windows-sys",
+]
+
+[[package]]
+name = "msgpack"
+version = "0.1.0"
+dependencies = [
+ "rmp-serde",
+ "serde",
 ]
 
 [[package]]
@@ -1074,6 +1090,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "serde_cbor"
+version = "0.11.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2bef2ebfde456fb76bbcf9f59315333decc4fda0b2b44b420243c11e0f5ec1f5"
+dependencies = [
+ "half",
+ "serde",
+]
+
+[[package]]
 name = "serde_derive"
 version = "1.0.190"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1141,6 +1167,14 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.38",
+]
+
+[[package]]
+name = "serializer"
+version = "0.1.0"
+dependencies = [
+ "rmp-serde",
+ "serde",
 ]
 
 [[package]]
@@ -1539,8 +1573,11 @@ dependencies = [
  "ic-cdk 0.11.3",
  "ic-cdk-macros 0.8.1",
  "ic-stable-structures",
+ "libraries",
  "rmp-serde",
  "serde",
+ "serde_cbor",
+ "serde_json",
  "tracing",
 ]
 

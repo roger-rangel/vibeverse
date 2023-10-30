@@ -6,22 +6,14 @@ use serde::{Deserialize, Serialize};
 use std::cell::RefCell;
 use std::collections::BTreeMap;
 
-use crate::types::{Collection, CollectionId, Creator, Memory, Nft, NftId};
+use crate::types::{Collection, CollectionId, Creator, Memory, Nft, NftId, StorableNat, StorablePrincipal};
 
 const UPGRADES: MemoryId = MemoryId::new(0);
-const PAGE_VIEWS: MemoryId = MemoryId::new(1);
 
+// TODO: Migrate heap states to here
 #[derive(Serialize, Deserialize)]
 pub struct State {
-    // Data that lives on the heap.
-    // This is an example for data that would need to be serialized/deserialized
-    // on every upgrade for it to be persisted.
-    data_on_the_heap: Vec<u8>,
-
-    // An example `StableBTreeMap`. Data stored in `StableBTreeMap` doesn't need to
-    // be serialized/deserialized in upgrades, so we tell serde to skip it.
-    #[serde(skip, default = "init_stable_data")]
-    stable_data: StableBTreeMap<u128, u128, Memory>,
+    collection_fee: u64,
 }
 
 thread_local! {
@@ -34,13 +26,18 @@ thread_local! {
     pub static VIBE_TOKEN: RefCell<Option<Principal>> = RefCell::default();
     pub static ADMIN: RefCell<Option<Principal>> = RefCell::default();
 
-    pub static CREATORS: RefCell<BTreeMap<Principal, Creator>> = RefCell::default();
+
+    pub static CREATORS: RefCell<StableBTreeMap<StorablePrincipal, Creator, Memory>> = RefCell::new(
+        StableBTreeMap::init(get_memory(MemoryId::new(1)))
+    );
     // NFT
-    pub static COLLECTIONS: RefCell<BTreeMap<CollectionId, Collection>> = RefCell::default();
+    pub static COLLECTIONS: RefCell<StableBTreeMap<CollectionId, Collection, Memory>> = RefCell::new(
+        StableBTreeMap::init(get_memory(MemoryId::new(1)))
+    );
     pub static NFTS: RefCell<BTreeMap<CollectionId, Vec<Nft>>> = RefCell::default();
     pub static COLLECTIONS_OF: RefCell<BTreeMap<Principal, Vec<CollectionId>>> = RefCell::default();
-    pub static COLLECTION_COUNT: RefCell<CollectionId> = RefCell::new(Nat::from(0));
     pub static NFTS_OF: RefCell<BTreeMap<Principal, Vec<NftId>>> = RefCell::default();
+    pub static COLLECTION_COUNT: RefCell<StorableNat> = RefCell::new(Nat::from(0).into());
 
     // Test
     pub static STATE: RefCell<State> = RefCell::new(State::default());
@@ -54,15 +51,8 @@ fn get_memory(memory_id: MemoryId) -> Memory {
     MEMORY_MANAGER.with(|m| m.borrow().get(memory_id))
 }
 
-fn init_stable_data() -> StableBTreeMap<u128, u128, Memory> {
-    StableBTreeMap::init(get_memory(PAGE_VIEWS))
-}
-
 impl Default for State {
     fn default() -> Self {
-        Self {
-            data_on_the_heap: vec![],
-            stable_data: init_stable_data(),
-        }
+        Self { collection_fee: 0 }
     }
 }

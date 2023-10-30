@@ -22,9 +22,9 @@ fn creating_collection_works() {
     );
 
     assert_eq!(
-        get_collection(Nat::from(0)),
+        get_collection(Nat::from(0).into()),
         Some(Collection {
-            id: Nat::from(0),
+            id: Nat::from(0).into(),
             creator,
             name: collection_name,
             description: collection_desc,
@@ -57,9 +57,9 @@ fn updating_collection_metadata_works() {
     );
 
     assert_eq!(
-        get_collection(Nat::from(0)),
+        get_collection(Nat::from(0).into()),
         Some(Collection {
-            id: Nat::from(0),
+            id: Nat::from(0).into(),
             creator,
             name: collection_name,
             description: collection_desc,
@@ -77,7 +77,7 @@ fn updating_collection_metadata_works() {
     assert_eq!(
         update_metadata(
             creator,
-            Nat::from(0),
+            Nat::from(0).into(),
             new_name.clone(),
             new_desc.clone(),
             new_image_url.clone(),
@@ -87,9 +87,9 @@ fn updating_collection_metadata_works() {
     );
 
     assert_eq!(
-        get_collection(Nat::from(0)),
+        get_collection(Nat::from(0).into()),
         Some(Collection {
-            id: Nat::from(0),
+            id: Nat::from(0).into(),
             creator,
             name: new_name,
             description: new_desc,
@@ -110,7 +110,14 @@ fn updating_collection_metadata_fails_for_non_existing_collection() {
     let new_image_url = Some(String::from("https::/domain.com/image.jpg"));
 
     assert_eq!(
-        update_metadata(creator, Nat::from(0), new_name.clone(), new_desc.clone(), new_image_url, None,),
+        update_metadata(
+            creator,
+            Nat::from(0).into(),
+            new_name.clone(),
+            new_desc.clone(),
+            new_image_url,
+            None,
+        ),
         Err(Error::CollectionNotFound)
     );
 }
@@ -135,9 +142,9 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
     );
 
     assert_eq!(
-        get_collection(Nat::from(0)),
+        get_collection(Nat::from(0).into()),
         Some(Collection {
-            id: Nat::from(0),
+            id: Nat::from(0).into(),
             creator,
             name: collection_name,
             description: collection_desc,
@@ -145,7 +152,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
             image_url,
             limit,
             minted: Nat::from(0),
-            category: Default::default()
+            category: Default::default(),
         })
     );
 
@@ -156,7 +163,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
         update_metadata(
             // the default principal is not allowed to make this call.
             get_default_principal(),
-            Nat::from(0),
+            Nat::from(0).into(),
             new_name.clone(),
             new_desc.clone(),
             new_image_url.clone(),
@@ -168,7 +175,7 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
 
 #[test]
 fn get_collection_works_when_collection_doesnt_exist() {
-    assert_eq!(get_collection(Nat::from(0)), None);
+    assert_eq!(get_collection(Nat::from(0).into()), None);
 }
 
 #[test]
@@ -182,7 +189,7 @@ fn get_creator_collections_works() {
     assert_eq!(
         collections_created_by(creator),
         vec![Collection {
-            id: Nat::from(0),
+            id: Nat::from(0).into(),
             creator,
             name,
             description: collection.description,
@@ -227,13 +234,13 @@ fn minting_nfts_works() {
         nfts_of_user(alice),
         vec![
             Nft {
-                id: (Nat::from(0), Nat::from(0)),
+                id: (Nat::from(0).into(), Nat::from(0).into()),
                 name: "Car 1".to_string(),
                 description: "...".to_string(),
                 asset_url: None
             },
             Nft {
-                id: (Nat::from(0), Nat::from(1)),
+                id: (Nat::from(0).into(), Nat::from(1).into()),
                 name: "Car 2".to_string(),
                 description: "...".to_string(),
                 asset_url: None
@@ -241,7 +248,7 @@ fn minting_nfts_works() {
         ]
     );
 
-    assert_eq!(get_collection(Nat::from(0)).unwrap(), collection);
+    assert_eq!(get_collection(Nat::from(0).into()).unwrap(), collection);
 }
 
 #[test]
@@ -293,12 +300,12 @@ fn nft_transfer_works() {
 
     // The supply increased.
     collection.minted = Nat::from(1);
-    assert_eq!(get_collection(Nat::from(0)).unwrap(), collection);
+    assert_eq!(get_collection(Nat::from(0).into()).unwrap(), collection);
 
     assert_eq!(
         nfts_of_user(creator),
         vec![Nft {
-            id: (Nat::from(0), Nat::from(0)),
+            id: (Nat::from(0).into(), Nat::from(0).into()),
             name: "Car 1".to_string(),
             description: "...".to_string(),
             asset_url: None
@@ -311,12 +318,15 @@ fn nft_transfer_works() {
     assert_eq!(nfts_of_user(alice), vec![]);
 
     // Creator transfers the token to alice.
-    assert_eq!(nft_transfer(creator, alice, (collection.clone().id, Nat::from(0))), Ok(()));
+    assert_eq!(
+        nft_transfer(creator, alice, (collection.clone().id, Nat::from(0).into())),
+        Ok(())
+    );
 
     assert_eq!(
         nfts_of_user(alice),
         vec![Nft {
-            id: (Nat::from(0), Nat::from(0)),
+            id: (Nat::from(0).into(), Nat::from(0).into()),
             name: "Car 1".to_string(),
             description: "...".to_string(),
             asset_url: None
@@ -346,7 +356,7 @@ fn nfts_within_collection_works() {
         .is_ok());
 
         nfts.push(Nft {
-            id: (Nat::from(0), Nat::from(i)),
+            id: (Nat::from(0).into(), Nat::from(i).into()),
             name: format!("Car {}", i),
             description: "...".to_string(),
             asset_url: None,
