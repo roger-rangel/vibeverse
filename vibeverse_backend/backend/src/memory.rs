@@ -30,7 +30,7 @@ thread_local! {
     );
     // NFT
     pub static COLLECTIONS: RefCell<StableBTreeMap<CollectionId, Collection, Memory>> = RefCell::new(
-        StableBTreeMap::init(get_memory(MemoryId::new(1)))
+        StableBTreeMap::init(get_memory(MemoryId::new(2)))
     );
     pub static NFTS: RefCell<BTreeMap<CollectionId, Vec<Nft>>> = RefCell::default();
     pub static COLLECTIONS_OF: RefCell<BTreeMap<Principal, Vec<CollectionId>>> = RefCell::default();
