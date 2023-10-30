@@ -1,9 +1,10 @@
 use ic_cdk_macros::pre_upgrade;
 use ic_stable_structures::writer::{BufferedWriter, Writer};
+use libraries::serializer;
 use tracing::info;
 
 use crate::{
-    lifecycle::{serializer, UPGRADE_BUFFER_SIZE},
+    lifecycle::UPGRADE_BUFFER_SIZE,
     memory::{self, STATE},
 };
 
