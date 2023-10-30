@@ -11,7 +11,7 @@ use crate::types::{Collection, CollectionId, Creator, Memory, Nft, NftId, Storab
 const UPGRADES: MemoryId = MemoryId::new(0);
 
 // TODO: Migrate heap states to here
-#[derive(Serialize, Deserialize)]
+#[derive(Default, Serialize, Deserialize)]
 pub struct State {
     collection_fee: u64,
 }
@@ -49,10 +49,4 @@ pub fn get_upgrades_memory() -> Memory {
 
 fn get_memory(memory_id: MemoryId) -> Memory {
     MEMORY_MANAGER.with(|m| m.borrow().get(memory_id))
-}
-
-impl Default for State {
-    fn default() -> Self {
-        Self { collection_fee: 0 }
-    }
 }

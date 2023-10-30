@@ -44,7 +44,7 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: clippy
-          args: --tests -- -D warnings
+          args: --all-targets -- -D warnings
 
   unit_tests:
     name: run unit tests
