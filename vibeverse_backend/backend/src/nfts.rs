@@ -6,7 +6,7 @@ use ic_cdk::call;
 
 use crate::types::StorableNat;
 use crate::{
-    memory::{COLLECTIONS, COLLECTIONS_OF, COLLECTION_COUNT, NFTS, NFTS_OF},
+    memory::{COLLECTIONS, COLLECTIONS_OF, NFTS, NFTS_OF, STATE},
     types::{Collection, CollectionId, Nft, NftId},
 };
 
@@ -24,7 +24,7 @@ pub enum Error {
 }
 
 pub fn collection_count() -> CollectionId {
-    COLLECTION_COUNT.with(|count| count.borrow().clone())
+    STATE.with(|state| state.borrow().total_collections.clone())
 }
 
 /// Creates a new collection and increases the `COLLECTION_COUNT`.
@@ -41,8 +41,8 @@ pub fn create_collection(
     // ensure_fee_payment(creator, into_units(crate::administrative::collection_fee())).await?;
 
     let mut id = Nat::from(0).into();
-    COLLECTION_COUNT.with(|count| {
-        id = (count.borrow()).clone();
+    STATE.with(|state| {
+        id = state.borrow().total_collections.clone();
         let collection = Collection {
             id: id.clone(),
             name,
@@ -70,7 +70,7 @@ pub fn create_collection(
         }
     });
 
-    COLLECTION_COUNT.with(|counter| *counter.borrow_mut() += 1);
+    STATE.with(|counter| counter.borrow_mut().total_collections += 1);
     id
 }
 

@@ -1,6 +1,6 @@
 use candid::Principal;
 
-use crate::memory::{ADMIN, COLLECTION_FEE, MINT_FEE, VIBE_TOKEN};
+use crate::memory::STATE;
 
 pub fn set_collection_fee(caller: Principal, fee: u64) -> Result<(), &'static str> {
     let Some(admin) = admin() else {
@@ -9,7 +9,7 @@ pub fn set_collection_fee(caller: Principal, fee: u64) -> Result<(), &'static st
     if caller != admin {
         return Err("Caller must be admin");
     }
-    COLLECTION_FEE.with(|f| *f.borrow_mut() = fee);
+    STATE.with(|state| state.borrow_mut().collection_fee = fee);
 
     Ok(())
 }
@@ -21,7 +21,7 @@ pub fn set_mint_fee(caller: Principal, fee: u64) -> Result<(), &'static str> {
     if caller != admin {
         return Err("Caller must be admin");
     }
-    MINT_FEE.with(|f| *f.borrow_mut() = fee);
+    STATE.with(|state| state.borrow_mut().mint_fee = fee);
 
     Ok(())
 }
@@ -34,41 +34,33 @@ pub fn set_vibe_token(caller: Principal, vibe: Principal) -> Result<(), &'static
         return Err("Caller must be admin");
     }
 
-    VIBE_TOKEN.with(|token| -> Result<(), &'static str> {
-        let mut maybe_vibe = token.borrow_mut();
-        *maybe_vibe = Some(vibe);
-
-        Ok(())
-    })?;
+    STATE.with(|state| state.borrow_mut().vibe_token = Some(vibe));
 
     Ok(())
 }
 
-pub fn set_admin(admin: Principal) -> Result<(), &'static str> {
-    ADMIN.with(|a| -> Result<(), &'static str> {
-        let mut maybe_admin = a.borrow_mut();
-        if maybe_admin.is_some() {
-            return Err("Admin is already set.");
-        }
-        *maybe_admin = Some(admin);
-        Ok(())
-    })?;
+pub fn set_admin(new_admin: Principal) -> Result<(), &'static str> {
+    let Some(_) = admin() else {
+        return Err("Admin is already set.");
+    };
+
+    STATE.with(|state| state.borrow_mut().admin = Some(new_admin));
 
     Ok(())
 }
 
 pub fn collection_fee() -> u64 {
-    COLLECTION_FEE.with(|fee| *fee.borrow())
+    STATE.with(|fee| fee.borrow().collection_fee)
 }
 
 pub fn mint_fee() -> u64 {
-    MINT_FEE.with(|fee| *fee.borrow())
+    STATE.with(|fee| fee.borrow().mint_fee)
 }
 
 pub fn vibe_token() -> Option<Principal> {
-    VIBE_TOKEN.with(|vibe| *vibe.borrow())
+    STATE.with(|vibe| vibe.borrow().vibe_token.clone())
 }
 
 pub fn admin() -> Option<Principal> {
-    ADMIN.with(|admin| *admin.borrow())
+    STATE.with(|admin| admin.borrow().admin.clone())
 }
