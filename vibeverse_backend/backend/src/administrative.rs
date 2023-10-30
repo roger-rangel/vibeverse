@@ -58,9 +58,9 @@ pub fn mint_fee() -> u64 {
 }
 
 pub fn vibe_token() -> Option<Principal> {
-    STATE.with(|vibe| vibe.borrow().vibe_token.clone())
+    STATE.with(|vibe| vibe.borrow().vibe_token)
 }
 
 pub fn admin() -> Option<Principal> {
-    STATE.with(|admin| admin.borrow().admin.clone())
+    STATE.with(|admin| admin.borrow().admin)
 }
