@@ -93,7 +93,6 @@ export const videos = [
   // More videos...
 ];
 
-
 export const data = [
   {
     id: 1,
@@ -425,4 +424,104 @@ export const data = [
       'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/naruto.gif',
     ],
   },
+];
+
+export const avatars = [
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/sdf.jpeg',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Hanzo_Mesmerizing_Malachite_Statue_Hyperrealism_art_in_the_styl_9bb2c937-d3b1-405f-a9ae-766e5342479b.png',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/europe.png',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/F7dfrMuW8AAGPXV.jpeg',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Screenshot_2023-10-27_at_6.07.51_PM.png',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/F7YAYoiXQAAHFmp.jpeg',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Frame_602.png',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Screenshot_2023-10-27_at_6.34.56_PM.png',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Alexandria_royal_guard_Star_Wars_red_1220c4a4-195a-4ba6-9189-b9ec16bbf76f.png',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Clip4That_a_black_cyborg_with_a_human_face_ef556a84-4c99-4cb0-9500-331f60114faa.png',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      ' https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/arnaud_-_Femme_Fatale_Studio_UV_map_of_a_geisha_face_front_symm_be8d5e05-c15e-4fe7-ae0a-e86eb4f456e5.png',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/F9YgJ_AWoAEWW6q.jpeg',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/starwarsartai_a_stormtrooper_in_multi_colored_glossy_iridescent_9c418161-34a7-484a-bc2d-310c404a2d69.png',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/wakeforestgirl18_Krypton_Alloy_28_years_old_perfect_mix_of_Drac_e4220554-3bc1-4fc9-845d-a46ec8cfc47e.png',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Screenshot_2023-10-27_at_6.46.12_PM.png',
+  },
+  {
+    title: 'IMG_4985.HEIC',
+    size: '3.9 MB',
+    source:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/scook3000_a_portrait_shot_of_fashion_Korean_pop_star_the_outfit_89ece945-1487-45e6-8689-8c5838fb4d19.png',
+  },
+  // More avatars later on...
 ];
