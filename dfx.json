@@ -1,7 +1,7 @@
 {
   "canisters": {
     "vibeverse_backend": {
-      "candid": "vibeverse_backend/vibeverse_backend.did",
+      "candid": "vibeverse_backend/backend/vibeverse_backend.did",
       "package": "vibeverse_backend",
       "type": "rust",
       "declarations": {
