@@ -26,19 +26,10 @@ export interface ModalProps extends Props {
 
 export function Modal({
   children,
-  isOpen,
-  hideModal,
-  onRequestClose: _,
   ...rest
 }: React.PropsWithChildren<ModalProps>) {
   return (
-    <ReactModal
-      isOpen={isOpen}
-      onRequestClose={hideModal}
-      style={customStyles}
-      ariaHideApp={false}
-      {...rest}
-    >
+    <ReactModal style={customStyles} ariaHideApp={false} {...rest}>
       {children}
     </ReactModal>
   );

@@ -2,6 +2,7 @@
 
 import { FormEventHandler, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import { Modal, ModalProps } from '@/components/Modal';
 import { avatars } from '@/constants';
@@ -12,6 +13,7 @@ export default function AvatarModal(props: ModalProps) {
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('');
   const { actor } = useActor();
+  const router = useRouter();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -19,6 +21,8 @@ export default function AvatarModal(props: ModalProps) {
 
     await actor.set_creator_metadata(name, avatar);
     toast.success("Profile created! Let's go 🚀");
+    props.hideModal();
+    router.push('/dashboard');
   };
 
   return (
