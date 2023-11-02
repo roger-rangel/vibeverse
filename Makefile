@@ -1,12 +1,14 @@
 
+BACKEND=vibeverse_backend
+
 prepare:
 	rustup target add wasm32-unknown-unknown
 
 build:
-	dfx build vibeverse_backend
+	dfx build $(BACKEND)
 
 test-unit: 
-	cargo test --package vibeverse_backend
+	cargo test --package $(BACKEND)
 
 test-e2e:
 	./scripts/run-integration-tests.sh
@@ -27,7 +29,7 @@ generate-did:
 	scripts/generate-did.sh
 	
 generate-declaration:
-	dfx generate vibeverse_backend
+	dfx generate $(BACKEND)
 
 generate-wasm:
 	scripts/generate-wasm.sh
@@ -35,3 +37,8 @@ generate-wasm:
 generate: generate-did
 	make generate-declaration
 	make generate-wasm
+
+upgrade-backend:
+	dfx build $(BACKEND)
+	dfx canister install $(BACKEND) --mode=upgrade
+	

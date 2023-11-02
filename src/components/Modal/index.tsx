@@ -36,6 +36,7 @@ export function Modal({
       isOpen={isOpen}
       onRequestClose={hideModal}
       style={customStyles}
+      ariaHideApp={false}
       {...rest}
     >
       {children}

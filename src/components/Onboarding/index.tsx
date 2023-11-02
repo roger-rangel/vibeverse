@@ -8,8 +8,10 @@ import AvatarModal from '@/components/dashboard/home/AvatarModal';
 import { useGetProfile } from '@/hooks';
 
 export function Onboarding() {
-  const { isConnected } = useConnect();
-  const { data: profile, isLoading } = useGetProfile();
+  const { isConnected, activeProvider } = useConnect();
+  const { data: profile, isLoading } = useGetProfile({
+    principal: activeProvider?.principal,
+  });
 
   const [showModal, hideModal] = useModal(
     () => (
@@ -24,12 +26,10 @@ export function Onboarding() {
   );
 
   useEffect(() => {
-    if (isConnected && !isLoading && profile === undefined) {
+    if (isConnected && !isLoading && profile === null) {
       showModal();
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, profile]);
+  }, [isConnected, isLoading, profile, showModal]);
 
   return <></>;
 }

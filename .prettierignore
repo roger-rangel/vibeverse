@@ -4,3 +4,4 @@ target/
 .next/
 .dfx/
 out/
+src/declarations

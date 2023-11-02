@@ -5,12 +5,20 @@ import Image from 'next/image';
 
 import { Modal, ModalProps } from '@/components/Modal';
 import { avatars } from '@/constants';
+import { useActor } from '@/hooks';
+import { toast } from 'react-toastify';
 
 export default function AvatarModal(props: ModalProps) {
   const [name, setName] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const { actor } = useActor();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    if (!actor) return;
+
+    await actor.set_creator_metadata(name, avatar);
+    toast.success("Profile created! Let's go 🚀");
   };
 
   return (
@@ -39,9 +47,9 @@ export default function AvatarModal(props: ModalProps) {
                     aria-hidden="true"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M6 18L18 6M6 6l12 12"
                     />
                   </svg>
@@ -65,7 +73,7 @@ export default function AvatarModal(props: ModalProps) {
                         autoComplete="title"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
+                        className="flex-1 border-0 bg-transparent py-1.5 px-2 text-white focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="Choose a cool name  🦜"
                       />
                     </div>
@@ -88,7 +96,12 @@ export default function AvatarModal(props: ModalProps) {
               className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8 p-2"
             >
               {avatars.map((avatar) => (
-                <li key={avatar.source} className="relative">
+                <li
+                  key={avatar.source}
+                  value={avatar.source}
+                  className="relative"
+                  onClick={() => setAvatar(avatar.source)}
+                >
                   <div className="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg focus-within:ring-2 focus-within:ring-indigo-500 ">
                     <Image
                       src={avatar.source}

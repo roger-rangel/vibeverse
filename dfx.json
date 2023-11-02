@@ -1,4 +1,5 @@
 {
+  "$schema": "https://internetcomputer.org/assets/files/dfx-json-schema-027ae6549c9912d406a1b64c7295e5ac.json",
   "canisters": {
     "vibeverse_backend": {
       "candid": "vibeverse_backend/backend/vibeverse_backend.did",

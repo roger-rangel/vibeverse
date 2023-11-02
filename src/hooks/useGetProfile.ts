@@ -1,27 +1,24 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useConnect } from '@connect2ic/react';
 import { Principal } from '@dfinity/principal';
 import { useQuery } from '@tanstack/react-query';
 
 import { useActor } from '@/providers/ActorProvider';
 import { asCreator } from '@/types';
 
-export function useGetProfile() {
+export function useGetProfile({ principal }: { principal?: string }) {
   const { actor } = useActor();
-  const { activeProvider } = useConnect();
+
   return useQuery({
-    queryKey: [actor, 'profile', activeProvider],
+    queryKey: [actor, 'profile', principal],
     queryFn: async () => {
-      const profile = await actor!.creator_metadata(
-        Principal.from(activeProvider!.principal!),
-      );
+      const profile = await actor!.creator_metadata(Principal.from(principal!));
 
       if (profile.length === 0) {
-        return undefined;
+        return null;
       }
 
       return asCreator(profile[0]);
     },
-    enabled: !!actor && !!activeProvider?.principal,
+    enabled: !!actor && !!principal,
   });
 }
