@@ -1,0 +1,48 @@
+type Collection = record {
+  id : nat;
+  creator : principal;
+  image_url : opt text;
+  transferable : bool;
+  name : text;
+  minted : nat;
+  description : text;
+  limit : opt nat;
+  category : text;
+};
+type Creator = record { name : text; avatar : text };
+type Nft = record {
+  id : record { nat; nat };
+  name : text;
+  description : text;
+  asset_url : opt text;
+};
+type Result = variant { Ok : nat; Err : text };
+type Result_1 = variant { Ok : record { nat; nat }; Err : text };
+type Result_2 = variant { Ok; Err : text };
+service : () -> {
+  admin : () -> (opt principal) query;
+  all_nfts : (opt nat, opt nat) -> (vec Nft) query;
+  collection_count : () -> (nat) query;
+  collection_fee : () -> (nat64) query;
+  collections : (opt nat, opt nat) -> (vec Collection) query;
+  collections_created_by : (principal) -> (vec Collection) query;
+  collections_created_by_caller : () -> (vec Collection) query;
+  create_collection : (text, text, bool, opt nat, opt text, text) -> (Result);
+  creator_metadata : (principal) -> (opt Creator) query;
+  get_collection : (nat) -> (opt Collection) query;
+  mint_fee : () -> (nat64) query;
+  mint_nft : (nat, principal, text, text, opt text) -> (Result_1);
+  nfts : (nat, opt nat, opt nat) -> (vec Nft) query;
+  nfts_of_caller : () -> (vec Nft) query;
+  nfts_of_user : (principal) -> (vec Nft) query;
+  set_admin : (principal) -> (Result_2);
+  set_collection_fee : (nat64) -> (Result_2);
+  set_creator_metadata : (text, text) -> (Result_2);
+  set_mint_fee : (nat64) -> (Result_2);
+  set_vibe_token : (principal) -> (Result_2);
+  transfer_nft : (nat, nat, principal) -> (Result_2);
+  update_collection_metadata : (nat, text, text, opt text, opt text) -> (
+      Result_2,
+    );
+  vibe_token : () -> (opt principal) query;
+}

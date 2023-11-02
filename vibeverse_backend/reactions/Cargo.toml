@@ -9,4 +9,3 @@ edition = "2021"
 candid = { workspace = true }
 ic-cdk = { workspace = true }
 ic-cdk-macros = { workspace = true }
-nfts = { path = "../nfts" }

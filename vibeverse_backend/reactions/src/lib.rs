@@ -5,7 +5,7 @@ use std::{
 
 use candid::{CandidType, Nat, Principal};
 
-use nfts::NftId;
+type NftId = (Nat, Nat);
 
 const MAX_EMOJI_LENGTH_BYTES: usize = 40;
 
@@ -43,10 +43,7 @@ pub fn add_reaction(nft_id: NftId, reaction: Reaction) -> Result<(), String> {
         let mut reactions = reactions.borrow_mut();
         let reactions_for_nft = reactions.entry(nft_id.clone()).or_default();
         if reactions_for_nft.contains(&reaction) {
-            return Err(format!(
-                "Reaction {} already exists for NFT {}.",
-                reaction.emoji, nft_id.1
-            ));
+            return Err(format!("Reaction {} already exists for NFT {}.", reaction.emoji, nft_id.1));
         }
         reactions_for_nft.push(reaction);
         Ok(())
@@ -63,10 +60,7 @@ pub fn remove_reaction(nft_id: NftId, reaction: Reaction) -> Result<(), String> 
         let mut reactions = reactions.borrow_mut();
         let reactions_for_nft = reactions.entry(nft_id.clone()).or_default();
         if !reactions_for_nft.contains(&reaction) {
-            return Err(format!(
-                "Reaction {} does not exist for NFT {}.",
-                reaction.emoji, nft_id.1
-            ));
+            return Err(format!("Reaction {} does not exist for NFT {}.", reaction.emoji, nft_id.1));
         }
         reactions_for_nft.retain(|r| r != &reaction);
         Ok(())

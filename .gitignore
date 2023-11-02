@@ -47,7 +47,7 @@ next-env.d.ts
 .dfx/
 
 # generated files
-# src/declarations/
+*.wasm.gz
 
 # rust
 target/
@@ -58,3 +58,5 @@ dist/
 
 # environment variables
 .env
+
+pocket-ic*
