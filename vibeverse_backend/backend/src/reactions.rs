@@ -5,19 +5,19 @@ use std::{
 
 use candid::{CandidType, Nat, Principal};
 
-type NftId = (Nat, Nat);
+use crate::types::{NftId, UserId};
 
 const MAX_EMOJI_LENGTH_BYTES: usize = 40;
 
 #[derive(CandidType, Clone, Debug, Ord, PartialOrd, Eq, PartialEq, Hash)]
 pub struct Reaction {
-    principal: Principal,
+    user: UserId,
     emoji: String,
 }
 
 impl Reaction {
-    pub fn new(principal: Principal, emoji: String) -> Reaction {
-        Reaction { principal, emoji }
+    pub fn new(user: UserId, emoji: String) -> Reaction {
+        Reaction { user, emoji }
     }
 
     pub fn is_valid(&self) -> bool {
@@ -142,7 +142,7 @@ mod tests {
     #[test]
     fn test_add_reaction() {
         register_emojis(vec!["🐶".to_string(), "🐱".to_string()]).unwrap();
-        let nft_id: NftId = (Nat::from(1), Nat::from(1));
+        let nft_id: NftId = (Nat::from(1).into(), Nat::from(1).into());
         let reaction = Reaction::new(ALI, String::from("🐶"));
         add_reaction(nft_id.clone(), reaction.clone()).unwrap();
         let reactions = get_reactions(nft_id.clone());
@@ -170,7 +170,7 @@ mod tests {
     #[test]
     fn test_remove_reaction() {
         register_emojis(vec!["🐶".to_string(), "🐱".to_string()]).unwrap();
-        let nft_id: NftId = (Nat::from(1), Nat::from(1));
+        let nft_id: NftId = (Nat::from(1).into(), Nat::from(1).into());
         let reaction = Reaction::new(ALI, String::from("🐶"));
         add_reaction(nft_id.clone(), reaction.clone()).unwrap();
         let reaction = Reaction::new(BOB, String::from("🐶"));

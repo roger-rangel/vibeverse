@@ -1,9 +1,11 @@
-use candid::CandidType;
+use candid::{CandidType, Principal};
 use ic_stable_structures::{storable::Bound, Storable};
 use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
 
 use libraries::msgpack::{deserialize_then_unwrap, serialize_then_unwrap};
+
+pub type UserId = Principal;
 
 #[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize)]
 pub struct Creator {

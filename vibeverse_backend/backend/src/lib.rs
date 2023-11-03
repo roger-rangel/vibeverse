@@ -11,12 +11,14 @@ mod guards;
 mod lifecycle;
 mod memory;
 mod nfts;
+mod reactions;
 mod types;
 
 #[cfg(test)]
 mod nfts_tests;
 
 use guards::*;
+use reactions::Reaction;
 use types::*;
 
 #[update]
@@ -147,6 +149,15 @@ pub fn collections(start_index: Option<u128>, count: Option<u128>) -> Vec<Collec
 pub fn collection_count() -> CollectionId {
     nfts::collection_count()
 }
+
+// ---- reactions start ----
+#[query]
+pub fn add_reaction(collection_id: CollectionId, nft_id: Nat, emoji: String) -> Result<(), String> {
+    let caller = ic_cdk::api::caller();
+
+    reactions::add_reaction((collection_id, nft_id.into()), Reaction::new(caller, emoji))
+}
+// ---- reactions end ----
 
 // Administrative functions
 

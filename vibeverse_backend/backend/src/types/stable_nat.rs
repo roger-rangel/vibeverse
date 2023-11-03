@@ -6,7 +6,7 @@ use ic_stable_structures::{storable::Bound, Storable};
 use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
 use std::cmp::{Ord, Ordering, PartialEq, PartialOrd};
-use std::ops::*;
+use std::{fmt, ops::*};
 
 use libraries::msgpack::{deserialize_then_unwrap, serialize_then_unwrap};
 
@@ -258,6 +258,12 @@ impl std::ops::RemAssign<i32> for StorableNat {
     #[inline]
     fn rem_assign(&mut self, other: i32) {
         self.0 %= other as u32
+    }
+}
+
+impl fmt::Display for StorableNat {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        self.0.fmt(f)
     }
 }
 
