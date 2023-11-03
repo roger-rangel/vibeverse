@@ -2,19 +2,27 @@
 
 import Image from 'next/image';
 import { Fragment } from 'react';
+import { useConnect } from '@connect2ic/react';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
-import About from '../profile/about/about';
+import { useGetProfile } from '@/hooks';
 
 export default function Nav_User() {
+  const { activeProvider } = useConnect();
+  const { data: profile } = useGetProfile({
+    principal: activeProvider?.principal,
+  });
+
   return (
     <Menu as="div" className="relative">
       <Menu.Button className="-m-1.5 flex items-center p-1.5">
         <span className="sr-only">Open user menu</span>
         <Image
           className="h-8 w-8 rounded-full bg-gray-800"
-          src="/images/avatars/avatar_nav_right.png"
+          src={
+            profile ? profile.avatar : '/images/avatars/avatar_nav_right.png'
+          }
           alt=""
           width={50}
           height={50}
@@ -37,7 +45,7 @@ export default function Nav_User() {
       >
         <Menu.Items className="absolute right-0 xs:-right-4 sm:-right-6 md:right-0 mt-4 pb-20 lg:pr-10 w-screen max-w-3xl origin-top-right rounded-3xl bg-gray-900 py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none border border-emerald-300">
           <Menu.Item className="flex relative justify-center align-middle ">
-            <About />
+            <div>TODO</div>
           </Menu.Item>
         </Menu.Items>
       </Transition>

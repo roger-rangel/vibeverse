@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactModal, { Styles } from 'react-modal';
+import ReactModal, { Styles, Props } from 'react-modal';
 
 export { useModal } from 'react-modal-hook';
 
@@ -20,18 +20,16 @@ const customStyles: Styles = {
   },
 };
 
-export interface ModalProps {
-  isOpen: boolean;
+export interface ModalProps extends Props {
   hideModal: () => void;
 }
 
 export function Modal({
   children,
-  isOpen,
-  hideModal,
+  ...rest
 }: React.PropsWithChildren<ModalProps>) {
   return (
-    <ReactModal isOpen={isOpen} onRequestClose={hideModal} style={customStyles}>
+    <ReactModal style={customStyles} ariaHideApp={false} {...rest}>
       {children}
     </ReactModal>
   );

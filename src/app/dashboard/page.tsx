@@ -1,16 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+
 import { Preview } from '@/components/dashboard/home';
 import { Mixpanel } from '@/components/Mixpanel';
 import Sign from '@/components/dashboard/shorts/sign';
 import Header from '@/components/dashboard/aitools/header';
-import AvatarModal from '@/components/dashboard/home/avatar_modal';
 
 export default function Dashboard() {
-  const [isModalOpen, setIsModalOpen] = useState(true); // State to control modal
-
   useEffect(() => {
     Mixpanel.track('Dashboard visited');
   }, []);
@@ -29,8 +27,6 @@ export default function Dashboard() {
         <Sign />
         <Header />
       </div>
-
-      {isModalOpen && <AvatarModal onClose={() => setIsModalOpen(false)} />}
     </div>
   );
 }

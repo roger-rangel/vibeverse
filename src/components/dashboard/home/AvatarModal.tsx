@@ -1,40 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { FormEventHandler, useState } from 'react';
 import Image from 'next/image';
-import { avatars } from '../../../constants';
+import { useRouter } from 'next/navigation';
 
-// AvatarModal.js
-export default function AvatarModal({ onClose }) {
+import { Modal, ModalProps } from '@/components/Modal';
+import { avatars } from '@/constants';
+import { useActor } from '@/hooks';
+import { toast } from 'react-toastify';
+
+export default function AvatarModal(props: ModalProps) {
   const [name, setName] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const { actor } = useActor();
+  const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-  };
+    if (!actor) return;
 
-  const handleClose = () => {
-    onClose(false);
+    await actor.set_creator_metadata(name, avatar);
+    toast.success("Profile created! Let's go 🚀");
+    props.hideModal();
+    router.push('/dashboard');
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-50 ">
-      <div className="bg-gray-900 rounded-lg overflow-y-auto max-h-[calc(100%-2rem)] p-8 w-full max-w-2xl mx-4 my-8 border border-indigo-600">
+    <Modal {...props}>
+      <div className="bg-gray-900 rounded-lg overflow-y-auto max-h-[calc(100%-2rem)] p-8 w-full max-w-2xl border border-indigo-600">
         <form onSubmit={handleSubmit}>
           <div className="space-y-12 ">
             <div className="border-white/10 pb-6">
               <div className="flex justify-between mb-4 items-center">
                 <h2 className="text-3xl font-semibold leading-7 text-white">
-                    LET&apos;S GET STARTED
+                  LET&apos;S GET STARTED
                 </h2>
                 <button
-                  onClick={handleClose}
+                  onClick={props.hideModal}
                   type="button"
-                  class="rounded-md p-1 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-purple-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                  className="rounded-md p-1 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-purple-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                 >
-                  <span class="sr-only">Close menu</span>
+                  <span className="sr-only">Close menu</span>
 
                   <svg
-                    class="h-6 w-6"
+                    className="h-6 w-6"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -42,9 +51,9 @@ export default function AvatarModal({ onClose }) {
                     aria-hidden="true"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M6 18L18 6M6 6l12 12"
                     />
                   </svg>
@@ -68,7 +77,7 @@ export default function AvatarModal({ onClose }) {
                         autoComplete="title"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
+                        className="flex-1 border-0 bg-transparent py-1.5 px-2 text-white focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="Choose a cool name  🦜"
                       />
                     </div>
@@ -88,10 +97,15 @@ export default function AvatarModal({ onClose }) {
           <div className="overflow-y-auto h-60">
             <ul
               role="list"
-              className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+              className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8 p-2"
             >
               {avatars.map((avatar) => (
-                <li key={avatar.source} className="relative">
+                <li
+                  key={avatar.source}
+                  value={avatar.source}
+                  className="relative"
+                  onClick={() => setAvatar(avatar.source)}
+                >
                   <div className="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg focus-within:ring-2 focus-within:ring-indigo-500 ">
                     <Image
                       src={avatar.source}
@@ -122,7 +136,7 @@ export default function AvatarModal({ onClose }) {
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button
-              onClick={handleClose}
+              onClick={props.hideModal}
               type="button"
               className="text-sm font-semibold leading-6 text-white"
             >
@@ -137,6 +151,6 @@ export default function AvatarModal({ onClose }) {
           </div>
         </form>
       </div>
-    </div>
+    </Modal>
   );
 }
