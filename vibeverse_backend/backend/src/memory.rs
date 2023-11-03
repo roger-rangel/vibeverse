@@ -9,6 +9,9 @@ use std::collections::BTreeMap;
 use crate::types::{Collection, CollectionId, Creator, Memory, Nft, NftId, StorablePrincipal};
 
 const UPGRADES: MemoryId = MemoryId::new(0);
+const CREATORS_MEMORY_ID: MemoryId = MemoryId::new(1);
+const COLLECTIONS_MEMORY_ID: MemoryId = MemoryId::new(2);
+const ADMINS_MEMORY_ID: MemoryId = MemoryId::new(6);
 
 // TODO: Migrate heap states to here
 #[derive(Default, Serialize, Deserialize)]
@@ -26,11 +29,16 @@ thread_local! {
         RefCell::new(MemoryManager::init(DefaultMemoryImpl::default()));
 
     pub static CREATORS: RefCell<StableBTreeMap<StorablePrincipal, Creator, Memory>> = RefCell::new(
-        StableBTreeMap::init(get_memory(MemoryId::new(1)))
+        StableBTreeMap::init(get_memory(CREATORS_MEMORY_ID))
     );
+
+    pub static ADMINS: RefCell<StableBTreeMap<StorablePrincipal, u8, Memory>> = RefCell::new(
+        StableBTreeMap::init(get_memory(ADMINS_MEMORY_ID))
+    );
+
     // NFT
     pub static COLLECTIONS: RefCell<StableBTreeMap<CollectionId, Collection, Memory>> = RefCell::new(
-        StableBTreeMap::init(get_memory(MemoryId::new(2)))
+        StableBTreeMap::init(get_memory(COLLECTIONS_MEMORY_ID))
     );
     pub static NFTS: RefCell<BTreeMap<CollectionId, Vec<Nft>>> = RefCell::default();
     pub static COLLECTIONS_OF: RefCell<BTreeMap<Principal, Vec<CollectionId>>> = RefCell::default();

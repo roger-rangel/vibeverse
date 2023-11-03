@@ -1,19 +1,12 @@
-use std::{cell::RefCell, collections::BTreeSet};
-
 use candid::Principal;
 
-type AdminStore = BTreeSet<Principal>;
-
-thread_local! {
-  static ADMINS: RefCell<AdminStore> = RefCell::default();
-
-}
+use crate::memory::ADMINS;
 
 pub fn add_admins_unchecked(admins_to_add: Vec<Principal>) -> Result<(), String> {
     ADMINS.with(|admins| {
         let mut admins = admins.borrow_mut();
         for admin in admins_to_add {
-            admins.insert(admin);
+            admins.insert(admin.into(), 1u8);
         }
         Ok(())
     })
@@ -23,14 +16,14 @@ pub fn remove_admins_unchecked(admins_to_remove: Vec<Principal>) -> Result<(), S
     ADMINS.with(|admins| {
         let mut admins = admins.borrow_mut();
         for admin in admins_to_remove {
-            admins.remove(&admin);
+            admins.remove(&admin.into());
         }
         Ok(())
     })
 }
 
 pub fn is_admin(principal: Principal) -> bool {
-    ADMINS.with(|admins| admins.borrow().contains(&principal))
+    ADMINS.with(|admins| admins.borrow().get(&principal.into()).unwrap_or_default().eq(&1u8))
 }
 
 pub fn add_admins(caller: Principal, admins_to_add: Vec<Principal>) -> Result<(), String> {
