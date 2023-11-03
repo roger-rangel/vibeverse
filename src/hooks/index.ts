@@ -6,3 +6,4 @@ export * from './useGetCollectionsCreatedByPrincipal';
 export * from './useGetCollections';
 export * from './useGetCollection';
 export * from './useGetCollectionNfts';
+export * from './useGetProfile';

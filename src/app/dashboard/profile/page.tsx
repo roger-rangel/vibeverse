@@ -6,8 +6,7 @@ import { Poppins } from 'next/font/google';
 import About from '@/components/dashboard/profile/about/about';
 import Items from '@/components/dashboard/profile/items/items';
 
-import { useGetPrincipalCollections, useGetPrincipalNfts } from '@/hooks';
-import { useConnect } from '@connect2ic/react';
+import { useGetPrincipalNfts } from '@/hooks';
 
 const poppins = Poppins({
   weight: '300',
@@ -15,14 +14,7 @@ const poppins = Poppins({
 });
 
 const ProfilePage = () => {
-  const { activeProvider } = useConnect();
-  const { data: collections } = useGetPrincipalCollections();
   const { data: nfts } = useGetPrincipalNfts();
-
-  // TODO Remove once collection & nft view
-  console.log('principal', activeProvider?.principal);
-  console.log('collections', collections);
-  console.log('nfts', nfts);
 
   return (
     <div
