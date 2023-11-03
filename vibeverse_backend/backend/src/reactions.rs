@@ -3,7 +3,7 @@ use std::{
     collections::{BTreeMap, BTreeSet},
 };
 
-use candid::{CandidType, Nat, Principal};
+use candid::{CandidType, Nat};
 
 use crate::types::{NftId, UserId};
 
@@ -120,6 +120,8 @@ pub fn is_available_emoji(emoji: &String) -> bool {
 
 #[cfg(test)]
 mod tests {
+    use candid::Principal;
+
     use super::*;
 
     const ALI: Principal = Principal::from_slice(&[0; 24]);

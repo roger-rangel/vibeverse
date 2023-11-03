@@ -151,12 +151,40 @@ pub fn collection_count() -> CollectionId {
 }
 
 // ---- reactions start ----
-#[query]
+#[update]
 pub fn add_reaction(collection_id: CollectionId, nft_id: Nat, emoji: String) -> Result<(), String> {
     let caller = ic_cdk::api::caller();
 
     reactions::add_reaction((collection_id, nft_id.into()), Reaction::new(caller, emoji))
 }
+
+#[update]
+pub fn remove_reaction(collection_id: CollectionId, nft_id: Nat, emoji: String) -> Result<(), String> {
+    let caller = ic_cdk::api::caller();
+
+    reactions::remove_reaction((collection_id, nft_id.into()), Reaction::new(caller, emoji))
+}
+
+#[update(guard = "caller_is_admin")]
+pub fn register_emojis(emojis: Vec<String>) -> Result<Nat, String> {
+    reactions::register_emojis(emojis)
+}
+
+#[update(guard = "caller_is_admin")]
+pub fn unregister_emojis(emojis: Vec<String>) -> Result<Nat, String> {
+    reactions::unregister_emojis(emojis)
+}
+
+#[query]
+pub fn get_reactions(collection_id: CollectionId, nft_id: Nat) -> Vec<Reaction> {
+    reactions::get_reactions((collection_id, nft_id.into()))
+}
+
+#[query]
+pub fn get_emojis() -> Vec<String> {
+    reactions::emojis()
+}
+
 // ---- reactions end ----
 
 // Administrative functions
