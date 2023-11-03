@@ -367,7 +367,8 @@ async fn ensure_fee_payment(payer: Principal, required_fee: u128) -> Result<(), 
                 return Err("Fee needs to be payed");
             }
 
-            let maybe_treasuery = crate::administrative::admin();
+            // TODO: Add endpoint for treasury
+            let maybe_treasuery = STATE.with(|s| s.borrow().treasury.clone());
 
             if let Some(treasuery) = maybe_treasuery {
                 // Send vibe tokens to the treasury

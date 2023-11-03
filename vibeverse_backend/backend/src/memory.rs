@@ -16,7 +16,7 @@ pub struct State {
     pub collection_fee: u64,
     pub mint_fee: u64,
     pub vibe_token: Option<Principal>,
-    pub admin: Option<Principal>,
+    pub treasury: Option<Principal>,
     pub total_collections: CollectionId,
 }
 
