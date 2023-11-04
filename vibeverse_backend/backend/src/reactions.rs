@@ -1,13 +1,13 @@
 use std::{
     cell::RefCell,
-    collections::{BTreeMap, BTreeSet},
+    collections::{BTreeMap, HashSet},
 };
 
 use candid::{CandidType, Nat};
 
 use crate::types::{NftId, UserId};
 
-const MAX_EMOJI_LENGTH_BYTES: usize = 40;
+// const MAX_EMOJI_LENGTH_BYTES: usize = 40;
 
 #[derive(CandidType, Clone, Debug, Ord, PartialOrd, Eq, PartialEq, Hash)]
 pub struct Reaction {
@@ -26,7 +26,7 @@ impl Reaction {
 }
 
 type ReactionStore = BTreeMap<NftId, Vec<Reaction>>;
-type EmjoiStore = BTreeSet<String>;
+type EmjoiStore = HashSet<String>;
 
 thread_local! {
     static REACTIONS: RefCell<ReactionStore> = RefCell::default();
@@ -80,12 +80,12 @@ pub fn register_emojis(emojis_to_add: Vec<String>) -> Result<Nat, String> {
     EMOJIS.with(|emojis| {
         let mut emojis = emojis.borrow_mut();
         for emoji in emojis_to_add {
-            if emoji.len() > MAX_EMOJI_LENGTH_BYTES {
-                return Err(format!(
-                    "Emoji {} is too long. Max length is {} bytes.",
-                    emoji, MAX_EMOJI_LENGTH_BYTES
-                ));
-            }
+            // if emoji.len() > MAX_EMOJI_LENGTH_BYTES {
+            //     return Err(format!(
+            //         "Emoji {} is too long. Max length is {} bytes.",
+            //         emoji, MAX_EMOJI_LENGTH_BYTES
+            //     ));
+            // }
             if emojis.insert(emoji) {
                 added += Nat::from(1);
             }
