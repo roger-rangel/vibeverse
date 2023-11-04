@@ -11,11 +11,11 @@ mod guards;
 mod lifecycle;
 mod memory;
 mod nfts;
-mod reactions;
-mod types;
 
 #[cfg(test)]
 mod nfts_tests;
+mod reactions;
+mod types;
 
 use guards::*;
 use reactions::AddRemoveReactionResult;
@@ -168,6 +168,7 @@ pub fn unregister_emojis(emojis: Vec<Emoji>) -> Result<Nat, String> {
     reactions::unregister_emojis(emojis)
 }
 
+#[deprecated]
 #[query]
 pub fn get_reactions(collection_id: CollectionId, nft_id: Nat) -> Vec<Reaction> {
     reactions::get_reactions((collection_id, nft_id.into()))

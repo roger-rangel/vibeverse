@@ -1,19 +1,9 @@
-use std::{
-    cell::RefCell,
-    collections::{BTreeMap, HashSet},
-};
-
 use candid::{CandidType, Nat};
 
-use crate::types::{Emoji, NftId, Reaction, Reactions, UserId};
-
-type ReactionStore = BTreeMap<NftId, Reactions>;
-type EmjoiStore = HashSet<String>;
-
-thread_local! {
-    static REACTIONS: RefCell<ReactionStore> = RefCell::default();
-    static EMOJIS: RefCell<EmjoiStore> = RefCell::default();
-}
+use crate::{
+    memory::{REACTIONS, STATE},
+    types::{Emoji, NftId, Reaction, UserId},
+};
 
 #[derive(Debug, CandidType)]
 #[repr(u8)]
@@ -58,16 +48,9 @@ pub fn get_reactions(nft_id: NftId) -> Vec<Reaction> {
 // Register emojis by admin
 pub fn register_emojis(emojis_to_add: Vec<Emoji>) -> Result<Nat, String> {
     let mut added = Nat::from(0);
-    EMOJIS.with(|emojis| {
-        let mut emojis = emojis.borrow_mut();
+    STATE.with(|state| {
         for emoji in emojis_to_add {
-            // if emoji.len() > MAX_EMOJI_LENGTH_BYTES {
-            //     return Err(format!(
-            //         "Emoji {} is too long. Max length is {} bytes.",
-            //         emoji, MAX_EMOJI_LENGTH_BYTES
-            //     ));
-            // }
-            if emojis.insert(emoji) {
+            if state.borrow_mut().emojis.insert(emoji) {
                 added += Nat::from(1);
             }
         }
@@ -78,10 +61,9 @@ pub fn register_emojis(emojis_to_add: Vec<Emoji>) -> Result<Nat, String> {
 // Unregister emojis by admin
 pub fn unregister_emojis(emojis_to_remove: Vec<Emoji>) -> Result<Nat, String> {
     let mut removed = Nat::from(0);
-    EMOJIS.with(|emojis| {
-        let mut emojis = emojis.borrow_mut();
+    STATE.with(|state| {
         for emoji in emojis_to_remove {
-            if emojis.remove(&emoji) {
+            if state.borrow_mut().emojis.remove(&emoji) {
                 removed += Nat::from(1);
             }
         }
@@ -92,11 +74,11 @@ pub fn unregister_emojis(emojis_to_remove: Vec<Emoji>) -> Result<Nat, String> {
 // Return available emojis
 // TODO: Check if pagination is needed
 pub fn emojis() -> Vec<Emoji> {
-    EMOJIS.with(|emojis| emojis.borrow().iter().cloned().collect())
+    STATE.with(|state| state.borrow().emojis.iter().cloned().collect())
 }
 
 pub fn is_available_emoji(emoji: &Emoji) -> bool {
-    EMOJIS.with(|emojis| emojis.borrow().contains(emoji))
+    STATE.with(|state| state.borrow().emojis.contains(emoji))
 }
 
 #[cfg(test)]
