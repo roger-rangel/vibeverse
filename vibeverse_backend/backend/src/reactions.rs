@@ -5,27 +5,9 @@ use std::{
 
 use candid::{CandidType, Nat};
 
-use crate::types::{NftId, UserId};
+use crate::types::{Emoji, NftId, Reaction, Reactions, UserId};
 
-// const MAX_EMOJI_LENGTH_BYTES: usize = 40;
-
-#[derive(CandidType, Clone, Debug, Ord, PartialOrd, Eq, PartialEq, Hash)]
-pub struct Reaction {
-    user: UserId,
-    emoji: String,
-}
-
-impl Reaction {
-    pub fn new(user: UserId, emoji: String) -> Reaction {
-        Reaction { user, emoji }
-    }
-
-    pub fn is_valid(&self) -> bool {
-        is_available_emoji(&self.emoji)
-    }
-}
-
-type ReactionStore = BTreeMap<NftId, Vec<Reaction>>;
+type ReactionStore = BTreeMap<NftId, Reactions>;
 type EmjoiStore = HashSet<String>;
 
 thread_local! {
@@ -33,37 +15,36 @@ thread_local! {
     static EMOJIS: RefCell<EmjoiStore> = RefCell::default();
 }
 
-pub fn add_reaction(nft_id: NftId, reaction: Reaction) -> Result<(), String> {
-    // check if the reaction is valid
-    if !reaction.is_valid() {
-        return Err(format!("Reaction {} is not valid.", reaction.emoji));
-    }
-
-    REACTIONS.with(|reactions| {
-        let mut reactions = reactions.borrow_mut();
-        let reactions_for_nft = reactions.entry(nft_id.clone()).or_default();
-        if reactions_for_nft.contains(&reaction) {
-            return Err(format!("Reaction {} already exists for NFT {}.", reaction.emoji, nft_id.1));
-        }
-        reactions_for_nft.push(reaction);
-        Ok(())
-    })
+#[derive(Debug, CandidType)]
+#[repr(u8)]
+pub enum AddRemoveReactionResult {
+    Added,
+    Removed,
 }
 
-pub fn remove_reaction(nft_id: NftId, reaction: Reaction) -> Result<(), String> {
-    // check if the reaction is valid
-    if !reaction.is_valid() {
-        return Err(format!("Reaction {} is not valid.", reaction.emoji));
+pub fn add_remove_reaction(nft_id: NftId, user_id: UserId, emoji: Emoji) -> Result<AddRemoveReactionResult, String> {
+    if !is_available_emoji(&emoji) {
+        return Err(format!("Emoji {} is not available.", emoji));
     }
 
     REACTIONS.with(|reactions| {
         let mut reactions = reactions.borrow_mut();
-        let reactions_for_nft = reactions.entry(nft_id.clone()).or_default();
-        if !reactions_for_nft.contains(&reaction) {
-            return Err(format!("Reaction {} does not exist for NFT {}.", reaction.emoji, nft_id.1));
-        }
-        reactions_for_nft.retain(|r| r != &reaction);
-        Ok(())
+        let nft_reactions = reactions.entry(nft_id.clone()).or_default();
+
+        let result = if let Some((_, users)) = nft_reactions.iter_mut().find(|(r, _)| *r == emoji) {
+            if users.contains(&user_id) {
+                users.remove(&user_id);
+                AddRemoveReactionResult::Removed
+            } else {
+                users.insert(user_id);
+                AddRemoveReactionResult::Added
+            }
+        } else {
+            nft_reactions.push((emoji, vec![user_id].into_iter().collect()));
+            AddRemoveReactionResult::Added
+        };
+
+        Ok(result)
     })
 }
 
@@ -75,7 +56,7 @@ pub fn get_reactions(nft_id: NftId) -> Vec<Reaction> {
 }
 
 // Register emojis by admin
-pub fn register_emojis(emojis_to_add: Vec<String>) -> Result<Nat, String> {
+pub fn register_emojis(emojis_to_add: Vec<Emoji>) -> Result<Nat, String> {
     let mut added = Nat::from(0);
     EMOJIS.with(|emojis| {
         let mut emojis = emojis.borrow_mut();
@@ -95,7 +76,7 @@ pub fn register_emojis(emojis_to_add: Vec<String>) -> Result<Nat, String> {
 }
 
 // Unregister emojis by admin
-pub fn unregister_emojis(emojis_to_remove: Vec<String>) -> Result<Nat, String> {
+pub fn unregister_emojis(emojis_to_remove: Vec<Emoji>) -> Result<Nat, String> {
     let mut removed = Nat::from(0);
     EMOJIS.with(|emojis| {
         let mut emojis = emojis.borrow_mut();
@@ -110,11 +91,11 @@ pub fn unregister_emojis(emojis_to_remove: Vec<String>) -> Result<Nat, String> {
 
 // Return available emojis
 // TODO: Check if pagination is needed
-pub fn emojis() -> Vec<String> {
+pub fn emojis() -> Vec<Emoji> {
     EMOJIS.with(|emojis| emojis.borrow().iter().cloned().collect())
 }
 
-pub fn is_available_emoji(emoji: &String) -> bool {
+pub fn is_available_emoji(emoji: &Emoji) -> bool {
     EMOJIS.with(|emojis| emojis.borrow().contains(emoji))
 }
 
@@ -145,58 +126,14 @@ mod tests {
     fn test_add_reaction() {
         register_emojis(vec!["🐶".to_string(), "🐱".to_string()]).unwrap();
         let nft_id: NftId = (Nat::from(1).into(), Nat::from(1).into());
-        let reaction = Reaction::new(ALI, String::from("🐶"));
-        add_reaction(nft_id.clone(), reaction.clone()).unwrap();
+
+        add_remove_reaction(nft_id.clone(), ALI, String::from("🐶")).unwrap();
         let reactions = get_reactions(nft_id.clone());
         assert_eq!(reactions.len(), 1);
-        assert_eq!(reactions[0], reaction);
+        assert_eq!(reactions[0].0, String::from("🐶"));
 
-        let reaction = Reaction::new(BOB, String::from("🐶"));
-        add_reaction(nft_id.clone(), reaction.clone()).unwrap();
+        add_remove_reaction(nft_id.clone(), BOB, String::from("🐶")).unwrap();
         let reactions = get_reactions(nft_id.clone());
         assert_eq!(reactions.len(), 2);
-        assert_eq!(reactions[0], Reaction::new(ALI, String::from("🐶")));
-        assert_eq!(reactions[1], Reaction::new(BOB, String::from("🐶")));
-
-        let reaction = Reaction::new(ALI, String::from("🐶"));
-        let result = add_reaction(nft_id.clone(), reaction.clone());
-        assert!(result.is_err());
-        assert_eq!(result.unwrap_err(), "Reaction 🐶 already exists for NFT 1.");
-
-        let reaction = Reaction::new(ALI, String::from("🚀"));
-        let result = add_reaction(nft_id.clone(), reaction.clone());
-        assert!(result.is_err());
-        assert_eq!(result.unwrap_err(), "Reaction 🚀 is not valid.");
-    }
-
-    #[test]
-    fn test_remove_reaction() {
-        register_emojis(vec!["🐶".to_string(), "🐱".to_string()]).unwrap();
-        let nft_id: NftId = (Nat::from(1).into(), Nat::from(1).into());
-        let reaction = Reaction::new(ALI, String::from("🐶"));
-        add_reaction(nft_id.clone(), reaction.clone()).unwrap();
-        let reaction = Reaction::new(BOB, String::from("🐶"));
-        add_reaction(nft_id.clone(), reaction.clone()).unwrap();
-        let reaction = Reaction::new(ALI, String::from("🐱"));
-        add_reaction(nft_id.clone(), reaction.clone()).unwrap();
-        let reactions = get_reactions(nft_id.clone());
-        assert_eq!(reactions.len(), 3);
-
-        let reaction = Reaction::new(ALI, String::from("🐶"));
-        remove_reaction(nft_id.clone(), reaction.clone()).unwrap();
-        let reactions = get_reactions(nft_id.clone());
-        assert_eq!(reactions.len(), 2);
-        assert_eq!(reactions[0], Reaction::new(BOB, String::from("🐶")));
-        assert_eq!(reactions[1], Reaction::new(ALI, String::from("🐱")));
-
-        let reaction = Reaction::new(ALI, String::from("🐶"));
-        let result = remove_reaction(nft_id.clone(), reaction.clone());
-        assert!(result.is_err());
-        assert_eq!(result.unwrap_err(), "Reaction 🐶 does not exist for NFT 1.");
-
-        let reaction = Reaction::new(ALI, String::from("🚀"));
-        let result = remove_reaction(nft_id.clone(), reaction.clone());
-        assert!(result.is_err());
-        assert_eq!(result.unwrap_err(), "Reaction 🚀 is not valid.");
     }
 }

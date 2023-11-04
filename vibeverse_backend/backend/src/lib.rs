@@ -18,7 +18,7 @@ mod types;
 mod nfts_tests;
 
 use guards::*;
-use reactions::Reaction;
+use reactions::AddRemoveReactionResult;
 use types::*;
 
 #[update]
@@ -152,26 +152,19 @@ pub fn collection_count() -> CollectionId {
 
 // ---- reactions start ----
 #[update]
-pub fn add_reaction(collection_id: CollectionId, nft_id: Nat, emoji: String) -> Result<(), String> {
+pub fn add_remove_reaction(collection_id: CollectionId, nft_id: Nat, emoji: Emoji) -> Result<AddRemoveReactionResult, String> {
     let caller = ic_cdk::api::caller();
 
-    reactions::add_reaction((collection_id, nft_id.into()), Reaction::new(caller, emoji))
-}
-
-#[update]
-pub fn remove_reaction(collection_id: CollectionId, nft_id: Nat, emoji: String) -> Result<(), String> {
-    let caller = ic_cdk::api::caller();
-
-    reactions::remove_reaction((collection_id, nft_id.into()), Reaction::new(caller, emoji))
+    reactions::add_remove_reaction((collection_id, nft_id.into()), caller, emoji)
 }
 
 #[update(guard = "caller_is_admin")]
-pub fn register_emojis(emojis: Vec<String>) -> Result<Nat, String> {
+pub fn register_emojis(emojis: Vec<Emoji>) -> Result<Nat, String> {
     reactions::register_emojis(emojis)
 }
 
 #[update(guard = "caller_is_admin")]
-pub fn unregister_emojis(emojis: Vec<String>) -> Result<Nat, String> {
+pub fn unregister_emojis(emojis: Vec<Emoji>) -> Result<Nat, String> {
     reactions::unregister_emojis(emojis)
 }
 
@@ -181,7 +174,7 @@ pub fn get_reactions(collection_id: CollectionId, nft_id: Nat) -> Vec<Reaction> 
 }
 
 #[query]
-pub fn get_emojis() -> Vec<String> {
+pub fn get_emojis() -> Vec<Emoji> {
     reactions::emojis()
 }
 
