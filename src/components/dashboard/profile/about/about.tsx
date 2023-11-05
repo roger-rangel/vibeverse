@@ -9,6 +9,8 @@ import { useConnect } from '@connect2ic/react';
 import styles from './About.module.scss';
 import { useGetProfile, useGetPrincipalNfts } from '@/hooks';
 
+import Call_To_Action from '../call_to_action/call_to_action.jsx';
+
 const About = () => {
   const { activeProvider } = useConnect();
   const { data: profile } = useGetProfile({
@@ -16,16 +18,13 @@ const About = () => {
   });
   const { data: nfts } = useGetPrincipalNfts();
 
-  // If there's no activeProvider or profile, the user is not connected
+  
   if (!profile) {
     return (
       <div>
-        <h2 className="text-center text-xl text-[#4db5ff]">Not Connected</h2>
-        <p className="text-center text-sm text-gray-200">
-          You are not connected. Please connect your wallet to view your profile.
-        </p>
-        {/* Here you might provide a button or link to connect the wallet */}
+        <Call_To_Action />
       </div>
+
     );
   }
 
