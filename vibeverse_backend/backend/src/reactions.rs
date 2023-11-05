@@ -1,7 +1,7 @@
 use candid::{CandidType, Nat};
 
 use crate::{
-    memory::{REACTIONS, STATE},
+    memory::{METADATA, STATE},
     types::{Emoji, NftId, Reaction, UserId},
 };
 
@@ -17,11 +17,11 @@ pub fn add_remove_reaction(nft_id: NftId, user_id: UserId, emoji: Emoji) -> Resu
         return Err(format!("Emoji {} is not available.", emoji));
     }
 
-    REACTIONS.with(|reactions| {
-        let mut reactions = reactions.borrow_mut();
-        let nft_reactions = reactions.entry(nft_id.clone()).or_default();
+    METADATA.with(|s| {
+        let mut state = s.borrow_mut();
+        let metadata = state.entry(nft_id.clone()).or_default();
 
-        let result = if let Some((_, users)) = nft_reactions.iter_mut().find(|(r, _)| *r == emoji) {
+        let result = if let Some((_, users)) = metadata.reactions.iter_mut().find(|(r, _)| *r == emoji) {
             if users.contains(&user_id) {
                 users.remove(&user_id);
                 AddRemoveReactionResult::Removed
@@ -30,7 +30,7 @@ pub fn add_remove_reaction(nft_id: NftId, user_id: UserId, emoji: Emoji) -> Resu
                 AddRemoveReactionResult::Added
             }
         } else {
-            nft_reactions.push((emoji, vec![user_id].into_iter().collect()));
+            metadata.reactions.push((emoji, vec![user_id].into_iter().collect()));
             AddRemoveReactionResult::Added
         };
 
@@ -39,9 +39,9 @@ pub fn add_remove_reaction(nft_id: NftId, user_id: UserId, emoji: Emoji) -> Resu
 }
 
 pub fn get_reactions(nft_id: NftId) -> Vec<Reaction> {
-    REACTIONS.with(|reactions| {
+    METADATA.with(|reactions| {
         let reactions = reactions.borrow();
-        reactions.get(&nft_id).cloned().unwrap_or_default()
+        reactions.get(&nft_id).cloned().unwrap_or_default().reactions
     })
 }
 
@@ -116,6 +116,7 @@ mod tests {
 
         add_remove_reaction(nft_id.clone(), BOB, String::from("🐶")).unwrap();
         let reactions = get_reactions(nft_id.clone());
-        assert_eq!(reactions.len(), 2);
+        assert_eq!(reactions.len(), 1);
+        assert_eq!(reactions.get(0).unwrap().1.len(), 2);
     }
 }

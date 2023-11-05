@@ -73,10 +73,10 @@ impl Storable for Nft {
     const BOUND: Bound = Bound::Unbounded;
 }
 
-#[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize)]
+#[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize, Default)]
 pub struct NftMetadata {
     #[serde(rename = "r", default, skip_serializing_if = "is_empty_slice")]
-    reactions: Reactions,
+    pub reactions: Reactions,
 }
 
 impl Storable for NftMetadata {

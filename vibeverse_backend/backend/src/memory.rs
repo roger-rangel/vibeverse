@@ -7,7 +7,7 @@ use std::cell::RefCell;
 use std::collections::{BTreeMap, HashSet};
 
 use crate::types::{
-    is_empty_hashset, Collection, CollectionId, Creator, Emoji, Memory, Nft, NftId, Reactions, StorablePrincipal,
+    is_empty_hashset, Collection, CollectionId, Creator, Emoji, Memory, Nft, NftId, NftMetadata, Reactions, StorablePrincipal,
 };
 
 const UPGRADES: MemoryId = MemoryId::new(0);
@@ -32,8 +32,6 @@ pub struct State {
     pub emojis: HashSet<Emoji>,
 }
 
-type ReactionStore = BTreeMap<NftId, Reactions>;
-
 thread_local! {
 
     static MEMORY_MANAGER: RefCell<MemoryManager<DefaultMemoryImpl>> =
@@ -49,7 +47,7 @@ thread_local! {
 
     pub static STATE: RefCell<State> = RefCell::new(State::default());
 
-    pub static REACTIONS: RefCell<ReactionStore> = RefCell::default();
+    pub static METADATA: RefCell<BTreeMap<NftId, NftMetadata>> = RefCell::default();
 
     // NFT
     pub static COLLECTIONS: RefCell<StableBTreeMap<CollectionId, Collection, Memory>> = RefCell::new(

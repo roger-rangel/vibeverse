@@ -151,7 +151,7 @@ pub fn collection_count() -> CollectionId {
 }
 
 // ---- reactions start ----
-#[update]
+#[update(guard = "caller_is_not_anonymous")]
 pub fn add_remove_reaction(collection_id: CollectionId, nft_id: Nat, emoji: Emoji) -> Result<AddRemoveReactionResult, String> {
     let caller = ic_cdk::api::caller();
 
