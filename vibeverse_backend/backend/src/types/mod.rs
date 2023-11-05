@@ -22,6 +22,7 @@ pub fn is_empty_hashset<T>(value: &HashSet<T>) -> bool {
     value.is_empty()
 }
 
+#[allow(dead_code)]
 pub fn is_empty_btreemap<K, V>(value: &BTreeMap<K, V>) -> bool {
     value.is_empty()
 }

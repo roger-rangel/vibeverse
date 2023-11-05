@@ -368,7 +368,7 @@ async fn ensure_fee_payment(payer: Principal, required_fee: u128) -> Result<(), 
             }
 
             // TODO: Add endpoint for treasury
-            let maybe_treasuery = STATE.with(|s| s.borrow().treasury.clone());
+            let maybe_treasuery = STATE.with(|s| s.borrow().treasury);
 
             if let Some(treasuery) = maybe_treasuery {
                 // Send vibe tokens to the treasury
