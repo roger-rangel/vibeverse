@@ -27,6 +27,9 @@ export const idlFactory = ({ IDL }) => {
     'category' : IDL.Text,
   });
   const Creator = IDL.Record({ 'name' : IDL.Text, 'avatar' : IDL.Text });
+  const NftMetadata = IDL.Record({
+    'r' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Vec(IDL.Principal))),
+  });
   const Result_3 = IDL.Variant({
     'Ok' : IDL.Tuple(IDL.Nat, IDL.Nat),
     'Err' : IDL.Text,
@@ -81,9 +84,9 @@ export const idlFactory = ({ IDL }) => {
       ),
     'get_collection' : IDL.Func([IDL.Nat], [IDL.Opt(Collection)], ['query']),
     'get_emojis' : IDL.Func([], [IDL.Vec(IDL.Text)], ['query']),
-    'get_reactions' : IDL.Func(
+    'get_nft_metadata' : IDL.Func(
         [IDL.Nat, IDL.Nat],
-        [IDL.Vec(IDL.Tuple(IDL.Text, IDL.Vec(IDL.Principal)))],
+        [IDL.Opt(NftMetadata)],
         ['query'],
       ),
     'is_admin' : IDL.Func([IDL.Principal], [IDL.Bool], ['query']),

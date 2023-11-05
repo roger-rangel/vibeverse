@@ -21,6 +21,7 @@ export interface Nft {
   'description' : string,
   'asset_url' : [] | [string],
 }
+export interface NftMetadata { 'r' : Array<[string, Array<Principal>]> }
 export type Result = { 'Ok' : null } |
   { 'Err' : string };
 export type Result_1 = { 'Ok' : bigint } |
@@ -51,10 +52,7 @@ export interface _SERVICE {
   'creator_metadata' : ActorMethod<[Principal], [] | [Creator]>,
   'get_collection' : ActorMethod<[bigint], [] | [Collection]>,
   'get_emojis' : ActorMethod<[], Array<string>>,
-  'get_reactions' : ActorMethod<
-    [bigint, bigint],
-    Array<[string, Array<Principal>]>
-  >,
+  'get_nft_metadata' : ActorMethod<[bigint, bigint], [] | [NftMetadata]>,
   'is_admin' : ActorMethod<[Principal], boolean>,
   'mint_fee' : ActorMethod<[], bigint>,
   'mint_nft' : ActorMethod<

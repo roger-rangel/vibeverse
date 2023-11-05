@@ -8,7 +8,7 @@ use tracing::info;
 
 use crate::{
     lifecycle::UPGRADE_BUFFER_SIZE,
-    memory::{self, COLLECTIONS_OF, NFTS, NFTS_OF, STATE},
+    memory::{self, COLLECTIONS_OF, METADATA, NFTS, NFTS_OF, STATE},
 };
 
 macro_rules! restore_state {
@@ -37,6 +37,8 @@ fn post_upgrade() {
     restore_state!(NFTS, 3);
     restore_state!(COLLECTIONS_OF, 4);
     restore_state!(NFTS_OF, 5);
+
+    restore_state!(METADATA, 6);
 
     info!("Upgrade complete");
 }

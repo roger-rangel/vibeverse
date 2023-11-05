@@ -10,6 +10,7 @@ mod creators_tests;
 mod guards;
 mod lifecycle;
 mod memory;
+mod nft_metadata;
 mod nfts;
 
 #[cfg(test)]
@@ -168,18 +169,17 @@ pub fn remove_emojis(emojis: Vec<Emoji>) -> Result<Nat, String> {
     reactions::unregister_emojis(emojis)
 }
 
-#[deprecated]
-#[query]
-pub fn get_reactions(collection_id: CollectionId, nft_id: Nat) -> Vec<Reaction> {
-    reactions::get_reactions((collection_id, nft_id.into()))
-}
-
 #[query]
 pub fn get_emojis() -> Vec<Emoji> {
     reactions::emojis()
 }
 
 // ---- reactions end ----
+
+#[query]
+pub fn get_nft_metadata(collection_id: CollectionId, nft_id: Nat) -> Option<NftMetadata> {
+    nft_metadata::get_metadata((collection_id, nft_id.into()))
+}
 
 // Administrative functions
 

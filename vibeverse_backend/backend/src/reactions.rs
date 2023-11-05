@@ -38,6 +38,7 @@ pub fn add_remove_reaction(nft_id: NftId, user_id: UserId, emoji: Emoji) -> Resu
     })
 }
 
+#[allow(dead_code)]
 pub fn get_reactions(nft_id: NftId) -> Vec<Reaction> {
     METADATA.with(|reactions| {
         let reactions = reactions.borrow();

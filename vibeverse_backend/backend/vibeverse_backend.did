@@ -17,6 +17,7 @@ type Nft = record {
   description : text;
   asset_url : opt text;
 };
+type NftMetadata = record { r : vec record { text; vec principal } };
 type Result = variant { Ok; Err : text };
 type Result_1 = variant { Ok : nat; Err : text };
 type Result_2 = variant { Ok : AddRemoveReactionResult; Err : text };
@@ -36,7 +37,7 @@ service : () -> {
   creator_metadata : (principal) -> (opt Creator) query;
   get_collection : (nat) -> (opt Collection) query;
   get_emojis : () -> (vec text) query;
-  get_reactions : (nat, nat) -> (vec record { text; vec principal }) query;
+  get_nft_metadata : (nat, nat) -> (opt NftMetadata) query;
   is_admin : (principal) -> (bool) query;
   mint_fee : () -> (nat64) query;
   mint_nft : (nat, principal, text, text, opt text) -> (Result_3);

@@ -7,7 +7,7 @@ use std::cell::RefCell;
 use std::collections::{BTreeMap, HashSet};
 
 use crate::types::{
-    is_empty_hashset, Collection, CollectionId, Creator, Emoji, Memory, Nft, NftId, NftMetadata, Reactions, StorablePrincipal,
+    is_empty_hashset, Collection, CollectionId, Creator, Emoji, Memory, Nft, NftId, NftMetadata, StorablePrincipal,
 };
 
 const UPGRADES: MemoryId = MemoryId::new(0);
@@ -49,7 +49,7 @@ thread_local! {
 
     pub static METADATA: RefCell<BTreeMap<NftId, NftMetadata>> = RefCell::default();
 
-    // NFT
+    // TODO: These sections should be moved to inter canister calls
     pub static COLLECTIONS: RefCell<StableBTreeMap<CollectionId, Collection, Memory>> = RefCell::new(
         StableBTreeMap::init(get_memory(COLLECTIONS_MEMORY_ID))
     );
