@@ -18,21 +18,21 @@ type Nft = record {
   asset_url : opt text;
 };
 type Result = variant { Ok; Err : text };
-type Result_1 = variant { Ok : AddRemoveReactionResult; Err : text };
-type Result_2 = variant { Ok : nat; Err : text };
+type Result_1 = variant { Ok : nat; Err : text };
+type Result_2 = variant { Ok : AddRemoveReactionResult; Err : text };
 type Result_3 = variant { Ok : record { nat; nat }; Err : text };
-type Result_4 = variant { Ok : nat; Err : text };
-type Result_5 = variant { Ok; Err : text };
+type Result_4 = variant { Ok; Err : text };
 service : () -> {
   add_admin : (principal) -> (Result);
-  add_remove_reaction : (nat, nat, text) -> (Result_1);
+  add_emojis : (vec text) -> (Result_1);
+  add_remove_reaction : (nat, nat, text) -> (Result_2);
   all_nfts : (opt nat, opt nat) -> (vec Nft) query;
   collection_count : () -> (nat) query;
   collection_fee : () -> (nat64) query;
   collections : (opt nat, opt nat) -> (vec Collection) query;
   collections_created_by : (principal) -> (vec Collection) query;
   collections_created_by_caller : () -> (vec Collection) query;
-  create_collection : (text, text, bool, opt nat, opt text, text) -> (Result_2);
+  create_collection : (text, text, bool, opt nat, opt text, text) -> (Result_1);
   creator_metadata : (principal) -> (opt Creator) query;
   get_collection : (nat) -> (opt Collection) query;
   get_emojis : () -> (vec text) query;
@@ -43,16 +43,15 @@ service : () -> {
   nfts : (nat, opt nat, opt nat) -> (vec Nft) query;
   nfts_of_caller : () -> (vec Nft) query;
   nfts_of_user : (principal) -> (vec Nft) query;
-  register_emojis : (vec text) -> (Result_4);
   remove_admin : (principal) -> (Result);
-  set_collection_fee : (nat64) -> (Result_5);
-  set_creator_metadata : (text, text) -> (Result_5);
-  set_mint_fee : (nat64) -> (Result_5);
-  set_vibe_token : (principal) -> (Result_5);
-  transfer_nft : (nat, nat, principal) -> (Result_5);
-  unregister_emojis : (vec text) -> (Result_4);
+  remove_emojis : (vec text) -> (Result_1);
+  set_collection_fee : (nat64) -> (Result_4);
+  set_creator_metadata : (text, text) -> (Result_4);
+  set_mint_fee : (nat64) -> (Result_4);
+  set_vibe_token : (principal) -> (Result_4);
+  transfer_nft : (nat, nat, principal) -> (Result_4);
   update_collection_metadata : (nat, text, text, opt text, opt text) -> (
-      Result_5,
+      Result_4,
     );
   vibe_token : () -> (opt principal) query;
 }

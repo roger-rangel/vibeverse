@@ -42,18 +42,17 @@ generate: build
 start:
 	dfx start --background --clean
 
-deploy-backend: build
+deploy: build
 	dfx deploy $(BACKEND)
-	
-db: deploy-backend
 
-upgrade-backend: build
+redeploy: build
+	dfx canister install $(BACKEND) --mode=reinstall
+
+upgrade: build
 	dfx canister install $(BACKEND) --mode=upgrade
-	
-ub: upgrade-backend
 
 deploy-ii:
 	dfx deploy internet_identity
 
-deploy-testdata:
+testdata:
 	scripts/deploy-test-data.sh

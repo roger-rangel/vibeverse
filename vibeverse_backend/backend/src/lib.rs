@@ -159,12 +159,12 @@ pub fn add_remove_reaction(collection_id: CollectionId, nft_id: Nat, emoji: Emoj
 }
 
 #[update(guard = "caller_is_admin")]
-pub fn register_emojis(emojis: Vec<Emoji>) -> Result<Nat, String> {
+pub fn add_emojis(emojis: Vec<Emoji>) -> Result<Nat, String> {
     reactions::register_emojis(emojis)
 }
 
 #[update(guard = "caller_is_admin")]
-pub fn unregister_emojis(emojis: Vec<Emoji>) -> Result<Nat, String> {
+pub fn remove_emojis(emojis: Vec<Emoji>) -> Result<Nat, String> {
     reactions::unregister_emojis(emojis)
 }
 
