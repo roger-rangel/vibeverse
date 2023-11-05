@@ -2,14 +2,20 @@
 
 import Image from 'next/image';
 import { Modal, ModalProps } from '@/components/Modal';
-import { Creator, DetailedNft } from '@/types';
+import { Creator, DetailedNft, NftMetadata } from '@/types';
+import { Reactions } from '../Emoji';
 
 export default function DetailedNftModal({
   nft,
   creator,
+  metadata,
   isOpen,
   hideModal,
-}: { nft: DetailedNft; creator?: Creator | null } & ModalProps) {
+}: {
+  nft: DetailedNft;
+  creator?: Creator | null;
+  metadata?: NftMetadata | null;
+} & ModalProps) {
   return (
     <Modal isOpen={isOpen} hideModal={hideModal}>
       <article className="bg-[#262626] pt-2 pb-8 sm:pl-6 xs:px-6 sm:px-0 rounded-3xl border border-indigo-600">
@@ -62,23 +68,11 @@ export default function DetailedNftModal({
                 height="600"
               />
               <div className="absolute top-0 left-0 w-full h-full flex items-end justify-end">
-                {nft.emoticons &&
-                  nft.emoticons.map((emoticon, index) => (
-                    <button
-                      key={index}
-                      className="bg-sky-950 mb-2 mx-1 mr-2 px-2 py-1 flex items-center justify-center rounded-full text-xs z-1 text-stone-300 gap-1 border border-indigo-500"
-                    >
-                      <Image
-                        key={index}
-                        className="xxs:h-4 xxs:w-4 sm:h-4 sm:w-4 rounded-full object-cover"
-                        src={emoticon}
-                        height={200}
-                        width={200}
-                        alt=""
-                      />
-                      12
-                    </button>
-                  ))}
+                <Reactions
+                  collectionId={nft.collectionId}
+                  nftId={nft.id}
+                  reactions={metadata?.reactions || []}
+                />
                 <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-tl-lg p-2">
                   <h2 className="text-white text-lg justify-center px-2">
                     100 Views

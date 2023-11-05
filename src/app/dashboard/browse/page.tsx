@@ -34,7 +34,7 @@ export default function Dashboard() {
 
   return (
     <div className="h-screen mx-auto relative">
-      <div className=" mx-auto bg-gradient-to-r  relative rounded-xl">
+      <div className="mx-auto bg-gradient-to-r relative rounded-xl px-4 sm:px-6 lg:px-8 flex flex-col gap-5 pt-8 pb-20">
         <Image
           src="/images/dashboard/test_background.png"
           layout="fill"
@@ -42,7 +42,7 @@ export default function Dashboard() {
           quality={1000}
           alt="Background"
         />
-        <div className="relative w-full justify-center items-center mx-auto px-4 pt-8 sm:px-6 lg:px-8 gap-1">
+        <div className="relative w-full justify-center items-center mx-auto gap-1">
           <div className="xs:flex xs:flex-wrap min-h-full w-full sm:grid sm:grid-cols-1 sm:grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 gap-1">
             <div className="relative rounded-lg flex flex-col justify-between sm:h-full overflow-hidden">
               <Image

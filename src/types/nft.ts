@@ -20,7 +20,6 @@ export interface DetailedNft extends Nft {
 }
 
 export const asNft = (nft: RawNft): Nft => {
-  console.log(nft);
   return {
     collectionId: nft.id[0],
     id: nft.id[1],

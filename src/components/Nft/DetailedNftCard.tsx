@@ -5,10 +5,11 @@ import { FaShare } from 'react-icons/fa';
 import { useModal } from 'react-modal-hook';
 import Image from 'next/image';
 
-import { useGetCreatorProfile } from '@/hooks';
+import { useGetCreatorProfile, useGetNftMetadata } from '@/hooks';
 import { DetailedNft } from '@/types';
 
 import DetailedNftModal from './DetailedNftModal';
+import { Reactions } from '../Emoji';
 
 const randomBackground = [
   'bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 text-white',
@@ -31,7 +32,10 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
   const { data: creator } = useGetCreatorProfile({
     collectionId: nft.collectionId,
   });
-  console.log(creator);
+  const { data: metadata } = useGetNftMetadata({
+    collectionId: nft.collectionId,
+    nftId: nft.id,
+  });
 
   const [showModal, hideModal] = useModal(
     () => (
@@ -39,18 +43,18 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
         isOpen
         nft={nft}
         creator={creator}
+        metadata={metadata}
         hideModal={hideModal}
       />
     ),
-    [nft, creator],
+    [nft, creator, metadata],
   );
 
   return (
     <div
-      className="pb-1 relative cursor-pointer"
+      className="pb-1 relative border border-blue-400 rounded-xl"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={showModal}
     >
       <Image
         src={nft.assetUrl || '/images/items/item_1.png'}
@@ -73,7 +77,10 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
               alt=""
             />
             {hovered && (
-              <button className="bg-sky-950 flex items-center justify-center xxs:invisible md:visible sm:h-12 sm:w-12 rounded-full text-lg xs:-mb-6 sm:-mb-6 lg:-mb-8 z-10 text-white border-2 border-green-500/100">
+              <button
+                className="bg-sky-950 flex items-center justify-center xxs:invisible md:visible sm:h-12 sm:w-12 rounded-full text-lg xs:-mb-6 sm:-mb-6 lg:-mb-8 z-10 text-white border-2 border-green-500/100"
+                onClick={showModal}
+              >
                 <FaShare />
               </button>
             )}
@@ -178,28 +185,11 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
                     </div>
                   </button>
                 </div>
-                <div className="flex gap-1 items-center justify-end">
-                  {nft.emoticons &&
-                    nft.emoticons.map((emoticon, index) => (
-                      <button
-                        key={index}
-                        className="bg-sky-950 px-2 py-1 flex items-center justify-center rounded-full text-xs z-1 text-stone-300 gap-1 border border-indigo-500"
-                      >
-                        <Image
-                          key={index}
-                          className="xxs:h-6 xxs:w-6 sm:h-4 sm:w-4 rounded-full object-cover"
-                          src={emoticon}
-                          height={200}
-                          width={200}
-                          alt=""
-                        />
-                        12
-                      </button>
-                    ))}
-                  <button className="bg-sky-950 flex items-center justify-center rounded-full w-6 h-6 text-xs z-1 text-white pb-0.5">
-                    +
-                  </button>
-                </div>
+                <Reactions
+                  collectionId={nft.collectionId}
+                  nftId={nft.id}
+                  reactions={metadata?.reactions || []}
+                />
               </div>
             </div>
           </div>

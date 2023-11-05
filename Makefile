@@ -44,6 +44,7 @@ start:
 
 deploy: build
 	dfx deploy $(BACKEND)
+	dfx deploy internet_identity
 
 redeploy: build
 	dfx canister install $(BACKEND) --mode=reinstall
