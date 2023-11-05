@@ -43,7 +43,7 @@ start:
 	dfx start --background --clean
 
 deploy-backend: build
-	dfx canister install $(BACKEND)
+	dfx deploy $(BACKEND)
 	
 db: deploy-backend
 
@@ -51,3 +51,9 @@ upgrade-backend: build
 	dfx canister install $(BACKEND) --mode=upgrade
 	
 ub: upgrade-backend
+
+deploy-ii:
+	dfx deploy internet_identity
+
+deploy-testdata:
+	scripts/deploy-test-data.sh
