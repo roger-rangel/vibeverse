@@ -5,6 +5,7 @@ import { FaShare } from 'react-icons/fa';
 import { useModal } from 'react-modal-hook';
 import Image from 'next/image';
 
+import { useGetCreatorProfile } from '@/hooks';
 import { DetailedNft } from '@/types';
 
 import DetailedNftModal from './DetailedNftModal';
@@ -27,6 +28,10 @@ const randomBackground = [
 export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
   const [hovered, setHovered] = useState(false);
   const randomIndex = Math.floor(Math.random() * randomBackground.length);
+  const { data: creator } = useGetCreatorProfile({
+    collectionId: nft.collectionId,
+  });
+  console.log(creator);
 
   const [showModal, hideModal] = useModal(
     () => <DetailedNftModal isOpen nft={nft} hideModal={hideModal} />,
@@ -55,7 +60,7 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
           <div className="w-full flex justify-between p-3">
             <Image
               className="xxs:h-16 xxs:w-16 sm:h-12 sm:w-12 rounded-full object-cover xs:mb-0 sm:mb-2 border border-white"
-              src={nft.profileImage}
+              src={creator?.avatar || nft.profileImage}
               height={200}
               width={200}
               alt=""

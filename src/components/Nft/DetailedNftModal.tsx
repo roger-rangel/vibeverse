@@ -11,10 +11,7 @@ export default function DetailedNftModal({
 }: { nft: DetailedNft } & ModalProps) {
   return (
     <Modal isOpen={isOpen} hideModal={hideModal}>
-      <article
-        key="1"
-        className="bg-[#262626] pt-2 pb-8 sm:pl-6 xs:px-6 sm:px-0 rounded-3xl border border-indigo-600"
-      >
+      <article className="bg-[#262626] pt-2 pb-8 sm:pl-6 xs:px-6 sm:px-0 rounded-3xl border border-indigo-600">
         <div className="flex text-blue-200 bottom-0 items-end justify-between pb-2">
           <div className="flex items-center ml-4 py-2">
             <Image
