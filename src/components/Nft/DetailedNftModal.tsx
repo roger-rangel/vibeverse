@@ -2,13 +2,14 @@
 
 import Image from 'next/image';
 import { Modal, ModalProps } from '@/components/Modal';
-import { DetailedNft } from '@/types';
+import { Creator, DetailedNft } from '@/types';
 
 export default function DetailedNftModal({
   nft,
+  creator,
   isOpen,
   hideModal,
-}: { nft: DetailedNft } & ModalProps) {
+}: { nft: DetailedNft; creator?: Creator | null } & ModalProps) {
   return (
     <Modal isOpen={isOpen} hideModal={hideModal}>
       <article className="bg-[#262626] pt-2 pb-8 sm:pl-6 xs:px-6 sm:px-0 rounded-3xl border border-indigo-600">
@@ -16,13 +17,13 @@ export default function DetailedNftModal({
           <div className="flex items-center ml-4 py-2">
             <Image
               className="xxs:h-10 xxs:w-10 sm:h-12 sm:w-12 rounded-full object-cover xs:mb-0 sm:mb-2 border border-white"
-              src={nft.profileImage}
+              src={creator?.avatar || nft.profileImage}
               height={200}
               width={200}
               alt=""
             />
             <div className={`py-2 px-2 rounded-xl pl-4`}>
-              <h2 className="text-2xl">{nft.creator}</h2>
+              <h2 className="text-2xl">{creator?.name || nft.creator}</h2>
             </div>
             <div className="flex items-center ml-4">
               {nft.awards &&

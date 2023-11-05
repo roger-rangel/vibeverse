@@ -34,8 +34,15 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
   console.log(creator);
 
   const [showModal, hideModal] = useModal(
-    () => <DetailedNftModal isOpen nft={nft} hideModal={hideModal} />,
-    [nft],
+    () => (
+      <DetailedNftModal
+        isOpen
+        nft={nft}
+        creator={creator}
+        hideModal={hideModal}
+      />
+    ),
+    [nft, creator],
   );
 
   return (
