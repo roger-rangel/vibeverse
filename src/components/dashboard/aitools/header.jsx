@@ -118,7 +118,7 @@ export default function Example() {
         </div>
         <div className="flex items-end justify-center">
           <Link
-            href="/dashboard/aicontent"
+            href="/dashboard/browse"
             className="flex items-center justify-center w-3/4 mb-4 rounded-md border border-white border-opacity-25 bg-white bg-opacity-0 px-4 py-3 text-base font-medium text-white hover:bg-opacity-10"
           >
             Become an AI Artist

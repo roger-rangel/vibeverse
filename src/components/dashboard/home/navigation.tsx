@@ -375,7 +375,7 @@ export default function Navigation({ children }: React.PropsWithChildren) {
             </div>
           </div>
 
-          <main className="w-full text-2xl font-semibold text-gray-900">
+          <main className="w-full text-2xl font-semibold text-gray-900 min-h-[calc(100vh-4rem)]">
             {children}
           </main>
         </div>

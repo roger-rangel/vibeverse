@@ -33,7 +33,7 @@ function Login() {
               2
             </p>
           </Link>
-          <Link href="/dashboard/aicontent">
+          <Link href="/dashboard/browse">
             <p className="flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl lg:border bg-gray-200 xs:p-4 xs:py-2 lg:p-4 lg:py-2">
               3
             </p>

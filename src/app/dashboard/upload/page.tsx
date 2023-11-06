@@ -79,7 +79,7 @@ export default function Upload() {
             <Image
               src={upload.imageUrl}
               alt=""
-              className="absolute inset-0 -z-10 h-full w-full object-cover"
+              className="absolute inset-0 -z-10 w-full object-cover"
               width={600}
               height={600}
             />

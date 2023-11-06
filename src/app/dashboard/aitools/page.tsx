@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { Roboto } from 'next/font/google';
 import Link from 'next/link';
 
@@ -9,12 +8,15 @@ const roboto = Roboto({
   subsets: ['latin'],
 });
 
-const Modal = () => {
+export default function AITools() {
   return (
     <div
-      className={`${roboto.className} z-50 flex items-center justify-center mx-2 pb-4 border`}
+      className={
+        roboto.className +
+        " relative min-h-[inherit] bg-[url('https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/tools_background_copy.png')] bg-cover"
+      }
     >
-      <div className="absolute bg-gray-900 top-60 xs:w-3/4 md:w-1/2 mx-auto rounded-2xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1 hover:border-emerald-200">
+      <div className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute bg-gray-900 max-w-xs md:max-w-lg w-full mx-auto rounded-2xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-2 hover:border-emerald-200">
         <div className="h-full w-full bg-gray-800 rounded-2xl flex flex-col items-center">
           <h1 className="pt-8 mb-2 sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white">
             Early Access
@@ -36,23 +38,6 @@ const Modal = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-export default function AITools() {
-  return (
-    <div className={`mx-auto relative`}>
-      <div className="h-screen mx-auto bg-gradient-to-r bg-black relative">
-        <Image
-          src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/tools_background_copy.png"
-          alt=""
-          className="h-full w-full object-cover object-center"
-          height={1000}
-          width={1000}
-        />
-      </div>
-      <Modal />
     </div>
   );
 }
