@@ -3,8 +3,8 @@
 import React from 'react';
 import { Poppins } from 'next/font/google';
 
-import About from '@/components/dashboard/profile/about/about';
-import Items from '@/components/dashboard/profile/items/items';
+import About from '@/components/dashboard/profile/About';
+import Items from '@/components/dashboard/profile/Items';
 
 import { useGetPrincipalNfts } from '@/hooks';
 

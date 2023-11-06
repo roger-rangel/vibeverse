@@ -15,7 +15,7 @@ const features = [
   },
 ];
 
-const callToAction = ({}) => {
+const CallToAction = ({}) => {
   return (
     <div className="overflow-hidden">
       <div className="mx-auto max-w-7xl px-0 lg:px-2">
@@ -29,10 +29,17 @@ const callToAction = ({}) => {
           />
           <div className="lg:pr-8 lg:pt-4 px-8">
             <div className="lg:max-w-lg md:pt-10">
-              <h2 className="text-base font-semibold leading-7 text-indigo-600">Connect & Collaborate</h2>
-              <p className="mt-4 mb-4 sm:mt-4 sm:mb-6 sm:text-4xl lg:text-6xl font-bold text-gray-300" style={{ lineHeight: '1.2' }}>AI-Powered Creativity</p>
-              <div className='flex pt-4'>
-                <div className='flex gap-x-2'>
+              <h2 className="text-base font-semibold leading-7 text-indigo-600">
+                Connect & Collaborate
+              </h2>
+              <p
+                className="mt-4 mb-4 sm:mt-4 sm:mb-6 sm:text-4xl lg:text-6xl font-bold text-gray-300"
+                style={{ lineHeight: '1.2' }}
+              >
+                AI-Powered Creativity
+              </p>
+              <div className="flex pt-4">
+                <div className="flex gap-x-2">
                   {features.map((feature) => (
                     <div key={feature.title}>
                       <Image
@@ -46,19 +53,17 @@ const callToAction = ({}) => {
                         {feature.title}
                       </p>
                     </div>
-                  )) }
-
+                  ))}
                 </div>
-              </div>  
+              </div>
             </div>
           </div>
         </div>
         {/* ADD BUTTON GRADIENT TO CONNECT ICP WALLET / WEB3 */}
         {/* add more sections */}
-
       </div>
     </div>
   );
 };
 
-export default callToAction;
+export default CallToAction;

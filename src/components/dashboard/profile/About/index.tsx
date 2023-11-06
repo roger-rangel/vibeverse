@@ -9,7 +9,7 @@ import { useConnect } from '@connect2ic/react';
 import styles from './About.module.scss';
 import { useGetProfile, useGetPrincipalNfts } from '@/hooks';
 
-import CallToAction from '../callToAction/callToAction';
+import CallToAction from '../CallToAction';
 
 const About = () => {
   const { activeProvider } = useConnect();
@@ -18,13 +18,11 @@ const About = () => {
   });
   const { data: nfts } = useGetPrincipalNfts();
 
-  
   if (!profile) {
     return (
       <div>
         <CallToAction />
       </div>
-
     );
   }
 
