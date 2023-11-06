@@ -5,7 +5,6 @@ import { Dialog, Transition } from '@headlessui/react';
 import {
   AcademicCapIcon,
   Bars3Icon,
-  BellIcon,
   BuildingStorefrontIcon,
   DocumentDuplicateIcon,
   FilmIcon,
@@ -18,7 +17,7 @@ import { useConnect, useDialog } from '@connect2ic/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Nav_User from './nav_user';
+import SearchBar from './SearchBar';
 
 import { Banner } from '@/components/dashboard/home';
 
@@ -339,33 +338,23 @@ export default function Navigation({ children }: React.PropsWithChildren) {
               aria-hidden="true"
             />
 
-            <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 z-1">
-              <div className="relative flex flex-1 text-white font-bold py-4 px-4">
-                {/* TODO : add demo button */}
-              </div>
-              {/* TODO SUMMER: ADD FORM HERE FOR SEARCH BAR */}
-              <div className="flex items-center gap-x-4 lg:gap-x-4">
-                <button
-                  type="button"
-                  className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+            <div className="flex flex-1 self-stretch z-1">
 
+              <SearchBar />
+
+              <div className="flex items-center">
                 {/* Separator */}
                 <div
                   className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10"
                   aria-hidden="true"
                 />
 
-                {/* Profile dropdown */}
-
                 {isConnected ? (
-                  <Nav_User />
+                  // <Nav_User /> Add this back in when we have dropdown components ready
+                  <div></div>
                 ) : (
                   <button
-                    className="button-gradient text-white font-bold py-2 px-4 rounded-3xl"
+                    className="button-gradient text-white font-bold py-1.5 px-4 rounded-lg"
                     onClick={() => dialog.open()}
                   >
                     Connect Wallet

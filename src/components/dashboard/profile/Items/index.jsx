@@ -1,6 +1,8 @@
-import styles from './Items.module.scss';
 import { classnames } from 'tailwindcss-classnames';
+
 import { NftCard } from '@/components/Nft';
+
+import styles from './Items.module.scss';
 
 const Item = ({ nfts }) => {
   return (
