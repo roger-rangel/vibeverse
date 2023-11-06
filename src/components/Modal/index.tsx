@@ -27,11 +27,17 @@ export interface ModalProps extends Omit<Props, 'children'> {
 
 export function Modal({
   children,
+  hideModal,
   ...rest
 }: React.PropsWithChildren<ModalProps>) {
   return (
     // @ts-ignore
-    <ReactModal style={customStyles} ariaHideApp={false} {...rest}>
+    <ReactModal
+      style={customStyles}
+      onRequestClose={hideModal}
+      ariaHideApp={false}
+      {...rest}
+    >
       {/* @ts-ignore */}
       {children}
     </ReactModal>
