@@ -9,6 +9,8 @@ import { useConnect } from '@connect2ic/react';
 import styles from './About.module.scss';
 import { useGetProfile, useGetPrincipalNfts } from '@/hooks';
 
+import CallToAction from '../CallToAction';
+
 const About = () => {
   const { activeProvider } = useConnect();
   const { data: profile } = useGetProfile({
@@ -16,10 +18,18 @@ const About = () => {
   });
   const { data: nfts } = useGetPrincipalNfts();
 
+  if (!profile) {
+    return (
+      <div>
+        <CallToAction />
+      </div>
+    );
+  }
+
   return (
     <section id="about">
       <div className="pt-8 pb-10">
-        <h2 className="text-xl text-center text-[#4db5ff]">My Profile</h2>
+        <h2 className="text-xl text-center text-[#4db5ff]">Your Profile</h2>
         <h5 className="text-center text-sm text-gray-200">
           {profile ? profile.name : 'Creator'}
         </h5>
