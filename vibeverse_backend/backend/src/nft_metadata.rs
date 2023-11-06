@@ -4,8 +4,5 @@ use crate::{
 };
 
 pub fn get_metadata(nft_id: NftId) -> Option<NftMetadata> {
-    METADATA.with(|reactions| {
-        let reactions = reactions.borrow();
-        reactions.get(&nft_id).cloned()
-    })
+    METADATA.with(|m| m.borrow().get(&nft_id).cloned())
 }

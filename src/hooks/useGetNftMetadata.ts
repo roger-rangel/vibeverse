@@ -17,7 +17,7 @@ export function useGetNftMetadata({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: [`nft-metadata-${collectionId}-${nftId}`],
     queryFn: async () => {
-      const metadata = await actor!.get_nft_metadata(BigInt(0), BigInt(0));
+      const metadata = await actor!.get_nft_metadata(collectionId, nftId);
 
       if (metadata.length === 0) {
         return null;

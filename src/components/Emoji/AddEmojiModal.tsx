@@ -12,7 +12,7 @@ export function AddEmojiModal({
   const { data: emojis } = useGetEmojis();
 
   return (
-    <Modal isOpen={isOpen} hideModal={hideModal}>
+    <Modal isOpen={isOpen} hideModal={hideModal} shouldCloseOnOverlayClick>
       <div className="flex flex-wrap gap-2">
         {emojis?.map((e) => (
           <button
