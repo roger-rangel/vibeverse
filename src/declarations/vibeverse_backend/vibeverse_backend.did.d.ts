@@ -14,7 +14,7 @@ export interface Collection {
   'limit' : [] | [bigint],
   'category' : string,
 }
-export interface Creator { 'name' : string, 'avatar' : string }
+export interface Creator { 'a' : string, 'n' : string }
 export interface Nft {
   'id' : [bigint, bigint],
   'name' : string,

@@ -26,7 +26,7 @@ export const idlFactory = ({ IDL }) => {
     'limit' : IDL.Opt(IDL.Nat),
     'category' : IDL.Text,
   });
-  const Creator = IDL.Record({ 'name' : IDL.Text, 'avatar' : IDL.Text });
+  const Creator = IDL.Record({ 'a' : IDL.Text, 'n' : IDL.Text });
   const NftMetadata = IDL.Record({
     'r' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Vec(IDL.Principal))),
   });

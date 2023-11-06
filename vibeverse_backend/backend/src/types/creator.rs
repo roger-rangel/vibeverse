@@ -10,8 +10,10 @@ pub type UserId = Principal;
 #[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize)]
 pub struct Creator {
     /// The display name of the creator.
+    #[serde(rename = "n", default)]
     pub name: String,
     /// The avatar of the creator.
+    #[serde(rename = "a", default)]
     pub avatar: String,
 }
 

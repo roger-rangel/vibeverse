@@ -10,7 +10,7 @@ type Collection = record {
   limit : opt nat;
   category : text;
 };
-type Creator = record { name : text; avatar : text };
+type Creator = record { a : text; n : text };
 type Nft = record {
   id : record { nat; nat };
   name : text;
