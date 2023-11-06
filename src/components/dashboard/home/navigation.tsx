@@ -16,6 +16,7 @@ import {
 import { useConnect, useDialog } from '@connect2ic/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import SearchBar from './SearchBar';
 
@@ -82,7 +83,7 @@ export default function Navigation({ children }: React.PropsWithChildren) {
   const [currentNavIndex, setCurrentNavIndex] = useState(0);
   const [currentUserIndex, setCurrentUserIndex] = useState(-1);
   const [isBannerOpen, setIsBannerOpen] = useState(true);
-
+  const pathname = usePathname();
   const { isConnected } = useConnect();
   const dialog = useDialog();
 
@@ -92,7 +93,7 @@ export default function Navigation({ children }: React.PropsWithChildren) {
         setCurrentNavIndex(index);
       }
     });
-  }, []);
+  }, [pathname]);
 
   function isSelected(item: any) {
     const parts = window.location.href.split('/');
@@ -364,7 +365,7 @@ export default function Navigation({ children }: React.PropsWithChildren) {
             </div>
           </div>
 
-          <main className="w-full text-2xl font-semibold text-gray-900">
+          <main className="w-full text-2xl font-semibold text-gray-900 min-h-[calc(100vh-4rem)]">
             {children}
           </main>
         </div>

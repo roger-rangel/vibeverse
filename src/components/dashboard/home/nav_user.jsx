@@ -9,7 +9,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useGetProfile } from '@/hooks';
 
 export default function Nav_User() {
-  const { activeProvider } = useConnect();
+  const { activeProvider, disconnect } = useConnect();
   const { data: profile } = useGetProfile({
     principal: activeProvider?.principal,
   });
@@ -45,7 +45,12 @@ export default function Nav_User() {
       >
         <Menu.Items className="absolute right-0 xs:-right-4 sm:-right-6 md:right-0 mt-4 pb-20 lg:pr-10 w-screen max-w-3xl origin-top-right rounded-3xl bg-gray-900 py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none border border-emerald-300">
           <Menu.Item className="flex relative justify-center align-middle ">
-            <div>TODO</div>
+            <button
+              className="border border-blue-500 rounded-xl p-4"
+              onClick={disconnect}
+            >
+              Disconnect
+            </button>
           </Menu.Item>
         </Menu.Items>
       </Transition>

@@ -3,18 +3,23 @@ use candid::Principal;
 
 use ic_cdk_macros::{query, update};
 mod administrative;
+mod admins;
 mod creators;
-mod lifecycle;
-mod memory;
-mod nfts;
-mod types;
-
 #[cfg(test)]
 mod creators_tests;
+mod guards;
+mod lifecycle;
+mod memory;
+mod nft_metadata;
+mod nfts;
 
 #[cfg(test)]
 mod nfts_tests;
+mod reactions;
+mod types;
 
+use guards::*;
+use reactions::AddRemoveReactionResult;
 use types::*;
 
 #[update]
@@ -146,29 +151,63 @@ pub fn collection_count() -> CollectionId {
     nfts::collection_count()
 }
 
+// ---- reactions start ----
+#[update(guard = "caller_is_not_anonymous")]
+pub fn add_remove_reaction(collection_id: CollectionId, nft_id: Nat, emoji: Emoji) -> Result<AddRemoveReactionResult, String> {
+    let caller = ic_cdk::api::caller();
+
+    reactions::add_remove_reaction((collection_id, nft_id.into()), caller, emoji)
+}
+
+#[update(guard = "caller_is_admin")]
+pub fn add_emojis(emojis: Vec<Emoji>) -> Result<Nat, String> {
+    reactions::register_emojis(emojis)
+}
+
+#[update(guard = "caller_is_admin")]
+pub fn remove_emojis(emojis: Vec<Emoji>) -> Result<Nat, String> {
+    reactions::unregister_emojis(emojis)
+}
+
+#[query]
+pub fn get_emojis() -> Vec<Emoji> {
+    reactions::emojis()
+}
+
+// ---- reactions end ----
+
+#[query]
+pub fn get_nft_metadata(collection_id: CollectionId, nft_id: Nat) -> Option<NftMetadata> {
+    nft_metadata::get_metadata((collection_id, nft_id.into()))
+}
+
 // Administrative functions
 
-#[update]
+#[update(guard = "caller_is_admin")]
 pub fn set_collection_fee(fee: u64) -> Result<(), &'static str> {
-    let caller = ic_cdk::api::caller();
-    administrative::set_collection_fee(caller, fee)
+    administrative::set_collection_fee(fee)
 }
 
-#[update]
+#[update(guard = "caller_is_admin")]
 pub fn set_mint_fee(fee: u64) -> Result<(), &'static str> {
-    let caller = ic_cdk::api::caller();
-    administrative::set_mint_fee(caller, fee)
+    administrative::set_mint_fee(fee)
 }
 
-#[update]
+#[update(guard = "caller_is_admin")]
 pub fn set_vibe_token(vibe: Principal) -> Result<(), &'static str> {
-    let caller = ic_cdk::api::caller();
-    administrative::set_vibe_token(caller, vibe)
+    administrative::set_vibe_token(vibe)
 }
 
-#[update]
-pub fn set_admin(admin: Principal) -> Result<(), &'static str> {
-    administrative::set_admin(admin)
+#[update(guard = "caller_is_admin")]
+pub fn add_admin(admin: Principal) -> Result<(), String> {
+    let caller = ic_cdk::api::caller();
+    admins::add_admins(caller, [admin].to_vec())
+}
+
+#[update(guard = "caller_is_admin")]
+pub fn remove_admin(admin: Principal) -> Result<(), String> {
+    let caller = ic_cdk::api::caller();
+    admins::remove_admins(caller, [admin].to_vec())
 }
 
 #[query]
@@ -187,8 +226,8 @@ pub fn vibe_token() -> Option<Principal> {
 }
 
 #[query]
-pub fn admin() -> Option<Principal> {
-    administrative::admin()
+pub fn is_admin(user: Principal) -> bool {
+    admins::is_admin(user)
 }
 
 ic_cdk::export_candid!();

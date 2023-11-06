@@ -8,3 +8,4 @@ export interface PaginationParams {
 export * from './nft';
 export * from './collection';
 export * from './creator';
+export * from './nft_metadata';

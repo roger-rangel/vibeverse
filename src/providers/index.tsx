@@ -21,6 +21,10 @@ import { QueryProvider } from './QueryProvider';
 
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
+(BigInt.prototype as any).toJSON = function () {
+  return this.toString();
+};
+
 export default function Providers({ children }: React.PropsWithChildren) {
   const providers = [
     new NFID({ appName: 'Vibeverse' }),

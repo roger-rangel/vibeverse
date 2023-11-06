@@ -6,6 +6,8 @@ use std::borrow::Cow;
 use crate::StorableNat;
 use libraries::msgpack::{deserialize_then_unwrap, serialize_then_unwrap};
 
+use super::{is_empty_slice, Reactions};
+
 pub type CollectionId = StorableNat;
 
 /// (collection_id, nft_id)
@@ -60,6 +62,24 @@ pub struct Nft {
 }
 
 impl Storable for Nft {
+    fn to_bytes(&self) -> Cow<[u8]> {
+        Cow::Owned(serialize_then_unwrap(self))
+    }
+
+    fn from_bytes(bytes: Cow<[u8]>) -> Self {
+        deserialize_then_unwrap(bytes.as_ref())
+    }
+
+    const BOUND: Bound = Bound::Unbounded;
+}
+
+#[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize, Default)]
+pub struct NftMetadata {
+    #[serde(rename = "r", default, skip_serializing_if = "is_empty_slice")]
+    pub reactions: Reactions,
+}
+
+impl Storable for NftMetadata {
     fn to_bytes(&self) -> Cow<[u8]> {
         Cow::Owned(serialize_then_unwrap(self))
     }

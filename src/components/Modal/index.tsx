@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import ReactModal, { Styles, Props } from 'react-modal';
 
@@ -20,16 +21,24 @@ const customStyles: Styles = {
   },
 };
 
-export interface ModalProps extends Props {
+export interface ModalProps extends Omit<Props, 'children'> {
   hideModal: () => void;
 }
 
 export function Modal({
   children,
+  hideModal,
   ...rest
 }: React.PropsWithChildren<ModalProps>) {
   return (
-    <ReactModal style={customStyles} ariaHideApp={false} {...rest}>
+    // @ts-ignore
+    <ReactModal
+      style={customStyles}
+      onRequestClose={hideModal}
+      ariaHideApp={false}
+      {...rest}
+    >
+      {/* @ts-ignore */}
       {children}
     </ReactModal>
   );

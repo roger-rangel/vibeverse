@@ -5,5 +5,8 @@ export interface Creator {
 }
 
 export const asCreator = (c: RawCreator): Creator => {
-  return c;
+  return {
+    name: c.n,
+    avatar: c.a,
+  };
 };

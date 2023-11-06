@@ -33,7 +33,7 @@ function CreateCollection({ showCreateCollection }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!assetActor) {
+    if (!actor) {
       alert('empty actor');
       return;
     }

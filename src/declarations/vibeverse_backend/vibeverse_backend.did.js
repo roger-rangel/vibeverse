@@ -1,4 +1,14 @@
 export const idlFactory = ({ IDL }) => {
+  const Result = IDL.Variant({ 'Ok' : IDL.Null, 'Err' : IDL.Text });
+  const Result_1 = IDL.Variant({ 'Ok' : IDL.Nat, 'Err' : IDL.Text });
+  const AddRemoveReactionResult = IDL.Variant({
+    'Added' : IDL.Null,
+    'Removed' : IDL.Null,
+  });
+  const Result_2 = IDL.Variant({
+    'Ok' : AddRemoveReactionResult,
+    'Err' : IDL.Text,
+  });
   const Nft = IDL.Record({
     'id' : IDL.Tuple(IDL.Nat, IDL.Nat),
     'name' : IDL.Text,
@@ -16,15 +26,23 @@ export const idlFactory = ({ IDL }) => {
     'limit' : IDL.Opt(IDL.Nat),
     'category' : IDL.Text,
   });
-  const Result = IDL.Variant({ 'Ok' : IDL.Nat, 'Err' : IDL.Text });
-  const Creator = IDL.Record({ 'name' : IDL.Text, 'avatar' : IDL.Text });
-  const Result_1 = IDL.Variant({
+  const Creator = IDL.Record({ 'a' : IDL.Text, 'n' : IDL.Text });
+  const NftMetadata = IDL.Record({
+    'r' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Vec(IDL.Principal))),
+  });
+  const Result_3 = IDL.Variant({
     'Ok' : IDL.Tuple(IDL.Nat, IDL.Nat),
     'Err' : IDL.Text,
   });
-  const Result_2 = IDL.Variant({ 'Ok' : IDL.Null, 'Err' : IDL.Text });
+  const Result_4 = IDL.Variant({ 'Ok' : IDL.Null, 'Err' : IDL.Text });
   return IDL.Service({
-    'admin' : IDL.Func([], [IDL.Opt(IDL.Principal)], ['query']),
+    'add_admin' : IDL.Func([IDL.Principal], [Result], []),
+    'add_emojis' : IDL.Func([IDL.Vec(IDL.Text)], [Result_1], []),
+    'add_remove_reaction' : IDL.Func(
+        [IDL.Nat, IDL.Nat, IDL.Text],
+        [Result_2],
+        [],
+      ),
     'all_nfts' : IDL.Func(
         [IDL.Opt(IDL.Nat), IDL.Opt(IDL.Nat)],
         [IDL.Vec(Nft)],
@@ -56,7 +74,7 @@ export const idlFactory = ({ IDL }) => {
           IDL.Opt(IDL.Text),
           IDL.Text,
         ],
-        [Result],
+        [Result_1],
         [],
       ),
     'creator_metadata' : IDL.Func(
@@ -65,10 +83,17 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'get_collection' : IDL.Func([IDL.Nat], [IDL.Opt(Collection)], ['query']),
+    'get_emojis' : IDL.Func([], [IDL.Vec(IDL.Text)], ['query']),
+    'get_nft_metadata' : IDL.Func(
+        [IDL.Nat, IDL.Nat],
+        [IDL.Opt(NftMetadata)],
+        ['query'],
+      ),
+    'is_admin' : IDL.Func([IDL.Principal], [IDL.Bool], ['query']),
     'mint_fee' : IDL.Func([], [IDL.Nat64], ['query']),
     'mint_nft' : IDL.Func(
         [IDL.Nat, IDL.Principal, IDL.Text, IDL.Text, IDL.Opt(IDL.Text)],
-        [Result_1],
+        [Result_3],
         [],
       ),
     'nfts' : IDL.Func(
@@ -78,19 +103,20 @@ export const idlFactory = ({ IDL }) => {
       ),
     'nfts_of_caller' : IDL.Func([], [IDL.Vec(Nft)], ['query']),
     'nfts_of_user' : IDL.Func([IDL.Principal], [IDL.Vec(Nft)], ['query']),
-    'set_admin' : IDL.Func([IDL.Principal], [Result_2], []),
-    'set_collection_fee' : IDL.Func([IDL.Nat64], [Result_2], []),
-    'set_creator_metadata' : IDL.Func([IDL.Text, IDL.Text], [Result_2], []),
-    'set_mint_fee' : IDL.Func([IDL.Nat64], [Result_2], []),
-    'set_vibe_token' : IDL.Func([IDL.Principal], [Result_2], []),
+    'remove_admin' : IDL.Func([IDL.Principal], [Result], []),
+    'remove_emojis' : IDL.Func([IDL.Vec(IDL.Text)], [Result_1], []),
+    'set_collection_fee' : IDL.Func([IDL.Nat64], [Result_4], []),
+    'set_creator_metadata' : IDL.Func([IDL.Text, IDL.Text], [Result_4], []),
+    'set_mint_fee' : IDL.Func([IDL.Nat64], [Result_4], []),
+    'set_vibe_token' : IDL.Func([IDL.Principal], [Result_4], []),
     'transfer_nft' : IDL.Func(
         [IDL.Nat, IDL.Nat, IDL.Principal],
-        [Result_2],
+        [Result_4],
         [],
       ),
     'update_collection_metadata' : IDL.Func(
         [IDL.Nat, IDL.Text, IDL.Text, IDL.Opt(IDL.Text), IDL.Opt(IDL.Text)],
-        [Result_2],
+        [Result_4],
         [],
       ),
     'vibe_token' : IDL.Func([], [IDL.Opt(IDL.Principal)], ['query']),

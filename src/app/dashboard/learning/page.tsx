@@ -1,22 +1,22 @@
 'use client';
 
-import Loading from './loading';
-import { useEffect, useState } from 'react';
 import { Roboto } from 'next/font/google';
 import Link from 'next/link';
-import Image from 'next/image';
 
 const roboto = Roboto({
   weight: '300',
   subsets: ['latin'],
 });
 
-const Modal = () => {
+export default function AIContent() {
   return (
     <div
-      className={`${roboto.className} z-50 flex items-center justify-center mx-2 pb-4 border`}
+      className={
+        roboto.className +
+        ` mx-auto relative min-h-[inherit] bg-[url('https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/ai_influencer.png')] bg-cover`
+      }
     >
-      <div className="absolute bottom-32 xs:w-3/4 md:w-1/2 mx-auto rounded-2xl ">
+      <div className="top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute bottom-32 xs:w-3/4 md:w-1/2 mx-auto rounded-2xl ">
         <div className="h-full w-full flex flex-col items-center">
           <div className="flex h-40 w-full flex-row items-center justify-center">
             <div className="animate-border inline-block rounded-full bg-black bg-gradient-to-r hover:from-[#29ffc6] hover:via-[#00c3ff] hover:to-[#ffff1c] from-red-500 via-purple-500 to-blue-500 bg-[length:400%_400%] p-1">
@@ -33,33 +33,6 @@ const Modal = () => {
           </h1>
         </div>
       </div>
-    </div>
-  );
-};
-
-export default function AIContent() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  return (
-    <div className={`mx-auto relative`}>
-      <div className="h-screen mx-auto bg-gradient-to-r bg-black relative">
-        <Image
-          src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/ai_influencer.png"
-          layout="fill"
-          objectFit="cover"
-          quality={100}
-          alt="Background"
-        />
-      </div>
-      <Modal />
     </div>
   );
 }

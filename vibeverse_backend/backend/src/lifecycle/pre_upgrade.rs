@@ -8,7 +8,7 @@ use tracing::info;
 
 use crate::{
     lifecycle::UPGRADE_BUFFER_SIZE,
-    memory::{self, COLLECTIONS_OF, NFTS, NFTS_OF, STATE},
+    memory::{self, COLLECTIONS_OF, METADATA, NFTS, NFTS_OF, STATE},
 };
 
 macro_rules! store_state {
@@ -39,6 +39,8 @@ fn pre_upgrade() {
     store_state!(NFTS, 3);
     store_state!(COLLECTIONS_OF, 4);
     store_state!(NFTS_OF, 5);
+
+    store_state!(METADATA, 6);
 
     info!("Upgrade ready");
 }

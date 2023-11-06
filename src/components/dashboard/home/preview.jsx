@@ -129,7 +129,7 @@ export default function Preview() {
                   Weekly AI Talk Shows
                 </p>
                 <h3 className="font-semibold text-white">
-                  <Link href="/dashboard/aicontent">
+                  <Link href="/dashboard/browse">
                     <span className="absolute inset-0" />
                     Explore AI Content
                   </Link>

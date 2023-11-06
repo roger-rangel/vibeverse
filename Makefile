@@ -34,11 +34,26 @@ generate-declaration:
 generate-wasm:
 	scripts/generate-wasm.sh
 
-generate: generate-did
+generate: build
+	make generate-did
 	make generate-declaration
-	make generate-wasm
+# make generate-wasm
 
-upgrade-backend:
-	dfx build $(BACKEND)
+start:
+	dfx start --background --clean
+
+deploy: build
+	dfx deploy $(BACKEND)
+	dfx deploy internet_identity
+
+redeploy: build
+	dfx canister install $(BACKEND) --mode=reinstall
+
+upgrade: build
 	dfx canister install $(BACKEND) --mode=upgrade
-	
+
+deploy-ii:
+	dfx deploy internet_identity
+
+testdata:
+	scripts/deploy-test-data.sh
