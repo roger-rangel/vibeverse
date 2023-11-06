@@ -16,14 +16,7 @@ export default function Gallery() {
   console.log(`total nfts`, nfts);
   return (
     <div className="h-screen mx-auto relative">
-      <div className="mx-auto bg-gradient-to-r bg-black relative rounded-xl">
-        <Image
-          src="/images/dashboard/test_background.png"
-          layout="fill"
-          objectFit="cover"
-          quality={1000}
-          alt="Background"
-        />
+      <div className="mx-auto bg-gradient-to-r bg-[#1f1f38] relative rounded-xl">
         <div className="relative w-full justify-center items-center mx-auto px-4  pt-8 sm:px-6 lg:px-8 gap-1">
           <div className="columns-1 md:columns-2 lg:columns-3 gap-1">
             {nfts?.map((nft) => (
