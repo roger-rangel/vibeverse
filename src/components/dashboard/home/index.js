@@ -5,6 +5,6 @@ import Navigation from './navigation';
 import Preview from './preview';
 import Banner from './banner';
 import AvatarModal from './AvatarModal';
-import SearchBar from './searchBar';
+import SearchBar from './SearchBar';
 
 export { Categories, Navigation, Preview, Banner, AvatarModal, SearchBar };

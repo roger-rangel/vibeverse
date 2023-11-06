@@ -17,7 +17,7 @@ import { useConnect, useDialog } from '@connect2ic/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import SearchBar from './searchBar';
+import SearchBar from './SearchBar';
 
 import { Banner } from '@/components/dashboard/home';
 

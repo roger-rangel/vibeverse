@@ -15,7 +15,7 @@ const features = [
   },
 ];
 
-const Call_To_Action = ({}) => {
+const callToAction = ({}) => {
   return (
     <div className="overflow-hidden">
       <div className="mx-auto max-w-7xl px-0 lg:px-2">
@@ -61,4 +61,4 @@ const Call_To_Action = ({}) => {
   );
 };
 
-export default Call_To_Action;
+export default callToAction;

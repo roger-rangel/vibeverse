@@ -9,7 +9,7 @@ import { useConnect } from '@connect2ic/react';
 import styles from './About.module.scss';
 import { useGetProfile, useGetPrincipalNfts } from '@/hooks';
 
-import Call_To_Action from '../call_to_action/call_to_action.jsx';
+import CallToAction from '../callToAction/callToAction';
 
 const About = () => {
   const { activeProvider } = useConnect();
@@ -22,7 +22,7 @@ const About = () => {
   if (!profile) {
     return (
       <div>
-        <Call_To_Action />
+        <CallToAction />
       </div>
 
     );

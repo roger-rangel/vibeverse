@@ -2,7 +2,7 @@
 
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 
-export default function Search_bar() {
+export default function SearchBar() {
 
   return (
     <div className="flex flex-1 justify-center px-2 lg:justify-end items-center">
