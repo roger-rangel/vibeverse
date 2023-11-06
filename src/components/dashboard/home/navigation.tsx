@@ -17,6 +17,7 @@ import {
 import { useConnect, useDialog } from '@connect2ic/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import Nav_User from './nav_user';
 
@@ -83,7 +84,7 @@ export default function Navigation({ children }: React.PropsWithChildren) {
   const [currentNavIndex, setCurrentNavIndex] = useState(0);
   const [currentUserIndex, setCurrentUserIndex] = useState(-1);
   const [isBannerOpen, setIsBannerOpen] = useState(true);
-
+  const pathname = usePathname();
   const { isConnected } = useConnect();
   const dialog = useDialog();
 
@@ -93,7 +94,7 @@ export default function Navigation({ children }: React.PropsWithChildren) {
         setCurrentNavIndex(index);
       }
     });
-  }, []);
+  }, [pathname]);
 
   function isSelected(item: any) {
     const parts = window.location.href.split('/');
