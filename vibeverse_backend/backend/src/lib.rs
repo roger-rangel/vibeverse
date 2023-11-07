@@ -4,6 +4,7 @@ use candid::Principal;
 use ic_cdk_macros::{query, update};
 mod administrative;
 mod admins;
+mod communities;
 mod creators;
 #[cfg(test)]
 mod creators_tests;
