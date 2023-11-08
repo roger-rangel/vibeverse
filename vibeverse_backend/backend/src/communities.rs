@@ -21,6 +21,7 @@ pub fn add_communities(communities: Vec<Community>) -> Result<Nat, String> {
     })
 }
 
+#[allow(dead_code)]
 pub fn remove_communities(communities: Vec<CommunityId>) -> Result<Nat, String> {
     let mut removed = Nat::from(0);
     COMMUNITIES.with(|c| {

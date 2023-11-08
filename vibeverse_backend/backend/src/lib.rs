@@ -182,8 +182,37 @@ pub fn get_nft_metadata(collection_id: CollectionId, nft_id: Nat) -> Option<NftM
     nft_metadata::get_metadata((collection_id, nft_id.into()))
 }
 
-// Administrative functions
+// ----- community start ----
 
+#[update(guard = "caller_is_not_anonymous")]
+pub fn create_community(slug: CommunityId, name: String, description: String, logo: String) -> Result<CommunityId, String> {
+    let creator = ic_cdk::api::caller();
+    communities::create_community(slug.clone(), creator, name, description, logo).unwrap();
+
+    Ok(slug)
+}
+
+#[update(guard = "caller_is_not_anonymous")]
+pub fn join_community(community: CommunityId) -> Result<(), String> {
+    let user = ic_cdk::api::caller();
+
+    communities::join_community(community, user, true).unwrap();
+
+    Ok(())
+}
+
+#[update(guard = "caller_is_not_anonymous")]
+pub fn leave_community(community: CommunityId) -> Result<(), String> {
+    let user = ic_cdk::api::caller();
+
+    communities::leave_community(community, user, true).unwrap();
+
+    Ok(())
+}
+
+// ----- community end ----
+
+// Administrative functions
 #[update(guard = "caller_is_admin")]
 pub fn set_collection_fee(fee: u64) -> Result<(), &'static str> {
     administrative::set_collection_fee(fee)
