@@ -29,6 +29,7 @@ pub struct Community {
 }
 
 impl Community {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
         slug: CommunityId,
         creator: UserId,
@@ -52,11 +53,11 @@ impl Community {
     }
 
     pub fn is_member(&self, member: &UserId) -> bool {
-        self.members.contains(&member)
+        self.members.contains(member)
     }
 
     pub fn is_follower(&self, follower: &UserId) -> bool {
-        self.followers.contains(&follower)
+        self.followers.contains(follower)
     }
 
     pub fn add_member(&mut self, member: UserId) -> Result<(), String> {
