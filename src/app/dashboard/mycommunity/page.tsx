@@ -21,13 +21,13 @@ export default function MyCommunity() {
     <div
       className={
         roboto.className +
-        " relative min-h-[inherit] bg-[url('/images/dashboard/sofa.png')] bg-cover"
+        " relative min-h-[inherit] bg-[url('https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Runway_2023-11-10T12_44_47.434Z_Erase_and_Replace_sky.png')] bg-cover"
       }
       onClick={handleClose}
     >
       {show && (
-        <div className="fixed top-0 left-0 w-full h-full opacity-75 flex items-center justify-center">
-          <div className="bg-white rounded-lg p-4">
+        <div className="flex items-center justify-center p-12 opacity-75">
+          <div className="rounded-2xl p-4">
             <JoinCommunity />
           </div>
         </div>

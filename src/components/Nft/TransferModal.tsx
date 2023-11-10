@@ -47,7 +47,7 @@ export function TransferModal({
           {nft.name}
         </h3>
         <div
-          // @ts-ignore
+          // @ts-ignored
           className={classnames(styles.item__item__image)}
         >
           <LazyLoadImage
