@@ -1,39 +1,55 @@
 'use client';
 
-import { useState } from 'react';
-import { Roboto } from 'next/font/google';
+import { useState, useEffect } from 'react';
 
-import JoinCommunity from '../../../components/community/JoinCommunity';
-
-const roboto = Roboto({
-  weight: '300',
-  subsets: ['latin'],
-});
+import IntroCommunity from '../../../components/community/IntroCommunity';
+import CreateCommunity from '../../../components/community/CreateCommunity';
 
 export default function MyCommunity() {
-  const [show, setShow] = useState(true); // set initial state based on login status
+  const [introModal, showIntroModal] = useState(true);
+  const [createCommunity, showCreateCommunity] = useState(false);
+  const [joinCommunity, showJoinCommunity] = useState(false);
 
   const handleClose = () => {
-    setShow(false);
+    showIntroModal(false);
+    showCreateCommunity(false);
+    showJoinCommunity(false);
   };
+
+  // set overflow-hidden on body when modal is open
+  useEffect(() => {
+    document.body.style.overflow =
+      introModal || createCommunity || joinCommunity ? 'hidden' : 'unset';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [introModal, createCommunity, joinCommunity]);
 
   return (
     <div
-      className={
-        roboto.className +
-        " relative min-h-[inherit] bg-[url('https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Runway_2023-11-10T12_44_47.434Z_Erase_and_Replace_sky.png')] bg-cover"
-      }
-      onClick={handleClose}
+      className="relative min-h-[inherit] bg-[url('https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/blue_sky.png')] bg-cover"
     >
-      {show && (
-        <div className="flex items-center justify-center p-12 opacity-75">
+      {introModal && (
+        <div className="flex items-center justify-center p-12">
           <div className="rounded-2xl p-4">
-            <JoinCommunity />
+            <IntroCommunity
+              handleClose={handleClose}
+              showIntroModal={showIntroModal}
+              showCreateCommunity={showCreateCommunity}
+              showJoinCommunity={showJoinCommunity}
+            />
+          </div>
+        </div>
+      )}
+      {createCommunity && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="rounded-2xl p-4">
+            <CreateCommunity handleClose={handleClose} />
           </div>
         </div>
       )}
       <div>
-        {/* rest of the component */}
+        {/* Community Section Page */}
       </div>
     </div>
   );
