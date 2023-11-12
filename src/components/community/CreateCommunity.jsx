@@ -24,6 +24,11 @@ export default function CreateCommunity({ handleClose }) {
   const [receiver, setReceiver] = useState('');
   const { actor, assetActor } = useActor();
   const { activeProvider } = useConnect();
+  const [selectedPicture, setSelectedPicture] = useState(null);
+
+  const handlePictureClick = (picture) => {
+    setSelectedPicture(picture);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,6 +79,13 @@ export default function CreateCommunity({ handleClose }) {
       }
     }
   };
+
+  const community_pictures = [
+    { id: 1, image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1178.png'},
+    { id: 2, image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1177.png' },
+    { id: 3, image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1181.png' },
+    { id: 4, image: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1179.png' },
+  ];
 
     
   const uploadPhoto = async (e) => {
@@ -195,20 +207,30 @@ export default function CreateCommunity({ handleClose }) {
                     htmlFor="about"
                     className="block text-sm font-medium leading-6 text-white"
                   >
-                    Description
+                    Choose an Image for your Community
                   </label>
                   <div className="mt-2">
-                    <textarea
-                      id="about"
-                      name="about"
-                      rows={3}
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                    />
+                    <div className="flex gap-x-2">
+                      {community_pictures.map((picture) => (
+                        <div key={picture.id} onClick={() => handlePictureClick(picture)}>
+                          <Image
+                            src={picture.image}
+                            alt="Product screenshot"
+                            className={`block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ${
+                              selectedPicture?.id === picture.id ? 'ring-indigo-500' : 'ring-white/10'
+                            } focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6`}
+                            width={1000}
+                            height={1000}
+                          />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-400">
-                    Write a few sentences about your community.
+                      * This can be changed later on Settings {'  '}
+                    <Link href="/roadmap">
+                      <button className="text-indigo-500 hover:text-indigo-600"> 2024 Roadmap</button>
+                    </Link>
                   </p>
                 </div>
 
