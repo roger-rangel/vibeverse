@@ -6,8 +6,8 @@ import IntroCommunity from '../../../components/community/IntroCommunity';
 import CreateCommunity from '../../../components/community/CreateCommunity';
 
 export default function MyCommunity() {
-  const [introModal, showIntroModal] = useState(true);
-  const [createCommunity, showCreateCommunity] = useState(false);
+  const [introModal, showIntroModal] = useState(false);
+  const [createCommunity, showCreateCommunity] = useState(true);
   const [joinCommunity, showJoinCommunity] = useState(false);
 
   const handleClose = () => {
