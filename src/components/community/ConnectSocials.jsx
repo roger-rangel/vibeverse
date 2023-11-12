@@ -1,6 +1,5 @@
 import { ArrowDownTrayIcon } from '@heroicons/react/20/solid';
 
-import Link from 'next/link';
 import Image from 'next/image';
 
 const socials = [

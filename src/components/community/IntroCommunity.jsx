@@ -9,6 +9,11 @@ export default function IntroCommunity({ handleClose, showIntroModal, showCreate
     showCreateCommunity(true);
   };
 
+  const handleJoin = () => {
+    showIntroModal(false);
+    showJoinCommunity(true);
+  };
+
   return (
     <>
       <main className={classnames(styles.welcome)}>
@@ -30,7 +35,7 @@ export default function IntroCommunity({ handleClose, showIntroModal, showCreate
             <button
               type="submit"
               className="rounded-md bg-indigo-500 mt-6 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-              
+              onClick={handleJoin}
             >
               Join 
             </button>

@@ -4,11 +4,12 @@ import { useState, useEffect } from 'react';
 
 import IntroCommunity from '../../../components/community/IntroCommunity';
 import CreateCommunity from '../../../components/community/CreateCommunity';
+import JoinCommunity from '../../../components/community/JoinCommunity';
 
 export default function MyCommunity() {
   const [introModal, showIntroModal] = useState(false);
-  const [createCommunity, showCreateCommunity] = useState(true);
-  const [joinCommunity, showJoinCommunity] = useState(false);
+  const [createCommunity, showCreateCommunity] = useState(false);
+  const [joinCommunity, showJoinCommunity] = useState(true);
 
   const handleClose = () => {
     showIntroModal(false);
@@ -45,6 +46,14 @@ export default function MyCommunity() {
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="rounded-2xl p-4">
             <CreateCommunity handleClose={handleClose} />
+          </div>
+        </div>
+      )}
+
+      {joinCommunity && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="rounded-2xl p-4">
+            <JoinCommunity handleClose={handleClose} />
           </div>
         </div>
       )}

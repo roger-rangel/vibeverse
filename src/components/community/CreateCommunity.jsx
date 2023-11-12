@@ -11,6 +11,7 @@ import { useActor } from '@/providers/ActorProvider';
 import { canisterId } from '@/declarations/vibeverse_assets';
 
 import ConnectSocials from '../../components/community/ConnectSocials';
+import Categories from '../../components/community/Categories';
 
 export default function CreateCommunity({ handleClose }) {
   const [name, setName] = useState('');
@@ -267,6 +268,10 @@ export default function CreateCommunity({ handleClose }) {
                   <div className="mt-4">
                     <ConnectSocials />
                   </div>
+
+                  <div className="mt-16">
+                    <Categories />
+                  </div>
                 </div>
               </div>
 
@@ -286,7 +291,7 @@ export default function CreateCommunity({ handleClose }) {
             </button>
             <button
               type="submit"
-              className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
             >
               Create New Community
             </button>
