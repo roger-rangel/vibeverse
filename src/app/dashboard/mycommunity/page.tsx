@@ -5,11 +5,12 @@ import { useState, useEffect } from 'react';
 import IntroCommunity from '../../../components/community/IntroCommunity';
 import CreateCommunity from '../../../components/community/CreateCommunity';
 import JoinCommunity from '../../../components/community/JoinCommunity';
+import CommunitySection from '../../../components/community/CommunitySection';
 
 export default function MyCommunity() {
-  const [introModal, showIntroModal] = useState(false);
+  const [introModal, showIntroModal] = useState(true);
   const [createCommunity, showCreateCommunity] = useState(false);
-  const [joinCommunity, showJoinCommunity] = useState(true);
+  const [joinCommunity, showJoinCommunity] = useState(false);
 
   const handleClose = () => {
     showIntroModal(false);
@@ -59,6 +60,7 @@ export default function MyCommunity() {
       )}
       <div>
         {/* Community Section Page */}
+        <CommunitySection />
       </div>
     </div>
   );

@@ -5,25 +5,38 @@ export default function CreateCommunity({ handleClose }) {
 
   const files = [
     {
-      title: 'IMG_4985.HEIC',
-      size: 'Curious Refuge',
-      source:
-              'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80',
-      logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/curious.png'
+      size: '',
+      source: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/4f2a08b961c6c95bedb5ed4d2cc39513.gif',
+      logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Curious_Refuge_Logo_White_Flat.png',
+      height: 'h-6',
+      width: 'w-32',
+      rounded: 'rounded',
+      border: 'border-none',
+      description: "AI Filmmaking School",
+      margin: 'mb-2 mr-2',
+      difficulty: 'Beginner'
     },
     {
-      title: 'IMG_4985.HEIC',
-      size: 'White Mirror',
-      source:
-            'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80',
-      logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Screenshot_2023-08-26_at_5_50_29_PM.png'
+      size: '',
+      source: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/dc3694a9a00b8977d0bbd26541ffbe58.gif',
+      logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Screenshot_2023-08-26_at_5_50_29_PM-removebg-preview.png',
+      height: 'h-12',
+      width: 'w-24',
+      rounded: 'rounded',
+      border: 'border-none',
+      description: "AI Film Studio",
+      difficulty: 'Advanced'
     },
     {
-      title: 'IMG_4985.HEIC',
-      size: 'New Community',
-      source:
-            'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80',
-      logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy.png'
+      size: 'Create',
+      source: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/238bd7250a953bbd9e0387410f462e4a_(1).gif',
+      logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1169.png',
+      height: 'h-10',
+      width: 'w-10',
+      rounded: 'rounded-none',
+      description: "Create My Own",
+      margin: 'mb-2 mr-2',
+      difficulty: 'New Journey'
     },
   // More files...
   ];
@@ -42,7 +55,7 @@ export default function CreateCommunity({ handleClose }) {
                 <button
                   onClick={handleClose}
                   type="button"
-                  class="rounded-md p-1 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-purple-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                  class="rounded-md p-1 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-purple-300 focus:ring-indigo-500"
                 >
                   <span class="sr-only">Close menu</span>
 
@@ -68,22 +81,34 @@ export default function CreateCommunity({ handleClose }) {
                 <ul role="list" className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 xl:gap-x-8">
                   {files.map((file) => (
                     <li key={file.source} className="relative">
-                      <div className="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-                        <Image src={file.source} alt="" className="pointer-events-none object-cover group-hover:opacity-75" width={200} height={200} />
+                      <div className="group relative aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500">
+                        <Image src={file.source} alt="" className="pointer-events-none object-cover group-hover:border-2 rounded-lg" width={200} height={200} />
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-end items-end">
+                          <Image
+                            src={file.logo}
+                            alt="community"
+                            className={`flex ${file.height} ${file.width} ${file.rounded} ${file.border} ${file.margin} items-center`}
+                            width="40"
+                            height="40"
+                          />
+                        </div>
                         <button type="button" className="absolute inset-0 focus:outline-none">
-   
                           <span className="sr-only">View details for {file.title}</span>
                         </button>
                       </div>
-                      <div className='flex items-center gap-2 mt-2'>
-                        <Image
-                          src={file.logo}
-                          alt="community"
-                          className={`flex h-8 w-16 items-center`}
-                          width="40"
-                          height="40"
-                        />
-                        <p className="pointer-events-none block text-sm font-medium text-gray-500">{file.size}</p>
+
+                      <div className={`flex-col items-center gap-2 mt-2 justify-center`}>
+
+                        <div className='flex items-center justify-center'>
+                          <p className="pointer-events-none block text-base font-medium text-purple-300 mt-2 mb-4">{file.description}</p> 
+                        </div>
+                        <div className='flex items-center justify-center'>
+                          <button
+                            className={`rounded-md bg-indigo-600 px-6 py-2 text-sm font-semibold text-white shadow-sm pointer-events-none`}
+                          >
+                            {file.difficulty}
+                          </button>
+                        </div>
                       </div>
                     </li>
                   ))}
