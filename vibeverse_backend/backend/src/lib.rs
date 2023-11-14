@@ -210,6 +210,16 @@ pub fn leave_community(community: CommunityId) -> Result<(), String> {
     Ok(())
 }
 
+#[query]
+pub fn get_communities_joinned(user: Principal) -> Vec<Community> {
+    communities::get_communities_joinned(user)
+}
+
+#[query]
+pub fn get_communities_created_by(user: Principal) -> Vec<Community> {
+    communities::get_communities_created_by(user)
+}
+
 // ----- community end ----
 
 // Administrative functions

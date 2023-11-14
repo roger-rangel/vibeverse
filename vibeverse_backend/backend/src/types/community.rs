@@ -52,6 +52,10 @@ impl Community {
         }
     }
 
+    pub fn is_creator(&self, creator: &UserId) -> bool {
+        self.creator == *creator
+    }
+
     pub fn is_member(&self, member: &UserId) -> bool {
         self.members.contains(member)
     }

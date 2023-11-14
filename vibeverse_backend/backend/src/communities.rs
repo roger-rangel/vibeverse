@@ -82,3 +82,29 @@ pub fn leave_community(community: CommunityId, user: UserId, unfollow: bool) -> 
         Ok(())
     })
 }
+
+pub fn get_communities_joinned(user: UserId) -> Vec<Community> {
+    COMMUNITIES.with(|c| {
+        let communities = c.borrow();
+        let mut user_communities = Vec::new();
+        for (_, community) in communities.iter() {
+            if community.is_member(&user) {
+                user_communities.push(community.clone());
+            }
+        }
+        user_communities
+    })
+}
+
+pub fn get_communities_created_by(user: UserId) -> Vec<Community> {
+    COMMUNITIES.with(|c| {
+        let communities = c.borrow();
+        let mut user_communities = Vec::new();
+        for (_, community) in communities.iter() {
+            if community.is_creator(&user) {
+                user_communities.push(community.clone());
+            }
+        }
+        user_communities
+    })
+}
