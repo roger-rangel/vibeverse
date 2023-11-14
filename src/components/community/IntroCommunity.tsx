@@ -1,8 +1,14 @@
 import React from 'react';
 import styles from './IntroCommunity.module.scss';
-import { classnames } from 'tailwindcss-classnames';
 
-export default function IntroCommunity({ handleClose, showIntroModal, showCreateCommunity, showJoinCommunity }) {
+interface IntroCommunityProps {
+  handleClose: () => void;
+  showIntroModal: (show: boolean) => void;
+  showCreateCommunity: (show: boolean) => void;
+  showJoinCommunity: (show: boolean) => void;
+}
+
+export function IntroCommunity({ handleClose, showIntroModal, showCreateCommunity, showJoinCommunity }: IntroCommunityProps) {
 
   const handleCreate = () => {
     showIntroModal(false);
@@ -16,19 +22,20 @@ export default function IntroCommunity({ handleClose, showIntroModal, showCreate
 
   return (
     <>
-      <main className={classnames(styles.welcome)}>
+      <main
+        className={`${styles.welcome}`}>
         <div className="flex xs:flex-col lg:flex-row gap-x-12 gap-y-10 ">
           <div className="flex flex-col">
             {/* add onClick here to open the next modal where user can choose to join a community (2-4 communities) */}
             <div className='bg-black'>
-              <div className={classnames(styles.card, styles.videoWrapper, 'opacity-75')}>
+              <div
+                className={`${styles.card} ${styles.videoWrapper} opacity-75`}>
                 <video
                   autoPlay
-                  loop="loop"
+                  loop={true}
                   muted
                   src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/vaporwave_room.mp4"
-                  alt="train"
-                  className={classnames(styles.gif2)}
+                  className={`${styles.gif2}`}
                 ></video>
               </div>
             </div>
@@ -43,14 +50,13 @@ export default function IntroCommunity({ handleClose, showIntroModal, showCreate
           <div className="flex flex-col">
             {/* add onClick here to open the next modal where user can choose to join a community (2-4 communities) */}
             <div className='bg-black'>
-              <div className={classnames(styles.card_metaverse, styles.videoWrapper, 'opacity-75')}>
+              <div className={`${styles.card_metaverse} ${styles.videoWrapper} opacity-75`}>
                 <video
                   autoPlay
-                  loop="loop"
+                  loop={true}
                   muted
                   src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/cyborg_creationmp4.mp4"
-                  alt="train"
-                  className={classnames(styles.gif2)}
+                  className={`${styles.gif2}`}
                 ></video>
               </div>
             </div>

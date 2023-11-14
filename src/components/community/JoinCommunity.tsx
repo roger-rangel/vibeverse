@@ -1,7 +1,11 @@
 
 import Image from 'next/image';
 
-export default function CreateCommunity({ handleClose }) {
+interface JoinCommunityProps {
+  handleClose: () => void;
+}
+
+export function JoinCommunity({ handleClose }: JoinCommunityProps) {
 
   const files = [
     {
@@ -55,12 +59,12 @@ export default function CreateCommunity({ handleClose }) {
                 <button
                   onClick={handleClose}
                   type="button"
-                  class="rounded-md p-1 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-purple-300 focus:ring-indigo-500"
+                  className="rounded-md p-1 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-purple-300 focus:ring-indigo-500"
                 >
-                  <span class="sr-only">Close menu</span>
+                  <span className="sr-only">Close menu</span>
 
                   <svg
-                    class="h-6 w-6"
+                    className="h-6 w-6"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -93,7 +97,7 @@ export default function CreateCommunity({ handleClose }) {
                           />
                         </div>
                         <button type="button" className="absolute inset-0 focus:outline-none">
-                          <span className="sr-only">View details for {file.title}</span>
+                          <span className="sr-only">View details for ...</span>
                         </button>
                       </div>
 

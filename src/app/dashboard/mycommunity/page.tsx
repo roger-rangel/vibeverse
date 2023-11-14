@@ -2,10 +2,7 @@
 
 import { useState, useEffect } from 'react';
 
-import IntroCommunity from '../../../components/community/IntroCommunity';
-import CreateCommunity from '../../../components/community/CreateCommunity';
-import JoinCommunity from '../../../components/community/JoinCommunity';
-import CommunitySection from '../../../components/community/CommunitySection';
+import { JoinCommunity, CommunitySection, IntroCommunity, CreateCommunity } from '@/components/community';
 
 export default function MyCommunity() {
   const [introModal, showIntroModal] = useState(true);
