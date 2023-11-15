@@ -1,3 +1,4 @@
+mod community;
 mod creator;
 mod emoji;
 mod memory;
@@ -7,6 +8,7 @@ mod storable_principal;
 
 use std::collections::{BTreeMap, HashSet};
 
+pub use community::*;
 pub use creator::*;
 pub use emoji::*;
 pub use memory::*;
