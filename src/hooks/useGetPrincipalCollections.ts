@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useConnect } from '@connect2ic/react';
 import { Principal } from '@dfinity/principal';
 import { useQuery } from '@tanstack/react-query';
