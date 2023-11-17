@@ -7,6 +7,9 @@ prepare:
 build:
 	dfx build $(BACKEND)
 
+build-staging:
+	dfx build $(BACKEND) --network=staging
+
 test-unit: 
 	cargo test --package $(BACKEND)
 
@@ -59,6 +62,9 @@ redeploy: build
 
 upgrade: build
 	dfx canister install $(BACKEND) --mode=upgrade
+
+upgrade-staging: build-staging
+	dfx canister install $(BACKEND) --mode=upgrade --network=staging
 
 testdata:
 	scripts/deploy-test-data.sh
