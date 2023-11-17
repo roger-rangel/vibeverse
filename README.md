@@ -1,5 +1,5 @@
 <div align="center">
-     <img src="https://github.com/roger-rangel/vibeverse/blob/main/public/images/dashboard/sofa.png" alt="Vibeverse Intro">
+     <img src="https://raw.githubusercontent.com/vibeverse-team/vibeverse/main/public/images/dashboard/sofa.png" alt="Vibeverse Intro">
     <h1>Vibeverse ✨</h1>
     <strong>AI Movies, Tools, and More 🌿</strong>
     <strong>Creative AI: NFTs as magic keys for AI-generated projects</strong>
@@ -13,7 +13,7 @@
     <br>
     <a href="https://h5fnl-4iaaa-aaaap-abddq-cai.icp0.io/"><b>vibeverse.xyz »</b></a>
     <br><br>
-    <a href="https://twitter.com/vibeverse.xyz"><b>🪺 Twitter</b></a>
+    <a href="https://twitter.com/vibeverse.xyz"><b>🐦 Twitter</b></a>
     •
     <a href="https://github.com/roger-rangel/vibeverse/issues/new"><b>🧞‍♂️ Issues</b></a>
 </div>
@@ -22,16 +22,27 @@
 
 Welcome to Vibeverse, a vibrant ecosystem for sharing, discovering, and collaborating on AI-generated content in the Film Industry and beyond. Our platform provides users with the tools and resources to create new content using AI, while also enabling seamless collaboration and community building.
 
-# Demo
+## Demo
 
-Check out our platform in action by trying our demo on <a href="https://h5fnl-4iaaa-aaaap-abddq-cai.icp0.io/"><b>vibeverse.xyz</b></a>
+Check out our platform in action by trying our demo on our [website](https://vibeverse.xyz).
 
-### Deployed canisters on the Internet Computer:
+## Deployed canisters on the Internet Computer:
 
-- frontend: [https://h5fnl-4iaaa-aaaap-abddq-cai.icp0.io/](https://h5fnl-4iaaa-aaaap-abddq-cai.icp0.io/ 'https://h5fnl-4iaaa-aaaap-abddq-cai.icp0.io/')
-- backend: [https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=gqljf-taaaa-aaaap-abdea-cai](https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=gqljf-taaaa-aaaap-abdea-cai 'https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=gqljf-taaaa-aaaap-abdea-cai')
+### Staging
 
-# Features
+| Caniser  | Canister ID                                                                                                    |
+| -------- | -------------------------------------------------------------------------------------------------------------- |
+| frontend | [quuas-aqaaa-aaaak-afcja-cai](https://quuas-aqaaa-aaaak-afcja-cai.icp0.io)                                     |
+| backend  | [q5xlo-wyaaa-aaaak-afciq-cai](https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.ic0.app/?id=q5xlo-wyaaa-aaaak-afciq-cai) |
+
+### Production
+
+| Caniser  | Canister ID                                                                                                    |
+| -------- | -------------------------------------------------------------------------------------------------------------- |
+| frontend | [quuas-aqaaa-aaaak-afcja-cai](https://quuas-aqaaa-aaaak-afcja-cai.icp0.io)                                     |
+| backend  | [q5xlo-wyaaa-aaaak-afciq-cai](https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.ic0.app/?id=q5xlo-wyaaa-aaaak-afciq-cai) |
+
+## Features
 
 ### Content Sharing:
 
@@ -61,7 +72,8 @@ We have developed an npm package called <a href="https://github.com/Szegoo/Segen
 Vibe Token [new feature]
 We have also created a token specifically for the ICP platform. This token allows you to access premium features and unlock additional functionalities within the platform. To learn more about the Vibe token and how to obtain it, please visit our <a href="https://github.com/roger-rangel/vibe-token#readme"><b>Token Documentation</b></a>.
 
-Contributing
+# Contributing
+
 We welcome contributions from the community to make Vibeverse and the Internet Computer even better. If you have any ideas, bug reports, or feature requests, please open an issue or submit a pull request to our GitHub repository. We appreciate your feedback and participation in the development of Vibeverse.
 
 Contact Us
@@ -72,8 +84,8 @@ If you have any questions, suggestions, or just want to say hello, feel free to 
 <div align="center">
      Connect with us on social media:
      <br>
-    <a href="https://twitter.com/vibeverse.xyz"><b>🪺 Twitter: @vibeversexyz</b></a>
-    •
+    <a href="https://twitter.com/vibeverse.xyz"><b>🐦 Twitter: @vibeversexyz</b></a>
+    &nbsp;
     <a href="https://www.instagram.com/vibeverse.xyz/"><b>🎨 Instagram: @vibeverse.xyz</b></a>
      <br>
      We look forward to seeing you on the Vibeverse platform! Happy creating and collaborating!
@@ -82,7 +94,7 @@ If you have any questions, suggestions, or just want to say hello, feel free to 
 &ensp;
 
 <div align="center">
-    <img src="https://github.com/roger-rangel/vibeverse/blob/main/public/images/items/item_1.png" alt="Vibeverse Intro">
+    <img src="https://raw.githubusercontent.com/vibeverse-team/vibeverse/main/public/images/items/item_1.png" alt="Vibeverse Intro">
 </div>
 
 ### Prerequisets
