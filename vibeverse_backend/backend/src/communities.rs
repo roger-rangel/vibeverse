@@ -108,3 +108,33 @@ pub fn get_communities_created_by(user: UserId) -> Vec<Community> {
         user_communities
     })
 }
+
+pub fn total_communities() -> u64 {
+    COMMUNITIES.with(|c| {
+        let communities = c.borrow();
+        communities.len()
+    })
+}
+
+pub fn get_communities(start_index: Option<u128>, count: Option<u128>) -> Vec<Community> {
+    let start_index = start_index.unwrap_or_default();
+    let count = count.unwrap_or(total_communities().into());
+
+    let end = Into::<u128>::into(total_communities()).min(
+        start_index
+            .checked_add(count)
+            .expect("adding `start_index` and `count` together overflowed."),
+    );
+
+    COMMUNITIES.with(|c| {
+        let mut communities = Vec::new();
+
+        for id in start_index..end {
+            if let Some((_, community)) = c.borrow().iter().nth(id.try_into().unwrap()) {
+                communities.push(community.clone());
+            }
+        }
+
+        communities
+    })
+}

@@ -64,6 +64,10 @@ export interface _SERVICE {
   'create_community' : ActorMethod<[string, string, string, string], Result_3>,
   'creator_metadata' : ActorMethod<[Principal], [] | [Creator]>,
   'get_collection' : ActorMethod<[bigint], [] | [Collection]>,
+  'get_communities' : ActorMethod<
+    [[] | [bigint], [] | [bigint]],
+    Array<Community>
+  >,
   'get_communities_created_by' : ActorMethod<[Principal], Array<Community>>,
   'get_communities_joinned' : ActorMethod<[Principal], Array<Community>>,
   'get_emojis' : ActorMethod<[], Array<string>>,
@@ -85,6 +89,7 @@ export interface _SERVICE {
   'set_creator_metadata' : ActorMethod<[string, string], Result_5>,
   'set_mint_fee' : ActorMethod<[bigint], Result_5>,
   'set_vibe_token' : ActorMethod<[Principal], Result_5>,
+  'total_communities' : ActorMethod<[], bigint>,
   'transfer_nft' : ActorMethod<[bigint, bigint, Principal], Result_5>,
   'update_collection_metadata' : ActorMethod<
     [bigint, string, string, [] | [string], [] | [string]],

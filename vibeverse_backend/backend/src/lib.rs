@@ -220,6 +220,16 @@ pub fn get_communities_created_by(user: Principal) -> Vec<Community> {
     communities::get_communities_created_by(user)
 }
 
+#[query]
+pub fn total_communities() -> u64 {
+    communities::total_communities()
+}
+
+#[query]
+pub fn get_communities(start_index: Option<u128>, count: Option<u128>) -> Vec<Community> {
+    communities::get_communities(start_index, count)
+}
+
 // ----- community end ----
 
 // Administrative functions

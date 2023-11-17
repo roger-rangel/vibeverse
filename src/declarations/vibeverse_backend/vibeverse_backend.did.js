@@ -99,6 +99,11 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'get_collection' : IDL.Func([IDL.Nat], [IDL.Opt(Collection)], ['query']),
+    'get_communities' : IDL.Func(
+        [IDL.Opt(IDL.Nat), IDL.Opt(IDL.Nat)],
+        [IDL.Vec(Community)],
+        ['query'],
+      ),
     'get_communities_created_by' : IDL.Func(
         [IDL.Principal],
         [IDL.Vec(Community)],
@@ -137,6 +142,7 @@ export const idlFactory = ({ IDL }) => {
     'set_creator_metadata' : IDL.Func([IDL.Text, IDL.Text], [Result_5], []),
     'set_mint_fee' : IDL.Func([IDL.Nat64], [Result_5], []),
     'set_vibe_token' : IDL.Func([IDL.Principal], [Result_5], []),
+    'total_communities' : IDL.Func([], [IDL.Nat64], ['query']),
     'transfer_nft' : IDL.Func(
         [IDL.Nat, IDL.Nat, IDL.Principal],
         [Result_5],

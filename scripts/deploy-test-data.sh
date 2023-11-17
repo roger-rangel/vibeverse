@@ -21,3 +21,6 @@ dfx canister call $BACKEND add_emojis '(vec { "https://cdn.pixelbin.io/v2/throbb
                                               "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_3.png";
                                               "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_5.png"
                                               })' --network $NETWORK
+
+# Community
+dfx canister call $BACKEND create_community '("test-community", "Test community", "Test community description", "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1178.png")' --network $NETWORK
