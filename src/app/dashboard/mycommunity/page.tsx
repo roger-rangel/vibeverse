@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 
-import { JoinCommunity, CommunitySection, IntroCommunity, CreateCommunity } from '@/components/community';
+import { JoinCommunity, CommunitySection, IntroCommunity, CreateCommunity, AllCommunities } from '@/components/community';
 
 export default function MyCommunity() {
   const [introModal, showIntroModal] = useState(true);
@@ -57,7 +57,8 @@ export default function MyCommunity() {
       )}
       <div>
         {/* Community Section Page */}
-        <CommunitySection />
+        <CommunitySection showCreateCommunity={showCreateCommunity} />
+        <AllCommunities />
       </div>
     </div>
   );
