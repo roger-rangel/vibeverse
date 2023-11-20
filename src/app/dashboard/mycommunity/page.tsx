@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useModal } from 'react-modal-hook';
 
 import {
   JoinCommunity,
   CommunitySection,
-  CreateCommunity,
+  CreateCommunityModal,
   AllCommunities,
 } from '@/components/community';
 
@@ -29,16 +30,13 @@ export default function MyCommunity() {
     };
   }, [introModal, createCommunity, joinCommunity]);
 
+  const [showModal, hideModal] = useModal(
+    () => <CreateCommunityModal isOpen hideModal={hideModal} />,
+    [],
+  );
+
   return (
     <div className="relative min-h-[inherit] bg-[url('https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/blue_sky.png')] bg-cover">
-      {createCommunity && (
-        <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
-          <div className="rounded-2xl p-4">
-            <CreateCommunity handleClose={handleClose} />
-          </div>
-        </div>
-      )}
-
       {joinCommunity && (
         <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
           <div className="rounded-2xl p-4">
@@ -48,7 +46,7 @@ export default function MyCommunity() {
       )}
       <div>
         {/* Community Section Page */}
-        <CommunitySection showCreateCommunity={showCreateCommunity} />
+        <CommunitySection showCreateCommunity={showModal} />
         <AllCommunities />
       </div>
     </div>
