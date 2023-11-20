@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useModal } from 'react-modal-hook';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { CreateCommunityModal } from './CreateCommunityModal';
 
@@ -29,6 +30,7 @@ export function CommunitySection() {
   const files = [
     {
       type: 'Join',
+      path: '/dashboard/curious-refuge',
       source:
         'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/4f2a08b961c6c95bedb5ed4d2cc39513.gif',
       logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Curious_Refuge_Logo_White_Flat.png',
@@ -43,6 +45,7 @@ export function CommunitySection() {
     },
     {
       type: 'Join',
+      path: '/dashboard/white-mirror',
       source:
         'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/dc3694a9a00b8977d0bbd26541ffbe58.gif',
       logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Screenshot_2023-08-26_at_5_50_29_PM-removebg-preview.png',
@@ -57,6 +60,7 @@ export function CommunitySection() {
     },
     {
       type: 'Create',
+      path: null, // No redirection for this item
       source:
         'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/238bd7250a953bbd9e0387410f462e4a_(1).gif',
       logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1169.png',
@@ -101,21 +105,21 @@ export function CommunitySection() {
                     {file.description}
                   </p>
                 </div>
-                <div className="absolute bottom-0 left-1/2 flex -translate-x-1/2 transform items-end justify-end">
-                  <Image
-                    src={file.logo}
-                    alt="community"
-                    className={`flex ${file.height} ${file.width} ${file.rounded} ${file.border} ${file.margin} items-center`}
-                    width="40"
-                    height="40"
-                  />
-                </div>
-                <button
-                  type="button"
-                  className="absolute inset-0 focus:outline-none"
-                >
-                  <span className="sr-only">View details for ...</span>
-                </button>
+                {file.path ? (
+                  <Link href={file.path}>
+                    <div className="absolute inset-0 focus:outline-none">
+                      <span className="sr-only">View details for {file.description}</span>
+                    </div>
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    className="absolute inset-0 focus:outline-none"
+                    onClick={showModal}
+                  >
+                    <span className="sr-only">Create Community</span>
+                  </button>
+                )}
               </div>
 
               <div

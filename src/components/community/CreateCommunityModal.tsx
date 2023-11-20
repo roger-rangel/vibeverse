@@ -14,41 +14,57 @@ const community_pictures = [
     id: 1,
     image:
       'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1178.png',
+    imageBackground:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/83c88415f53b1bc592c530392336465a-sFMpqJS3R.jpg'
   },
   {
     id: 2,
     image:
       'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1177.png',
+    imageBackground:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/e264f0b86d899ad3c469d56d61b8c497-VkwXJoQuz.jpg'
   },
   {
     id: 3,
     image:
       'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1181.png',
+    imageBackground:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/f6c22935cba32ef32e48ad8e56757616.jpg'
   },
   {
     id: 4,
     image:
       'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1179.png',
+    iamgeBackground:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/80699d1d69750ddde1752f7142cb1e33.jpg'
   },
   {
     id: 5,
     image:
       'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1184.png',
+    imageBackground:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/64cf8a7ebb224b88b3e0beec885d4a03.jpg'
   },
   {
     id: 6,
     image:
       'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1190.png',
+    imageBackground:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/45b36aee37040e503480f0e8df6285cd.jpg'
   },
   {
     id: 7,
     image:
       'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1186.png',
+    imageBackground:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/75222219ad2ef64120f2dc792707e955.jpg'
   },
   {
     id: 8,
     image:
       'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1188.png',
+    imageBackground:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/b06a37d072f629c20260456d913b5110.jpg'
   },
 ];
 
