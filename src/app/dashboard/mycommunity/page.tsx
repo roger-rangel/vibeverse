@@ -2,7 +2,12 @@
 
 import { useState, useEffect } from 'react';
 
-import { JoinCommunity, CommunitySection, IntroCommunity, CreateCommunity, AllCommunities } from '@/components/community';
+import {
+  JoinCommunity,
+  CommunitySection,
+  CreateCommunity,
+  AllCommunities,
+} from '@/components/community';
 
 export default function MyCommunity() {
   const [introModal, showIntroModal] = useState(true);
@@ -25,23 +30,9 @@ export default function MyCommunity() {
   }, [introModal, createCommunity, joinCommunity]);
 
   return (
-    <div
-      className="relative min-h-[inherit] bg-[url('https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/blue_sky.png')] bg-cover"
-    >
-      {introModal && (
-        <div className="flex items-center justify-center p-12">
-          <div className="rounded-2xl p-4">
-            <IntroCommunity
-              handleClose={handleClose}
-              showIntroModal={showIntroModal}
-              showCreateCommunity={showCreateCommunity}
-              showJoinCommunity={showJoinCommunity}
-            />
-          </div>
-        </div>
-      )}
+    <div className="relative min-h-[inherit] bg-[url('https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/blue_sky.png')] bg-cover">
       {createCommunity && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
           <div className="rounded-2xl p-4">
             <CreateCommunity handleClose={handleClose} />
           </div>
@@ -49,7 +40,7 @@ export default function MyCommunity() {
       )}
 
       {joinCommunity && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
           <div className="rounded-2xl p-4">
             <JoinCommunity handleClose={handleClose} />
           </div>
