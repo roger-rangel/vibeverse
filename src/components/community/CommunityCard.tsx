@@ -1,17 +1,49 @@
 /* eslint-disable @next/next/no-img-element */
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Community } from '@/types';
-import { useGetProfile } from '@/hooks';
+import {
+  useGetIsCommunityFollower,
+  useGetIsCommunityMember,
+  useGetProfile,
+  useJoinCommunity,
+  useLeaveCommunity,
+} from '@/hooks';
+import { useConnect } from '@connect2ic/react';
 
 // 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Runway_2023-11-10T12_44_47.434Z_Erase_and_Replace_sky.png'
 
 export function CommunityCard({
-  community: { name, logo, creator },
+  community: { slug, name, logo, creator },
 }: {
   community: Community;
 }) {
   const { data } = useGetProfile({ principal: creator.toString() });
+  const { activeProvider, isConnected } = useConnect();
+  const { data: isMember, isLoading: isLoadingMember } =
+    useGetIsCommunityMember({
+      slug,
+      principal: activeProvider?.principal,
+    });
+
+  const { mutate: joinCommunity } = useJoinCommunity();
+  const { mutate: leaveCommunity } = useLeaveCommunity();
+
+  const { data: isFollower, isLoading: isLoadingFollower } =
+    useGetIsCommunityFollower({
+      slug,
+      principal: activeProvider?.principal,
+    });
+
+  const handleJoinClick = useCallback(() => {
+    if (isLoadingMember) return;
+
+    if (isMember) {
+      leaveCommunity({ slug });
+    } else {
+      joinCommunity({ slug });
+    }
+  }, [isMember, isLoadingMember, joinCommunity, leaveCommunity, slug]);
   return (
     <div>
       <div className="group aspect-h-7 aspect-w-10 relative block w-full overflow-hidden rounded-lg border border-green-300 bg-gray-100">
@@ -44,13 +76,16 @@ export function CommunityCard({
         <div className="mt-4 flex items-center justify-end gap-2">
           <button
             className={`rounded-md bg-gradient-to-r from-gray-700 via-gray-900 to-black px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500`}
+            onClick={handleJoinClick}
+            disabled={isLoadingMember || !isConnected}
           >
-            Join
+            {isMember ? 'Leave' : 'Join'}
           </button>
           <button
             className={`rounded-md bg-gradient-to-r from-gray-700 via-gray-900 to-black px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500`}
+            disabled={isLoadingFollower || !isConnected}
           >
-            Follow
+            {isFollower ? 'Unfollow' : 'Follow'}
           </button>
         </div>
       </div>
