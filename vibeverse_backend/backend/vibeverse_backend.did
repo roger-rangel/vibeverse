@@ -55,6 +55,8 @@ service : () -> {
   get_emojis : () -> (vec text) query;
   get_nft_metadata : (nat, nat) -> (opt NftMetadata) query;
   is_admin : (principal) -> (bool) query;
+  is_follower : (text, principal) -> (bool) query;
+  is_member : (text, principal) -> (bool) query;
   join_community : (text) -> (Result);
   leave_community : (text) -> (Result);
   mint_fee : () -> (nat64) query;

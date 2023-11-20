@@ -210,6 +210,11 @@ pub fn leave_community(community: CommunityId) -> Result<(), String> {
     Ok(())
 }
 
+#[query]
+pub fn is_member(community: CommunityId, user: Principal) -> bool {
+    communities::is_member(community, user)
+}
+
 #[update(guard = "caller_is_not_anonymous")]
 pub fn follow_community(community: CommunityId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
@@ -226,6 +231,11 @@ pub fn unfollow_community(community: CommunityId) -> Result<(), String> {
     communities::unfollow_community(community, user).unwrap();
 
     Ok(())
+}
+
+#[query]
+pub fn is_follower(community: CommunityId, user: Principal) -> bool {
+    communities::is_follower(community, user)
 }
 
 #[query]

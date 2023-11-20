@@ -83,6 +83,14 @@ pub fn leave_community(community: CommunityId, user: UserId, unfollow: bool) -> 
     })
 }
 
+pub fn is_member(community: CommunityId, user: UserId) -> bool {
+    COMMUNITIES.with(|c| {
+        let community = c.borrow().get(&community).expect("Community does not exist.");
+
+        community.is_member(&user)
+    })
+}
+
 pub fn follow_community(community: CommunityId, user: UserId) -> Result<(), String> {
     COMMUNITIES.with(|c| {
         let mut community = c
@@ -102,6 +110,14 @@ pub fn unfollow_community(community: CommunityId, user: UserId) -> Result<(), St
             .ok_or_else(|| format!("Community {} does not exist.", community))?;
 
         community.remove_follower(user)
+    })
+}
+
+pub fn is_follower(community: CommunityId, user: UserId) -> bool {
+    COMMUNITIES.with(|c| {
+        let community = c.borrow().get(&community).expect("Community does not exist.");
+
+        community.is_follower(&user)
     })
 }
 

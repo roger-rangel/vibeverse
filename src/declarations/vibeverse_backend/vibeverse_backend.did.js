@@ -122,6 +122,8 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'is_admin' : IDL.Func([IDL.Principal], [IDL.Bool], ['query']),
+    'is_follower' : IDL.Func([IDL.Text, IDL.Principal], [IDL.Bool], ['query']),
+    'is_member' : IDL.Func([IDL.Text, IDL.Principal], [IDL.Bool], ['query']),
     'join_community' : IDL.Func([IDL.Text], [Result], []),
     'leave_community' : IDL.Func([IDL.Text], [Result], []),
     'mint_fee' : IDL.Func([], [IDL.Nat64], ['query']),

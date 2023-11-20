@@ -74,6 +74,8 @@ export interface _SERVICE {
   'get_emojis' : ActorMethod<[], Array<string>>,
   'get_nft_metadata' : ActorMethod<[bigint, bigint], [] | [NftMetadata]>,
   'is_admin' : ActorMethod<[Principal], boolean>,
+  'is_follower' : ActorMethod<[string, Principal], boolean>,
+  'is_member' : ActorMethod<[string, Principal], boolean>,
   'join_community' : ActorMethod<[string], Result>,
   'leave_community' : ActorMethod<[string], Result>,
   'mint_fee' : ActorMethod<[], bigint>,
