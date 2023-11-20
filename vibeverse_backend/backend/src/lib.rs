@@ -211,7 +211,7 @@ pub fn leave_community(community: CommunityId) -> Result<(), String> {
 }
 
 #[query]
-pub fn is_member(community: CommunityId, user: Principal) -> bool {
+pub fn is_community_member(community: CommunityId, user: Principal) -> bool {
     communities::is_member(community, user)
 }
 
@@ -234,7 +234,7 @@ pub fn unfollow_community(community: CommunityId) -> Result<(), String> {
 }
 
 #[query]
-pub fn is_follower(community: CommunityId, user: Principal) -> bool {
+pub fn is_community_follower(community: CommunityId, user: Principal) -> bool {
     communities::is_follower(community, user)
 }
 
