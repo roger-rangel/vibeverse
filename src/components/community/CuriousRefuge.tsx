@@ -6,7 +6,8 @@ const community = {
   avatar:
         'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1184.png',
   creatorImage: 
-        'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Alexandria_royal_guard_Star_Wars_red_1220c4a4-195a-4ba6-9189-b9ec16bbf76f.png',
+    'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Alexandria_royal_guard_Star_Wars_red_1220c4a4-195a-4ba6-9189-b9ec16bbf76f.png',
+  website: 'https://www.curiousrefuge.com/',
 };
 
 export default function CommunityPage() {
@@ -40,7 +41,7 @@ export default function CommunityPage() {
           </button>
         </div>        
       </div>
-      <div className="min-w-0 flex items-center justify-center gap-4 mt-4">
+      <div className="min-w-0 flex items-center justify-center gap-4 mt-8">
         <Image
           src={community.creatorImage}
           alt="Product screenshot"
@@ -52,6 +53,7 @@ export default function CommunityPage() {
           {community.creatorName} 
         </h2>
       </div>
+      <Portal website={community.website} />
     </div>
   );
 }

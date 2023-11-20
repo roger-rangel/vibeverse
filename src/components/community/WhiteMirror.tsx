@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Portal from './Portal';
 
 const community = {
   creatorName: 'Alex Graham',
@@ -6,6 +7,7 @@ const community = {
         'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1188.png',
   creatorImage: 
         'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Screenshot_2023-10-27_at_6.46.12_PM.png',
+  website: 'https://www.whitemirror.xyz/',
 };
 
 export default function CommunityPage() {
@@ -51,6 +53,7 @@ export default function CommunityPage() {
           {community.creatorName} 
         </h2>
       </div>
+      <Portal website={community.website} />
     </div>
   );
 }
