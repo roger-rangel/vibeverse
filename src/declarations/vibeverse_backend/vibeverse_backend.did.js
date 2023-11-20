@@ -98,6 +98,7 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Opt(Creator)],
         ['query'],
       ),
+    'follow_community' : IDL.Func([IDL.Text], [Result], []),
     'get_collection' : IDL.Func([IDL.Nat], [IDL.Opt(Collection)], ['query']),
     'get_communities' : IDL.Func(
         [IDL.Opt(IDL.Nat), IDL.Opt(IDL.Nat)],
@@ -148,6 +149,7 @@ export const idlFactory = ({ IDL }) => {
         [Result_5],
         [],
       ),
+    'unfollow_community' : IDL.Func([IDL.Text], [Result_5], []),
     'update_collection_metadata' : IDL.Func(
         [IDL.Nat, IDL.Text, IDL.Text, IDL.Opt(IDL.Text), IDL.Opt(IDL.Text)],
         [Result_5],

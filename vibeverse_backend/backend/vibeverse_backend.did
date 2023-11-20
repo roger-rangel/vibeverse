@@ -47,6 +47,7 @@ service : () -> {
   create_collection : (text, text, bool, opt nat, opt text, text) -> (Result_1);
   create_community : (text, text, text, text) -> (Result_3);
   creator_metadata : (principal) -> (opt Creator) query;
+  follow_community : (text) -> (Result);
   get_collection : (nat) -> (opt Collection) query;
   get_communities : (opt nat, opt nat) -> (vec Community) query;
   get_communities_created_by : (principal) -> (vec Community) query;
@@ -69,6 +70,7 @@ service : () -> {
   set_vibe_token : (principal) -> (Result_5);
   total_communities : () -> (nat64) query;
   transfer_nft : (nat, nat, principal) -> (Result_5);
+  unfollow_community : (text) -> (Result_5);
   update_collection_metadata : (nat, text, text, opt text, opt text) -> (
       Result_5,
     );

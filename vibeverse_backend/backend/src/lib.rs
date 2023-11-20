@@ -210,6 +210,24 @@ pub fn leave_community(community: CommunityId) -> Result<(), String> {
     Ok(())
 }
 
+#[update(guard = "caller_is_not_anonymous")]
+pub fn follow_community(community: CommunityId) -> Result<(), String> {
+    let user = ic_cdk::api::caller();
+
+    communities::follow_community(community, user).unwrap();
+
+    Ok(())
+}
+
+#[update(guard = "caller_is_not_anonymous")]
+pub fn unfollow_community(community: CommunityId) -> Result<(), String> {
+    let user = ic_cdk::api::caller();
+
+    communities::unfollow_community(community, user).unwrap();
+
+    Ok(())
+}
+
 #[query]
 pub fn get_communities_joinned(user: Principal) -> Vec<Community> {
     communities::get_communities_joinned(user)

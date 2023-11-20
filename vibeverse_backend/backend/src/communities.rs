@@ -83,6 +83,28 @@ pub fn leave_community(community: CommunityId, user: UserId, unfollow: bool) -> 
     })
 }
 
+pub fn follow_community(community: CommunityId, user: UserId) -> Result<(), String> {
+    COMMUNITIES.with(|c| {
+        let mut community = c
+            .borrow_mut()
+            .get(&community)
+            .ok_or_else(|| format!("Community {} does not exist.", community))?;
+
+        community.add_follower(user)
+    })
+}
+
+pub fn unfollow_community(community: CommunityId, user: UserId) -> Result<(), String> {
+    COMMUNITIES.with(|c| {
+        let mut community = c
+            .borrow_mut()
+            .get(&community)
+            .ok_or_else(|| format!("Community {} does not exist.", community))?;
+
+        community.remove_follower(user)
+    })
+}
+
 pub fn get_communities_joinned(user: UserId) -> Vec<Community> {
     COMMUNITIES.with(|c| {
         let communities = c.borrow();
