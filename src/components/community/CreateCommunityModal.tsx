@@ -1,12 +1,12 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { useCreateCommunity, CreateCommunityProps } from '@/hooks';
 import ConnectSocials from './ConnectSocials';
 import Categories from './Categories';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
 
 const community_pictures = [
   {
