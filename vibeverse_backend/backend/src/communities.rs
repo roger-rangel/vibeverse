@@ -57,11 +57,13 @@ pub fn join_community(community: CommunityId, user: UserId, follow: bool) -> Res
             .get(&community)
             .ok_or_else(|| format!("Community {} does not exist.", community))?;
 
-        community.add_member(user).unwrap();
+        community.add_member(user)?;
 
         if follow && !community.is_follower(&user) {
-            community.add_follower(user).unwrap();
+            community.add_follower(user)?;
         }
+
+        c.borrow_mut().insert(community.slug.clone(), community.clone());
 
         Ok(())
     })
@@ -74,10 +76,13 @@ pub fn leave_community(community: CommunityId, user: UserId, unfollow: bool) -> 
             .get(&community)
             .ok_or_else(|| format!("Community {} does not exist.", community))?;
 
-        community.remove_member(user).unwrap();
+        community.remove_member(user)?;
+
         if unfollow && community.is_follower(&user) {
-            community.remove_follower(user).unwrap();
+            community.remove_follower(user)?;
         }
+
+        c.borrow_mut().insert(community.slug.clone(), community.clone());
 
         Ok(())
     })
@@ -98,7 +103,11 @@ pub fn follow_community(community: CommunityId, user: UserId) -> Result<(), Stri
             .get(&community)
             .ok_or_else(|| format!("Community {} does not exist.", community))?;
 
-        community.add_follower(user)
+        community.add_follower(user)?;
+
+        c.borrow_mut().insert(community.slug.clone(), community.clone());
+
+        Ok(())
     })
 }
 
@@ -109,7 +118,11 @@ pub fn unfollow_community(community: CommunityId, user: UserId) -> Result<(), St
             .get(&community)
             .ok_or_else(|| format!("Community {} does not exist.", community))?;
 
-        community.remove_follower(user)
+        community.remove_follower(user)?;
+
+        c.borrow_mut().insert(community.slug.clone(), community.clone());
+
+        Ok(())
     })
 }
 
@@ -175,4 +188,57 @@ pub fn get_communities(start_index: Option<u128>, count: Option<u128>) -> Vec<Co
 
         communities
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use candid::Principal;
+
+    use super::*;
+
+    const ALI: Principal = Principal::from_slice(&[0; 24]);
+    const BOB: Principal = Principal::from_slice(&[1; 24]);
+    #[test]
+    fn should_create_community() {
+        let result = create_community(
+            String::from("community"),
+            ALI,
+            String::from("name"),
+            String::from("description"),
+            String::from("logo"),
+        );
+
+        assert!(result.is_ok());
+
+        let communities = get_communities_created_by(ALI);
+        assert_eq!(communities.len(), 1);
+        assert_eq!(communities[0].slug, String::from("community"));
+    }
+
+    #[test]
+    fn should_join_community() {
+        should_create_community();
+        let result = join_community(String::from("community"), BOB, true);
+
+        assert!(result.is_ok());
+
+        let is_member_rs = is_member(String::from("community"), BOB);
+
+        assert!(is_member_rs);
+
+        let communities = get_communities_joinned(BOB);
+        assert_eq!(communities.len(), 1);
+    }
+
+    #[test]
+    fn should_follow_community() {
+        should_create_community();
+        let result = follow_community(String::from("community"), BOB);
+
+        assert!(result.is_ok());
+
+        let is_follower_rs = is_follower(String::from("community"), BOB);
+
+        assert!(is_follower_rs);
+    }
 }
