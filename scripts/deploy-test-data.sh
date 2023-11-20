@@ -23,4 +23,7 @@ dfx canister call $BACKEND add_emojis '(vec { "https://cdn.pixelbin.io/v2/throbb
                                               })' --network $NETWORK
 
 # Community
-dfx canister call $BACKEND create_community '("test-community", "Test community", "Test community description", "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1178.png")' --network $NETWORK
+dfx canister call $BACKEND create_community '("music-school", "AI Music School", "AI Musicians from California", "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Runway_2023-11-10T12_44_47.434Z_Erase_and_Replace_sky.png")' --network $NETWORK
+dfx canister call $BACKEND create_community '("vr-club", "Virtual Reality Club", "VR Fanatics using AI tools", "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Runway_2023-11-10T12_44_47.434Z_Erase_and_Replace_sky.png")' --network $NETWORK
+dfx canister call $BACKEND create_community '("scf-fi-movies", "Sci-FI Movies", "Sci-Fi Film Lovers", "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Runway_2023-11-10T12_44_47.434Z_Erase_and_Replace_sky.png")' --network $NETWORK
+dfx canister call $BACKEND create_community '("sf-fans", "Stable Diffusion Fans", "Stable Diffusion Fan Community", "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Runway_2023-11-10T12_44_47.434Z_Erase_and_Replace_sky.png")' --network $NETWORK
