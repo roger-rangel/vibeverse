@@ -3,13 +3,16 @@
 import React, { useCallback } from 'react';
 import { Community } from '@/types';
 import {
+  useFollowCommunity,
   useGetIsCommunityFollower,
   useGetIsCommunityMember,
   useGetProfile,
   useJoinCommunity,
   useLeaveCommunity,
+  useUnfollowCommunity,
 } from '@/hooks';
 import { useConnect } from '@connect2ic/react';
+import { toast } from 'react-toastify';
 
 // 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Runway_2023-11-10T12_44_47.434Z_Erase_and_Replace_sky.png'
 
@@ -26,24 +29,52 @@ export function CommunityCard({
       principal: activeProvider?.principal,
     });
 
-  const { mutate: joinCommunity } = useJoinCommunity();
-  const { mutate: leaveCommunity } = useLeaveCommunity();
+  const { mutateAsync: joinCommunity } = useJoinCommunity();
+  const { mutateAsync: leaveCommunity } = useLeaveCommunity();
 
   const { data: isFollower, isLoading: isLoadingFollower } =
     useGetIsCommunityFollower({
       slug,
       principal: activeProvider?.principal,
     });
+  const { mutateAsync: followCommunity } = useFollowCommunity();
+  const { mutateAsync: unfollowCommunity } = useUnfollowCommunity();
 
   const handleJoinClick = useCallback(() => {
     if (isLoadingMember) return;
 
     if (isMember) {
-      leaveCommunity({ slug });
+      toast.promise(leaveCommunity({ slug }), {
+        pending: 'Leaving community....',
+        error: 'Error',
+        success: 'Left community',
+      });
     } else {
-      joinCommunity({ slug });
+      toast.promise(joinCommunity({ slug }), {
+        pending: 'Joining community....',
+        error: 'Error',
+        success: 'Joined community',
+      });
     }
   }, [isMember, isLoadingMember, joinCommunity, leaveCommunity, slug]);
+
+  const handleFollowClick = useCallback(() => {
+    if (isLoadingFollower) return;
+
+    if (isFollower) {
+      toast.promise(unfollowCommunity({ slug }), {
+        pending: 'Unfollowing community....',
+        error: 'Error',
+        success: 'Unfollowed community',
+      });
+    } else {
+      toast.promise(followCommunity({ slug }), {
+        pending: 'Following community....',
+        error: 'Error',
+        success: 'Followed community',
+      });
+    }
+  }, [isFollower, isLoadingFollower, followCommunity, unfollowCommunity, slug]);
   return (
     <div>
       <div className="group aspect-h-7 aspect-w-10 relative block w-full overflow-hidden rounded-lg border border-green-300 bg-gray-100">
@@ -83,6 +114,7 @@ export function CommunityCard({
           </button>
           <button
             className={`rounded-md bg-gradient-to-r from-gray-700 via-gray-900 to-black px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500`}
+            onClick={handleFollowClick}
             disabled={isLoadingFollower || !isConnected}
           >
             {isFollower ? 'Unfollow' : 'Follow'}

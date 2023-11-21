@@ -26,6 +26,11 @@ export function useJoinCommunity() {
         [`isCommunityMember-${slug}-${activeProvider?.principal}`],
         () => true,
       );
+      queryClient.setQueryData(
+        [`isCommunityFollower-${slug}-${activeProvider?.principal}`],
+        () => true,
+      );
+
       toast.success('Joined community!');
 
       return result.Ok;
@@ -49,6 +54,11 @@ export function useLeaveCommunity() {
         [`isCommunityMember-${slug}-${activeProvider?.principal}`],
         () => false,
       );
+      queryClient.setQueryData(
+        [`isCommunityFollower-${slug}-${activeProvider?.principal}`],
+        () => true,
+      );
+
       return result.Ok;
     },
   });
@@ -62,7 +72,8 @@ export function useGetIsCommunityMember({
 }) {
   const { actor } = useActor();
   return useQuery({
-    queryKey: [actor, `isCommunityMember-${slug}-${principal}`],
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: [`isCommunityMember-${slug}-${principal}`],
     queryFn: async () => {
       const result = await actor!.is_community_member(
         slug,
@@ -123,7 +134,8 @@ export function useGetIsCommunityFollower({
 }) {
   const { actor } = useActor();
   return useQuery({
-    queryKey: [actor, `isCommunityFollower-${slug}-${principal}`],
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: [`isCommunityFollower-${slug}-${principal}`],
     queryFn: async () => {
       const result = await actor!.is_community_follower(
         slug,
