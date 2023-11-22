@@ -50,6 +50,7 @@ pub fn create_community(
     Ok(())
 }
 
+#[allow(dead_code)]
 pub fn join_community(community: CommunityId, user: UserId, follow: bool) -> Result<(), String> {
     COMMUNITIES.with(|c| {
         let mut community = c
@@ -69,6 +70,7 @@ pub fn join_community(community: CommunityId, user: UserId, follow: bool) -> Res
     })
 }
 
+#[allow(dead_code)]
 pub fn leave_community(community: CommunityId, user: UserId, unfollow: bool) -> Result<(), String> {
     COMMUNITIES.with(|c| {
         let mut community = c
@@ -88,6 +90,7 @@ pub fn leave_community(community: CommunityId, user: UserId, unfollow: bool) -> 
     })
 }
 
+#[allow(dead_code)]
 pub fn is_member(community: CommunityId, user: UserId) -> bool {
     COMMUNITIES.with(|c| {
         let community = c.borrow().get(&community).expect("Community does not exist.");

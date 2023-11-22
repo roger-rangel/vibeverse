@@ -5,10 +5,7 @@ import { Community } from '@/types';
 import {
   useFollowCommunity,
   useGetIsCommunityFollower,
-  useGetIsCommunityMember,
   useGetProfile,
-  useJoinCommunity,
-  useLeaveCommunity,
   useUnfollowCommunity,
 } from '@/hooks';
 import { useConnect } from '@connect2ic/react';
@@ -23,14 +20,6 @@ export function CommunityCard({
 }) {
   const { data } = useGetProfile({ principal: creator.toString() });
   const { activeProvider, isConnected } = useConnect();
-  const { data: isMember, isLoading: isLoadingMember } =
-    useGetIsCommunityMember({
-      slug,
-      principal: activeProvider?.principal,
-    });
-
-  const { mutateAsync: joinCommunity } = useJoinCommunity();
-  const { mutateAsync: leaveCommunity } = useLeaveCommunity();
 
   const { data: isFollower, isLoading: isLoadingFollower } =
     useGetIsCommunityFollower({
@@ -39,24 +28,6 @@ export function CommunityCard({
     });
   const { mutateAsync: followCommunity } = useFollowCommunity();
   const { mutateAsync: unfollowCommunity } = useUnfollowCommunity();
-
-  const handleJoinClick = useCallback(() => {
-    if (isLoadingMember) return;
-
-    if (isMember) {
-      toast.promise(leaveCommunity({ slug }), {
-        pending: 'Leaving community....',
-        error: 'Error',
-        success: 'Left community',
-      });
-    } else {
-      toast.promise(joinCommunity({ slug }), {
-        pending: 'Joining community....',
-        error: 'Error',
-        success: 'Joined community',
-      });
-    }
-  }, [isMember, isLoadingMember, joinCommunity, leaveCommunity, slug]);
 
   const handleFollowClick = useCallback(() => {
     if (isLoadingFollower) return;
@@ -105,13 +76,6 @@ export function CommunityCard({
       </div>
       <div className={`mt-2 flex-col items-center justify-center gap-2`}>
         <div className="mt-4 flex items-center justify-end gap-2">
-          <button
-            className={`rounded-md bg-gradient-to-r from-gray-700 via-gray-900 to-black px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500`}
-            onClick={handleJoinClick}
-            disabled={isLoadingMember || !isConnected}
-          >
-            {isMember ? 'Leave' : 'Join'}
-          </button>
           <button
             className={`rounded-md bg-gradient-to-r from-gray-700 via-gray-900 to-black px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500`}
             onClick={handleFollowClick}

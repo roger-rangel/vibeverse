@@ -192,8 +192,8 @@ pub fn create_community(slug: CommunityId, name: String, description: String, lo
     Ok(slug)
 }
 
-#[update(guard = "caller_is_not_anonymous")]
-pub fn join_community(community: CommunityId) -> Result<(), String> {
+// #[update(guard = "caller_is_not_anonymous")]
+fn _join_community(community: CommunityId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
     communities::join_community(community, user, true).unwrap();
@@ -201,8 +201,8 @@ pub fn join_community(community: CommunityId) -> Result<(), String> {
     Ok(())
 }
 
-#[update(guard = "caller_is_not_anonymous")]
-pub fn leave_community(community: CommunityId) -> Result<(), String> {
+// #[update(guard = "caller_is_not_anonymous")]
+fn _leave_community(community: CommunityId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
     communities::leave_community(community, user, true).unwrap();
@@ -210,8 +210,8 @@ pub fn leave_community(community: CommunityId) -> Result<(), String> {
     Ok(())
 }
 
-#[query]
-pub fn is_community_member(community: CommunityId, user: Principal) -> bool {
+// #[query]
+fn _is_community_member(community: CommunityId, user: Principal) -> bool {
     communities::is_member(community, user)
 }
 

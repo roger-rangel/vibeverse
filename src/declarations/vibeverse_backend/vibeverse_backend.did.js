@@ -127,13 +127,6 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Bool],
         ['query'],
       ),
-    'is_community_member' : IDL.Func(
-        [IDL.Text, IDL.Principal],
-        [IDL.Bool],
-        ['query'],
-      ),
-    'join_community' : IDL.Func([IDL.Text], [Result], []),
-    'leave_community' : IDL.Func([IDL.Text], [Result], []),
     'mint_fee' : IDL.Func([], [IDL.Nat64], ['query']),
     'mint_nft' : IDL.Func(
         [IDL.Nat, IDL.Principal, IDL.Text, IDL.Text, IDL.Opt(IDL.Text)],

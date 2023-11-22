@@ -75,9 +75,6 @@ export interface _SERVICE {
   'get_nft_metadata' : ActorMethod<[bigint, bigint], [] | [NftMetadata]>,
   'is_admin' : ActorMethod<[Principal], boolean>,
   'is_community_follower' : ActorMethod<[string, Principal], boolean>,
-  'is_community_member' : ActorMethod<[string, Principal], boolean>,
-  'join_community' : ActorMethod<[string], Result>,
-  'leave_community' : ActorMethod<[string], Result>,
   'mint_fee' : ActorMethod<[], bigint>,
   'mint_nft' : ActorMethod<
     [bigint, Principal, string, string, [] | [string]],
