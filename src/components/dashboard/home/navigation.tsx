@@ -19,8 +19,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import SearchBar from './SearchBar';
-
-import { Banner } from '@/components/dashboard/home';
+import Nav_User from './nav_user';
+import Banner from './banner';
 
 const navigation = [
   {
@@ -351,9 +351,9 @@ export default function Navigation({ children }: React.PropsWithChildren) {
                 />
 
                 {isConnected ? (
-                  // <Nav_User /> Add this back in when we have dropdown components ready
-                  <div></div>
+                  <Nav_User />
                 ) : (
+                  // <div></div>
                   <button
                     className="button-gradient rounded-lg px-4 py-1.5 font-bold text-white"
                     onClick={() => dialog.open()}

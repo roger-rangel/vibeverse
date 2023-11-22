@@ -43,10 +43,10 @@ export default function Nav_User() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 xs:-right-4 sm:-right-6 md:right-0 mt-4 pb-20 lg:pr-10 w-screen max-w-3xl origin-top-right rounded-3xl bg-gray-900 py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none border border-emerald-300">
-          <Menu.Item className="flex relative justify-center align-middle ">
+        <Menu.Items className="absolute right-0 mt-4 flex w-60 origin-top-right flex-col gap-2 border border-emerald-300 bg-gray-900 py-2 shadow-lg ring-1 ring-gray-900/5 xs:-right-4 sm:-right-6 md:right-0">
+          <Menu.Item className="w-full">
             <button
-              className="border border-blue-500 rounded-xl p-4"
+              className="w-full border border-blue-500 p-4"
               onClick={disconnect}
             >
               Disconnect
