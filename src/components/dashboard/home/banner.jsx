@@ -3,7 +3,7 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 
 export default function Banner({ setIsBannerOpen }) {
   return (
-    <div className="fixed bottom-0 left-0 w-full flex z-50 isolate items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
+    <div className="fixed bottom-0 left-0 isolate z-40 flex w-full items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
       <div
         className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
         aria-hidden="true"
@@ -42,7 +42,7 @@ export default function Banner({ setIsBannerOpen }) {
         </p>
         <Link
           href="https://discord.gg/HgCafGhHxh"
-          className="flex-none rounded-full cursor-pointer bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
+          className="flex-none cursor-pointer rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
         >
           Join now <span aria-hidden="true">&rarr;</span>
         </Link>

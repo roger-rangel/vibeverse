@@ -1,16 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { useActor } from '@/providers/ActorProvider';
+import { asCommunity } from '@/types';
 
-export function useGetEmojis() {
+export function useGetCommunities() {
   const { actor } = useActor();
 
   return useQuery({
-    queryKey: [actor, 'emojis'],
+    queryKey: [actor, 'communities'],
     queryFn: async () => {
-      const emojis = await actor!.get_emojis();
+      const communities = await actor!.get_communities([], []);
 
-      return emojis;
+      return communities.map(asCommunity);
     },
     enabled: !!actor,
   });

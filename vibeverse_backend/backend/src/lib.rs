@@ -192,8 +192,8 @@ pub fn create_community(slug: CommunityId, name: String, description: String, lo
     Ok(slug)
 }
 
-#[update(guard = "caller_is_not_anonymous")]
-pub fn join_community(community: CommunityId) -> Result<(), String> {
+// #[update(guard = "caller_is_not_anonymous")]
+fn _join_community(community: CommunityId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
     communities::join_community(community, user, true).unwrap();
@@ -201,13 +201,41 @@ pub fn join_community(community: CommunityId) -> Result<(), String> {
     Ok(())
 }
 
-#[update(guard = "caller_is_not_anonymous")]
-pub fn leave_community(community: CommunityId) -> Result<(), String> {
+// #[update(guard = "caller_is_not_anonymous")]
+fn _leave_community(community: CommunityId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
     communities::leave_community(community, user, true).unwrap();
 
     Ok(())
+}
+
+// #[query]
+fn _is_community_member(community: CommunityId, user: Principal) -> bool {
+    communities::is_member(community, user)
+}
+
+#[update(guard = "caller_is_not_anonymous")]
+pub fn follow_community(community: CommunityId) -> Result<(), String> {
+    let user = ic_cdk::api::caller();
+
+    communities::follow_community(community, user).unwrap();
+
+    Ok(())
+}
+
+#[update(guard = "caller_is_not_anonymous")]
+pub fn unfollow_community(community: CommunityId) -> Result<(), String> {
+    let user = ic_cdk::api::caller();
+
+    communities::unfollow_community(community, user).unwrap();
+
+    Ok(())
+}
+
+#[query]
+pub fn is_community_follower(community: CommunityId, user: Principal) -> bool {
+    communities::is_follower(community, user)
 }
 
 #[query]
@@ -218,6 +246,16 @@ pub fn get_communities_joinned(user: Principal) -> Vec<Community> {
 #[query]
 pub fn get_communities_created_by(user: Principal) -> Vec<Community> {
     communities::get_communities_created_by(user)
+}
+
+#[query]
+pub fn total_communities() -> u64 {
+    communities::total_communities()
+}
+
+#[query]
+pub fn get_communities(start_index: Option<u128>, count: Option<u128>) -> Vec<Community> {
+    communities::get_communities(start_index, count)
 }
 
 // ----- community end ----

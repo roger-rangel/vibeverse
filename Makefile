@@ -5,7 +5,10 @@ prepare:
 	rustup target add wasm32-unknown-unknown
 
 build:
-	dfx build $(BACKEND)
+	dfx build $(BACKEND) --network=local
+
+build-staging:
+	dfx build $(BACKEND) --network=staging
 
 test-unit: 
 	cargo test --package $(BACKEND)
@@ -46,6 +49,7 @@ create:
 	dfx create canister $(BACKEND)
 
 deploy-backend: build
+	make generate-did
 	dfx deploy $(BACKEND)
 
 deploy-ii:
@@ -55,10 +59,16 @@ deploy: deploy-backend
 	make deploy-ii
 
 redeploy: build
+	make generate-did
 	dfx canister install $(BACKEND) --mode=reinstall
 
 upgrade: build
+	make generate-did
 	dfx canister install $(BACKEND) --mode=upgrade
+
+upgrade-staging: build-staging
+	make generate-did
+	dfx canister install $(BACKEND) --mode=upgrade --network=staging
 
 testdata:
 	scripts/deploy-test-data.sh

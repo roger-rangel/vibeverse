@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useQuery } from '@tanstack/react-query';
 
 import { useActor } from '@/providers/ActorProvider';

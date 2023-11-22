@@ -10,5 +10,13 @@
     "react/no-children-prop": ["warn"],
     "@tanstack/query/exhaustive-deps": "warn",
     "@tanstack/query/stable-query-client": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": "src/hooks/*.ts",
+      "rules": {
+        "@typescript-eslint/no-non-null-assertion": "off"
+      }
+    }
+  ]
 }

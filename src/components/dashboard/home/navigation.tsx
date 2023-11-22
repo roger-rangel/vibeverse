@@ -19,8 +19,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import SearchBar from './SearchBar';
-
-import { Banner } from '@/components/dashboard/home';
+import Nav_User from './nav_user';
+import Banner from './banner';
 
 const navigation = [
   {
@@ -29,6 +29,14 @@ const navigation = [
     icon: HomeIcon,
     current: true,
     color: 'bg-pink-400',
+  },
+  {
+    name: 'Communities',
+    href: '/dashboard/communities',
+    icon: BuildingStorefrontIcon,
+    initial: 'C',
+    current: false,
+    color: 'bg-yellow-400',
   },
   {
     name: 'AI Tools',
@@ -48,6 +56,13 @@ const navigation = [
     icon: DocumentDuplicateIcon,
     color: 'bg-green-400',
   },
+  {
+    name: 'Learning Center',
+    href: '/dashboard/learning',
+    icon: AcademicCapIcon,
+    current: false,
+    color: 'bg-emerald-400',
+  },
 ];
 const user = [
   {
@@ -56,20 +71,6 @@ const user = [
     href: '/dashboard/profile',
     icon: UserCircleIcon,
     initial: 'P',
-    current: false,
-  },
-  {
-    name: 'My Community',
-    href: '/dashboard/mycommunity',
-    icon: BuildingStorefrontIcon,
-    initial: 'C',
-    current: false,
-  },
-  {
-    name: 'Learning Center',
-    href: '/dashboard/learning',
-    icon: AcademicCapIcon,
-    initial: 'L',
     current: false,
   },
 ];
@@ -144,7 +145,7 @@ export default function Navigation({ children }: React.PropsWithChildren) {
                     <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
                       <button
                         type="button"
-                        className="-m-2.5 p-2.5 -ml-32"
+                        className="-m-2.5 -ml-32 p-2.5"
                         onClick={() => setSidebarOpen(false)}
                       >
                         <span className="sr-only">Close sidebar</span>
@@ -156,8 +157,8 @@ export default function Navigation({ children }: React.PropsWithChildren) {
                     </div>
                   </Transition.Child>
                   {/* Sidebar component */}
-                  <div className="flex grow z-100 flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
-                    <div className="flex h-16 shrink-0 items-center ml-8 mt-2 -mb-4">
+                  <div className="z-100 flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
+                    <div className="-mb-4 ml-8 mt-2 flex h-16 shrink-0 items-center">
                       <Image
                         src="/images/logos/vibeverse.png"
                         alt="logo"
@@ -165,7 +166,7 @@ export default function Navigation({ children }: React.PropsWithChildren) {
                         height={75}
                       />
                     </div>
-                    <nav className="flex flex-1 flex-col mt-2">
+                    <nav className="mt-2 flex flex-1 flex-col">
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
                         <li>
                           <ul role="list" className="-mx-2 space-y-1">
@@ -180,8 +181,8 @@ export default function Navigation({ children }: React.PropsWithChildren) {
                                   className={className(
                                     currentNavIndex == index
                                       ? 'bg-gray-800 text-white'
-                                      : 'text-gray-400 hover:text-white hover:bg-gray-800',
-                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+                                      : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                                    'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
                                   )}
                                 >
                                   <item.icon
@@ -210,8 +211,8 @@ export default function Navigation({ children }: React.PropsWithChildren) {
                                   className={className(
                                     currentNavIndex == index
                                       ? 'bg-gray-800 text-white'
-                                      : 'text-gray-400 hover:text-white hover:bg-gray-800',
-                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+                                      : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                                    'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
                                   )}
                                 >
                                   <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">
@@ -235,17 +236,17 @@ export default function Navigation({ children }: React.PropsWithChildren) {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 sm:z-10 lg:z-40 lg:flex lg:w-72 lg:flex-col">
+        <div className="hidden sm:z-10 lg:fixed lg:inset-y-0 lg:z-40 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component */}
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 border-r-2 border-indigo-500/75">
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r-2 border-indigo-500/75 bg-gray-900 px-6 pb-4">
             <div className="flex items-center">
-              <div className="-ml-2 mt-2 -mb-2">
+              <div className="-mb-2 -ml-2 mt-2">
                 <Image
                   src="/images/logos/vibeverse.png"
                   alt="logo"
                   width={150}
                   height={75}
-                  className="w-32 h-auto sm:w-40 md:w-48 lg:w-56"
+                  className="h-auto w-32 sm:w-40 md:w-48 lg:w-56"
                 />
               </div>
             </div>
@@ -264,8 +265,8 @@ export default function Navigation({ children }: React.PropsWithChildren) {
                           className={className(
                             currentNavIndex == index
                               ? `${item.color} text-white`
-                              : 'text-gray-400 hover:text-white hover:bg-gray-800',
-                            'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+                              : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                            'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
                           )}
                         >
                           <item.icon
@@ -294,8 +295,8 @@ export default function Navigation({ children }: React.PropsWithChildren) {
                           className={className(
                             currentUserIndex == index
                               ? 'bg-gray-800 text-white'
-                              : 'text-gray-400 hover:text-white hover:bg-gray-800',
-                            'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+                              : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                            'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
                           )}
                         >
                           <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">
@@ -316,13 +317,13 @@ export default function Navigation({ children }: React.PropsWithChildren) {
         </div>
 
         <div className="lg:pl-72">
-          <div className="sticky top-0 flex h-16 z-40 shrink-0 items-center gap-x-4 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 bg-gray-900 border-b-2 border-indigo-500/75">
+          <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b-2 border-indigo-500/75 bg-gray-900 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
             <Image
               src="/images/logos/vibe_mobile.png"
               alt="logo"
               width={30}
               height={30}
-              className="lg:hidden mr-2"
+              className="mr-2 lg:hidden"
             />
             <button
               type="button"
@@ -339,8 +340,7 @@ export default function Navigation({ children }: React.PropsWithChildren) {
               aria-hidden="true"
             />
 
-            <div className="flex flex-1 self-stretch z-1">
-
+            <div className="z-1 flex flex-1 self-stretch">
               <SearchBar />
 
               <div className="flex items-center">
@@ -351,11 +351,11 @@ export default function Navigation({ children }: React.PropsWithChildren) {
                 />
 
                 {isConnected ? (
-                  // <Nav_User /> Add this back in when we have dropdown components ready
-                  <div></div>
+                  <Nav_User />
                 ) : (
+                  // <div></div>
                   <button
-                    className="button-gradient text-white font-bold py-1.5 px-4 rounded-lg"
+                    className="button-gradient rounded-lg px-4 py-1.5 font-bold text-white"
                     onClick={() => dialog.open()}
                   >
                     Connect Wallet
@@ -365,7 +365,7 @@ export default function Navigation({ children }: React.PropsWithChildren) {
             </div>
           </div>
 
-          <main className="w-full text-2xl font-semibold text-gray-900 min-h-[calc(100vh-4rem)]">
+          <main className="min-h-[calc(100vh-4rem)] w-full text-2xl font-semibold text-gray-900">
             {children}
           </main>
         </div>
