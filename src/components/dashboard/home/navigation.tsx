@@ -56,6 +56,13 @@ const navigation = [
     icon: DocumentDuplicateIcon,
     color: 'bg-green-400',
   },
+  {
+    name: 'Learning Center',
+    href: '/dashboard/learning',
+    icon: AcademicCapIcon,
+    current: false,
+    color: 'bg-emerald-400',
+  },
 ];
 const user = [
   {
@@ -64,13 +71,6 @@ const user = [
     href: '/dashboard/profile',
     icon: UserCircleIcon,
     initial: 'P',
-    current: false,
-  },
-  {
-    name: 'Learning Center',
-    href: '/dashboard/learning',
-    icon: AcademicCapIcon,
-    initial: 'L',
     current: false,
   },
 ];
