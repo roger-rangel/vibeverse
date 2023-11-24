@@ -43,6 +43,9 @@ pub struct Course {
 
     #[serde(rename = "b")]
     pub badge: Badge,
+
+    #[serde(rename = "le", default)]
+    pub learners: Vec<UserId>,
 }
 
 impl Storable for Course {
@@ -77,6 +80,11 @@ impl Course {
             content,
             author,
             badge,
+            learners: Vec::new(),
         }
+    }
+
+    pub fn add_learner(&mut self, learner: UserId) {
+        self.learners.push(learner);
     }
 }

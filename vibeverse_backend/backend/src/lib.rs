@@ -278,6 +278,18 @@ pub fn create_course(
     courses::create_course(slug, title, description, level, logo, content, user, badge)
 }
 
+#[update(guard = "caller_is_not_anonymous")]
+pub fn finish_course(slug: CourseId) -> Result<(), String> {
+    let user = ic_cdk::api::caller();
+
+    courses::finish_course(user, slug)
+}
+
+#[query]
+pub fn get_earned_badges(user_id: UserId) -> Result<Vec<Badge>, String> {
+    courses::get_earned_badges(user_id)
+}
+
 #[query]
 pub fn total_courses() -> u64 {
     courses::total_courses()

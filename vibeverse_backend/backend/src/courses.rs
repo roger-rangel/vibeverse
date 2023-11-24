@@ -27,6 +27,22 @@ pub fn create_course(
     Ok(slug)
 }
 
+pub fn finish_course(user_id: UserId, course_id: CourseId) -> Result<(), String> {
+    COURSES.with(|courses| {
+        let mut course = courses
+            .borrow()
+            .get(&course_id)
+            .expect(&format!("Course {} does not exist.", course_id));
+        course.add_learner(user_id);
+        courses.borrow_mut().insert(course_id.clone(), course);
+    });
+
+    let mut binding = creators::creator_metadata(user_id);
+    let user_profile = binding.as_mut().expect("Not exist creator");
+    user_profile.add_completed_course_now(course_id.clone());
+    creators::set_creator_metadata(user_id, user_profile.clone())
+}
+
 pub fn total_courses() -> u64 {
     COURSES.with(|c| {
         let courses = c.borrow();
@@ -55,4 +71,28 @@ pub fn get_courses(start_index: Option<u128>, count: Option<u128>) -> Vec<Course
 
         communities
     })
+}
+
+pub fn get_earned_badges(user_id: UserId) -> Result<Vec<Badge>, String> {
+    let user = creators::creator_metadata(user_id).ok_or_else(|| format!("User {} does not exist.", user_id))?;
+
+    let badge = user
+        .completed_courses
+        .keys()
+        .cloned()
+        .collect::<Vec<_>>()
+        .into_iter()
+        .map(|course_id| {
+            let course = COURSES.with(|courses| {
+                courses
+                    .borrow()
+                    .get(&course_id)
+                    .expect(&format!("Course {} does not exist.", course_id))
+            });
+
+            course.badge.clone()
+        })
+        .collect::<Vec<_>>();
+
+    Ok(badge)
 }
