@@ -27,7 +27,17 @@ export const idlFactory = ({ IDL }) => {
     'category' : IDL.Text,
   });
   const Result_3 = IDL.Variant({ 'Ok' : IDL.Text, 'Err' : IDL.Text });
-  const Creator = IDL.Record({ 'a' : IDL.Text, 'n' : IDL.Text });
+  const CourseLevel = IDL.Variant({
+    'Beginner' : IDL.Null,
+    'Advanced' : IDL.Null,
+    'Intermediate' : IDL.Null,
+  });
+  const Creator = IDL.Record({
+    'a' : IDL.Text,
+    'n' : IDL.Text,
+    'cc' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Nat64)),
+    'lc' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Nat64)),
+  });
   const Community = IDL.Record({
     'c' : IDL.Principal,
     'd' : IDL.Text,
@@ -37,6 +47,17 @@ export const idlFactory = ({ IDL }) => {
     'n' : IDL.Text,
     's' : IDL.Text,
     'v' : IDL.Bool,
+  });
+  const Badge = IDL.Record({ 'i' : IDL.Text, 'n' : IDL.Text });
+  const Course = IDL.Record({
+    'a' : IDL.Principal,
+    'b' : Badge,
+    'c' : IDL.Text,
+    'd' : IDL.Text,
+    'l' : IDL.Text,
+    's' : IDL.Text,
+    't' : IDL.Text,
+    'lv' : CourseLevel,
   });
   const NftMetadata = IDL.Record({
     'r' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Vec(IDL.Principal))),
@@ -93,6 +114,21 @@ export const idlFactory = ({ IDL }) => {
         [Result_3],
         [],
       ),
+    'create_course' : IDL.Func(
+        [
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          CourseLevel,
+          IDL.Text,
+          IDL.Text,
+          IDL.Principal,
+          IDL.Text,
+          IDL.Text,
+        ],
+        [Result_3],
+        [],
+      ),
     'creator_metadata' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(Creator)],
@@ -113,6 +149,11 @@ export const idlFactory = ({ IDL }) => {
     'get_communities_joinned' : IDL.Func(
         [IDL.Principal],
         [IDL.Vec(Community)],
+        ['query'],
+      ),
+    'get_courses' : IDL.Func(
+        [IDL.Opt(IDL.Nat), IDL.Opt(IDL.Nat)],
+        [IDL.Vec(Course)],
         ['query'],
       ),
     'get_emojis' : IDL.Func([], [IDL.Vec(IDL.Text)], ['query']),
@@ -147,6 +188,7 @@ export const idlFactory = ({ IDL }) => {
     'set_mint_fee' : IDL.Func([IDL.Nat64], [Result_5], []),
     'set_vibe_token' : IDL.Func([IDL.Principal], [Result_5], []),
     'total_communities' : IDL.Func([], [IDL.Nat64], ['query']),
+    'total_courses' : IDL.Func([], [IDL.Nat64], ['query']),
     'transfer_nft' : IDL.Func(
         [IDL.Nat, IDL.Nat, IDL.Principal],
         [Result_5],

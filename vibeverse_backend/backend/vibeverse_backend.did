@@ -1,4 +1,5 @@
 type AddRemoveReactionResult = variant { Added; Removed };
+type Badge = record { i : text; n : text };
 type Collection = record {
   id : nat;
   creator : principal;
@@ -20,7 +21,23 @@ type Community = record {
   s : text;
   v : bool;
 };
-type Creator = record { a : text; n : text };
+type Course = record {
+  a : principal;
+  b : Badge;
+  c : text;
+  d : text;
+  l : text;
+  s : text;
+  t : text;
+  lv : CourseLevel;
+};
+type CourseLevel = variant { Beginner; Advanced; Intermediate };
+type Creator = record {
+  a : text;
+  n : text;
+  cc : vec record { text; nat64 };
+  lc : vec record { text; nat64 };
+};
 type Nft = record {
   id : record { nat; nat };
   name : text;
@@ -46,12 +63,24 @@ service : () -> {
   collections_created_by_caller : () -> (vec Collection) query;
   create_collection : (text, text, bool, opt nat, opt text, text) -> (Result_1);
   create_community : (text, text, text, text) -> (Result_3);
+  create_course : (
+      text,
+      text,
+      text,
+      CourseLevel,
+      text,
+      text,
+      principal,
+      text,
+      text,
+    ) -> (Result_3);
   creator_metadata : (principal) -> (opt Creator) query;
   follow_community : (text) -> (Result);
   get_collection : (nat) -> (opt Collection) query;
   get_communities : (opt nat, opt nat) -> (vec Community) query;
   get_communities_created_by : (principal) -> (vec Community) query;
   get_communities_joinned : (principal) -> (vec Community) query;
+  get_courses : (opt nat, opt nat) -> (vec Course) query;
   get_emojis : () -> (vec text) query;
   get_nft_metadata : (nat, nat) -> (opt NftMetadata) query;
   is_admin : (principal) -> (bool) query;
@@ -68,6 +97,7 @@ service : () -> {
   set_mint_fee : (nat64) -> (Result_5);
   set_vibe_token : (principal) -> (Result_5);
   total_communities : () -> (nat64) query;
+  total_courses : () -> (nat64) query;
   transfer_nft : (nat, nat, principal) -> (Result_5);
   unfollow_community : (text) -> (Result_5);
   update_collection_metadata : (nat, text, text, opt text, opt text) -> (

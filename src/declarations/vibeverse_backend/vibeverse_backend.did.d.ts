@@ -3,6 +3,7 @@ import type { ActorMethod } from '@dfinity/agent';
 
 export type AddRemoveReactionResult = { 'Added' : null } |
   { 'Removed' : null };
+export interface Badge { 'i' : string, 'n' : string }
 export interface Collection {
   'id' : bigint,
   'creator' : Principal,
@@ -24,7 +25,25 @@ export interface Community {
   's' : string,
   'v' : boolean,
 }
-export interface Creator { 'a' : string, 'n' : string }
+export interface Course {
+  'a' : Principal,
+  'b' : Badge,
+  'c' : string,
+  'd' : string,
+  'l' : string,
+  's' : string,
+  't' : string,
+  'lv' : CourseLevel,
+}
+export type CourseLevel = { 'Beginner' : null } |
+  { 'Advanced' : null } |
+  { 'Intermediate' : null };
+export interface Creator {
+  'a' : string,
+  'n' : string,
+  'cc' : Array<[string, bigint]>,
+  'lc' : Array<[string, bigint]>,
+}
 export interface Nft {
   'id' : [bigint, bigint],
   'name' : string,
@@ -62,6 +81,20 @@ export interface _SERVICE {
     Result_1
   >,
   'create_community' : ActorMethod<[string, string, string, string], Result_3>,
+  'create_course' : ActorMethod<
+    [
+      string,
+      string,
+      string,
+      CourseLevel,
+      string,
+      string,
+      Principal,
+      string,
+      string,
+    ],
+    Result_3
+  >,
   'creator_metadata' : ActorMethod<[Principal], [] | [Creator]>,
   'follow_community' : ActorMethod<[string], Result>,
   'get_collection' : ActorMethod<[bigint], [] | [Collection]>,
@@ -71,6 +104,7 @@ export interface _SERVICE {
   >,
   'get_communities_created_by' : ActorMethod<[Principal], Array<Community>>,
   'get_communities_joinned' : ActorMethod<[Principal], Array<Community>>,
+  'get_courses' : ActorMethod<[[] | [bigint], [] | [bigint]], Array<Course>>,
   'get_emojis' : ActorMethod<[], Array<string>>,
   'get_nft_metadata' : ActorMethod<[bigint, bigint], [] | [NftMetadata]>,
   'is_admin' : ActorMethod<[Principal], boolean>,
@@ -90,6 +124,7 @@ export interface _SERVICE {
   'set_mint_fee' : ActorMethod<[bigint], Result_5>,
   'set_vibe_token' : ActorMethod<[Principal], Result_5>,
   'total_communities' : ActorMethod<[], bigint>,
+  'total_courses' : ActorMethod<[], bigint>,
   'transfer_nft' : ActorMethod<[bigint, bigint, Principal], Result_5>,
   'unfollow_community' : ActorMethod<[string], Result_5>,
   'update_collection_metadata' : ActorMethod<

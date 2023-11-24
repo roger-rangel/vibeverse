@@ -1,18 +1,16 @@
-use candid::Principal;
-
-use crate::{memory::CREATORS, types::Creator};
+use crate::{
+    memory::CREATORS,
+    types::{Creator, UserId},
+};
 
 /// Sets the metadata for the specific creator.
-pub fn set_creator_metadata(caller: Principal, name: String, avatar: String) -> Result<(), String> {
+pub fn set_creator_metadata(user_id: UserId, creator: Creator) -> Result<(), String> {
     CREATORS.with(|creators| {
-        let creator = Creator { name, avatar };
-
-        let mut creators = creators.borrow_mut();
-        creators.insert(caller.into(), creator);
+        creators.borrow_mut().insert(user_id.into(), creator);
     });
     Ok(())
 }
 
-pub fn creator_metadata(principal: Principal) -> Option<Creator> {
-    CREATORS.with(|creators| creators.borrow().get(&principal.into()))
+pub fn creator_metadata(user_id: UserId) -> Option<Creator> {
+    CREATORS.with(|creators| creators.borrow().get(&user_id.into()))
 }
