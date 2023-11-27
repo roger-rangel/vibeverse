@@ -61,6 +61,7 @@ impl Storable for Course {
 }
 
 impl Course {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
         slug: CourseId,
         title: String,

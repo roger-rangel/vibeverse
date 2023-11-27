@@ -4,6 +4,7 @@ use crate::{
     types::{Badge, Course, CourseId, CourseLevel, UserId},
 };
 
+#[allow(clippy::too_many_arguments)]
 pub fn create_course(
     slug: CourseId,
     title: String,
@@ -32,7 +33,7 @@ pub fn finish_course(user_id: UserId, course_id: CourseId) -> Result<(), String>
         let mut course = courses
             .borrow()
             .get(&course_id)
-            .expect(&format!("Course {} does not exist.", course_id));
+            .unwrap_or_else(|| panic!("Course {} does not exist.", course_id));
         course.add_learner(user_id);
         courses.borrow_mut().insert(course_id.clone(), course);
     });
@@ -87,7 +88,7 @@ pub fn get_earned_badges(user_id: UserId) -> Result<Vec<Badge>, String> {
                 courses
                     .borrow()
                     .get(&course_id)
-                    .expect(&format!("Course {} does not exist.", course_id))
+                    .unwrap_or_else(|| panic!("Course {} does not exist.", course_id))
             });
 
             course.badge.clone()

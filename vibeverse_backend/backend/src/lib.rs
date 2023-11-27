@@ -262,6 +262,7 @@ pub fn get_communities(start_index: Option<u128>, count: Option<u128>) -> Vec<Co
 // ----- community end ----
 
 // ----- course start ----
+#[allow(clippy::too_many_arguments)]
 #[update(guard = "caller_is_not_anonymous")]
 pub fn create_course(
     slug: CourseId,
