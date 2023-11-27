@@ -96,3 +96,7 @@ pub fn get_earned_badges(user_id: UserId) -> Result<Vec<Badge>, String> {
 
     Ok(badge)
 }
+
+pub fn get_course(course_id: CourseId) -> Option<Course> {
+    COURSES.with(|courses| courses.borrow().get(&course_id))
+}

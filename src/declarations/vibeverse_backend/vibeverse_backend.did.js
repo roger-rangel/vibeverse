@@ -153,6 +153,7 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(Community)],
         ['query'],
       ),
+    'get_course' : IDL.Func([IDL.Text], [IDL.Opt(Course)], ['query']),
     'get_courses' : IDL.Func(
         [IDL.Opt(IDL.Nat), IDL.Opt(IDL.Nat)],
         [IDL.Vec(Course)],

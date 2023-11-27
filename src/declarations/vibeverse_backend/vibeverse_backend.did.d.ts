@@ -98,6 +98,7 @@ export interface _SERVICE {
   >,
   'get_communities_created_by' : ActorMethod<[Principal], Array<Community>>,
   'get_communities_joinned' : ActorMethod<[Principal], Array<Community>>,
+  'get_course' : ActorMethod<[string], [] | [Course]>,
   'get_courses' : ActorMethod<[[] | [bigint], [] | [bigint]], Array<Course>>,
   'get_earned_badges' : ActorMethod<[Principal], Result_4>,
   'get_emojis' : ActorMethod<[], Array<string>>,

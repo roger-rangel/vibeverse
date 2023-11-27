@@ -300,6 +300,11 @@ pub fn get_courses(start_index: Option<u128>, count: Option<u128>) -> Vec<Course
     courses::get_courses(start_index, count)
 }
 
+#[query]
+pub fn get_course(course_id: CourseId) -> Option<Course> {
+    courses::get_course(course_id)
+}
+
 // ----- course end ----
 
 // Administrative functions
