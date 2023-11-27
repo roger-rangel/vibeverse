@@ -147,7 +147,7 @@ export function CreateCourseModal({ isOpen, hideModal }: ModalProps) {
               <input
                 type="text"
                 className="max-w-xs flex-1 rounded-md border-0 bg-white/5 p-2 text-white ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:text-sm sm:leading-6"
-                placeholder="This is your community unique ID"
+                placeholder="This is your course unique ID"
                 {...register('slug')}
               />
             </div>
@@ -158,7 +158,7 @@ export function CreateCourseModal({ isOpen, hideModal }: ModalProps) {
               <input
                 type="text"
                 className="max-w-xs flex-1 rounded-md border-0 bg-white/5 p-2 text-white ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:text-sm sm:leading-6"
-                placeholder="This is your Brand Name :)"
+                placeholder="This is your course title"
                 {...register('title')}
               />
             </div>
@@ -172,7 +172,7 @@ export function CreateCourseModal({ isOpen, hideModal }: ModalProps) {
               <input
                 type="text"
                 className="max-w-xs flex-1 rounded-md border-0 bg-white/5 p-2 text-white ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:text-sm sm:leading-6"
-                placeholder="This is your community description"
+                placeholder="This is your course description"
                 {...register('description')}
               />
             </div>
@@ -231,7 +231,7 @@ export function CreateCourseModal({ isOpen, hideModal }: ModalProps) {
               <input
                 type="text"
                 className="max-w-xs flex-1 rounded-md border-0 bg-white/5 p-2 text-white ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:text-sm sm:leading-6"
-                placeholder="This is your Brand Name :)"
+                placeholder="This is course badge name"
                 {...register('badge.name')}
               />
             </div>
