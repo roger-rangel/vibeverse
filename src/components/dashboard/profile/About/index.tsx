@@ -1,15 +1,22 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useModal } from 'react-modal-hook';
 import { FaAward } from 'react-icons/fa';
 import { FiUsers } from 'react-icons/fi';
 import { VscFolderLibrary } from 'react-icons/vsc';
 import { useConnect } from '@connect2ic/react';
 
-import styles from './About.module.scss';
-import { useGetProfile, useGetPrincipalNfts } from '@/hooks';
+import { EarnedBadgesModal } from '@/components';
+import {
+  useGetProfile,
+  useGetPrincipalNfts,
+  useGetEarnedBadges,
+} from '@/hooks';
 
 import CallToAction from '../CallToAction';
+
+import styles from './About.module.scss';
 
 const About = () => {
   const { activeProvider } = useConnect();
@@ -17,6 +24,19 @@ const About = () => {
     principal: activeProvider?.principal,
   });
   const { data: nfts } = useGetPrincipalNfts();
+  const { data: badges } = useGetEarnedBadges({
+    userId: activeProvider?.principal,
+  });
+  const [showEarnedBadgeModal, hideEarnedBadgeModal] = useModal(
+    () => (
+      <EarnedBadgesModal
+        badges={badges || []}
+        isOpen
+        hideModal={hideEarnedBadgeModal}
+      />
+    ),
+    [badges],
+  );
 
   if (!profile) {
     return (
@@ -28,8 +48,8 @@ const About = () => {
 
   return (
     <section id="about">
-      <div className="pt-8 pb-10">
-        <h2 className="text-xl text-center text-[#4db5ff]">Your Profile</h2>
+      <div className="pb-10 pt-8">
+        <h2 className="text-center text-xl text-[#4db5ff]">Your Profile</h2>
         <h5 className="text-center text-sm text-gray-200">
           {profile ? profile.name : 'Creator'}
         </h5>
@@ -56,10 +76,13 @@ const About = () => {
                 <small>{nfts?.length || 0}</small>
               </article>
 
-              <article className={styles.about__card}>
+              <article
+                className={styles.about__card}
+                onClick={showEarnedBadgeModal}
+              >
                 <FaAward className={styles.about__icon} />
-                <h5>Rewards</h5>
-                <small>0</small>
+                <h5>Badges</h5>
+                <small>{badges?.length || 0}</small>
               </article>
 
               <article className={styles.about__card}>
@@ -69,22 +92,22 @@ const About = () => {
               </article>
             </div>
 
-            <div className="flex gap-6 justify-center lg:justify-start mt-10 text-base">
+            <div className="mt-10 flex justify-center gap-6 text-base lg:justify-start">
               <Link
                 href="#settings"
-                className="py-2 px-4 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
+                className="rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] px-4 py-2 hover:from-[#4ade80] hover:to-[#3b82f6]"
               >
                 Settings
               </Link>
               <Link
                 href="/dashboard/upload"
-                className="py-2 px-4 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
+                className="rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] px-4 py-2 hover:from-[#4ade80] hover:to-[#3b82f6]"
               >
                 Create
               </Link>
               <Link
                 href="/dashboard"
-                className="py-2 px-4 rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
+                className="rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] px-4 py-2 hover:from-[#4ade80] hover:to-[#3b82f6]"
               >
                 Explore
               </Link>
