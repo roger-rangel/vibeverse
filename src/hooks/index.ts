@@ -15,3 +15,4 @@ export * from './useCreateCommunity';
 export * from './useGetCommunities';
 export * from './useCommunityActions';
 export * from './useCreateCourse';
+export * from './useGetCourses';
