@@ -4,13 +4,13 @@ use crate::{creators::*, types::Creator};
 
 #[test]
 fn setting_creator_metadata_works() {
-    let creator = get_creator();
+    let id = get_creator();
     let name = String::from("Creator#1");
     let avatar = String::from("https://example.com/avatar.png");
+    let creator = Creator::new(name, avatar);
+    set_creator_metadata(id, creator.clone()).unwrap();
 
-    set_creator_metadata(creator, name.clone(), avatar.clone()).unwrap();
-
-    assert_eq!(creator_metadata(creator), Some(Creator { name, avatar }));
+    assert_eq!(creator_metadata(id), Some(creator));
 }
 
 #[test]

@@ -5,6 +5,7 @@ use ic_cdk_macros::{query, update};
 mod administrative;
 mod admins;
 mod communities;
+mod courses;
 mod creators;
 #[cfg(test)]
 mod creators_tests;
@@ -63,8 +64,8 @@ pub fn get_collection(id: CollectionId) -> Option<Collection> {
 #[update]
 pub fn set_creator_metadata(name: String, avatar: String) -> Result<(), String> {
     let caller = ic_cdk::api::caller();
-
-    creators::set_creator_metadata(caller, name, avatar)
+    let creator = Creator::new(name, avatar);
+    creators::set_creator_metadata(caller, creator)
 }
 
 #[query]
@@ -259,6 +260,53 @@ pub fn get_communities(start_index: Option<u128>, count: Option<u128>) -> Vec<Co
 }
 
 // ----- community end ----
+
+// ----- course start ----
+#[allow(clippy::too_many_arguments)]
+#[update(guard = "caller_is_not_anonymous")]
+pub fn create_course(
+    slug: CourseId,
+    title: String,
+    description: String,
+    level: CourseLevel,
+    logo: String,
+    content: String,
+    badge_name: String,
+    badge_image: String,
+) -> Result<CourseId, String> {
+    let user = ic_cdk::api::caller();
+    let badge = Badge::new(badge_name, badge_image);
+    courses::create_course(slug, title, description, level, logo, content, user, badge)
+}
+
+#[update(guard = "caller_is_not_anonymous")]
+pub fn finish_course(slug: CourseId) -> Result<(), String> {
+    let user = ic_cdk::api::caller();
+
+    courses::finish_course(user, slug)
+}
+
+#[query]
+pub fn get_earned_badges(user_id: UserId) -> Result<Vec<Badge>, String> {
+    courses::get_earned_badges(user_id)
+}
+
+#[query]
+pub fn total_courses() -> u64 {
+    courses::total_courses()
+}
+
+#[query]
+pub fn get_courses(start_index: Option<u128>, count: Option<u128>) -> Vec<Course> {
+    courses::get_courses(start_index, count)
+}
+
+#[query]
+pub fn get_course(course_id: CourseId) -> Option<Course> {
+    courses::get_course(course_id)
+}
+
+// ----- course end ----
 
 // Administrative functions
 #[update(guard = "caller_is_admin")]

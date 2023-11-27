@@ -14,3 +14,8 @@ export * from './useGetEmojis';
 export * from './useCreateCommunity';
 export * from './useGetCommunities';
 export * from './useCommunityActions';
+export * from './useCreateCourse';
+export * from './useGetCourses';
+export * from './useGetCourse';
+export * from './useFinishCourse';
+export * from './useGetEarnedBadges';

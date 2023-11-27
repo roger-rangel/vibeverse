@@ -3,12 +3,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ActorSubclass } from '@dfinity/agent';
 import { useConnect } from '@connect2ic/react';
 
-import { DFX_NETWORK } from '@/config';
-import {
-  canisterId,
-  createActor,
-  idlFactory,
-} from '@/declarations/vibeverse_backend';
+import { anonymousActor } from '@/config';
+import { canisterId, idlFactory } from '@/declarations/vibeverse_backend';
 import { _SERVICE } from '@/declarations/vibeverse_backend/vibeverse_backend.did';
 
 interface ActorProps {
@@ -27,14 +23,8 @@ export const ActorProvider = ({ children }: React.PropsWithChildren) => {
     (async () => {
       if (!activeProvider) {
         // TODO Check if anonymous actor is required
-        const host =
-          DFX_NETWORK === 'local' ? 'http://localhost:4943' : 'https://ic0.app';
-        const actor = createActor(canisterId, {
-          agentOptions: {
-            host,
-          },
-        });
-        setActor(actor);
+
+        setActor(anonymousActor);
         return;
       }
       // @ts-ignore

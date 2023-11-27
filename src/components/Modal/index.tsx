@@ -21,9 +21,13 @@ const customStyles: Styles = {
   },
 };
 
-export interface ModalProps extends Omit<Props, 'children'> {
+export interface CloseableModalProps {
   hideModal: () => void;
 }
+
+export interface ModalProps
+  extends Omit<Props, 'children'>,
+    CloseableModalProps {}
 
 export function Modal({
   children,
@@ -41,5 +45,25 @@ export function Modal({
       {/* @ts-ignore */}
       {children}
     </ReactModal>
+  );
+}
+
+export function ModalHeader({
+  title,
+  className,
+  hideModal,
+}: CloseableModalProps & { title: string; className?: string }) {
+  return (
+    <div
+      className={
+        'flex min-w-[320px] flex-row items-center justify-between rounded-lg bg-gray-900 px-2 py-4  ' +
+        className
+      }
+    >
+      <div>{title}</div>
+      <button type="button" onClick={hideModal}>
+        Close
+      </button>
+    </div>
   );
 }

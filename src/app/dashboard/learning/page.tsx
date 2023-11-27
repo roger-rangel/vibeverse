@@ -1,7 +1,6 @@
 'use client';
 
 import { Roboto } from 'next/font/google';
-// import Link from 'next/link';
 
 import { LearningSection } from '@/components/learning';
 
@@ -15,7 +14,7 @@ export default function AIContent() {
     <div
       className={
         roboto.className +
-        ` mx-auto relative min-h-[inherit] bg-[url('https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Runway_2023-11-10T12_44_47.434Z_Erase_and_Replace_sky.png')] bg-cover`
+        ` relative mx-auto min-h-[inherit] bg-[url('https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Runway_2023-11-10T12_44_47.434Z_Erase_and_Replace_sky.png')] bg-cover`
       }
     >
       <LearningSection />
