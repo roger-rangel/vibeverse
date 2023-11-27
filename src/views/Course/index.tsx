@@ -1,12 +1,19 @@
 'use client';
 
 import React from 'react';
+import { useSearchParams, notFound } from 'next/navigation';
 
 import { useGetCourse } from '@/hooks';
-import { Course } from '@/types';
 
-export default function CourseView(params: Pick<Course, 'slug'>) {
-  const { data: course } = useGetCourse({ slug: params.slug });
+export default function CourseView() {
+  const searchParams = useSearchParams();
+
+  const slug = searchParams.get('slug');
+  const { data: course } = useGetCourse({ slug: slug || '', enabled: !!slug });
+
+  if (!slug) {
+    notFound();
+  }
 
   return (
     <div>

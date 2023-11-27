@@ -3,7 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useActor } from '@/providers/ActorProvider';
 import { Course, asCourse } from '@/types';
 
-export function useGetCourse({ slug }: Pick<Course, 'slug'>) {
+export function useGetCourse({
+  slug,
+  enabled = true,
+}: Pick<Course, 'slug'> & { enabled?: boolean }) {
   const { actor } = useActor();
   return useQuery({
     queryKey: [actor, 'course', slug],
@@ -16,6 +19,6 @@ export function useGetCourse({ slug }: Pick<Course, 'slug'>) {
 
       return asCourse(course[0]);
     },
-    enabled: !!actor,
+    enabled: !!actor && enabled,
   });
 }

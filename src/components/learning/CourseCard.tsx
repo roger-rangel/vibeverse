@@ -23,7 +23,7 @@ export function CourseCard({
           {title}
         </p>
       </div>
-      <Link href={`/dashboard/course/${slug}`}>
+      <Link href={`/dashboard/course?slug=${slug}`}>
         <div className="absolute inset-0 focus:outline-none">
           <span className="sr-only">View details for {title}</span>
         </div>
