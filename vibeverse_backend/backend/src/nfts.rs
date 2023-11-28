@@ -76,7 +76,7 @@ pub fn create_collection(
     STATE.with(|counter| counter.borrow_mut().total_collections += 1);
 
     // Increase score
-    creators::add_score(creator, creators::SCORE::CreateCollection)?;
+    creators::add_score(creator, creators::Score::CreateCollection)?;
 
     Ok(id)
 }
@@ -226,7 +226,7 @@ pub fn mint_nft(
     });
 
     // Increase score
-    creators::add_score(caller, creators::SCORE::MintNft).map_err(|_| Error::Unknown)?;
+    creators::add_score(caller, creators::Score::MintNft).map_err(|_| Error::Unknown)?;
 
     Ok(nft)
 }

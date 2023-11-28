@@ -26,7 +26,7 @@ pub fn create_course(
     creators::set_creator_metadata(author, author_profile.clone())?;
 
     // Increase score
-    creators::add_score(author, creators::SCORE::CreateCourse)?;
+    creators::add_score(author, creators::Score::CreateCourse)?;
 
     Ok(slug)
 }

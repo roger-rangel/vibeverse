@@ -50,7 +50,7 @@ pub fn create_community(
     add_communities(vec![community]).unwrap();
 
     // Increase score
-    creators::add_score(creator, creators::SCORE::CreateCommunity)?;
+    creators::add_score(creator, creators::Score::CreateCommunity)?;
     Ok(())
 }
 
