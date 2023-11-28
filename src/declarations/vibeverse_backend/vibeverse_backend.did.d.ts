@@ -42,6 +42,7 @@ export type CourseLevel = { 'Beginner' : null } |
 export interface Creator {
   'a' : string,
   'n' : string,
+  's' : bigint,
   'cc' : Array<[string, bigint]>,
   'lc' : Array<[string, bigint]>,
 }

@@ -1,7 +1,7 @@
 use crate::{
     creators,
     memory::COURSES,
-    types::{Badge, Course, CourseId, CourseLevel, UserId},
+    types::{score, Badge, Course, CourseId, CourseLevel, UserId},
 };
 
 #[allow(clippy::too_many_arguments)]
@@ -23,6 +23,7 @@ pub fn create_course(
     let mut binding = creators::creator_metadata(author);
     let author_profile = binding.as_mut().expect("Not exist creator");
     author_profile.add_created_course_now(slug.clone());
+    author_profile.add_score(score::CREATE_COURSE);
     creators::set_creator_metadata(author, author_profile.clone())?;
 
     Ok(slug)
@@ -41,6 +42,8 @@ pub fn finish_course(user_id: UserId, course_id: CourseId) -> Result<(), String>
     let mut binding = creators::creator_metadata(user_id);
     let user_profile = binding.as_mut().expect("Not exist creator");
     user_profile.add_completed_course_now(course_id.clone());
+    user_profile.add_score(score::FINISH_COURSE);
+
     creators::set_creator_metadata(user_id, user_profile.clone())
 }
 

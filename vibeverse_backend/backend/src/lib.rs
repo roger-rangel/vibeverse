@@ -34,9 +34,8 @@ pub fn create_collection(
     category: String,
 ) -> Result<CollectionId, String> {
     let creator = ic_cdk::api::caller();
-    let id = nfts::create_collection(creator, name, description, transferable, limit, image_url, category);
 
-    Ok(id)
+    nfts::create_collection(creator, name, description, transferable, limit, image_url, category)
 }
 
 #[update]

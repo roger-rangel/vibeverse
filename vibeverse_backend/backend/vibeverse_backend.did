@@ -36,6 +36,7 @@ type CourseLevel = variant { Beginner; Advanced; Intermediate };
 type Creator = record {
   a : text;
   n : text;
+  s : nat;
   cc : vec record { text; nat64 };
   lc : vec record { text; nat64 };
 };

@@ -1,8 +1,9 @@
 use candid::Nat;
 
 use crate::{
+    creators,
     memory::COMMUNITIES,
-    types::{Community, CommunityId, UserId},
+    types::{score, Community, CommunityId, UserId},
 };
 
 pub fn add_communities(communities: Vec<Community>) -> Result<Nat, String> {
@@ -47,6 +48,9 @@ pub fn create_community(
 ) -> Result<(), String> {
     let community = Community::new(slug, creator, name, description, logo, false, vec![creator], vec![creator]);
     add_communities(vec![community]).unwrap();
+
+    // Increase score
+    creators::add_score(creator, score::CREATE_COMMUNITY)?;
     Ok(())
 }
 
