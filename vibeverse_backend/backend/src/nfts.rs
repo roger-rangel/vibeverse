@@ -5,7 +5,7 @@ use ic_cdk::api::call::CallResult;
 use ic_cdk::call;
 
 use crate::creators;
-use crate::types::{Score, StorableNat};
+use crate::types::{score, StorableNat};
 use crate::{
     memory::{COLLECTIONS, COLLECTIONS_OF, NFTS, NFTS_OF, STATE},
     types::{Collection, CollectionId, Nft, NftId},
@@ -76,7 +76,7 @@ pub fn create_collection(
     STATE.with(|counter| counter.borrow_mut().total_collections += 1);
 
     // Increase score
-    creators::add_score(creator, Score::CreateCollection)?;
+    creators::add_score(creator, score::CREATE_COLLECTION)?;
 
     Ok(id)
 }
@@ -226,7 +226,7 @@ pub fn mint_nft(
     });
 
     // Increase score
-    creators::add_score(caller, Score::MintNft).map_err(|_| Error::Unknown)?;
+    creators::add_score(caller, score::MINT_NFT).map_err(|_| Error::Unknown)?;
 
     Ok(nft)
 }

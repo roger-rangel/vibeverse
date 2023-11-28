@@ -3,7 +3,7 @@ use candid::Nat;
 use crate::{
     creators,
     memory::COMMUNITIES,
-    types::{Community, CommunityId, Score, UserId},
+    types::{score, Community, CommunityId, UserId},
 };
 
 pub fn add_communities(communities: Vec<Community>) -> Result<Nat, String> {
@@ -50,7 +50,7 @@ pub fn create_community(
     add_communities(vec![community]).unwrap();
 
     // Increase score
-    creators::add_score(creator, Score::CreateCommunity)?;
+    creators::add_score(creator, score::CREATE_COMMUNITY)?;
     Ok(())
 }
 
