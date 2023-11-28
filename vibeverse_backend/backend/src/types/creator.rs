@@ -9,6 +9,14 @@ use super::{CourseId, StorableNat};
 
 pub type UserId = Principal;
 
+#[repr(u8)]
+pub enum Score {
+    CreateCollection = 2,
+    MintNft = 1,
+    CreateCourse = 3,
+    CreateCommunity = 5,
+}
+
 #[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize)]
 pub struct Creator {
     /// The display name of the creator.
@@ -65,8 +73,8 @@ impl Creator {
         self.completed_courses.insert(course, ic_cdk::api::time());
     }
 
-    pub fn add_score(&mut self, score: StorableNat) -> StorableNat {
-        self.score += score;
+    pub fn add_score(&mut self, score: Score) -> StorableNat {
+        self.score += Into::<StorableNat>::into(score as u8);
 
         self.score.clone()
     }

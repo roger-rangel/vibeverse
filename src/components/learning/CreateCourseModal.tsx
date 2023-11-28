@@ -93,7 +93,12 @@ export function CreateCourseModal({ isOpen, hideModal }: ModalProps) {
     console.log(data);
     toast.promise(createCourse(data), {
       pending: 'Creating community....',
-      error: 'Error',
+      error: {
+        render: (err) => {
+          console.error(err);
+          return 'Error';
+        },
+      },
       success: {
         render: (slug) => {
           hideModal();

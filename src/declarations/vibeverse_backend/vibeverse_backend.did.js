@@ -35,6 +35,7 @@ export const idlFactory = ({ IDL }) => {
   const Creator = IDL.Record({
     'a' : IDL.Text,
     'n' : IDL.Text,
+    's' : IDL.Nat,
     'cc' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Nat64)),
     'lc' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Nat64)),
   });
