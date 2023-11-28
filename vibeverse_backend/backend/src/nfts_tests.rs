@@ -19,7 +19,8 @@ fn creating_collection_works() {
         limit.clone(),
         image_url.clone(),
         Default::default(),
-    );
+    )
+    .unwrap();
 
     assert_eq!(
         get_collection(Nat::from(0).into()),
@@ -54,7 +55,8 @@ fn updating_collection_metadata_works() {
         limit.clone(),
         image_url.clone(),
         Default::default(),
-    );
+    )
+    .unwrap();
 
     assert_eq!(
         get_collection(Nat::from(0).into()),
@@ -139,7 +141,8 @@ fn updating_collection_metadata_fails_when_not_called_by_creator() {
         limit.clone(),
         image_url.clone(),
         Default::default(),
-    );
+    )
+    .unwrap();
 
     assert_eq!(
         get_collection(Nat::from(0).into()),
@@ -260,7 +263,8 @@ fn minting_limit_works() {
     let image_url = None;
     let limit: Option<Nat> = Some(Nat::from(1));
 
-    let collection_id = create_collection(creator, name, description, transferable, limit, image_url, Default::default());
+    let collection_id =
+        create_collection(creator, name, description, transferable, limit, image_url, Default::default()).unwrap();
 
     let alice = get_default_principal();
 
@@ -449,7 +453,8 @@ fn create_mock_collection(creator: Principal, name: String, transferable: bool) 
         limit.clone(),
         image_url.clone(),
         Default::default(),
-    );
+    )
+    .unwrap();
 
     Collection {
         id,

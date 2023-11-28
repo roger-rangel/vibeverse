@@ -1,6 +1,6 @@
 use crate::{
     memory::CREATORS,
-    types::{Creator, UserId},
+    types::{Creator, StorableNat, UserId},
 };
 
 /// Sets the metadata for the specific creator.
@@ -13,4 +13,21 @@ pub fn set_creator_metadata(user_id: UserId, creator: Creator) -> Result<(), Str
 
 pub fn creator_metadata(user_id: UserId) -> Option<Creator> {
     CREATORS.with(|creators| creators.borrow().get(&user_id.into()))
+}
+
+#[repr(u8)]
+pub enum SCORE {
+    CreateCollection = 2,
+    MintNft = 1,
+    CreateCourse = 3,
+    CreateCommunity = 5,
+}
+
+pub fn add_score(user_id: UserId, score: SCORE) -> Result<StorableNat, String> {
+    CREATORS.with(|creators| {
+        let mut creator = creators.borrow_mut().get(&user_id.into()).ok_or("Creator not found")?;
+        let updated = creator.add_score((score as u8).into());
+        set_creator_metadata(user_id, creator.clone())?;
+        Ok(updated)
+    })
 }

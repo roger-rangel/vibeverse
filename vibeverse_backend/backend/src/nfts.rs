@@ -4,6 +4,7 @@ use candid::Principal;
 use ic_cdk::api::call::CallResult;
 use ic_cdk::call;
 
+use crate::creators;
 use crate::types::StorableNat;
 use crate::{
     memory::{COLLECTIONS, COLLECTIONS_OF, NFTS, NFTS_OF, STATE},
@@ -21,6 +22,8 @@ pub enum Error {
     LimitReached,
     /// Tried to do something with an nft that is not owned by the caller.
     NotOwned,
+    ///
+    Unknown,
 }
 
 pub fn collection_count() -> CollectionId {
@@ -36,7 +39,7 @@ pub fn create_collection(
     limit: Option<Nat>,
     image_url: Option<String>,
     category: String,
-) -> CollectionId {
+) -> Result<CollectionId, String> {
     // CALL THIS FUNCTION ONCE WE WANT TO CHARGE A FEE
     // ensure_fee_payment(creator, into_units(crate::administrative::collection_fee())).await?;
 
@@ -71,7 +74,11 @@ pub fn create_collection(
     });
 
     STATE.with(|counter| counter.borrow_mut().total_collections += 1);
-    id
+
+    // Increase score
+    creators::add_score(creator, creators::SCORE::CreateCollection)?;
+
+    Ok(id)
 }
 
 /// Updates the metadata of the given collection.
@@ -217,6 +224,9 @@ pub fn mint_nft(
         let mut collections = collections.borrow_mut();
         collections.insert(collection_id, collection);
     });
+
+    // Increase score
+    creators::add_score(caller, creators::SCORE::MintNft).map_err(|_| Error::Unknown)?;
 
     Ok(nft)
 }

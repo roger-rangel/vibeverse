@@ -5,7 +5,7 @@ use std::{borrow::Cow, collections::BTreeMap};
 
 use libraries::msgpack::{deserialize_then_unwrap, serialize_then_unwrap};
 
-use super::CourseId;
+use super::{CourseId, StorableNat};
 
 pub type UserId = Principal;
 
@@ -21,6 +21,9 @@ pub struct Creator {
     pub created_courses: BTreeMap<CourseId, u64>,
     #[serde(rename = "lc", default)]
     pub completed_courses: BTreeMap<CourseId, u64>,
+
+    #[serde(rename = "s", default)]
+    pub score: StorableNat,
 }
 
 impl Storable for Creator {
@@ -42,6 +45,7 @@ impl Creator {
             avatar,
             created_courses: Default::default(),
             completed_courses: Default::default(),
+            score: Default::default(),
         }
     }
 
@@ -59,5 +63,11 @@ impl Creator {
 
     pub fn add_completed_course_now(&mut self, course: CourseId) {
         self.completed_courses.insert(course, ic_cdk::api::time());
+    }
+
+    pub fn add_score(&mut self, score: StorableNat) -> StorableNat {
+        self.score += score;
+
+        self.score.clone()
     }
 }
