@@ -15,6 +15,7 @@ import {
 } from '@/hooks';
 
 import CallToAction from '../CallToAction';
+import ProgressBar from '../ProgressBar';
 
 import styles from './About.module.scss';
 
@@ -51,9 +52,10 @@ const About = () => {
       <div className="pb-10 pt-8">
         <h2 className="text-center text-xl text-[#4db5ff]">Your Profile</h2>
         <h5 className="text-center text-sm text-gray-200">{profile.name}</h5>
-        <p className="text-center text-sm text-gray-200">
+        {/* <p className="text-center text-sm text-gray-200">
           Your score: {profile.score.toString()}
-        </p>
+        </p> */}
+        <ProgressBar profile={profile} />
       </div>
       <div className={styles.about__container}>
         <div className={styles.about__me}>
