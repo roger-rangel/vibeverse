@@ -25,9 +25,12 @@ pub enum Score {
 
 pub fn add_score(user_id: UserId, score: Score) -> Result<StorableNat, String> {
     CREATORS.with(|creators| {
-        let mut creator = creators.borrow_mut().get(&user_id.into()).ok_or("Creator not found")?;
-        let updated = creator.add_score((score as u8).into());
-        set_creator_metadata(user_id, creator.clone())?;
-        Ok(updated)
+        if let Some(mut creator) = creators.borrow_mut().get(&user_id.into()) {
+            let updated = creator.add_score((score as u8).into());
+            set_creator_metadata(user_id, creator.clone())?;
+            Ok(updated)
+        } else {
+            Ok(Default::default())
+        }
     })
 }
