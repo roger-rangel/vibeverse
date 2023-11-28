@@ -24,6 +24,6 @@
       "~/*": ["./public/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/community/IntroCommunity.tsx", "src/components/dashboard/profile/ProgressBar/index.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"], 
   "exclude": ["node_modules"]
 }
