@@ -69,6 +69,14 @@ redeploy: build
 redeploy-staging: build-staging
 	make generate-did
 	dfx canister install $(BACKEND) --mode=reinstall --network=staging
+	dfx build $(FRONTEND) --network=staging
+	dfx canister install $(FRONTEND) --mode=reinstall --network=staging
+
+redeploy-ic: build-ic
+	make generate-did
+	dfx canister install $(BACKEND) --mode=reinstall --network=ic
+	dfx build $(FRONTEND) --network=ic
+	dfx canister install $(FRONTEND) --mode=reinstall --network=ic
 
 upgrade: build
 	make generate-did
