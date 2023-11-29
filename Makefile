@@ -1,5 +1,6 @@
 
 BACKEND=vibeverse_backend
+FRONTEND=vibeverse_assets
 
 prepare:
 	rustup target add wasm32-unknown-unknown
@@ -9,6 +10,9 @@ build:
 
 build-staging:
 	dfx build $(BACKEND) --network=staging
+
+build-ic:
+	dfx build $(BACKEND) --network=ic
 
 test-unit: 
 	cargo test --package $(BACKEND)
@@ -62,13 +66,25 @@ redeploy: build
 	make generate-did
 	dfx canister install $(BACKEND) --mode=reinstall
 
+redeploy-staging: build-staging
+	make generate-did
+	dfx canister install $(BACKEND) --mode=reinstall --network=staging
+
 upgrade: build
 	make generate-did
-	dfx canister install $(BACKEND) --mode=upgrade
+	dfx canister install $(BACKEND) --mode=upgrade	
 
 upgrade-staging: build-staging
 	make generate-did
 	dfx canister install $(BACKEND) --mode=upgrade --network=staging
+	dfx build $(FRONTEND) --network=staging
+	dfx canister install $(FRONTEND) --mode=upgrade --network=staging
+
+upgrade-ic: build-ic
+	make generate-did
+	dfx canister install $(BACKEND) --mode=upgrade --network=ic
+	dfx build $(FRONTEND) --network=ic
+	dfx canister install $(FRONTEND) --mode=upgrade --network=ic
 
 testdata:
 	scripts/deploy-test-data.sh
