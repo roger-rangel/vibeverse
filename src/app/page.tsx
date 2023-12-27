@@ -3,13 +3,13 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useConnect, useDialog } from '@connect2ic/react';
+// import { useConnect, useDialog } from '@connect2ic/react';
 
 import { Mixpanel } from '@/components/Mixpanel';
 
 function Login() {
-  const { isConnected, disconnect } = useConnect();
-  const dialog = useDialog();
+  // const { isConnected, disconnect } = useConnect();
+  // const dialog = useDialog();
 
   return (
     <div className="h-screen bg-gradient-to-r from-[#8360c3] to-[#2ebf91]">
@@ -147,11 +147,11 @@ function Login() {
           </div> */}
           <div className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute bg-gray-900 max-w-xs md:max-w-lg w-full mx-auto rounded-2xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1 hover:border-emerald-200">
             <div className="h-full w-full bg-gray-800 rounded-2xl flex flex-col items-center">
-              <h1 className="pt-8 mb-2 sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white">
+              <h1 className="pt-8 mb-2 text-2xl md:text-3xl lg:text-4xl font-semibold text-white">
             Welcome
               </h1>
 
-              <h2 className="flex text-center items-center -mb-4 pt-2 xs:text-base md:text-md lg:text-base font-semibold text-gray-200">
+              <h2 className="flex text-center items-center -mb-4 pt-2 text-base md:text-md lg:text-base font-semibold text-gray-200">
             Early entry to next-gen AI creative learning.
               </h2>
 
@@ -159,7 +159,7 @@ function Login() {
                 <div className="animate-border inline-block rounded-full bg-black bg-gradient-to-r hover:from-[#29ffc6] hover:via-[#00c3ff] hover:to-[#ffff1c] from-red-500 via-purple-500 to-blue-500 bg-[length:400%_400%] p-1">
                   <Link
                     href="https://www.vibeverse.ai"
-                    className="flex rounded-full bg-slate-900 px-10 py-4 text-center items-center justify-center font-bold text-white text-2xl"
+                    className="flex rounded-full bg-slate-900 px-10 py-4 text-center items-center justify-center font-bold text-white text-base md:text-2xl"
                   >
                 Enter
                   </Link>
