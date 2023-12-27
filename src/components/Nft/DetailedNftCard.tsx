@@ -52,7 +52,7 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
 
   return (
     <div
-      className="pb-1 relative border border-blue-400 rounded-xl"
+      className="pb-1 relative border border-blue-400 h-80 rounded-xl overflow-hidden"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -60,10 +60,11 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
         src={nft.assetUrl || '/images/items/item_1.png'}
         layout="responsive"
         width={500}
-        height={500}
+        height={800}
         quality={1000}
         alt="Background"
-        className="rounded-xl w-full object-cover xxs:min-h-[400px] xxs:max-h-[580px]  lg:min-h-[200px]"
+        // className="rounded-xl w-full object-scale-down xxs:min-h-[400px] xxs:max-h-[580px]  lg:min-h-[200px]"
+        className="rounded-xl object-cover"
       />
 
       <div className="absolute inset-0 mb-1">

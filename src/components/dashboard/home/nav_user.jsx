@@ -43,14 +43,25 @@ export default function Nav_User() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 mt-4 flex w-60 origin-top-right flex-col gap-2 border border-emerald-300 bg-gray-900 py-2 shadow-lg ring-1 ring-gray-900/5 xs:-right-4 sm:-right-6 md:right-0">
-          <Menu.Item className="w-full">
-            <button
-              className="w-full border border-blue-500 p-4"
-              onClick={disconnect}
-            >
+        <Menu.Items className="absolute right-0 mt-4 flex w-60 origin-top-right flex-col gap-2 rounded-lg border border-indigo-600 bg-gray-900 py-2 shadow-lg ring-1 ring-gray-900/5 xs:-right-4 sm:-right-6 md:right-0">
+          <Menu.Item className="">
+            <div className="mx-auto py-4">
+              <Image
+                className="mx-auto h-10 w-10 my-4 rounded-full bg-gray-800"
+                src={
+                  profile ? profile.avatar : '/images/avatars/avatar_nav_right.png'
+                }
+                alt=""
+                width={50}
+                height={50}
+              />
+              <button
+                className="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                onClick={disconnect}
+              >
               Disconnect
-            </button>
+              </button>
+            </div>
           </Menu.Item>
         </Menu.Items>
       </Transition>
