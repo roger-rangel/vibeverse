@@ -16,7 +16,7 @@ export default function AITools() {
         " relative min-h-[inherit] bg-[url('https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/tools_background_copy.png')] bg-cover"
       }
     >
-      <div className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute bg-gray-900 max-w-xs md:max-w-lg w-full mx-auto rounded-2xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-2 hover:border-emerald-200">
+      <div className="top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute bg-gray-900 max-w-xs md:max-w-lg w-full mx-auto rounded-2xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-2 hover:border-emerald-200">
         <div className="h-full w-full bg-gray-800 rounded-2xl flex flex-col items-center">
           <h1 className="pt-8 mb-2 sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white">
             Early Access

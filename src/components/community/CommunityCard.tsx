@@ -52,7 +52,7 @@ export function CommunityCard({
         <img
           src={logo}
           alt=""
-          className="pointer-events-none rounded-lg object-cover group-hover:border-2"
+          className="pointer-events-none rounded-lg group-hover:border-2"
           width={200}
           height={200}
         />

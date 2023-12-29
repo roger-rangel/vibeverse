@@ -35,7 +35,7 @@ const community_pictures = [
     id: 4,
     image:
       'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1179.png',
-    iamgeBackground:
+    imageBackground:
       'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/80699d1d69750ddde1752f7142cb1e33.jpg'
   },
   {
@@ -205,7 +205,7 @@ export function CreateCommunityModal({ isOpen, hideModal }: ModalProps) {
                       key={picture.id}
                       onClick={() => {
                         setSelectedPicture(picture.id);
-                        setValue('logo', picture.image);
+                        setValue('logo', picture.imageBackground);
                       }}
                     >
                       <Image

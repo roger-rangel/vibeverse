@@ -30,7 +30,7 @@ export default function Banner({ setIsBannerOpen }) {
       </div>
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 xs:justify-center">
         <p className="text-sm leading-6 text-gray-900">
-          <strong className="font-semibold">Summer 2023</strong>
+          <strong className="font-semibold">New Launch 2024</strong>
           <svg
             viewBox="0 0 2 2"
             className="mx-2 inline h-0.5 w-0.5 fill-current"
