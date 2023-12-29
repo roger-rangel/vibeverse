@@ -6,11 +6,9 @@ function initCanister() {
   let localCanisters, prodCanisters;
 
   try {
-    localCanisters = require(path.resolve(
-      '.dfx',
-      'local',
-      'canister_ids.json',
-    ));
+    localCanisters = require(
+      path.resolve('.dfx', 'local', 'canister_ids.json'),
+    );
   } catch (error) {
     console.log('No local canister_ids.json found. Continuing production');
   }
@@ -37,7 +35,7 @@ function initCanister() {
     env[`CANISTER_ID_${canister.toUpperCase()}`] = canisters[canister][network];
   }
 
-  if (process.env.CANISTER_ID_VIBEVERSE_BACKEND) {
+  if (network === 'local' && process.env.CANISTER_ID_VIBEVERSE_BACKEND) {
     env['CANISTER_ID_VIBEVERSE_BACKEND'] =
       process.env.CANISTER_ID_VIBEVERSE_BACKEND;
   }

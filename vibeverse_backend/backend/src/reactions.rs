@@ -118,6 +118,6 @@ mod tests {
         add_remove_reaction(nft_id.clone(), BOB, String::from("🐶")).unwrap();
         let reactions = get_reactions(nft_id.clone());
         assert_eq!(reactions.len(), 1);
-        assert_eq!(reactions.get(0).unwrap().1.len(), 2);
+        assert_eq!(reactions.first().unwrap().1.len(), 2);
     }
 }

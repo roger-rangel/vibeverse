@@ -39,8 +39,8 @@ Check out our platform in action by trying our demo on our [website](https://vib
 
 | Caniser  | Canister ID                                                                                                    |
 | -------- | -------------------------------------------------------------------------------------------------------------- |
-| frontend | [quuas-aqaaa-aaaak-afcja-cai](https://quuas-aqaaa-aaaak-afcja-cai.icp0.io)                                     |
-| backend  | [q5xlo-wyaaa-aaaak-afciq-cai](https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.ic0.app/?id=q5xlo-wyaaa-aaaak-afciq-cai) |
+| frontend | [h5fnl-4iaaa-aaaap-abddq-cai](https://h5fnl-4iaaa-aaaap-abddq-cai.icp0.io)                                     |
+| backend  | [gqljf-taaaa-aaaap-abdea-cai](https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.ic0.app/?id=gqljf-taaaa-aaaap-abdea-cai) |
 
 ## Features
 
