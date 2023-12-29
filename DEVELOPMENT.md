@@ -17,22 +17,16 @@
 1. Start local node
 
    ```bash
-   dfx start --background --clean
+   make start
    ```
 
-2. Build all canisters
+2. Deploy backend and II cansiter
 
    ```bash
-   dfx build
+   make deploy
    ```
 
-3. Deploy all canisters
-
-   ```bash
-   dfx deploy
-   ```
-
-4. Run frontend
+3. Run frontend
 
    ```bash
    npm run dev
@@ -51,4 +45,32 @@ dfx canister call vibeverse_assets authorize '(principal "<REPLACE_PRINCIPAL>")'
 
 ```bash
 cargo test
+```
+
+## Deploy to staging & production
+
+> [!INFO]  
+> Before start, set environment variable `DFX_NETWORK` as `staging` for staging, `ic` for production.
+
+### Redeploy
+
+> [!WARNING]  
+> **All of deployed data will be lost.**
+
+```bash
+make redeploy-staging
+```
+
+```bash
+make redeploy-ic
+```
+
+### Upgrade
+
+```bash
+make upgrade-staging
+```
+
+```bash
+make upgrade-ic
 ```
