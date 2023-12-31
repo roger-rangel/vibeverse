@@ -42,15 +42,15 @@ export default function QuestsAndBadges() {
     <ul role="list" className="hidden lg:grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
       {sections.map((section) => (
         <li key={section.id} className="rounded-xl border border-gray-200">
-          <div className="flex items-center gap-x-4 rounded-t-xl border-b border-gray-900/5 bg-gray-50 p-2">
+          <div className="flex items-center gap-x-4 rounded-t-xl border-b border-gray-900/5 bg-gray-900 p-2">
             <Image
               src={section.imageUrl}
               alt={section.name}
-              className="h-8 w-8 p-1 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10"
+              className="h-8 w-8 p-1 flex-none rounded-lg object-cover ring-1 ring-gray-900/10"
               width={48}
               height={48}
             />
-            <div className="text-sm font-medium leading-6 text-gray-900">{section.name}</div>
+            <div className="text-sm font-medium leading-6 text-gray-100">{section.name}</div>
             <Menu as="div" className="relative ml-auto">
               <Menu.Button className="-m-2.5 block p-2.5 text-gray-400 hover:text-gray-500">
                 <span className="sr-only">Open options</span>
@@ -65,14 +65,14 @@ export default function QuestsAndBadges() {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 z-10 mt-0.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+                <Menu.Items className="absolute right-0 z-10 mt-0.5 w-32 origin-top-right rounded-md bg-gray-900 py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none border border-gray-200">
                   <Menu.Item>
                     {({ active }) => (
                       <a
                         href="#"
                         className={classNames(
-                          active ? 'bg-gray-50' : '',
-                          'block px-3 py-1 text-sm leading-6 text-gray-900'
+                          active ? 'bg-gray-800' : '',
+                          'block px-3 py-1 text-sm leading-6 text-gray-200'
                         )}
                       >
                         View<span className="sr-only">, {section.name}</span>
@@ -84,8 +84,8 @@ export default function QuestsAndBadges() {
                       <a
                         href="#"
                         className={classNames(
-                          active ? 'bg-gray-50' : '',
-                          'block px-3 py-1 text-sm leading-6 text-gray-900'
+                          active ? 'bg-gray-800' : '',
+                          'block px-3 py-1 text-sm leading-6 text-gray-200'
                         )}
                       >
                         {section.menu_item}<span className="sr-only">, {section.name}</span>
