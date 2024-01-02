@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const leagues = [
   'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/chevron_(3).png',
@@ -37,13 +38,13 @@ const players = [
     id: 5,
     profile: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_1264.png',
     name: 'Alexander C',
-    xp: 900,
+    xp: 850,
   },
 ];
 
 export default function CourseAndTournament() {
   return (
-    <div className="mx-auto py-4 lg:py-2 lg:max-w-none">
+    <div className="mx-auto pb-24 lg:pt-2 lg:max-w-none lg:pb-4">
       <div className="mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
         <div className="group relative">
           <h2 className="pl-1 pb-6 text-2xl font-bold text-gray-900 font-mono">Foundations</h2>
@@ -65,15 +66,17 @@ export default function CourseAndTournament() {
                   <div className="bg-green-500 h-2.5 rounded-full" style={{ width: '20%' }}></div>
                   <button></button>
                 </div>
-                <button className="w-full text-sm bg-black text-white py-2 rounded-md font-medium border border-black hover:border-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
+                <Link href="/storytelling_test">
+                  <button className="w-full text-sm bg-black text-white py-2 rounded-md font-medium border border-black hover:border-green-500 focus:outline-none transition duration-150 ease-in-out">
                   Continue Learning
-                </button>
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
         <div className="group relative">
-          <h2 className="pl-1 pb-6 text-2xl font-bold text-gray-200 lg:text-gray-900 font-mono">AI League</h2>
+          <h2 className="pl-1 pb-6 text-2xl font-bold text-gray-900 font-mono">AI League</h2>
           <div className="relative h-auto w-full overflow-hidden rounded-lg bg-gray-900 sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 border border-gray-200 sm:h-64">
             <div className="flex flex-col">
               <div className="flex pt-3 space-x-4 px-4">              
