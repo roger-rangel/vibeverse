@@ -3,8 +3,12 @@
 import { useState } from 'react';
 import { PageOne, PageTwo, PageThree, PageFour, PageFive, IntroPage } from '@/components/storytelling_test';
 
-// Summary review component
-const ReviewPage = ({ onReviewComplete }) => (
+// Summary review component with TypeScript type annotations
+const ReviewPage = ({
+  onReviewComplete,
+}: {
+  onReviewComplete: () => void;
+}) => (
   <div>
     <h2>Review and Reflect</h2>
     {/* Summary content goes here */}
@@ -14,7 +18,7 @@ const ReviewPage = ({ onReviewComplete }) => (
 
 export default function StorytellingTest() {
   const [showContinue, setShowContinue] = useState(false);
-  const [activePages, setActivePages] = useState([]);
+  const [activePages, setActivePages] = useState<number[]>([]);
   const [introComplete, setIntroComplete] = useState(false);
   const [reviewPhase, setReviewPhase] = useState(false);
   const [lessonComplete, setLessonComplete] = useState(false);
@@ -52,14 +56,14 @@ export default function StorytellingTest() {
     }
 
     if (introComplete && activePages.includes(0)) {
-      return <PageOne key="page1" onAnswerSelected={handleAnswerSelected} />;
+      return <PageOne key="page1" />;
     }
     return activePages.map((page) => {
       switch (page) {
       case 0:
         return <PageOne key={page} />;
       case 1:
-        return <PageTwo key={page} />;
+        return <PageTwo key={page} onAnswerSelected={handleAnswerSelected} />;
       case 2:
         return <PageThree key={page} />;
       case 3:
