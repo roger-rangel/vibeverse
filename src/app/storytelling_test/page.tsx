@@ -44,7 +44,6 @@ export default function StorytellingTest() {
         setShowContinue(false);
         const updatedPages = [...prevActivePages, nextPage];
 
-        // Wait for the state update to complete before scrolling
         setTimeout(() => {
           const nextSectionId = `page-${nextPage}`;
           const nextSection = document.getElementById(nextSectionId);
@@ -54,18 +53,18 @@ export default function StorytellingTest() {
         }, 0);
 
         return updatedPages;
+      } else {
+      // Transition to the review phase when all pages have been visited
+        setReviewPhase(true);
+        return prevActivePages;
       }
-      return prevActivePages;
     });
   };
-
-
 
 
   const handleReviewComplete = () => {
     setLessonComplete(true);
   };
-
 
   return (
     <div className="flex flex-col min-h-screen justify-between bg-white">
