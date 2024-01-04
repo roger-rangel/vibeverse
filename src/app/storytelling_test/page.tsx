@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { PageOne, PageTwo, PageThree, PageFour, PageFive, IntroPage } from '@/components/storytelling_test';
 
 // Summary review component with TypeScript type annotations
@@ -19,97 +19,90 @@ const ReviewPage = ({
 export default function StorytellingTest() {
   const [showContinue, setShowContinue] = useState(false);
   const [activePages, setActivePages] = useState<number[]>([]);
-  const [introComplete, setIntroComplete] = useState(false);
   const [reviewPhase, setReviewPhase] = useState(false);
   const [lessonComplete, setLessonComplete] = useState(false);
   const totalPages = 5;
 
+  // Ref for the container of the pages
+  const pagesContainerRef = useRef<HTMLDivElement>(null);
+
   const handleAnswerSelected = () => {
+    // Allow the user to continue after an answer has been selected
     setShowContinue(true);
   };
 
   const handleStartLesson = () => {
-    setIntroComplete(true);
+    // Start with the first page
     setActivePages([0]);
+    setShowContinue(true);
   };
 
   const handleContinue = () => {
-    if (!introComplete) {
-      return;
-    }
-    setActivePages((prevActivePages) => {
+    setActivePages(prevActivePages => {
       const nextPage = prevActivePages.length;
-      if (nextPage === totalPages - 1) {
-        setReviewPhase(true);
+      if (nextPage < totalPages) {
+        setShowContinue(false);
+        const updatedPages = [...prevActivePages, nextPage];
+
+        // Wait for the state update to complete before scrolling
+        setTimeout(() => {
+          const nextSectionId = `page-${nextPage}`;
+          const nextSection = document.getElementById(nextSectionId);
+          if (nextSection) {
+            nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 0);
+
+        return updatedPages;
       }
-      return nextPage < totalPages ? [...prevActivePages, nextPage] : prevActivePages;
+      return prevActivePages;
     });
   };
+
+
+
 
   const handleReviewComplete = () => {
     setLessonComplete(true);
   };
 
-  const renderPages = () => {
-    if (!introComplete) {
-      return <IntroPage onIntroComplete={handleStartLesson} />;
-    }
-
-    if (introComplete && activePages.includes(0)) {
-      return <PageOne key="page1" />;
-    }
-    return activePages.map((page) => {
-      switch (page) {
-      case 0:
-        return <PageOne key={page} />;
-      case 1:
-        return <PageTwo key={page} onAnswerSelected={handleAnswerSelected} />;
-      case 2:
-        return <PageThree key={page} />;
-      case 3:
-        return <PageFour key={page} />;
-      case 4:
-        return <PageFive key={page} />;
-      default:
-        return null;
-      }
-    });
-  };
 
   return (
     <div className="flex flex-col min-h-screen justify-between bg-white">
+      {/* Navigation progress bar */}
       <div className={`fixed top-0 left-0 w-full z-10 shadow-md transition-opacity duration-500 ${lessonComplete ? 'opacity-0 pointer-events-none' : 'bg-white'}`}>
         <div className="flex justify-between max-w-screen-lg mx-auto p-4">
-          <div className={`h-1 mx-1 rounded-lg transition-colors duration-300 ${introComplete ? 'bg-blue-500' : 'bg-gray-300'}`} style={{ flex: '0 0 5%' }}></div>
-          {Array.from({ length: totalPages - 1 }).map((_, index) => (
+          {Array.from({ length: totalPages }).map((_, index) => (
             <div
               key={index}
-              className={`flex-1 h-1 mx-1 rounded-lg transition-colors duration-300 ${
-                index < activePages.length - 1 ? 'bg-blue-500' : 'bg-gray-300'
+              className={`h-1 mx-1 rounded-lg transition-colors duration-300 ${
+                index < activePages.length ? 'bg-blue-500' : 'bg-gray-300'
               }`}
+              style={{ flex: index === 0 ? '0 0 5%' : '1' }}
             />
           ))}
         </div>
       </div>
 
-      <div className="pt-16 flex-grow">
-        {renderPages()}
+      {/* Container for the pages */}
+      <div className="pt-16 flex-grow overflow-auto" ref={pagesContainerRef}>
+        {!activePages.length && <IntroPage onIntroComplete={handleStartLesson} />}
+        {activePages.includes(0) && <PageOne />}
+        {activePages.includes(1) && <PageTwo onAnswerSelected={handleAnswerSelected} />}
+        {activePages.includes(2) && <PageThree />}
+        {activePages.includes(3) && <PageFour />}
+        {activePages.includes(4) && <PageFive />}
         {reviewPhase && !lessonComplete && <ReviewPage onReviewComplete={handleReviewComplete} />}
         {lessonComplete && <div className="text-center mt-4 text-black">FINAL ANIMATION</div>}
       </div>
 
-      {!lessonComplete && (
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 p-4 w-full px-4">
-          {!reviewPhase && activePages.length === 1 && showContinue && (
-            <button onClick={handleContinue} className="w-full py-4 text-center bg-black rounded-2xl">
-              Continue
-            </button>
-          )}
-          {reviewPhase && (
-            <button onClick={handleReviewComplete} className="w-full py-4 text-center bg-black rounded-2xl">
-              Review and Reflect
-            </button>
-          )}
+
+      {/* Continue button */}
+      {!lessonComplete && !reviewPhase && showContinue && (
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 p-4 w-full max-w-md mx-auto">
+          <button onClick={handleContinue} className="w-full py-3 text-center bg-black text-white rounded-lg">
+            Continue
+          </button>
         </div>
       )}
     </div>

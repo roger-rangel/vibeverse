@@ -10,7 +10,7 @@ export function PageTwo( { onAnswerSelected } ) {
   };
 
   return (
-    <div className="mx-10 pt-6 lg:pt-12 text-black bg-white">
+    <div id="page-1" className="mx-10 pt-14 lg:pt-12 text-black bg-white min-h-screen">
       PAGE TWO
 
       <h2 className="text-lg font-bold mb-4">Is the sky blue?</h2>

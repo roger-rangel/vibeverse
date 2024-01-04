@@ -3,7 +3,7 @@ import Image from 'next/image';
 export function PageOne() {
 
   return (
-    <div className="mx-10 pt-6 lg:pt-12 text-black bg-white">
+    <div id="page-0" className="mx-10 pt-4 lg:pt-12 text-black bg-white min-h-screen">
       <h1 className="text-4xl font-bold mb-4">Structure</h1>
       <p className="mb-4">When we think about how films typically tell stories, most of the time they follow a three Act structure:</p>
       
