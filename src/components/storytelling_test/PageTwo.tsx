@@ -74,25 +74,20 @@ export function PageTwo({ onAnswerSelected }: PageTwoProps) {
       <h2 className="text-lg mb-4">
           The first act sets up the story, the second act is 
         <span
-          className={`font-bold cursor-pointer ${activePopup === 'confrontation' ? 'bg-blue-200' : 'border-b-2 border-blue-600 pb-0.5'} mx-1`}
+          className={`font-bold cursor-pointer ${activePopup === 'confrontation' ? 'bg-blue-500 text-white py-1 px-1.5 rounded-md' : 'border-b-2 border-blue-600 pb-0.5'} ml-1`}
           onClick={() => handleWordClick('confrontation')}
         >
           confrontation
         </span>
           , and the third act is 
         <span
-          className={`font-bold cursor-pointer ${activePopup === 'resolution' ? 'bg-blue-200' : 'border-b-2 border-blue-600 pb-0.5'} ml-1`}
+          className={`font-bold cursor-pointer ${activePopup === 'resolution' ? 'bg-blue-500 text-white py-1 px-1.5 rounded-md' : 'border-b-2 border-blue-600 pb-0.5'} ml-1`}
           onClick={() => handleWordClick('resolution')}
         >
           resolution
         </span>.
       </h2>
 
-
-      <h2 className="text-lg mb-4">
-        However, not all stories follow this structure. 
-        Some stories are told in a single Act, and some stories have multiple Acts.
-      </h2>
       <h2 className="pt-4 text-lg mb-4">Can you think of a movie that follows a similar structure?</h2>
       <div className="mb-4">
         <button 

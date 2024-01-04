@@ -95,7 +95,6 @@ export default function StorytellingTest() {
         {lessonComplete && <div className="text-center mt-4 text-black">FINAL ANIMATION</div>}
       </div>
 
-
       {/* Continue button */}
       {!lessonComplete && !reviewPhase && showContinue && (
         <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 p-4 w-full max-w-md mx-auto">

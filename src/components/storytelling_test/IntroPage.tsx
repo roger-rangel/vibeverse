@@ -1,7 +1,11 @@
 // Note: Page One Component for Storytelling Test
 import Image from 'next/image';
 
-export function IntroPage({ onIntroComplete }) {
+type IntroPageProps = {
+  onIntroComplete: () => void;
+};
+
+export function IntroPage({ onIntroComplete } : IntroPageProps ) {
 
   return (
     <div className="flex flex-col items-center justify-center p-6 bg-white text-black">
