@@ -64,7 +64,7 @@ export default function DetailedNftModal({
                 autoPlay
                 controls
               />
-              <div className="absolute bottom-0 right-0">
+              <div className="absolute bottom-0 right-0 flex flex-row gap-1">
                 <Reactions
                   collectionId={nft.collectionId}
                   nftId={nft.id}
