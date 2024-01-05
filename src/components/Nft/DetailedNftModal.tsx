@@ -61,6 +61,8 @@ export default function DetailedNftModal({
               <Player
                 path={nft.assetUrl || '/images/items/item_1.png'}
                 className="rounded-xl object-cover"
+                autoPlay
+                controls
               />
               <div className="absolute bottom-0 right-0">
                 <Reactions

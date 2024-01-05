@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Principal } from '@dfinity/principal';
 
 import { Modal, ModalProps } from '@/components/Modal';
@@ -9,6 +8,7 @@ import { useActor } from '@/hooks';
 import { Nft } from '@/types';
 
 import styles from './Items.module.scss';
+import { Player } from '../Player';
 
 export function TransferModal({
   nft,
@@ -40,25 +40,23 @@ export function TransferModal({
     <Modal isOpen={isOpen} hideModal={hideModal}>
       <article
         key="1"
-        className="bg-[#262626] p-8 rounded-3xl border border-indigo-600"
+        className="rounded-3xl border border-indigo-600 bg-[#262626] p-8"
       >
-        <h3 className="flex items-center justify-center text-zinc-300 pb-2">
+        <h3 className="flex items-center justify-center pb-2 text-zinc-300">
           {nft.name}
         </h3>
-        <div
-          className={`${styles.item__item__image}`}
-        >
-          <LazyLoadImage
-            src={nft.assetUrl || '/images/items/item_1.png'}
-            effect="blur"
-            width="350"
-            height="350"
-            alt={nft.name}
-            className="rounded-2xl object-cover w-[350px] h-[350px]"
+        <div className={`${styles.item__item__image}`}>
+          <Player
+            path={nft.assetUrl || '/images/items/item_1.png'}
+            className="rounded-xl object-cover"
+            autoPlay
+            controls
+            width={320}
+            height={240}
           />
         </div>
 
-        <div className="sm:col-span-2 pt-4 pb-6">
+        <div className="pb-6 pt-4 sm:col-span-2">
           <label className="block text-sm font-semibold leading-6 text-white">
             Send it to:
           </label>
@@ -74,18 +72,16 @@ export function TransferModal({
             />
           </div>
         </div>
-        <div
-          className={`${styles.item__item__cta}`}
-        >
+        <div className={`${styles.item__item__cta}`}>
           <button
             onClick={transfer}
-            className="py-2 px-4 text-white rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
+            className="rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] px-4 py-2 text-white hover:from-[#4ade80] hover:to-[#3b82f6]"
           >
             Transfer
           </button>
           <button
             onClick={hideModal}
-            className="py-2 px-4 text-white rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] hover:from-[#4ade80] hover:to-[#3b82f6]"
+            className="rounded-lg bg-gradient-to-r from-[#a855f7] to-[#3b82f6] px-4 py-2 text-white hover:from-[#4ade80] hover:to-[#3b82f6]"
           >
             Close
           </button>

@@ -61,7 +61,6 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
         path={nft.assetUrl || '/images/items/item_1.png'}
         className="h-[800px] w-[500px] rounded-xl object-cover"
       />
-
       <div className="absolute inset-0 mb-1">
         <div className="flex h-full flex-col justify-between">
           <div className="flex w-full justify-between p-3">
@@ -82,7 +81,7 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
             )}
           </div>
           {/* bg-black, next div */}
-          <div className="bottom-0 flex w-full flex-col justify-between px-3">
+          <div className="flex w-full flex-col justify-between px-3">
             <div className="bottom-0 flex items-end justify-between pb-2 text-blue-200">
               <div
                 className={`${randomBackground[randomIndex]} rounded-xl px-4 py-2`}
@@ -94,9 +93,9 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
                 {nft.views} Views
               </div>
             </div>
-            <div className="flex justify-between rounded-t-lg bg-black bg-opacity-40 px-2">
+            <div className="flex justify-between rounded-lg bg-black bg-opacity-40 p-2">
               {/* bg-red-300 side, next div */}
-              <div className="flex flex-col items-start py-2">
+              <div className="flex flex-col items-start">
                 <div className="mb-2 ml-1 flex items-center justify-center gap-2">
                   {nft.communities &&
                     nft.communities.map((community, index) => (
@@ -153,7 +152,7 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
                 </div>
               </div>
               {/* bg-green-300 side, next div */}
-              <div className=" flex flex-col justify-between py-2">
+              <div className=" flex flex-col justify-between">
                 <div className="flex items-center justify-end gap-1">
                   {nft.aiTools &&
                     nft.aiTools.map((tool, index) => (
