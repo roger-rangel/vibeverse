@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { RadioGroup } from '@headlessui/react';
 import { CheckCircleIcon } from '@heroicons/react/20/solid';
 
@@ -11,9 +10,9 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function ImgOption({ setImageOption }) {
+export default function ImgOption({ setImageOption, imageOption }) {
   return (
-    <RadioGroup onChange={setImageOption}>
+    <RadioGroup value={imageOption} onChange={setImageOption}>
       <RadioGroup.Label className="text-base font-semibold leading-6 text-gray-900">
         Select a mailing list
       </RadioGroup.Label>
