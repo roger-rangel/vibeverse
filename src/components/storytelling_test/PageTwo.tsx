@@ -14,7 +14,10 @@ export function PageTwo({ onAnswerSelected }: PageTwoProps) {
   const handleAnswer = (answer: string) => {
     setSelectedAnswer(answer); // Track the selected answer for styling
     // Update the response text based on the selected answer
-    setResponseText(answer === 'true' ? "Answer of button 1" : "Answer of button 2");
+    setResponseText(answer === 'true' ? 
+      "I see you are quite knowledgable about films :) Let's jump into the next section to explore a bit more!" : 
+      "No worries! We got your back :) Let's jump into the next section to explore a bit more!"
+    );
     onAnswerSelected(); // Notify the parent component that an answer has been selected
   };
 
@@ -29,7 +32,7 @@ export function PageTwo({ onAnswerSelected }: PageTwoProps) {
   // Determine button style based on whether it's selected
   const buttonStyle = (answer: string) =>
     `mr-2 py-2 px-4 text-black border border-neutral-800 rounded ${
-      selectedAnswer === answer ? 'bg-gray-200' :
+      selectedAnswer === answer ? 'bg-green-200' :
         selectedAnswer !== null ? 'bg-white text-black opacity-50' : 'bg-white text-black'
     }`;
 
@@ -74,14 +77,14 @@ export function PageTwo({ onAnswerSelected }: PageTwoProps) {
       <h2 className="text-lg mb-4">
           The first act sets up the story, the second act is 
         <span
-          className={`font-bold cursor-pointer ${activePopup === 'confrontation' ? 'bg-blue-500 text-white py-1 px-1.5 rounded-md' : 'border-b-2 border-blue-600 pb-0.5'} ml-1`}
+          className={`font-bold cursor-pointer ${activePopup === 'confrontation' ? 'bg-green-500 text-white py-1 px-1.5 rounded-md' : 'border-b-2 border-green-600 pb-0.5'} ml-1`}
           onClick={() => handleWordClick('confrontation')}
         >
           confrontation
         </span>
           , and the third act is 
         <span
-          className={`font-bold cursor-pointer ${activePopup === 'resolution' ? 'bg-blue-500 text-white py-1 px-1.5 rounded-md' : 'border-b-2 border-blue-600 pb-0.5'} ml-1`}
+          className={`font-bold cursor-pointer ${activePopup === 'resolution' ? 'bg-green-500 text-white py-1 px-1.5 rounded-md' : 'border-b-2 border-green-600 pb-0.5'} ml-1`}
           onClick={() => handleWordClick('resolution')}
         >
           resolution

@@ -75,7 +75,7 @@ export default function StorytellingTest() {
             <div
               key={index}
               className={`h-1 mx-1 rounded-lg transition-colors duration-300 ${
-                index < activePages.length ? 'bg-blue-500' : 'bg-gray-300'
+                index < activePages.length ? 'bg-green-500' : 'bg-gray-300'
               }`}
               style={{ flex: index === 0 ? '0 0 5%' : '1' }}
             />
