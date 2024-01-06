@@ -10,6 +10,7 @@ mod creators;
 #[cfg(test)]
 mod creators_tests;
 mod guards;
+mod interface;
 mod lifecycle;
 mod memory;
 mod nft_metadata;
@@ -20,6 +21,7 @@ mod nfts_tests;
 mod reactions;
 mod types;
 
+use crate::interface::{VibeToken, ICRC1};
 use guards::*;
 use reactions::AddRemoveReactionResult;
 use types::*;
@@ -348,6 +350,20 @@ pub fn mint_fee() -> u64 {
 #[query]
 pub fn vibe_token() -> Option<Principal> {
     administrative::vibe_token()
+}
+
+/// Inter canister call should be `update` not `query`
+#[update]
+pub async fn vibe_token_name() -> Option<String> {
+    let principal = administrative::vibe_token();
+
+    let vibe = principal.map(|f| VibeToken::new(f));
+
+    if vibe.is_none() {
+        return None;
+    }
+
+    Some(vibe.unwrap().icrc1_name().await.unwrap_or_default())
 }
 
 #[query]

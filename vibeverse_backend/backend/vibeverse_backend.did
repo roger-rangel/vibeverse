@@ -102,4 +102,5 @@ service : () -> {
       Result_6,
     );
   vibe_token : () -> (opt principal) query;
+  vibe_token_name : () -> (opt text);
 }
