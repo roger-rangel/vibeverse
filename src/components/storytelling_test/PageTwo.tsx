@@ -40,7 +40,7 @@ export function PageTwo({ onAnswerSelected }: PageTwoProps) {
   const isDisabled = selectedAnswer !== null;
 
   return (
-    <div id="page-1" className="mx-10 pt-14 lg:pt-12 text-black bg-white min-h-[75vh]">
+    <div id="page-2" className="mx-10 pt-14 lg:pt-12 text-black bg-white min-h-[75vh]">
 
       {/* Conditionally render pop-up based on activePopup state */}
       {activePopup && (
