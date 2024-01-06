@@ -161,7 +161,7 @@ export function PageThree({ onAnswerSelected }: PageThreeProps) {
           drag and drop each image to the correct box
         </h1>
 
-        <h1 className="flex justify-center mt-2 text-2xl mb-2 text-zinc-600">
+        <h1 className="flex justify-center mt-2 text-lg mb-2 text-zinc-600">
           ACT 1
         </h1>
 
@@ -181,20 +181,41 @@ export function PageThree({ onAnswerSelected }: PageThreeProps) {
 
         <div className="mb-24">
           <div className="mx-auto flex items-center justify-between">
-            {showGoodJob && (             
-              <h1 className="text-2xl text-zinc-600">
-              Good job!
-              </h1>)
+            {showGoodJob && (   
+              <div className="flex flex-row">
+                <h1 className="ml-2 text-lg text-zinc-600">
+                    Good job!
+                </h1>
+                <Image
+                  src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/dancing_elf.gif"
+                  alt="Good Job"
+                  width={50}
+                  height={50}
+                  className="ml-2 -mt-2.5 h-8 w-8"
+                />
+              </div>          
+            )
             }
             {showPoints && (
-              <div className="text-xl font-bold text-green-400 animate-slide-up">Points Earned: 100</div> 
+              <div className="text-md bg-green-200 text-green-500 rounded-lg animate-slide-up py-0.5 px-1.5 flex items-center">
+                <Image 
+                  src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/diamond.png"
+                  alt="Good Job"
+                  width={50}
+                  height={50}
+                  className="flex items-center h-6 w-6"
+                />
+                {/* <PlusIcon className="h-4 w-4 font-bold" /> */}
+                +10
+                <h2 className="ml-1">VIBES</h2>
+              </div> 
             )}
           </div>
           {showGoodJob && (
-            <div className="my-4 bg-slate-200 p-4 rounded-lg">
-              <h2 className="text-lg">
-                Break it down for me
-              </h2>
+            <div className="my-4 bg-slate-200 p-4 rounded-lg flex justify-between">
+              <span className="text-lg border border-stone-400 p-2 rounded-lg hover:bg-slate-300 cursor-pointer">
+                Give me the details.
+              </span>
             </div>
           )}
         </div>
