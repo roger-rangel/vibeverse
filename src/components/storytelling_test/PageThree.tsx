@@ -167,10 +167,11 @@ export function PageThree({ onAnswerSelected }: PageThreeProps) {
 
         <div className="mt-2 flex justify-center flex-wrap pb-4">
           {squareLabels.map(({ id, text }, index) => (
-            <div key={id} className={`flex flex-col items-center ${index < 3 ? 'w-1/3' : 'w-1/2'}`}>
+            <div key={id} className={`flex flex-col items-center ${index < 3 ? 'w-1/3' : 'w-1/3'}`}>
               <DropTarget targetId={id} droppedImage={droppedImages[id]} label={text} />
             </div>
           ))}
+
         </div>
 
         {!checkClicked && (
@@ -214,7 +215,7 @@ export function PageThree({ onAnswerSelected }: PageThreeProps) {
           {showGoodJob && (
             <div className="my-4 bg-slate-200 p-4 rounded-lg flex justify-between">
               <span className="text-lg border border-stone-400 p-2 rounded-lg hover:bg-slate-300 cursor-pointer">
-                Give me the details.
+                Explain it to me
               </span>
             </div>
           )}
