@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
+import { XMarkIcon } from '@heroicons/react/24/outline';
+
 const ItemType = {
   IMAGE: 'image'
 };
@@ -87,6 +89,12 @@ export function PageThree({ onAnswerSelected }: PageThreeProps) {
   const [showPoints, setShowPoints] = useState(false);
   const [checkClicked, setCheckClicked] = useState(false);
   const endOfPageRef = useRef<HTMLDivElement>(null);
+  const [showExplanationPopup, setShowExplanationPopup] = useState(false);
+
+  // Function to toggle the explanation popup
+  const toggleExplanationPopup = () => {
+    setShowExplanationPopup(!showExplanationPopup);
+  };
 
   const handleCheck = () => {
     setCheckClicked(true);
@@ -140,17 +148,14 @@ export function PageThree({ onAnswerSelected }: PageThreeProps) {
         <h2 className="text-lg mb-4">
           In Western storytelling, stories usually follow what is known as a <strong>Hero&apos;s journey</strong>.
         </h2>
+
+        
+        <h1 className="mt-20 text-2xl mb-6 text-zinc-600">
+          THE HERO&apos;S JOURNEY 
+        </h1>
         <h2 className="text-lg mb-4">
           This is a 12-step narrative structure that describes the typical adventure of a hero.
         </h2>
-
-        <h2 className="mt-20 text-lg mb-4">
-          Let&apos;s take a look at how this structure is applied in Act 1 for the film <span className="italic">Lord of the Rings: The Fellowship of the Ring</span>.
-        </h2>
-            
-        <h1 className="mt-10 text-2xl mb-6 text-zinc-600">
-          THE HERO&apos;S JOURNEY 
-        </h1>
 
         <div className="flex overflow-x-auto gap-x-2">
           {initialImages.map((url, index) => (
@@ -197,6 +202,21 @@ export function PageThree({ onAnswerSelected }: PageThreeProps) {
               </div>          
             )
             }
+            {/* Explanation Popup */}
+            {showExplanationPopup && (
+              <div className="fixed top-4 left-4 right-4 bg-white p-4 z-10 border border-gray-200 shadow-xl rounded-lg">
+                <button
+                  onClick={toggleExplanationPopup}
+                  className="text-white bg-black rounded-full w-6 h-6 leading-none text-lg flex items-center justify-center absolute top-0 right-0 -m-2"
+                >
+                  <XMarkIcon className="h-4 w-4" />
+                </button>
+                <p>
+                  {/* Your explanation content here */}
+                  Here&apos;s an explanation of the Hero&apos;s Journey in the context of &quot;Lord of the Rings: The Fellowship of the Ring&quot;...
+                </p>
+              </div>
+            )}
             {showPoints && (
               <div className="text-md bg-green-200 text-green-500 rounded-lg animate-slide-up py-0.5 px-1.5 flex items-center">
                 <Image 
@@ -213,10 +233,19 @@ export function PageThree({ onAnswerSelected }: PageThreeProps) {
             )}
           </div>
           {showGoodJob && (
-            <div className="my-4 bg-slate-200 p-4 rounded-lg flex justify-between">
-              <span className="text-lg border border-stone-400 p-2 rounded-lg hover:bg-slate-300 cursor-pointer">
-                Explain it to me
-              </span>
+            <div className="my-4 bg-slate-200 p-4 rounded-lg flex justify-end">
+              <div className="flex items-center border border-stone-400 p-2 rounded-lg hover:bg-slate-300 cursor-pointer">
+                <span onClick={toggleExplanationPopup} className="text-md ">
+                  Explain it to me
+                </span>
+                <Image 
+                  src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/open-book.png"
+                  alt="Good Job"
+                  width={200}
+                  height={200}
+                  className="ml-2 h-4 w-4"
+                />
+              </div>
             </div>
           )}
         </div>

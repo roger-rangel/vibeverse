@@ -18,7 +18,7 @@ export function PageFour() {
   ];
 
   return (
-    <div id="page-4" className="mx-10 pt-6 lg:pt-12 text-black bg-white min-h-[75vh]">
+    <div id="page-4" className="mx-10 py-6 lg:pt-12 text-black bg-white min-h-[75vh]">
 
 
       <Image 
@@ -32,7 +32,7 @@ export function PageFour() {
         <strong>Act 2</strong> is where there are more tests, more allies, and more enemies. 
         <br />
         <br />
-        The heroes will consequently have to avoid crazy obstacles and progress in their journey. 
+        The heroes will consequently have to avoid crazy obstacles and make progress in their journey. 
       </h2>
 
       <h2 className="text-lg my-8">
@@ -60,8 +60,8 @@ export function PageFour() {
       </div>
 
       <h2 className="text-lg my-16">
-          Act 3 concludes the Hero&apos;s Journey with the hero&apos;s return and their 
-          transformation, bringing back new wisdom or power to restore balance to their world.
+        <strong>Act 3</strong> concludes the Hero&apos;s Journey with the hero&apos;s return and their 
+        transformation, bringing back new wisdom or power to restore balance to their world.
       </h2>
 
       {/* Container for Act 3 images */}
