@@ -211,9 +211,39 @@ export function PageThree({ onAnswerSelected }: PageThreeProps) {
                 >
                   <XMarkIcon className="h-4 w-4" />
                 </button>
+                <div className="flex items-center mb-1">
+                  <h1 className="text-2xl font-bold">Act 1 of the Hero&apos;s Journey</h1>
+                  <Image
+                    src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/knight.png"
+                    alt="Good Job"
+                    width={50}
+                    height={50}
+                    className="ml-4 flex items-center h-10 w-10"
+                  />
+                </div>
                 <p>
                   {/* Your explanation content here */}
-                  Here&apos;s an explanation of the Hero&apos;s Journey in the context of &quot;Lord of the Rings: The Fellowship of the Ring&quot;...
+                  <br />
+                  <strong>The Ordinary World:</strong> Meet our hero, comfortably curled up in their familiar bubble. It&apos;s comfy, cozy, and... 
+                  well, a tad bit boring. This is where we see what &apos;normal&apos; looks like before things get wild!
+                  <br />
+                  <br />
+                  <strong>The Call of Adventure:</strong> Suddenly, an invitation arrives! It&apos;s like getting a letter to a wizarding school or 
+                  finding a hidden map in the attic. The hero&apos;s eyes sparkle with the first glimpse of a thrilling quest.
+                  <br />
+                  <br />
+                  <strong>Refusal of the Call:</strong> &quot;Who, me?&quot; our hero gasps, stepping back. There&apos;s hesitation, a case of cold feet. 
+                  Maybe it&apos;s fear, or maybe it&apos;s Tuesday, and the hero really doesn&apos;t want to miss their favorite TV show.
+                  <br />
+                  <br />
+                  <strong>Meeting the Mentor:</strong> Just when our hero&apos;s about to give up, in comes a wise figure, possibly with a long beard and 
+                  a cryptic riddle, offering the nudge (or magical doodad) needed to face the challenge ahead.
+                  <br />
+                  <br />
+                  <strong>Crossing the Threshold:</strong> Taking a deep breath, our hero steps forward (or is nudged by a friendly sidekick) across an 
+                  invisible line. Goodbye, Ordinary World! The adventure has officially begun, and there&apos;s no turning back now.
+                  <br />
+                  <br />
                 </p>
               </div>
             )}
