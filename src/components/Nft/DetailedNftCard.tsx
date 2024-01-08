@@ -64,13 +64,23 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
       <div className="absolute inset-0 mb-1">
         <div className="flex h-full flex-col justify-between">
           <div className="flex w-full justify-between p-3">
-            <Image
-              className="rounded-full border border-white object-cover xxs:h-16 xxs:w-16 xs:mb-0 sm:mb-2 sm:h-12 sm:w-12"
-              src={creator?.avatar || nft.profileImage}
-              height={200}
-              width={200}
-              alt=""
-            />
+            <div className="flex">
+              <Image
+                className="rounded-full border border-white object-cover xxs:h-16 xxs:w-16 xs:mb-0 sm:mb-2 sm:h-12 sm:w-12"
+                src={creator?.avatar || nft.profileImage}
+                height={200}
+                width={200}
+                alt=""
+              />
+              <Image
+                className="object-cover h-5 w-5 -ml-4 -mt-1 "
+                src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/high-quality.png"
+                height={200}
+                width={200}
+                alt=""
+              />
+            </div>
+
             {hovered && (
               <button
                 className="z-10 flex items-center justify-center rounded-full border-2 border-green-500/100 bg-sky-950 text-lg text-white xxs:invisible xs:-mb-6 sm:-mb-6 sm:h-12 sm:w-12 md:visible lg:-mb-8"
@@ -93,10 +103,10 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
                 {nft.views} Views
               </div>
             </div>
-            <div className="flex justify-between rounded-lg bg-black bg-opacity-40 p-2">
+            <div className="flex justify-between items-center rounded-lg bg-black bg-opacity-40 p-2">
               {/* bg-red-300 side, next div */}
-              <div className="flex flex-col items-start">
-                <div className="mb-2 ml-1 flex items-center justify-center gap-2">
+              <div className="flex flex-col items-center">
+                <div className="ml-1 flex items-center justify-center gap-2">
                   {nft.communities &&
                     nft.communities.map((community, index) => (
                       <Image
@@ -123,63 +133,8 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
                     </div>
                   </button>
                 </div>
-                <div className="flex items-center">
-                  {nft.awards &&
-                    nft.awards.map((award, index) => (
-                      <Image
-                        key={index}
-                        className="rounded-full object-cover xxs:h-12 xxs:w-12 sm:h-8 sm:w-8"
-                        src={award}
-                        height={200}
-                        width={200}
-                        alt=""
-                      />
-                    ))}
-                  <button className="z-1 flex h-6 w-12 items-center justify-center rounded-full bg-sky-950 text-xs text-white">
-                    <div className="mr-1">+ 4</div>
-                    <div className="">
-                      <Image
-                        className="rounded-full object-cover xxs:h-4 xxs:w-4"
-                        src={
-                          'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/winner.png'
-                        }
-                        height={200}
-                        width={200}
-                        alt=""
-                      />
-                    </div>
-                  </button>
-                </div>
               </div>
-              {/* bg-green-300 side, next div */}
               <div className=" flex flex-col justify-between">
-                <div className="flex items-center justify-end gap-1">
-                  {nft.aiTools &&
-                    nft.aiTools.map((tool, index) => (
-                      <Image
-                        key={index}
-                        className="object-cover xxs:h-10 xxs:w-10 sm:h-6 sm:w-6"
-                        src={tool}
-                        height={200}
-                        width={200}
-                        alt=""
-                      />
-                    ))}
-                  <button className="z-1 flex h-6 w-12 items-center justify-center rounded-full bg-sky-950 text-xs text-white">
-                    <div className="mr-1">+ 2</div>
-                    <div className="">
-                      <Image
-                        className="rounded-full object-cover xxs:h-4 xxs:w-4"
-                        src={
-                          'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/magic-wand.png'
-                        }
-                        height={200}
-                        width={200}
-                        alt=""
-                      />
-                    </div>
-                  </button>
-                </div>
                 <Reactions
                   collectionId={nft.collectionId}
                   nftId={nft.id}
