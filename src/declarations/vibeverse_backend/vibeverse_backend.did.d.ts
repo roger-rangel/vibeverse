@@ -78,7 +78,10 @@ export interface _SERVICE {
   'add_admin' : ActorMethod<[Principal], Result>,
   'add_emojis' : ActorMethod<[Array<string>], Result_1>,
   'add_remove_reaction' : ActorMethod<[bigint, bigint, string], Result_2>,
-  'all_nfts' : ActorMethod<[[] | [bigint], [] | [bigint]], Array<Nft>>,
+  'all_nfts' : ActorMethod<
+    [[] | [AssetType], [] | [bigint], [] | [bigint]],
+    Array<Nft>
+  >,
   'collection_count' : ActorMethod<[], bigint>,
   'collection_fee' : ActorMethod<[], bigint>,
   'collections' : ActorMethod<

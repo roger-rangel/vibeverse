@@ -3,7 +3,7 @@ use ic_stable_structures::{storable::Bound, Storable};
 use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
 
-use crate::StorableNat;
+use crate::{nft_metadata::get_metadata, StorableNat};
 use libraries::msgpack::{deserialize_then_unwrap, serialize_then_unwrap};
 
 use super::{is_empty_slice, Reactions};
@@ -60,6 +60,21 @@ pub struct Nft {
     pub description: String,
     /// The url of the asset for the nft.
     pub asset_url: Option<String>,
+}
+
+impl Nft {
+    pub fn new(id: NftId, name: String, description: String, asset_url: Option<String>) -> Self {
+        Self {
+            id,
+            name,
+            description,
+            asset_url,
+        }
+    }
+
+    pub fn metadata(&self) -> Option<NftMetadata> {
+        get_metadata(self.id.clone())
+    }
 }
 
 impl Storable for Nft {

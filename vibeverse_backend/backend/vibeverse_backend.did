@@ -62,7 +62,7 @@ service : () -> {
   add_admin : (principal) -> (Result);
   add_emojis : (vec text) -> (Result_1);
   add_remove_reaction : (nat, nat, text) -> (Result_2);
-  all_nfts : (opt nat, opt nat) -> (vec Nft) query;
+  all_nfts : (opt AssetType, opt nat, opt nat) -> (vec Nft) query;
   collection_count : () -> (nat) query;
   collection_fee : () -> (nat64) query;
   collections : (opt nat, opt nat) -> (vec Collection) query;
