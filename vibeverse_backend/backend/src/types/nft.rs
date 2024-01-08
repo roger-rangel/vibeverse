@@ -48,6 +48,7 @@ impl Storable for Collection {
     const BOUND: Bound = Bound::Unbounded;
 }
 
+/// TODO: Migrate to NftMetadata
 /// Stores all the necessary information about an nft.
 #[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize)]
 pub struct Nft {
@@ -73,10 +74,23 @@ impl Storable for Nft {
     const BOUND: Bound = Bound::Unbounded;
 }
 
+#[repr(u8)]
+#[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize, Default)]
+pub enum AssetType {
+    #[default]
+    Image = 0,
+    Video = 1,
+    Audio = 2,
+    Other = 3,
+}
+
 #[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize, Default)]
 pub struct NftMetadata {
     #[serde(rename = "r", default, skip_serializing_if = "is_empty_slice")]
     pub reactions: Reactions,
+
+    #[serde(rename = "at", default)]
+    pub asset_type: AssetType,
 }
 
 impl Storable for NftMetadata {

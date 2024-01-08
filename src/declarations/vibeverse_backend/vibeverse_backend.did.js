@@ -62,8 +62,15 @@ export const idlFactory = ({ IDL }) => {
     'lv' : CourseLevel,
   });
   const Result_4 = IDL.Variant({ 'Ok' : IDL.Vec(Badge), 'Err' : IDL.Text });
+  const AssetType = IDL.Variant({
+    'Image' : IDL.Null,
+    'Audio' : IDL.Null,
+    'Other' : IDL.Null,
+    'Video' : IDL.Null,
+  });
   const NftMetadata = IDL.Record({
     'r' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Vec(IDL.Principal))),
+    'at' : AssetType,
   });
   const Result_5 = IDL.Variant({
     'Ok' : IDL.Tuple(IDL.Nat, IDL.Nat),

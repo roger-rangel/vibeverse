@@ -1,4 +1,5 @@
 type AddRemoveReactionResult = variant { Added; Removed };
+type AssetType = variant { Image; Audio; Other; Video };
 type Badge = record { i : text; n : text };
 type Collection = record {
   id : nat;
@@ -46,7 +47,10 @@ type Nft = record {
   description : text;
   asset_url : opt text;
 };
-type NftMetadata = record { r : vec record { text; vec principal } };
+type NftMetadata = record {
+  r : vec record { text; vec principal };
+  at : AssetType;
+};
 type Result = variant { Ok; Err : text };
 type Result_1 = variant { Ok : nat; Err : text };
 type Result_2 = variant { Ok : AddRemoveReactionResult; Err : text };

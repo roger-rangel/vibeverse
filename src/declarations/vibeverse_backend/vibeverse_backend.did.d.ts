@@ -3,6 +3,10 @@ import type { ActorMethod } from '@dfinity/agent';
 
 export type AddRemoveReactionResult = { 'Added' : null } |
   { 'Removed' : null };
+export type AssetType = { 'Image' : null } |
+  { 'Audio' : null } |
+  { 'Other' : null } |
+  { 'Video' : null };
 export interface Badge { 'i' : string, 'n' : string }
 export interface Collection {
   'id' : bigint,
@@ -52,7 +56,10 @@ export interface Nft {
   'description' : string,
   'asset_url' : [] | [string],
 }
-export interface NftMetadata { 'r' : Array<[string, Array<Principal>]> }
+export interface NftMetadata {
+  'r' : Array<[string, Array<Principal>]>,
+  'at' : AssetType,
+}
 export type Result = { 'Ok' : null } |
   { 'Err' : string };
 export type Result_1 = { 'Ok' : bigint } |
