@@ -40,22 +40,27 @@ export default function StorytellingTest() {
   const handleContinue = () => {
     setActivePages(prevActivePages => {
       const nextPage = prevActivePages.length + 1;
-      if (nextPage < totalPages) {
+      // Update the condition to allow for the last page
+      if (nextPage <= totalPages) {
         setShowContinue(false);
+        // Add nextPage to the array of active pages
         const updatedPages = [...prevActivePages, nextPage];
 
-        setTimeout(() => {
-          const nextSectionId = `page-${nextPage}`;
-          const nextSection = document.getElementById(nextSectionId);
-          if (nextSection) {
-            const offset = 300; // Adjust this value as needed to control scroll amount
-            const position = nextSection.offsetTop - offset;
-            window.scrollTo({
-              top: position,
-              behavior: 'smooth'
-            });
-          }
-        }, 0);
+        // Do not scroll if we're transitioning to the last page
+        if (nextPage < totalPages) {
+          setTimeout(() => {
+            const nextSectionId = `page-${nextPage}`;
+            const nextSection = document.getElementById(nextSectionId);
+            if (nextSection) {
+              const offset = 300; // Adjust this value as needed to control scroll amount
+              const position = nextSection.offsetTop - offset;
+              window.scrollTo({
+                top: position,
+                behavior: 'smooth'
+              });
+            }
+          }, 0);
+        }
 
         return updatedPages;
       } else {
@@ -65,7 +70,6 @@ export default function StorytellingTest() {
       }
     });
   };
-
 
 
   const handleReviewComplete = () => {
@@ -95,7 +99,7 @@ export default function StorytellingTest() {
         {activePages.includes(1) && <PageOne />}
         {activePages.includes(2) && <PageTwo onAnswerSelected={handleAnswerSelected} />}
         {activePages.includes(3) && <PageThree onAnswerSelected={handleAnswerSelected} />}
-        {activePages.includes(4) && <PageFour />}
+        {activePages.includes(4) && <PageFour onAnswerSelected={handleAnswerSelected} />}
         {activePages.includes(5) && <PageFive />}
         {reviewPhase && !lessonComplete && <ReviewPage onReviewComplete={handleReviewComplete} />}
         {lessonComplete && <div className="text-center mt-4 text-black">FINAL ANIMATION</div>}
