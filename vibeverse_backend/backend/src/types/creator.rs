@@ -1,9 +1,14 @@
-use candid::{CandidType, Principal};
+use candid::{CandidType, Nat, Principal};
 use ic_stable_structures::{storable::Bound, Storable};
 use serde::{Deserialize, Serialize};
 use std::{borrow::Cow, collections::BTreeMap};
 
 use libraries::msgpack::{deserialize_then_unwrap, serialize_then_unwrap};
+
+use crate::{
+    administrative,
+    interface::{Account, TransferArg, VibeToken, ICRC1},
+};
 
 use super::{CourseId, StorableNat};
 
@@ -25,13 +30,21 @@ pub struct Creator {
     /// The avatar of the creator.
     #[serde(rename = "a", default)]
     pub avatar: String,
+
     #[serde(rename = "cc", default)]
     pub created_courses: BTreeMap<CourseId, u64>,
+
     #[serde(rename = "lc", default)]
     pub completed_courses: BTreeMap<CourseId, u64>,
-
+    /// Actually a Nat
     #[serde(rename = "s", default)]
     pub score: StorableNat,
+
+    #[serde(rename = "cr", default)]
+    pub claimable_rewards: Nat,
+
+    #[serde(rename = "rh", default)]
+    pub rewards_history: BTreeMap<u64, Nat>,
 }
 
 impl Storable for Creator {
@@ -54,6 +67,8 @@ impl Creator {
             created_courses: Default::default(),
             completed_courses: Default::default(),
             score: Default::default(),
+            claimable_rewards: Default::default(),
+            rewards_history: Default::default(),
         }
     }
 
@@ -77,5 +92,42 @@ impl Creator {
         self.score += Into::<StorableNat>::into(score);
 
         self.score.clone()
+    }
+
+    pub async fn claim_rewards(&mut self, amount: Nat, to: UserId, time: u64) -> Result<(), String> {
+        if self.claimable_rewards < amount {
+            return Err("Not enough rewards".to_string());
+        }
+
+        self.claimable_rewards -= amount.clone();
+        self.rewards_history.insert(time, amount.clone());
+
+        let vibe_token = administrative::vibe_token();
+
+        if vibe_token.is_none() {
+            return Err("Vibe token not set".to_string());
+        }
+
+        let mut vibe_token = VibeToken::new(vibe_token.unwrap());
+
+        let args = TransferArg {
+            from_subaccount: None,
+            to: Account {
+                owner: to,
+                subaccount: None,
+            },
+            fee: None,
+            created_at_time: None,
+            memo: None,
+            amount,
+        };
+
+        vibe_token
+            .icrc1_transfer(&args)
+            .await
+            .map_err(|e| e.1)?
+            .map_err(|e| e.to_string())?;
+
+        Ok(())
     }
 }

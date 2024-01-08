@@ -43,7 +43,7 @@ impl ICRC1 for VibeToken {
     async fn icrc1_decimals(&self) -> CallResult<u8> {
         let args = EmptyArgs {};
 
-        let _call_result: (u8,) = ic_cdk::call(self.principal, "icrc1_symbol", (args,)).await?;
+        let _call_result: (u8,) = ic_cdk::call(self.principal, "icrc1_decimals", (args,)).await?;
 
         Ok(_call_result.0)
     }

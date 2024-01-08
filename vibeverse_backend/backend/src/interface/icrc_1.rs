@@ -39,6 +39,33 @@ pub enum TransferError {
     GenericError { error_code: Nat, message: String },
 }
 
+impl ToString for TransferError {
+    fn to_string(&self) -> String {
+        match self {
+            TransferError::BadFee { expected_fee } => {
+                format!("ICRC1: BadFee {{ expected_fee: {} }}", expected_fee)
+            }
+            TransferError::BadBurn { min_burn_amount } => {
+                format!("ICRC1: BadBurn {{ min_burn_amount: {} }}", min_burn_amount)
+            }
+            TransferError::InsufficientFunds { balance } => {
+                format!("ICRC1: InsufficientFunds {{ balance: {} }}", balance)
+            }
+            TransferError::TooOld => "ICRC1: TooOld".to_string(),
+            TransferError::CreatedInFuture { ledger_time } => {
+                format!("ICRC1: CreatedInFuture {{ ledger_time: {} }}", ledger_time)
+            }
+            TransferError::TemporarilyUnavailable => "ICRC1: TemporarilyUnavailable".to_string(),
+            TransferError::Duplicate { duplicate_of } => {
+                format!("ICRC1: Duplicate {{ duplicate_of: {} }}", duplicate_of)
+            }
+            TransferError::GenericError { error_code, message } => {
+                format!("ICRC1: GenericError {{ error_code: {}, message: {} }}", error_code, message)
+            }
+        }
+    }
+}
+
 #[derive(CandidType, Serialize, Deserialize, Clone, Debug, PartialEq, Eq)]
 pub struct BalanceOfArgs {
     account: Account,
