@@ -29,6 +29,8 @@ const randomBackground = [
 
 export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
   const [hovered, setHovered] = useState(false);
+  const [altPressed, setAltPressed] = useState(false);
+
   const randomIndex = Math.floor(Math.random() * randomBackground.length);
   const { data: creator } = useGetCreatorProfile({
     collectionId: nft.collectionId,
@@ -105,34 +107,19 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
             </div>
             <div className="flex justify-between items-center rounded-lg bg-black bg-opacity-40 p-2">
               {/* bg-red-300 side, next div */}
-              <div className="flex flex-col items-center">
-                <div className="ml-1 flex items-center justify-center gap-2">
-                  {nft.communities &&
-                    nft.communities.map((community, index) => (
-                      <Image
-                        key={index}
-                        className="rounded-full border border-white object-cover xxs:h-10 xxs:w-10 sm:h-6 sm:w-6"
-                        src={community}
-                        height={200}
-                        width={200}
-                        alt=""
-                      />
-                    ))}
-                  <button className="z-1 flex h-6 w-12 items-center justify-center rounded-full bg-sky-950 text-xs text-white">
-                    <div className="mr-1">+ 2</div>
-                    <div className="">
-                      <Image
-                        className="rounded-full object-cover xxs:h-4 xxs:w-4"
-                        src={
-                          'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/community.png'
-                        }
-                        height={200}
-                        width={200}
-                        alt=""
-                      />
-                    </div>
-                  </button>
-                </div>
+              <div 
+                className="flex z-1 items-center justify-center rounded-full bg-sky-950 text-xs text-white px-4 py-1.5"
+                onMouseEnter={() => setHovered(true)} // Set hovered to true when mouse enters this div
+                onMouseLeave={() => setHovered(false)} // Set hovered to false when mouse leaves this div
+              >
+                ALT
+                {/* Pop-up div, shown only when hovered is true */}
+                {hovered && (
+                  <div className="absolute z-10 w-24 p-2 bg-black text-white shadow-lg rounded-full -mt-10 ml-32">
+                    {/* Your pop-up content here */}
+                    coming soon
+                  </div>
+                )}
               </div>
               <div className=" flex flex-col justify-between">
                 <Reactions
