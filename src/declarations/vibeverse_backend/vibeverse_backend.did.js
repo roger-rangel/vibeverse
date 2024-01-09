@@ -37,7 +37,9 @@ export const idlFactory = ({ IDL }) => {
     'n' : IDL.Text,
     's' : IDL.Nat,
     'cc' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Nat64)),
+    'cr' : IDL.Nat,
     'lc' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Nat64)),
+    'rh' : IDL.Vec(IDL.Tuple(IDL.Nat64, IDL.Nat)),
   });
   const Community = IDL.Record({
     'c' : IDL.Principal,
@@ -149,7 +151,7 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(Community)],
         ['query'],
       ),
-    'get_communities_joinned' : IDL.Func(
+    'get_communities_followed' : IDL.Func(
         [IDL.Principal],
         [IDL.Vec(Community)],
         ['query'],
@@ -206,6 +208,7 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'vibe_token' : IDL.Func([], [IDL.Opt(IDL.Principal)], ['query']),
+    'vibe_token_name' : IDL.Func([], [IDL.Opt(IDL.Text)], []),
   });
 };
 export const init = ({ IDL }) => { return []; };

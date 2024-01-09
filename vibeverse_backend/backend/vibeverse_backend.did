@@ -38,7 +38,9 @@ type Creator = record {
   n : text;
   s : nat;
   cc : vec record { text; nat64 };
+  cr : nat;
   lc : vec record { text; nat64 };
+  rh : vec record { nat64; nat };
 };
 type Nft = record {
   id : record { nat; nat };
@@ -75,7 +77,7 @@ service : () -> {
   get_collection : (nat) -> (opt Collection) query;
   get_communities : (opt nat, opt nat) -> (vec Community) query;
   get_communities_created_by : (principal) -> (vec Community) query;
-  get_communities_joinned : (principal) -> (vec Community) query;
+  get_communities_followed : (principal) -> (vec Community) query;
   get_course : (text) -> (opt Course) query;
   get_courses : (opt nat, opt nat) -> (vec Course) query;
   get_earned_badges : (principal) -> (Result_4) query;

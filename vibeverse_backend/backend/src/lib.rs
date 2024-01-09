@@ -189,7 +189,7 @@ pub fn get_nft_metadata(collection_id: CollectionId, nft_id: Nat) -> Option<NftM
 #[update(guard = "caller_is_not_anonymous")]
 pub fn create_community(slug: CommunityId, name: String, description: String, logo: String) -> Result<CommunityId, String> {
     let creator = ic_cdk::api::caller();
-    communities::create_community(slug.clone(), creator, name, description, logo).unwrap();
+    communities::create_community(slug.clone(), creator, name, description, logo)?;
 
     Ok(slug)
 }
@@ -198,7 +198,7 @@ pub fn create_community(slug: CommunityId, name: String, description: String, lo
 fn _join_community(community: CommunityId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
-    communities::join_community(community, user, true).unwrap();
+    communities::join_community(community, user, true)?;
 
     Ok(())
 }
@@ -207,7 +207,7 @@ fn _join_community(community: CommunityId) -> Result<(), String> {
 fn _leave_community(community: CommunityId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
-    communities::leave_community(community, user, true).unwrap();
+    communities::leave_community(community, user, true)?;
 
     Ok(())
 }
@@ -221,7 +221,7 @@ fn _is_community_member(community: CommunityId, user: Principal) -> bool {
 pub fn follow_community(community: CommunityId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
-    communities::follow_community(community, user).unwrap();
+    communities::follow_community(community, user)?;
 
     Ok(())
 }
@@ -230,7 +230,7 @@ pub fn follow_community(community: CommunityId) -> Result<(), String> {
 pub fn unfollow_community(community: CommunityId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
-    communities::unfollow_community(community, user).unwrap();
+    communities::unfollow_community(community, user)?;
 
     Ok(())
 }

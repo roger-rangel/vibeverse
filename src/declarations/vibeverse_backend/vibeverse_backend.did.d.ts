@@ -44,7 +44,9 @@ export interface Creator {
   'n' : string,
   's' : bigint,
   'cc' : Array<[string, bigint]>,
+  'cr' : bigint,
   'lc' : Array<[string, bigint]>,
+  'rh' : Array<[bigint, bigint]>,
 }
 export interface Nft {
   'id' : [bigint, bigint],
@@ -98,7 +100,7 @@ export interface _SERVICE {
     Array<Community>
   >,
   'get_communities_created_by' : ActorMethod<[Principal], Array<Community>>,
-  'get_communities_joinned' : ActorMethod<[Principal], Array<Community>>,
+  'get_communities_followed' : ActorMethod<[Principal], Array<Community>>,
   'get_course' : ActorMethod<[string], [] | [Course]>,
   'get_courses' : ActorMethod<[[] | [bigint], [] | [bigint]], Array<Course>>,
   'get_earned_badges' : ActorMethod<[Principal], Result_4>,
@@ -129,4 +131,5 @@ export interface _SERVICE {
     Result_6
   >,
   'vibe_token' : ActorMethod<[], [] | [Principal]>,
+  'vibe_token_name' : ActorMethod<[], [] | [string]>,
 }
