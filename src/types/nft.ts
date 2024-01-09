@@ -1,4 +1,7 @@
-import { Nft as RawNft } from '@/declarations/vibeverse_backend/vibeverse_backend.did';
+import {
+  Nft as RawNft,
+  AssetType as RawAssetType,
+} from '@/declarations/vibeverse_backend/vibeverse_backend.did';
 
 export interface Nft {
   collectionId: bigint;
@@ -53,4 +56,37 @@ export const asDetailedNft = (nft: RawNft): DetailedNft => {
       'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/gradient_donut.gif',
     ],
   };
+};
+
+export enum AssetType {
+  Image = 0,
+  Video = 1,
+  Audio = 2,
+  Other = 3,
+}
+
+export const asAssetType = (raw: RawAssetType): AssetType => {
+  if ('Image' in raw) {
+    return AssetType.Image;
+  }
+  if ('Video' in raw) {
+    return AssetType.Video;
+  }
+  if ('Audio' in raw) {
+    return AssetType.Audio;
+  }
+  return AssetType.Other;
+};
+
+export const asRawAssetType = (assetType: AssetType): RawAssetType => {
+  switch (assetType) {
+    case AssetType.Image:
+      return { Image: null };
+    case AssetType.Video:
+      return { Video: null };
+    case AssetType.Audio:
+      return { Audio: null };
+    default:
+      return { Other: null };
+  }
 };

@@ -1,34 +1,40 @@
+'use client';
+
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useConnect } from '@connect2ic/react';
-import { Actor } from '@dfinity/agent';
-import { AssetManager } from '@dfinity/assets';
 import { Principal } from '@dfinity/principal';
 
 import Dropdown from '@/components/dashboard/upload/dropdown';
 import { Mixpanel } from '@/components/Mixpanel';
-import { DFX_NETWORK } from '@/config';
+import { uploadFile } from '@/helpers/upload';
 import { useActor } from '@/providers/ActorProvider';
-import { canisterId } from '@/declarations/vibeverse_assets';
+import { asRawAssetType } from '@/types';
 
 import Mint_Option from './mint_option.jsx';
 import Img_Option from './img_option.jsx';
+import { Player } from '../../Player';
 
 function CreateNFT({ showCreateNFT }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-  const [customImageUrl, setCustomImageUrl] = useState('');
+  const [assetUrl, setAssetUrl] = useState('');
+  const [selectedAssetType, setSelectedAssetType] = useState(undefined);
+
   const [collection, setCollection] = useState({ name: 'Options', id: -1 });
   const [imageOption, setImageOption] = useState('upload');
   const [mintOption, setMintOption] = useState('self');
   const [receiver, setReceiver] = useState('');
-  const { actor, assetActor } = useActor();
+  const { actor } = useActor();
   const { activeProvider } = useConnect();
 
-  const isLocal = DFX_NETWORK === 'local';
+  useEffect(() => {
+    setAssetUrl(null);
+    setSelectedAssetType(undefined);
+  }, [imageOption]);
 
   const handleClose = () => {
     showCreateNFT(false);
@@ -42,19 +48,13 @@ function CreateNFT({ showCreateNFT }) {
       return;
     }
 
-    console.log('Minting an NFT');
-
     let actualReceiver = receiver;
     if (mintOption == 'self') {
-      actualReceiver = '2vxsx-fae';
       if (activeProvider && activeProvider.principal) {
         actualReceiver = activeProvider.principal;
+      } else {
+        return toast.error('Connect your wallet!');
       }
-    }
-
-    let finalUrl = imageUrl;
-    if (imageOption == 'url') {
-      finalUrl = customImageUrl;
     }
 
     const result = await actor.mint_nft(
@@ -62,77 +62,43 @@ function CreateNFT({ showCreateNFT }) {
       Principal.from(actualReceiver),
       name,
       description,
-      [finalUrl],
+      [assetUrl],
+      selectedAssetType !== undefined
+        ? [asRawAssetType(selectedAssetType)]
+        : [],
     );
     if ('Err' in result) {
-      alert(result.Err);
+      toast.error(result.Err);
       return;
     }
-    console.dir(result, { depth: null });
-    alert(`Minted successfuly`);
+
+    toast.success(`Minted Successfully`);
+    handleClose();
   };
 
-  const tryUploadPhoto = async (e) => {
-    try {
-      await uploadPhoto(e);
-    } catch (err) {
-      if (err.message.includes('Caller is not authorized')) {
-        alert('Caller is not authorized');
-      } else {
-        throw err;
-      }
-    }
-  };
-
-  const uploadPhoto = async (e) => {
-    const assetManager = await getAssetManager();
+  const upload = async (e) => {
     const file = e.target.files[0];
 
-    const fileName = 'nft-' + Date.now() + '.' + file.type.split('/')[1];
-    const blob = file.slice(0, file.size, 'image/*');
+    const assetUrl = await uploadFile(file);
 
-    const renamedFile = new File([blob], fileName, { type: 'image/*' });
-    const key = await assetManager.store(renamedFile);
-
-    let imageUrl = '';
-    if (isLocal) {
-      imageUrl = `http://localhost:4943${key}?canisterId=${canisterId}`;
-    } else {
-      imageUrl = `https://${canisterId}.icp0.io${key}`;
-    }
-
-    console.log(imageUrl);
-    setImageUrl(imageUrl);
-  };
-
-  const getAssetManager = async () => {
-    const agent = Actor.agentOf(assetActor);
-
-    if (DFX_NETWORK === 'local') {
-      agent.fetchRootKey();
-    }
-    const assetManager = new AssetManager({
-      canisterId,
-      agent,
-    });
-
-    return assetManager;
+    console.log(assetUrl);
+    setAssetUrl(assetUrl);
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-50 ">
-      <div className="bg-gray-900 rounded-lg overflow-y-auto max-h-[calc(100%-2rem)] p-8 w-full max-w-2xl mx-4 my-8 border border-indigo-600">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto ">
+      <div className="mx-4 my-8 max-h-[calc(100%-2rem)] w-full max-w-2xl overflow-y-auto rounded-lg border border-indigo-600 bg-gray-900 p-8">
         <form onSubmit={handleSubmit}>
           <div className="space-y-12 ">
             <div className="border-b border-white/10 pb-12">
-              <div className="flex justify-between mb-4 items-center">
+              <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-3xl font-semibold leading-7 text-white">
                   Create NFT
                 </h2>
                 <button
                   onClick={handleClose}
                   type="button"
-                  class="rounded-md p-1 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-purple-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                  class="inline-flex items-center justify-center rounded-md p-1 text-gray-400 hover:bg-purple-300 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                 >
                   <span class="sr-only">Close menu</span>
 
@@ -158,15 +124,15 @@ function CreateNFT({ showCreateNFT }) {
                 This information will be displayed publicly so be careful what
                 you share.
               </p>
-              <div className="flex items-center mt-4">
+              <div className="mt-4 flex items-center">
                 <Image
                   src={`/images/dashboard/what_is_nft.png`}
                   alt="what_is_nft"
-                  className={`flex h-8 w-8 rounded-full items-center`}
+                  className={`flex h-8 w-8 items-center rounded-full`}
                   width="40"
                   height="40"
                 />
-                <p className="ml-2 text-sm leading-6 text-gray-400 items-center">
+                <p className="ml-2 items-center text-sm leading-6 text-gray-400">
                   What is an NFT?{' '}
                   <Link
                     className="text-blue-400 underline"
@@ -177,7 +143,7 @@ function CreateNFT({ showCreateNFT }) {
                   </Link>
                 </p>
               </div>
-              <p className="mt-1 text-sm leading-6 text-purple-200 px-2">
+              <p className="mt-1 px-2 text-sm leading-6 text-purple-200">
                 An NFT is a digital item that shows you own something cool and
                 unique online.
               </p>
@@ -235,14 +201,26 @@ function CreateNFT({ showCreateNFT }) {
                 </div>
 
                 <div className="col-span-full">
-                  <Img_Option setImageOption={setImageOption} />
+                  <Img_Option
+                    imageOption={imageOption}
+                    setImageOption={setImageOption}
+                  />
                   <label
                     htmlFor="cover-photo"
-                    className="block mt-4 text-sm font-medium leading-6 text-white"
+                    className="mt-4 block text-sm font-medium leading-6 text-white"
                   >
                     Attach Asset
                   </label>
-                  {imageOption == 'upload' ? (
+                  {assetUrl ? (
+                    <Player
+                      path={assetUrl}
+                      onAssetTypeSwitch={setSelectedAssetType}
+                      width={320}
+                      height={240}
+                      className=""
+                      showAssetTypeSwitcher
+                    />
+                  ) : imageOption == 'upload' ? (
                     <div className="mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-10">
                       <div className="text-center">
                         <PhotoIcon
@@ -258,7 +236,7 @@ function CreateNFT({ showCreateNFT }) {
                             <input
                               id="file-upload"
                               name="file-upload"
-                              onChange={tryUploadPhoto}
+                              onChange={upload}
                               type="file"
                               className="sr-only"
                             />
@@ -276,8 +254,8 @@ function CreateNFT({ showCreateNFT }) {
                         type="text"
                         name="existing_url"
                         id="existing_url"
-                        value={customImageUrl}
-                        onChange={(e) => setCustomImageUrl(e.target.value)}
+                        value={assetUrl}
+                        onChange={(e) => setAssetUrl(e.target.value)}
                         placeholder="add link to your asset here :)"
                         autoComplete="given-name"
                         className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
@@ -287,7 +265,10 @@ function CreateNFT({ showCreateNFT }) {
                 </div>
               </div>
               <div className="flex flex-col">
-                <Mint_Option setMintOption={setMintOption} />
+                <Mint_Option
+                  mintOption={mintOption}
+                  setMintOption={setMintOption}
+                />
                 {mintOption == 'other' && (
                   <div className="mt-4">
                     <input
