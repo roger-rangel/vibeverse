@@ -240,9 +240,14 @@ pub fn is_community_follower(community: CommunityId, user: Principal) -> bool {
     communities::is_follower(community, user)
 }
 
-#[query]
-pub fn get_communities_joinned(user: Principal) -> Vec<Community> {
+// #[query]
+pub fn _get_communities_joinned(user: Principal) -> Vec<Community> {
     communities::get_communities_joinned(user)
+}
+
+#[query]
+pub fn get_communities_followed(user: Principal) -> Vec<Community> {
+    communities::get_communities_followed(user)
 }
 
 #[query]

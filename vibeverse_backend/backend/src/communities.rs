@@ -154,6 +154,19 @@ pub fn get_communities_joinned(user: UserId) -> Vec<Community> {
     })
 }
 
+pub fn get_communities_followed(user: UserId) -> Vec<Community> {
+    COMMUNITIES.with(|c| {
+        let communities = c.borrow();
+        let mut user_communities = Vec::new();
+        for (_, community) in communities.iter() {
+            if community.is_follower(&user) {
+                user_communities.push(community.clone());
+            }
+        }
+        user_communities
+    })
+}
+
 pub fn get_communities_created_by(user: UserId) -> Vec<Community> {
     COMMUNITIES.with(|c| {
         let communities = c.borrow();
