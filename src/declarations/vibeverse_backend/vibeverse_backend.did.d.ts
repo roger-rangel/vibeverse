@@ -3,6 +3,10 @@ import type { ActorMethod } from '@dfinity/agent';
 
 export type AddRemoveReactionResult = { 'Added' : null } |
   { 'Removed' : null };
+export type AssetType = { 'Image' : null } |
+  { 'Audio' : null } |
+  { 'Other' : null } |
+  { 'Video' : null };
 export interface Badge { 'i' : string, 'n' : string }
 export interface Collection {
   'id' : bigint,
@@ -54,7 +58,10 @@ export interface Nft {
   'description' : string,
   'asset_url' : [] | [string],
 }
-export interface NftMetadata { 'r' : Array<[string, Array<Principal>]> }
+export interface NftMetadata {
+  'r' : Array<[string, Array<Principal>]>,
+  'at' : AssetType,
+}
 export type Result = { 'Ok' : null } |
   { 'Err' : string };
 export type Result_1 = { 'Ok' : bigint } |
@@ -73,7 +80,10 @@ export interface _SERVICE {
   'add_admin' : ActorMethod<[Principal], Result>,
   'add_emojis' : ActorMethod<[Array<string>], Result_1>,
   'add_remove_reaction' : ActorMethod<[bigint, bigint, string], Result_2>,
-  'all_nfts' : ActorMethod<[[] | [bigint], [] | [bigint]], Array<Nft>>,
+  'all_nfts' : ActorMethod<
+    [[] | [AssetType], [] | [bigint], [] | [bigint]],
+    Array<Nft>
+  >,
   'collection_count' : ActorMethod<[], bigint>,
   'collection_fee' : ActorMethod<[], bigint>,
   'collections' : ActorMethod<
@@ -110,7 +120,7 @@ export interface _SERVICE {
   'is_community_follower' : ActorMethod<[string, Principal], boolean>,
   'mint_fee' : ActorMethod<[], bigint>,
   'mint_nft' : ActorMethod<
-    [bigint, Principal, string, string, [] | [string]],
+    [bigint, Principal, string, string, [] | [string], [] | [AssetType]],
     Result_5
   >,
   'nfts' : ActorMethod<[bigint, [] | [bigint], [] | [bigint]], Array<Nft>>,

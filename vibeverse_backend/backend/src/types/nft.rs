@@ -3,7 +3,7 @@ use ic_stable_structures::{storable::Bound, Storable};
 use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
 
-use crate::StorableNat;
+use crate::{nft_metadata::get_metadata, StorableNat};
 use libraries::msgpack::{deserialize_then_unwrap, serialize_then_unwrap};
 
 use super::{is_empty_slice, Reactions};
@@ -48,6 +48,7 @@ impl Storable for Collection {
     const BOUND: Bound = Bound::Unbounded;
 }
 
+/// TODO: Migrate to NftMetadata
 /// Stores all the necessary information about an nft.
 #[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize)]
 pub struct Nft {
@@ -59,6 +60,21 @@ pub struct Nft {
     pub description: String,
     /// The url of the asset for the nft.
     pub asset_url: Option<String>,
+}
+
+impl Nft {
+    pub fn new(id: NftId, name: String, description: String, asset_url: Option<String>) -> Self {
+        Self {
+            id,
+            name,
+            description,
+            asset_url,
+        }
+    }
+
+    pub fn metadata(&self) -> Option<NftMetadata> {
+        get_metadata(self.id.clone())
+    }
 }
 
 impl Storable for Nft {
@@ -73,10 +89,23 @@ impl Storable for Nft {
     const BOUND: Bound = Bound::Unbounded;
 }
 
+#[repr(u8)]
+#[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize, Default)]
+pub enum AssetType {
+    #[default]
+    Image = 0,
+    Video = 1,
+    Audio = 2,
+    Other = 3,
+}
+
 #[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize, Default)]
 pub struct NftMetadata {
     #[serde(rename = "r", default, skip_serializing_if = "is_empty_slice")]
     pub reactions: Reactions,
+
+    #[serde(rename = "at", default)]
+    pub asset_type: AssetType,
 }
 
 impl Storable for NftMetadata {

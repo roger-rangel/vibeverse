@@ -9,6 +9,12 @@ export const idlFactory = ({ IDL }) => {
     'Ok' : AddRemoveReactionResult,
     'Err' : IDL.Text,
   });
+  const AssetType = IDL.Variant({
+    'Image' : IDL.Null,
+    'Audio' : IDL.Null,
+    'Other' : IDL.Null,
+    'Video' : IDL.Null,
+  });
   const Nft = IDL.Record({
     'id' : IDL.Tuple(IDL.Nat, IDL.Nat),
     'name' : IDL.Text,
@@ -66,6 +72,7 @@ export const idlFactory = ({ IDL }) => {
   const Result_4 = IDL.Variant({ 'Ok' : IDL.Vec(Badge), 'Err' : IDL.Text });
   const NftMetadata = IDL.Record({
     'r' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Vec(IDL.Principal))),
+    'at' : AssetType,
   });
   const Result_5 = IDL.Variant({
     'Ok' : IDL.Tuple(IDL.Nat, IDL.Nat),
@@ -81,7 +88,7 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'all_nfts' : IDL.Func(
-        [IDL.Opt(IDL.Nat), IDL.Opt(IDL.Nat)],
+        [IDL.Opt(AssetType), IDL.Opt(IDL.Nat), IDL.Opt(IDL.Nat)],
         [IDL.Vec(Nft)],
         ['query'],
       ),
@@ -177,7 +184,14 @@ export const idlFactory = ({ IDL }) => {
       ),
     'mint_fee' : IDL.Func([], [IDL.Nat64], ['query']),
     'mint_nft' : IDL.Func(
-        [IDL.Nat, IDL.Principal, IDL.Text, IDL.Text, IDL.Opt(IDL.Text)],
+        [
+          IDL.Nat,
+          IDL.Principal,
+          IDL.Text,
+          IDL.Text,
+          IDL.Opt(IDL.Text),
+          IDL.Opt(AssetType),
+        ],
         [Result_5],
         [],
       ),

@@ -23,6 +23,7 @@ mod types;
 
 use crate::interface::{VibeToken, ICRC1};
 use guards::*;
+use memory::METADATA;
 use reactions::AddRemoveReactionResult;
 use types::*;
 
@@ -92,10 +93,21 @@ pub fn mint_nft(
     name: String,
     description: String,
     asset_url: Option<String>,
+    asset_type: Option<AssetType>,
 ) -> Result<NftId, String> {
     let caller = ic_cdk::api::caller();
     match nfts::mint_nft(caller, receiver, collection_id, name, description, asset_url) {
-        Ok(id) => Ok(id),
+        Ok(id) => {
+            // Register asset type on mint
+            if let Some(asset_type) = asset_type {
+                METADATA.with(|s| {
+                    let mut state = s.borrow_mut();
+                    let metadata = state.entry(id.clone()).or_default();
+                    metadata.asset_type = asset_type;
+                });
+            }
+            Ok(id)
+        }
         Err(e) => Err(format!("Error while minting nft: {:?}", e)),
     }
 }
@@ -126,21 +138,30 @@ pub fn nfts(collection_id: CollectionId, start_index: Option<u128>, count: Optio
 }
 
 #[query]
-pub fn all_nfts(start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
+pub fn all_nfts(asset_type: Option<AssetType>, start_index: Option<u128>, count: Option<u128>) -> Vec<Nft> {
     let start_index = start_index.unwrap_or_default();
-    if let Some(count) = count {
-        nfts::all_nfts()
-            .iter()
+
+    let all = nfts::all_nfts();
+
+    let filtered_by_type = all.iter().filter(|n| {
+        if asset_type.is_none() {
+            return true;
+        }
+        if let Some(metadata) = n.metadata() {
+            metadata.asset_type == *asset_type.as_ref().unwrap()
+        } else {
+            false
+        }
+    });
+
+    if let Some(c) = count {
+        filtered_by_type
             .skip(start_index.try_into().unwrap())
-            .take(count.try_into().unwrap())
+            .take(c.try_into().unwrap())
             .cloned()
             .collect()
     } else {
-        nfts::all_nfts()
-            .iter()
-            .skip(start_index.try_into().unwrap())
-            .cloned()
-            .collect()
+        filtered_by_type.skip(start_index.try_into().unwrap()).cloned().collect()
     }
 }
 

@@ -1,31 +1,28 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useConnect } from '@connect2ic/react';
-import { AssetManager } from '@dfinity/assets';
-import { Actor } from '@dfinity/agent';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 
 import { Mixpanel } from '@/components/Mixpanel';
-import { DFX_NETWORK } from '@/config';
-import { canisterId } from '@/declarations/vibeverse_assets';
 import { useActor } from '@/hooks';
+import { uploadFile } from '@/helpers/upload';
 
 import Img_Option from './img_option.jsx';
 
 function CreateCollection({ showCreateCollection }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-  const [customImageUrl, setCustomImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState();
+
   const [limit, setLimit] = useState('');
   const [imageOption, setImageOption] = useState('upload');
 
-  const { actor, assetActor } = useActor();
-  const { activeProvider } = useConnect();
+  const { actor } = useActor();
 
-  const isLocal = DFX_NETWORK === 'local';
-  console.log(activeProvider?.principal);
+  useEffect(() => {
+    setImageUrl(null);
+  }, [imageOption]);
+
   const handleClose = () => {
     showCreateCollection(false);
   };
@@ -40,11 +37,6 @@ function CreateCollection({ showCreateCollection }) {
 
     console.log('Creating a collection');
 
-    let finalUrl = imageUrl;
-    if (imageOption == 'url') {
-      finalUrl = customImageUrl;
-    }
-
     const isTranferable = true; // TODO have this passed from the UI.
 
     const result = await actor.create_collection(
@@ -52,8 +44,8 @@ function CreateCollection({ showCreateCollection }) {
       description,
       isTranferable,
       limit !== '' ? [BigInt(limit)] : [],
-      [finalUrl],
-      'cateory', // TODO Update
+      [imageUrl],
+      'category', // TODO Update
     );
     if ('Err' in result) {
       alert(result.Err);
@@ -63,68 +55,29 @@ function CreateCollection({ showCreateCollection }) {
     }
   };
 
-  const tryUploadPhoto = async (e) => {
-    try {
-      await uploadPhoto(e);
-    } catch (err) {
-      if (err.message.includes('Caller is not authorized')) {
-        alert('Caller is not authorized');
-      } else {
-        throw err;
-      }
-    }
-  };
-
-  const uploadPhoto = async (e) => {
-    const assetManager = await getAssetManager();
+  const upload = async (e) => {
     const file = e.target.files[0];
 
-    const fileName = 'collection-' + Date.now() + '.' + file.type.split('/')[1];
-    const blob = file.slice(0, file.size, 'image/*');
-
-    const renamedFile = new File([blob], fileName, { type: 'image/*' });
-    const key = await assetManager.store(renamedFile);
-
-    let imageUrl = '';
-    if (isLocal) {
-      imageUrl = `http://localhost:4943${key}?canisterId=${canisterId}`;
-    } else {
-      imageUrl = `https://${canisterId}.icp0.io${key}`;
-    }
+    const imageUrl = await uploadFile(file);
 
     console.log(imageUrl);
     setImageUrl(imageUrl);
   };
 
-  console.log(activeProvider?.principal);
-  const getAssetManager = async () => {
-    const agent = Actor.agentOf(assetActor);
-
-    if (DFX_NETWORK === 'local') {
-      agent.fetchRootKey();
-    }
-    const assetManager = new AssetManager({
-      canisterId,
-      agent,
-    });
-
-    return assetManager;
-  };
-
   return (
-    <div className="fixed inset-0 flex items-center justify-center overflow-y-auto z-50">
-      <div className="bg-gray-900 rounded-lg overflow-y-auto max-h-[calc(100%-2rem)] p-8 w-full max-w-2xl mx-4 my-8 border border-indigo-600">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto">
+      <div className="mx-4 my-8 max-h-[calc(100%-2rem)] w-full max-w-2xl overflow-y-auto rounded-lg border border-indigo-600 bg-gray-900 p-8">
         <form onSubmit={handleSubmit}>
           <div className="space-y-12">
             <div className="border-b border-white/10 pb-12">
-              <div className="flex justify-between mb-4 items-center">
+              <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-3xl font-semibold leading-7 text-white">
                   Create Collection
                 </h2>
                 <button
                   onClick={handleClose}
                   type="button"
-                  class="rounded-md p-1 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-purple-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                  class="inline-flex items-center justify-center rounded-md p-1 text-gray-400 hover:bg-purple-300 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                 >
                   <span class="sr-only">Close menu</span>
 
@@ -161,7 +114,7 @@ function CreateCollection({ showCreateCollection }) {
                   </label>
                   <div className="mt-2">
                     <div className="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                      <span className="flex select-none items-center pl-3 px-3 text-gray-500 sm:text-sm">
+                      <span className="flex select-none items-center px-3 pl-3 text-gray-500 sm:text-sm">
                         vibeverse.com/
                       </span>
                       <input
@@ -201,14 +154,24 @@ function CreateCollection({ showCreateCollection }) {
                 </div>
 
                 <div className="col-span-full">
-                  <Img_Option setImageOption={setImageOption} />
+                  <Img_Option
+                    imageOption={imageOption}
+                    setImageOption={setImageOption}
+                  />
                   <label
                     htmlFor="cover-photo"
-                    className="block mt-4 text-sm font-medium leading-6 text-white"
+                    className="mt-4 block text-sm font-medium leading-6 text-white"
                   >
                     Cover photo
                   </label>
-                  {imageOption == 'upload' ? (
+                  {imageUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      className="h-64 w-64 rounded-lg"
+                      src={imageUrl}
+                      alt={name}
+                    />
+                  ) : imageOption == 'upload' ? (
                     <div className="mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-10">
                       <div className="text-center">
                         <PhotoIcon
@@ -224,7 +187,7 @@ function CreateCollection({ showCreateCollection }) {
                             <input
                               id="file-upload"
                               name="file-upload"
-                              onChange={tryUploadPhoto}
+                              onChange={upload}
                               type="file"
                               className="sr-only"
                             />
@@ -242,8 +205,8 @@ function CreateCollection({ showCreateCollection }) {
                         type="text"
                         name="existing_url"
                         id="existing_url"
-                        value={customImageUrl}
-                        onChange={(e) => setCustomImageUrl(e.target.value)}
+                        value={imageUrl}
+                        onChange={(e) => setImageUrl(e.target.value)}
                         placeholder="add link to your asset here :)"
                         autoComplete="given-name"
                         className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"

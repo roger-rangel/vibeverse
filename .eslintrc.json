@@ -4,7 +4,6 @@
   "ignorePatterns": ["declarations/"],
   "rules": {
     "semi": ["error", "always"],
-    "indent": ["warn", 2],
     "no-multi-spaces": ["error"],
     "@typescript-eslint/ban-ts-comment": ["warn"],
     "react/no-children-prop": ["warn"],
