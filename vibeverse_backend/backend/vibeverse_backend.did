@@ -88,7 +88,9 @@ service : () -> {
   is_admin : (principal) -> (bool) query;
   is_community_follower : (text, principal) -> (bool) query;
   mint_fee : () -> (nat64) query;
-  mint_nft : (nat, principal, text, text, opt text) -> (Result_5);
+  mint_nft : (nat, principal, text, text, opt text, opt AssetType) -> (
+      Result_5,
+    );
   nfts : (nat, opt nat, opt nat) -> (vec Nft) query;
   nfts_of_caller : () -> (vec Nft) query;
   nfts_of_user : (principal) -> (vec Nft) query;

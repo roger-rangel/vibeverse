@@ -118,7 +118,7 @@ export interface _SERVICE {
   'is_community_follower' : ActorMethod<[string, Principal], boolean>,
   'mint_fee' : ActorMethod<[], bigint>,
   'mint_nft' : ActorMethod<
-    [bigint, Principal, string, string, [] | [string]],
+    [bigint, Principal, string, string, [] | [string], [] | [AssetType]],
     Result_5
   >,
   'nfts' : ActorMethod<[bigint, [] | [bigint], [] | [bigint]], Array<Nft>>,

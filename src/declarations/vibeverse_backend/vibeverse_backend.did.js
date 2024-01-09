@@ -182,7 +182,14 @@ export const idlFactory = ({ IDL }) => {
       ),
     'mint_fee' : IDL.Func([], [IDL.Nat64], ['query']),
     'mint_nft' : IDL.Func(
-        [IDL.Nat, IDL.Principal, IDL.Text, IDL.Text, IDL.Opt(IDL.Text)],
+        [
+          IDL.Nat,
+          IDL.Principal,
+          IDL.Text,
+          IDL.Text,
+          IDL.Opt(IDL.Text),
+          IDL.Opt(AssetType),
+        ],
         [Result_5],
         [],
       ),

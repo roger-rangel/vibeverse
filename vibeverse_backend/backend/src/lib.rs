@@ -21,6 +21,7 @@ mod reactions;
 mod types;
 
 use guards::*;
+use memory::METADATA;
 use reactions::AddRemoveReactionResult;
 use types::*;
 
@@ -90,10 +91,21 @@ pub fn mint_nft(
     name: String,
     description: String,
     asset_url: Option<String>,
+    asset_type: Option<AssetType>,
 ) -> Result<NftId, String> {
     let caller = ic_cdk::api::caller();
     match nfts::mint_nft(caller, receiver, collection_id, name, description, asset_url) {
-        Ok(id) => Ok(id),
+        Ok(id) => {
+            // Register asset type on mint
+            if let Some(asset_type) = asset_type {
+                METADATA.with(|s| {
+                    let mut state = s.borrow_mut();
+                    let metadata = state.entry(id.clone()).or_default();
+                    metadata.asset_type = asset_type;
+                });
+            }
+            Ok(id)
+        }
         Err(e) => Err(format!("Error while minting nft: {:?}", e)),
     }
 }

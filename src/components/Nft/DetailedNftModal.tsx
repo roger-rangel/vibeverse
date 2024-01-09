@@ -60,7 +60,6 @@ export default function DetailedNftModal({
             <div className="relative flex max-h-[24rem] flex-col overflow-hidden rounded-3xl">
               <Player
                 path={nft.assetUrl || '/images/items/item_1.png'}
-                className="rounded-xl object-cover"
                 autoPlay
                 controls
               />

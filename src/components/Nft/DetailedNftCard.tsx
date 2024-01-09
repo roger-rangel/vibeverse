@@ -59,10 +59,7 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <Player
-        path={nft.assetUrl || '/images/items/item_1.png'}
-        className="h-[800px] w-[500px] rounded-xl object-cover"
-      />
+      <Player path={nft.assetUrl || '/images/items/item_1.png'} />
       <div className="absolute inset-0 mb-1">
         <div className="flex h-full flex-col justify-between">
           <div className="flex w-full justify-between p-3">
@@ -75,7 +72,7 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
                 alt=""
               />
               <Image
-                className="object-cover h-5 w-5 -ml-4 -mt-1 "
+                className="-ml-4 -mt-1 h-5 w-5 object-cover "
                 src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/high-quality.png"
                 height={200}
                 width={200}
@@ -105,17 +102,17 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
                 {nft.views} Views
               </div>
             </div>
-            <div className="flex justify-between items-center rounded-lg bg-black bg-opacity-40 p-2">
+            <div className="flex items-center justify-between rounded-lg bg-black bg-opacity-40 p-2">
               {/* bg-red-300 side, next div */}
-              <div 
-                className="flex z-1 items-center justify-center rounded-full bg-sky-950 text-xs text-white px-4 py-1.5"
+              <div
+                className="z-1 flex items-center justify-center rounded-full bg-sky-950 px-4 py-1.5 text-xs text-white"
                 onMouseEnter={() => setHovered(true)} // Set hovered to true when mouse enters this div
                 onMouseLeave={() => setHovered(false)} // Set hovered to false when mouse leaves this div
               >
                 ALT
                 {/* Pop-up div, shown only when hovered is true */}
                 {hovered && (
-                  <div className="absolute z-10 w-24 p-2 bg-black text-white shadow-lg rounded-full -mt-10 ml-32">
+                  <div className="absolute z-10 -mt-10 ml-32 w-24 rounded-full bg-black p-2 text-white shadow-lg">
                     {/* Your pop-up content here */}
                     coming soon
                   </div>

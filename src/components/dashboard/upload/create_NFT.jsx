@@ -11,6 +11,7 @@ import Dropdown from '@/components/dashboard/upload/dropdown';
 import { Mixpanel } from '@/components/Mixpanel';
 import { uploadFile } from '@/helpers/upload';
 import { useActor } from '@/providers/ActorProvider';
+import { asRawAssetType } from '@/types';
 
 import Mint_Option from './mint_option.jsx';
 import Img_Option from './img_option.jsx';
@@ -20,6 +21,7 @@ function CreateNFT({ showCreateNFT }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [assetUrl, setAssetUrl] = useState('');
+  const [selectedAssetType, setSelectedAssetType] = useState(undefined);
 
   const [collection, setCollection] = useState({ name: 'Options', id: -1 });
   const [imageOption, setImageOption] = useState('upload');
@@ -30,6 +32,7 @@ function CreateNFT({ showCreateNFT }) {
 
   useEffect(() => {
     setAssetUrl(null);
+    setSelectedAssetType(undefined);
   }, [imageOption]);
 
   const handleClose = () => {
@@ -60,6 +63,9 @@ function CreateNFT({ showCreateNFT }) {
       name,
       description,
       [assetUrl],
+      selectedAssetType !== undefined
+        ? [asRawAssetType(selectedAssetType)]
+        : [],
     );
     if ('Err' in result) {
       alert(result.Err);
@@ -205,7 +211,14 @@ function CreateNFT({ showCreateNFT }) {
                     Attach Asset
                   </label>
                   {assetUrl ? (
-                    <Player path={assetUrl} />
+                    <Player
+                      path={assetUrl}
+                      onAssetTypeSwitch={setSelectedAssetType}
+                      width={320}
+                      height={240}
+                      className=""
+                      showAssetTypeSwitcher
+                    />
                   ) : imageOption == 'upload' ? (
                     <div className="mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-10">
                       <div className="text-center">

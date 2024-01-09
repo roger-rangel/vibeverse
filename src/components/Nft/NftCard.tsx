@@ -24,7 +24,6 @@ export function NftCard({ nft }: { nft: Nft }) {
     >
       <Player
         path={nft.assetUrl || '/images/items/item_1.png'}
-        className="rounded-xl object-cover"
         autoPlay
         controls
         width={320}
