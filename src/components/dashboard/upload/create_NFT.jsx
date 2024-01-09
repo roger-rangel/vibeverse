@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -47,13 +48,12 @@ function CreateNFT({ showCreateNFT }) {
       return;
     }
 
-    console.log('Minting an NFT');
-
     let actualReceiver = receiver;
     if (mintOption == 'self') {
-      actualReceiver = '2vxsx-fae';
       if (activeProvider && activeProvider.principal) {
         actualReceiver = activeProvider.principal;
+      } else {
+        return toast.error('Connect your wallet!');
       }
     }
 
@@ -68,11 +68,12 @@ function CreateNFT({ showCreateNFT }) {
         : [],
     );
     if ('Err' in result) {
-      alert(result.Err);
+      toast.error(result.Err);
       return;
     }
-    console.dir(result, { depth: null });
-    alert(`Minted successfuly`);
+
+    toast.success(`Minted Successfully`);
+    handleClose();
   };
 
   const upload = async (e) => {
