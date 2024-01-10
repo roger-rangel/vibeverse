@@ -80,8 +80,7 @@ export function PageTwo({ onAnswerSelected }: PageTwoProps) {
           className={`font-bold cursor-pointer ${activePopup === 'confrontation' ? 'bg-green-500 text-white py-1 px-1.5 rounded-md' : 'border-b-2 border-green-600 pb-0.5'} ml-1`}
           onClick={() => handleWordClick('confrontation')}
         >
-          confrontation
-        </span>
+          confrontation </span>
           , and the third act is 
         <span
           className={`font-bold cursor-pointer ${activePopup === 'resolution' ? 'bg-green-500 text-white py-1 px-1.5 rounded-md' : 'border-b-2 border-green-600 pb-0.5'} ml-1`}
