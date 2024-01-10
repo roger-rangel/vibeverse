@@ -19,7 +19,8 @@ export default function SearchBar() {
             className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-white focus:ring-2 border-pink-300 focus:ring-offset-indigo-600 sm:text-sm sm:leading-6 bg-white/5"
             placeholder="Search"
             type="search"
-            name="search"
+            name="search_randomstring"
+            autocomplete="off"
           />
         </div>
       </div>
