@@ -23,6 +23,17 @@ module.exports = {
           '50%': { backgroundPosition: '100% 50%' },
         },
       },
+      // Extending animations
+      animation: {
+        'slide-up': 'slideUp 0.5s ease-out forwards',
+      },
+      // Defining keyframes
+      keyframes: {
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: 0 },
+          '100%': { transform: 'translateY(0)', opacity: 1 },
+        },
+      },
     },
     screens: {
       xxs: '360px',

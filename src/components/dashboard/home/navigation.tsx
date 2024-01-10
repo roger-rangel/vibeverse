@@ -240,7 +240,7 @@ export default function Navigation({ children }: React.PropsWithChildren) {
           {/* Sidebar component */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r-2 border-indigo-500/75 bg-gray-900 px-6 pb-4">
             <div className="flex items-center">
-              <div className="-mb-2 -ml-2 mt-2">
+              <div className="mb-2 mt-6">
                 <Image
                   src="/images/logos/vibeverse.png"
                   alt="logo"

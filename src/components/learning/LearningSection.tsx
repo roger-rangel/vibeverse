@@ -10,14 +10,17 @@ export function LearningSection() {
   ));
 
   return (
-    <div className="mx-10">
-      <button
-        type="button"
-        className="m-2 rounded-md border border-emerald-800 p-2 text-white"
-        onClick={showModal}
-      >
-        Create course
-      </button>
+    <div className="mx-10 pt-8">
+      <div className="flex justify-end">
+        <button
+          type="button"
+          className="mt-2 text-base rounded-2xl border border-emerald-800 p-4 text-white hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 hover:text-zinc-800 hover:font-bold"
+          onClick={showModal}
+        >
+        Create a course
+        </button>
+      </div>
+
       <AllCourses />
     </div>
   );
