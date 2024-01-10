@@ -3,6 +3,17 @@ import Image from 'next/image';
 export function FinalAnimation() {
   return (
     <div className="fixed inset-0 z-50">
+
+      {/* Earth Image in the top right corner */}
+      <div className="absolute top-0 right-0 p-4 z-50">
+        <Image 
+          src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/earth.png" 
+          alt="Earth" 
+          width={24} // Adjust the size as needed
+          height={24} // Adjust the size as needed
+          className="h-8 w-8 cursor-pointer"
+        />
+      </div>
       <Image
         src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/forest_background.jpeg"
         layout="fill"
@@ -12,7 +23,7 @@ export function FinalAnimation() {
       />
       <div className="relative z-10 text-white flex flex-col justify-center items-center h-full">
         {/* Place your content here */}
-        <p className="mb-6 font-bold text-5xl">LESSON COMPLETE</p>
+        <p className="mb-8 font-bold text-5xl">LESSON COMPLETE</p>
         <div className="flex gap-x-4">
           <div className="text-md bg-green-200 text-green-500 rounded-lg animate-slide-up py-0.5 px-1.5 flex items-center">
             <Image 

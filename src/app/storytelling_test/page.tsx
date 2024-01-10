@@ -95,7 +95,7 @@ export default function StorytellingTest() {
     <div className="flex flex-col min-h-screen justify-between bg-white">
       {/* Navigation progress bar */}
       <div className={`fixed top-0 left-0 w-full z-10 shadow-md transition-opacity duration-500 ${reviewPhase || lessonComplete ? 'opacity-0 pointer-events-none' : 'bg-white'}`}>
-        <div className="flex justify-between max-w-screen-lg mx-auto p-4">
+        <div className="flex justify-between max-w-screen-lg mx-auto p-4 items-center">
           {Array.from({ length: totalPages }).map((_, index) => (
             <div
               key={index}
@@ -105,6 +105,13 @@ export default function StorytellingTest() {
               style={{ flex: index === 0 ? '0 0 5%' : '1' }}
             />
           ))}
+          <Image 
+            src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/earth.png" 
+            alt="Descriptive Alt Text" 
+            className="h-6 w-6 ml-2 cursor-pointer" 
+            width={500}
+            height={500}
+          />
         </div>
       </div>
 
