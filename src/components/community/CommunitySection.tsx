@@ -30,7 +30,7 @@ export function CommunitySection() {
   const files = [
     {
       type: 'Join',
-      path: '/dashboard/curious-refuge',
+      path: '/dashboard/communities/curious-refuge',
       source:
         'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/4f2a08b961c6c95bedb5ed4d2cc39513.gif',
       logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Curious_Refuge_Logo_White_Flat.png',
@@ -45,7 +45,7 @@ export function CommunitySection() {
     },
     {
       type: 'Join',
-      path: '/dashboard/white-mirror',
+      path: '/dashboard/communities/white-mirror',
       source:
         'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/dc3694a9a00b8977d0bbd26541ffbe58.gif',
       logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Screenshot_2023-08-26_at_5_50_29_PM-removebg-preview.png',
@@ -108,7 +108,9 @@ export function CommunitySection() {
                 {file.path ? (
                   <Link href={file.path}>
                     <div className="absolute inset-0 focus:outline-none">
-                      <span className="sr-only">View details for {file.description}</span>
+                      <span className="sr-only">
+                        View details for {file.description}
+                      </span>
                     </div>
                   </Link>
                 ) : (
