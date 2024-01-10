@@ -71,8 +71,13 @@ pub fn set_creator_metadata(name: String, avatar: String) -> Result<(), String> 
 }
 
 #[query]
-pub fn creator_metadata(creator: Principal) -> Option<Creator> {
-    creators::creator_metadata(creator)
+pub fn creator_metadata(creator: Principal) -> Option<(Creator, Badge)> {
+    if let Some(creator) = creators::creator_metadata(creator) {
+        let badge = creator.badge();
+        Some((creator, badge))
+    } else {
+        None
+    }
 }
 
 #[query]
@@ -298,12 +303,10 @@ pub fn create_course(
     level: CourseLevel,
     logo: String,
     content: String,
-    badge_name: String,
-    badge_image: String,
 ) -> Result<CourseId, String> {
     let user = ic_cdk::api::caller();
-    let badge = Badge::new(badge_name, badge_image);
-    courses::create_course(slug, title, description, level, logo, content, user, badge)
+
+    courses::create_course(slug, title, description, level, logo, content, user)
 }
 
 #[update(guard = "caller_is_not_anonymous")]
@@ -311,11 +314,6 @@ pub fn finish_course(slug: CourseId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
     courses::finish_course(user, slug)
-}
-
-#[query]
-pub fn get_earned_badges(user_id: UserId) -> Result<Vec<Badge>, String> {
-    courses::get_earned_badges(user_id)
 }
 
 #[query]

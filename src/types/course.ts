@@ -51,7 +51,6 @@ export interface Course {
   level: CourseLevel;
   logo: string;
   content: string;
-  badge: Badge;
 }
 
 export const asCourse = (raw: RawCourse): Course => {
@@ -62,6 +61,5 @@ export const asCourse = (raw: RawCourse): Course => {
     level: asCourseLevel(raw.lv),
     logo: raw.l,
     content: raw.c,
-    badge: asBadge(raw.b),
   };
 };

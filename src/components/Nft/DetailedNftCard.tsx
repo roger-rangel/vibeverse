@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { FaShare } from 'react-icons/fa';
 import { useModal } from 'react-modal-hook';
-import Image from 'next/image';
 
 import { useGetCreatorProfile, useGetNftMetadata } from '@/hooks';
 import { DetailedNft } from '@/types';
@@ -11,6 +10,7 @@ import { DetailedNft } from '@/types';
 import DetailedNftModal from './DetailedNftModal';
 import { Reactions } from '../Emoji';
 import { Player } from '../Player';
+import { Avatar } from '../Avatar';
 
 const randomBackground = [
   'bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 text-white',
@@ -29,7 +29,6 @@ const randomBackground = [
 
 export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
   const [hovered, setHovered] = useState(false);
-  const [altPressed, setAltPressed] = useState(false);
 
   const randomIndex = Math.floor(Math.random() * randomBackground.length);
   const { data: creator } = useGetCreatorProfile({
@@ -63,22 +62,7 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
       <div className="absolute inset-0 mb-1">
         <div className="flex h-full flex-col justify-between">
           <div className="flex w-full justify-between p-3">
-            <div className="flex">
-              <Image
-                className="rounded-full border border-white object-cover xxs:h-16 xxs:w-16 xs:mb-0 sm:mb-2 sm:h-12 sm:w-12"
-                src={creator?.avatar || nft.profileImage}
-                height={200}
-                width={200}
-                alt=""
-              />
-              <Image
-                className="-ml-4 -mt-1 h-5 w-5 object-cover "
-                src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/high-quality.png"
-                height={200}
-                width={200}
-                alt=""
-              />
-            </div>
+            {creator && <Avatar profile={creator} />}
 
             {hovered && (
               <button

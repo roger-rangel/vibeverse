@@ -10,7 +10,7 @@ use crate::{
     interface::{Account, TransferArg, VibeToken, ICRC1},
 };
 
-use super::{CourseId, StorableNat};
+use super::{Badge, CourseId, StorableNat};
 
 pub type UserId = Principal;
 
@@ -92,6 +92,23 @@ impl Creator {
         self.score += Into::<StorableNat>::into(score);
 
         self.score.clone()
+    }
+
+    pub fn badge(&self) -> Badge {
+        // TODO: Recheck business model, this is for demo
+        if self.score >= 100u32 {
+            Badge::diamond()
+        } else if self.score >= 50u32 {
+            Badge::platinum()
+        } else if self.score >= 30u32 {
+            Badge::gold()
+        } else if self.score >= 20u32 {
+            Badge::bronze()
+        } else if self.score >= 10u32 {
+            Badge::silver()
+        } else {
+            Badge::bronze()
+        }
     }
 
     pub async fn claim_rewards(&mut self, amount: Nat, to: UserId, time: u64) -> Result<(), String> {
