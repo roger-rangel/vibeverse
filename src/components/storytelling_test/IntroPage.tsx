@@ -8,7 +8,7 @@ type IntroPageProps = {
 export function IntroPage({ onIntroComplete } : IntroPageProps ) {
 
   return (
-    <div className="flex flex-col items-center justify-center p-6 bg-white text-black">
+    <div className="flex flex-col items-center justify-center py-12 px-6 bg-white text-black">
       <Image 
         src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_3_(2).webp" 
         alt="Descriptive Alt Text" 

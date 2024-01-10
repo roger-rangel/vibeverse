@@ -5,4 +5,4 @@ export * from './PageOne';
 export * from './PageTwo';
 export * from './PageThree';
 export * from './PageFour';
-export * from './PageFive';
+export * from '././FinalAnimation';

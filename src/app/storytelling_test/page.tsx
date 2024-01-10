@@ -1,7 +1,7 @@
 'use client';
-
+import Image from 'next/image';
 import React, { useState, useRef } from 'react';
-import { PageOne, PageTwo, PageThree, PageFour, PageFive, IntroPage } from '@/components/storytelling_test';
+import { IntroPage, PageOne, PageTwo, PageThree, PageFour, FinalAnimation } from '@/components/storytelling_test';
 
 // Summary review component with TypeScript type annotations
 const ReviewPage = ({
@@ -10,9 +10,22 @@ const ReviewPage = ({
   onReviewComplete: () => void;
 }) => (
   <div>
-    <h2>Review and Reflect</h2>
-    {/* Summary content goes here */}
-    <button onClick={onReviewComplete} className="mt-4">Finish Lesson</button>
+    <div className="px-10">
+      <Image 
+        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/legolas_aragorn.gif" 
+        alt="Descriptive Alt Text" 
+        className="h-96 w-full object-cover rounded-xl" 
+        width={500}
+        height={500}
+      />
+      <h1 className="text-black text-2xl font-bold my-8 flex justify-center">What a Champ! Excellent job!</h1>
+    </div>
+
+    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 p-4 w-full max-w-xl mx-auto">
+      <button onClick={onReviewComplete} className="w-full py-3 text-center bg-black text-white rounded-lg">
+            Finish the Lesson
+      </button>
+    </div>
   </div>
 );
 
@@ -40,19 +53,25 @@ export default function StorytellingTest() {
   const handleContinue = () => {
     setActivePages(prevActivePages => {
       const nextPage = prevActivePages.length + 1;
-      // Update the condition to allow for the last page
-      if (nextPage <= totalPages) {
+
+      // Check if transitioning to the review phase
+      if (nextPage > totalPages - 1) {
+      // Transition to the review phase
+        setReviewPhase(true);
+        // Reset activePages to hide all previous pages
+        return [];
+      } else {
+      // Continue showing the next page
         setShowContinue(false);
-        // Add nextPage to the array of active pages
         const updatedPages = [...prevActivePages, nextPage];
 
-        // Do not scroll if we're transitioning to the last page
+        // Scroll handling for intermediate pages
         if (nextPage < totalPages) {
           setTimeout(() => {
             const nextSectionId = `page-${nextPage}`;
             const nextSection = document.getElementById(nextSectionId);
             if (nextSection) {
-              const offset = 300; // Adjust this value as needed to control scroll amount
+              const offset = 300; // Adjust this value as needed
               const position = nextSection.offsetTop - offset;
               window.scrollTo({
                 top: position,
@@ -63,10 +82,6 @@ export default function StorytellingTest() {
         }
 
         return updatedPages;
-      } else {
-      // Transition to the review phase when all pages have been visited
-        setReviewPhase(true);
-        return prevActivePages;
       }
     });
   };
@@ -79,7 +94,7 @@ export default function StorytellingTest() {
   return (
     <div className="flex flex-col min-h-screen justify-between bg-white">
       {/* Navigation progress bar */}
-      <div className={`fixed top-0 left-0 w-full z-10 shadow-md transition-opacity duration-500 ${lessonComplete ? 'opacity-0 pointer-events-none' : 'bg-white'}`}>
+      <div className={`fixed top-0 left-0 w-full z-10 shadow-md transition-opacity duration-500 ${reviewPhase || lessonComplete ? 'opacity-0 pointer-events-none' : 'bg-white'}`}>
         <div className="flex justify-between max-w-screen-lg mx-auto p-4">
           {Array.from({ length: totalPages }).map((_, index) => (
             <div
@@ -93,21 +108,21 @@ export default function StorytellingTest() {
         </div>
       </div>
 
-      {/* Container for the pages */}
-      <div className="pt-16 flex-grow overflow-auto" ref={pagesContainerRef}>
-        {!activePages.length && <IntroPage onIntroComplete={handleStartLesson} />}
-        {activePages.includes(1) && <PageOne />}
-        {activePages.includes(2) && <PageTwo onAnswerSelected={handleAnswerSelected} />}
-        {activePages.includes(3) && <PageThree onAnswerSelected={handleAnswerSelected} />}
-        {activePages.includes(4) && <PageFour onAnswerSelected={handleAnswerSelected} />}
-        {activePages.includes(5) && <PageFive />}
+
+      {/* Conditional rendering for pages */}
+      <div className="pt-8 flex-grow overflow-auto" ref={pagesContainerRef}>
+        {!reviewPhase && !activePages.length && <IntroPage onIntroComplete={handleStartLesson} />}
+        {!reviewPhase && activePages.includes(1) && <PageOne />}
+        {!reviewPhase && activePages.includes(2) && <PageTwo onAnswerSelected={handleAnswerSelected} />}
+        {!reviewPhase && activePages.includes(3) && <PageThree onAnswerSelected={handleAnswerSelected} />}
+        {!reviewPhase && activePages.includes(4) && <PageFour onAnswerSelected={handleAnswerSelected} />}
         {reviewPhase && !lessonComplete && <ReviewPage onReviewComplete={handleReviewComplete} />}
-        {lessonComplete && <div className="text-center mt-4 text-black">FINAL ANIMATION</div>}
+        {lessonComplete && <FinalAnimation />}
       </div>
 
       {/* Continue button */}
       {!lessonComplete && !reviewPhase && showContinue && (
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 p-4 w-full max-w-md mx-auto">
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 p-4 w-full max-w-xl mx-auto">
           <button onClick={handleContinue} className="w-full py-3 text-center bg-black text-white rounded-lg">
             Continue
           </button>
