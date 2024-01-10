@@ -8,22 +8,41 @@ use libraries::msgpack::{deserialize_then_unwrap, serialize_then_unwrap};
 
 pub type CommunityId = String;
 
-#[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize)]
+#[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize, Default)]
+pub struct Socials {
+    #[serde(rename = "h", default)]
+    pub home: String,
+}
+
+#[derive(Clone, CandidType, Debug, Serialize, Deserialize)]
 pub struct Community {
     #[serde(rename = "s", default)]
     pub slug: CommunityId,
+
     #[serde(rename = "c")]
     pub creator: UserId,
+
     #[serde(rename = "n", default)]
     pub name: String,
+
     #[serde(rename = "d", default)]
     pub description: String,
+
     #[serde(rename = "l", default)]
     pub logo: String,
+
+    #[serde(rename = "hi", default)]
+    pub hero_image: String,
+
+    #[serde(rename = "so", default)]
+    pub socials: Socials,
+
     #[serde(rename = "v", default)]
     pub verified: bool,
+
     #[serde(rename = "m", default)]
     pub members: Vec<UserId>,
+
     #[serde(rename = "f", default)]
     pub followers: Vec<UserId>,
 }
@@ -46,6 +65,8 @@ impl Community {
             name,
             description,
             logo,
+            hero_image: Default::default(),
+            socials: Default::default(),
             verified,
             members,
             followers,
