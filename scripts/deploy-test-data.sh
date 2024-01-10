@@ -8,8 +8,8 @@ dfx canister call $BACKEND set_creator_metadata '("Test Creator", "https://avata
 
 # Creat mock data
 dfx canister call $BACKEND create_collection '("Test collection", "Test collection description", true, null, null, "test")' --network $NETWORK
-dfx canister call $BACKEND mint_nft '(0, (principal "'$PRINCIPAL'"), "Test #1", "Test #1 description", (opt "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_3.png"))' --network $NETWORK
-dfx canister call $BACKEND mint_nft '(0, (principal "'$PRINCIPAL'"), "Test #2", "Test #2 description", (opt "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_5.png"))' --network $NETWORK
+dfx canister call $BACKEND mint_nft '(0, (principal "'$PRINCIPAL'"), "Test #1", "Test #1 description", (opt "https://bafybeifkrr5nyop3rlbwxyvh47f5ywujlijqp5luoll7vqg335rmkp5oju.ipfs.nftstorage.link"), (opt (variant {"Video"})))' --network $NETWORK
+dfx canister call $BACKEND mint_nft '(0, (principal "'$PRINCIPAL'"), "Test #2", "Test #2 description", (opt "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_5.png"), (opt (variant {"Image"})))' --network $NETWORK
 
 # Add emojis
 dfx canister call $BACKEND add_emojis '(vec { "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/psychodelic_hands.gif";

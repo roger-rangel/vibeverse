@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { RadioGroup } from '@headlessui/react';
 
 const receiverOptions = [
@@ -10,7 +9,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Mint_Option({ setMintOption }) {
+export default function Mint_Option({ mintOption, setMintOption }) {
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -19,7 +18,7 @@ export default function Mint_Option({ setMintOption }) {
         </h2>
       </div>
 
-      <RadioGroup onChange={setMintOption} className="mt-2">
+      <RadioGroup value={mintOption} onChange={setMintOption} className="mt-2">
         <RadioGroup.Label className="sr-only">
           Choose the receiver
         </RadioGroup.Label>
@@ -36,8 +35,8 @@ export default function Mint_Option({ setMintOption }) {
                   active ? 'ring-2 ring-indigo-600 ring-offset-2' : '',
                   checked
                     ? 'bg-indigo-600 text-white hover:bg-indigo-500'
-                    : 'ring-1 ring-inset ring-gray-300 bg-white text-gray-900 hover:bg-gray-50',
-                  'flex items-center justify-center rounded-md py-3 px-3 text-sm font-semibold uppercase sm:flex-1',
+                    : 'bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50',
+                  'flex items-center justify-center rounded-md px-3 py-3 text-sm font-semibold uppercase sm:flex-1',
                 )
               }
               disabled={!option.receiver}
