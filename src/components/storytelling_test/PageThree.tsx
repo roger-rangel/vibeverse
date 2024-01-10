@@ -285,5 +285,3 @@ export function PageThree({ onAnswerSelected }: PageThreeProps) {
     </DndProvider>
   );
 }
-
-
