@@ -30,6 +30,19 @@
         }
       },
       "frontend": {}
+    },
+    "vibeverse_token": {
+      "type": "custom",
+      "candid": "https://github.com/vibeverse-team/vibe-token/releases/download/0.1.0/vibe_token.did",
+      "wasm": "https://github.com/vibeverse-team/vibe-token/releases/download/0.1.0/vibe_token.wasm.gz",
+      "remote": {
+        "id": {
+          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+        }
+      },
+      "declarations": {
+        "node_compatibility": true
+      }
     }
   },
   "defaults": {

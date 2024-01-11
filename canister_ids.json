@@ -6,5 +6,9 @@
   "vibeverse_backend": {
     "ic": "gqljf-taaaa-aaaap-abdea-cai",
     "staging": "q5xlo-wyaaa-aaaak-afciq-cai"
+  },
+  "vibeverse_token": {
+    "ic": "gqljf-taaaa-aaaap-abdea-cai",
+    "staging": "q5xlo-wyaaa-aaaak-afciq-cai"
   }
 }

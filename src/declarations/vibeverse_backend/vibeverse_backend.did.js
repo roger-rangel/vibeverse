@@ -48,6 +48,7 @@ export const idlFactory = ({ IDL }) => {
     'rh' : IDL.Vec(IDL.Tuple(IDL.Nat64, IDL.Nat)),
   });
   const Badge = IDL.Record({ 'i' : IDL.Text, 'n' : IDL.Text });
+  const Socials = IDL.Record({ 'h' : IDL.Text });
   const Community = IDL.Record({
     'c' : IDL.Principal,
     'd' : IDL.Text,
@@ -57,6 +58,8 @@ export const idlFactory = ({ IDL }) => {
     'n' : IDL.Text,
     's' : IDL.Text,
     'v' : IDL.Bool,
+    'hi' : IDL.Text,
+    'so' : Socials,
   });
   const Course = IDL.Record({
     'a' : IDL.Principal,
@@ -90,6 +93,7 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(Nft)],
         ['query'],
       ),
+    'claim_rewards' : IDL.Func([], [Result], []),
     'collection_count' : IDL.Func([], [IDL.Nat], ['query']),
     'collection_fee' : IDL.Func([], [IDL.Nat64], ['query']),
     'collections' : IDL.Func(

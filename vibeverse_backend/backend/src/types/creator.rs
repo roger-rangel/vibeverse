@@ -22,6 +22,8 @@ pub mod score {
     pub const FINISH_COURSE: u8 = 3;
 }
 
+pub const REWARD_PER_SCORE: u32 = 100_000_000;
+
 #[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize)]
 pub struct Creator {
     /// The display name of the creator.
@@ -90,6 +92,9 @@ impl Creator {
 
     pub fn add_score(&mut self, score: u8) -> StorableNat {
         self.score += Into::<StorableNat>::into(score);
+
+        // TODO: Recheck business model, this is for demo
+        self.claimable_rewards += Nat::from(REWARD_PER_SCORE * score as u32);
 
         self.score.clone()
     }

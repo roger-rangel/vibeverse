@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Link from 'next/link';
-
+import { formatFixed } from '@ethersproject/bignumber';
 import { FiUsers } from 'react-icons/fi';
 import { VscFolderLibrary } from 'react-icons/vsc';
 import { useConnect } from '@connect2ic/react';
@@ -9,6 +9,8 @@ import {
   useGetProfile,
   useGetPrincipalNfts,
   useGetCommunitiesFollowed,
+  useClaimRewards,
+  useGetVibeTokenInfo,
 } from '@/hooks';
 
 import CallToAction from '../CallToAction';
@@ -16,6 +18,9 @@ import ProgressBar from '../ProgressBar';
 import { Avatar, Badge } from '../../../Avatar';
 
 import styles from './About.module.scss';
+import { useGetVibeTokenBalance } from '@/hooks/useGetVibeTokenBalance';
+import { toast } from 'react-toastify';
+import { format } from 'path';
 
 const About = () => {
   const { activeProvider } = useConnect();
@@ -26,6 +31,21 @@ const About = () => {
   const { data: communities } = useGetCommunitiesFollowed({
     userId: activeProvider?.principal,
   });
+  const { data: vibeBalance } = useGetVibeTokenBalance({
+    principal: activeProvider?.principal,
+  });
+  const { data: tokenInfo } = useGetVibeTokenInfo();
+
+  const { mutateAsync: claimRewards } = useClaimRewards();
+
+  const handleClaimRewards = useCallback(async () => {
+    if (!profile) {
+      toast.error('You need to login first');
+    }
+
+    await claimRewards({});
+  }, [claimRewards, profile]);
+
   if (!profile) {
     return (
       <div>
@@ -40,8 +60,33 @@ const About = () => {
         <h2 className="text-center text-3xl text-[#4db5ff]">{profile.name}</h2>
         <Badge badge={profile.badge} size="md" />
       </div>
-      <div className="my-2 w-full text-center text-sm">
-        Your score {profile.score.toString()}
+      <div className="flex flex-col items-center justify-center gap-2">
+        <div className="my-2 text-sm">
+          Your score: {profile.score.toString()}
+        </div>
+        {tokenInfo ? (
+          <>
+            <div className="flex flex-row items-center gap-2">
+              <p>
+                Claimable VIBE token:{' '}
+                {formatFixed(profile.claimableRewards, tokenInfo.decimals)}
+              </p>
+              <button
+                onClick={handleClaimRewards}
+                disabled={profile.claimableRewards === BigInt(0)}
+                className="rounded-sm border border-blue-400 p-2"
+              >
+                Claim
+              </button>
+            </div>
+            {vibeBalance !== undefined && (
+              <div className="my-2 text-sm">
+                Your VIBE token balance:{' '}
+                {formatFixed(vibeBalance, tokenInfo.decimals)}
+              </div>
+            )}
+          </>
+        ) : null}
       </div>
       <div className={styles.about__container}>
         <Avatar profile={profile} size="lg" showBadge={false} />

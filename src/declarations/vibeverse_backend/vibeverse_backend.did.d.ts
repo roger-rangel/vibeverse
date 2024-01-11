@@ -28,6 +28,8 @@ export interface Community {
   'n' : string,
   's' : string,
   'v' : boolean,
+  'hi' : string,
+  'so' : Socials,
 }
 export interface Course {
   'a' : Principal,
@@ -73,6 +75,7 @@ export type Result_4 = { 'Ok' : [bigint, bigint] } |
   { 'Err' : string };
 export type Result_5 = { 'Ok' : null } |
   { 'Err' : string };
+export interface Socials { 'h' : string }
 export interface _SERVICE {
   'add_admin' : ActorMethod<[Principal], Result>,
   'add_emojis' : ActorMethod<[Array<string>], Result_1>,
@@ -81,6 +84,7 @@ export interface _SERVICE {
     [[] | [AssetType], [] | [bigint], [] | [bigint]],
     Array<Nft>
   >,
+  'claim_rewards' : ActorMethod<[], Result>,
   'collection_count' : ActorMethod<[], bigint>,
   'collection_fee' : ActorMethod<[], bigint>,
   'collections' : ActorMethod<

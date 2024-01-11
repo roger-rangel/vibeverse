@@ -66,8 +66,15 @@ pub fn get_collection(id: CollectionId) -> Option<Collection> {
 #[update]
 pub fn set_creator_metadata(name: String, avatar: String) -> Result<(), String> {
     let caller = ic_cdk::api::caller();
-    let creator = Creator::new(name, avatar);
-    creators::set_creator_metadata(caller, creator)
+
+    if let Some(mut creator) = creators::creator_metadata(caller) {
+        creator.name = name.clone();
+        creator.avatar = avatar.clone();
+        creators::set_creator_metadata(caller, creator)
+    } else {
+        let creator = Creator::new(name, avatar);
+        creators::set_creator_metadata(caller, creator)
+    }
 }
 
 #[query]
@@ -332,6 +339,24 @@ pub fn get_course(course_id: CourseId) -> Option<Course> {
 }
 
 // ----- course end ----
+
+// ----- token ----
+#[update(guard = "caller_is_not_anonymous")]
+pub async fn claim_rewards() -> Result<(), String> {
+    let caller = ic_cdk::api::caller();
+
+    let mut user = creators::creator_metadata(caller).ok_or("User not found")?;
+
+    let rewards = user.claimable_rewards.clone();
+
+    user.claim_rewards(rewards, caller, ic_cdk::api::time()).await?;
+
+    creators::set_creator_metadata(caller, user)?;
+
+    Ok(())
+}
+
+// ----- token end ----
 
 // Administrative functions
 #[update(guard = "caller_is_admin")]
