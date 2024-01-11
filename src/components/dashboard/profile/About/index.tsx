@@ -20,7 +20,6 @@ import { Avatar, Badge } from '../../../Avatar';
 import styles from './About.module.scss';
 import { useGetVibeTokenBalance } from '@/hooks/useGetVibeTokenBalance';
 import { toast } from 'react-toastify';
-import { format } from 'path';
 
 const About = () => {
   const { activeProvider } = useConnect();

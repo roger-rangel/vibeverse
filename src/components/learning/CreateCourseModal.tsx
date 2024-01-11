@@ -75,18 +75,10 @@ const coursePictures = [
   },
 ];
 
-const awardPrictures = [
-  'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_3.png',
-  'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_5.png',
-];
-
 export function CreateCourseModal({ isOpen, hideModal }: ModalProps) {
   const [selectedPicture, setSelectedPicture] = useState<number | undefined>(
     undefined,
   );
-  const [selectedAwardPicture, setSelectedAwardPicture] = useState<
-    number | undefined
-  >(undefined);
   const { register, handleSubmit, setValue } = useForm<CreateCourseProps>();
   const { mutateAsync: createCourse } = useCreateCourse();
   const onSubmit: SubmitHandler<CreateCourseProps> = (data) => {
