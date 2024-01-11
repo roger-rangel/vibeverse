@@ -402,15 +402,13 @@ pub fn vibe_token() -> Option<Principal> {
 }
 
 /// Inter canister call should be `update` not `query`
-#[update]
+// #[update]
 pub async fn vibe_token_name() -> Option<String> {
     let principal = administrative::vibe_token();
 
-    let vibe = principal.map(|f| VibeToken::new(f));
+    let vibe = principal.map(VibeToken::new);
 
-    if vibe.is_none() {
-        return None;
-    }
+    vibe.as_ref()?;
 
     Some(vibe.unwrap().icrc1_name().await.unwrap_or_default())
 }
