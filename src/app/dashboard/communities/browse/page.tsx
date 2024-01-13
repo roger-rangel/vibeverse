@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { notFound, useSearchParams } from 'next/navigation';
 
 import { Mixpanel } from '@/components/Mixpanel';
-import CommunityPage from '@/components/community/CuriousRefuge';
+import CommunityPage from '@/components/community/Page';
 import { useGetCommunity } from '@/hooks';
 
 export default function Community() {

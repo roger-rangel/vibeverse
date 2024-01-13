@@ -39,6 +39,7 @@ pub fn remove_communities(communities: Vec<CommunityId>) -> Result<Nat, String> 
     })
 }
 
+#[allow(clippy::too_many_arguments)]
 pub fn create_community(
     slug: CommunityId,
     creator: UserId,
