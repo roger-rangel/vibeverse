@@ -116,6 +116,7 @@ export interface _SERVICE {
   >,
   'get_communities_created_by' : ActorMethod<[Principal], Array<Community>>,
   'get_communities_followed' : ActorMethod<[Principal], Array<Community>>,
+  'get_community' : ActorMethod<[string], [] | [Community]>,
   'get_course' : ActorMethod<[string], [] | [Course]>,
   'get_courses' : ActorMethod<[[] | [bigint], [] | [bigint]], Array<Course>>,
   'get_emojis' : ActorMethod<[], Array<string>>,

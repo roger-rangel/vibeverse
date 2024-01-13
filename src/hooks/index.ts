@@ -21,3 +21,4 @@ export * from './useFinishCourse';
 export * from './useGetCommunitiesFollowed';
 export * from './useGetVibeTokenInfo';
 export * from './useClaimRewards';
+export * from './useGetCommunity';

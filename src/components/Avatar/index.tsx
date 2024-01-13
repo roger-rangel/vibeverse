@@ -41,11 +41,13 @@ export function Avatar({
   showBadge = true,
   showName = false,
   size = 'sm',
+  className = '',
 }: {
   profile: Creator;
   showBadge?: boolean;
   showName?: boolean;
   size?: AvatarSize;
+  className?: string;
 }) {
   const getAvatarStyle = () => {
     switch (size) {
@@ -70,7 +72,7 @@ export function Avatar({
   };
 
   return (
-    <div className="flex flex-row items-center gap-2">
+    <div className={'flex flex-row items-center gap-2 ' + className}>
       <div className="relative">
         <Image
           src={avatar}

@@ -315,6 +315,11 @@ pub fn get_communities(start_index: Option<u128>, count: Option<u128>) -> Vec<Co
     communities::get_communities(start_index, count)
 }
 
+#[query]
+pub fn get_community(slug: CommunityId) -> Option<Community> {
+    communities::get_community(slug)
+}
+
 // ----- community end ----
 
 // ----- course start ----

@@ -85,6 +85,7 @@ service : () -> {
   get_communities : (opt nat, opt nat) -> (vec Community) query;
   get_communities_created_by : (principal) -> (vec Community) query;
   get_communities_followed : (principal) -> (vec Community) query;
+  get_community : (text) -> (opt Community) query;
   get_course : (text) -> (opt Course) query;
   get_courses : (opt nat, opt nat) -> (vec Course) query;
   get_emojis : () -> (vec text) query;

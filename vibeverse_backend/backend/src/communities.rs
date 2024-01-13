@@ -225,6 +225,13 @@ pub fn get_communities(start_index: Option<u128>, count: Option<u128>) -> Vec<Co
     })
 }
 
+pub fn get_community(slug: CommunityId) -> Option<Community> {
+    COMMUNITIES.with(|c| {
+        let communities = c.borrow();
+        communities.get(&slug)
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use candid::Principal;
