@@ -18,4 +18,7 @@ export * from './useCreateCourse';
 export * from './useGetCourses';
 export * from './useGetCourse';
 export * from './useFinishCourse';
-export * from './useGetEarnedBadges';
+export * from './useGetCommunitiesFollowed';
+export * from './useGetVibeTokenInfo';
+export * from './useClaimRewards';
+export * from './useGetCommunity';

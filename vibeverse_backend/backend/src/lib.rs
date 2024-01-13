@@ -10,6 +10,7 @@ mod creators;
 #[cfg(test)]
 mod creators_tests;
 mod guards;
+mod interface;
 mod lifecycle;
 mod memory;
 mod nft_metadata;
@@ -20,6 +21,7 @@ mod nfts_tests;
 mod reactions;
 mod types;
 
+use crate::interface::{VibeToken, ICRC1};
 use guards::*;
 use memory::METADATA;
 use reactions::AddRemoveReactionResult;
@@ -64,13 +66,25 @@ pub fn get_collection(id: CollectionId) -> Option<Collection> {
 #[update]
 pub fn set_creator_metadata(name: String, avatar: String) -> Result<(), String> {
     let caller = ic_cdk::api::caller();
-    let creator = Creator::new(name, avatar);
-    creators::set_creator_metadata(caller, creator)
+
+    if let Some(mut creator) = creators::creator_metadata(caller) {
+        creator.name = name.clone();
+        creator.avatar = avatar.clone();
+        creators::set_creator_metadata(caller, creator)
+    } else {
+        let creator = Creator::new(name, avatar);
+        creators::set_creator_metadata(caller, creator)
+    }
 }
 
 #[query]
-pub fn creator_metadata(creator: Principal) -> Option<Creator> {
-    creators::creator_metadata(creator)
+pub fn creator_metadata(creator: Principal) -> Option<(Creator, Badge)> {
+    if let Some(creator) = creators::creator_metadata(creator) {
+        let badge = creator.badge();
+        Some((creator, badge))
+    } else {
+        None
+    }
 }
 
 #[query]
@@ -206,9 +220,26 @@ pub fn get_nft_metadata(collection_id: CollectionId, nft_id: Nat) -> Option<NftM
 // ----- community start ----
 
 #[update(guard = "caller_is_not_anonymous")]
-pub fn create_community(slug: CommunityId, name: String, description: String, logo: String) -> Result<CommunityId, String> {
+pub fn create_community(
+    slug: CommunityId,
+    name: String,
+    description: String,
+    logo: String,
+    hero_image: String,
+    metadata: Vec<String>,
+    homepage: String,
+) -> Result<CommunityId, String> {
     let creator = ic_cdk::api::caller();
-    communities::create_community(slug.clone(), creator, name, description, logo).unwrap();
+    communities::create_community(
+        slug.clone(),
+        creator,
+        name,
+        description,
+        logo,
+        hero_image,
+        metadata,
+        Socials { home: homepage },
+    )?;
 
     Ok(slug)
 }
@@ -217,7 +248,7 @@ pub fn create_community(slug: CommunityId, name: String, description: String, lo
 fn _join_community(community: CommunityId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
-    communities::join_community(community, user, true).unwrap();
+    communities::join_community(community, user, true)?;
 
     Ok(())
 }
@@ -226,7 +257,7 @@ fn _join_community(community: CommunityId) -> Result<(), String> {
 fn _leave_community(community: CommunityId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
-    communities::leave_community(community, user, true).unwrap();
+    communities::leave_community(community, user, true)?;
 
     Ok(())
 }
@@ -240,7 +271,7 @@ fn _is_community_member(community: CommunityId, user: Principal) -> bool {
 pub fn follow_community(community: CommunityId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
-    communities::follow_community(community, user).unwrap();
+    communities::follow_community(community, user)?;
 
     Ok(())
 }
@@ -249,7 +280,7 @@ pub fn follow_community(community: CommunityId) -> Result<(), String> {
 pub fn unfollow_community(community: CommunityId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
-    communities::unfollow_community(community, user).unwrap();
+    communities::unfollow_community(community, user)?;
 
     Ok(())
 }
@@ -259,9 +290,14 @@ pub fn is_community_follower(community: CommunityId, user: Principal) -> bool {
     communities::is_follower(community, user)
 }
 
-#[query]
-pub fn get_communities_joinned(user: Principal) -> Vec<Community> {
+// #[query]
+pub fn _get_communities_joinned(user: Principal) -> Vec<Community> {
     communities::get_communities_joinned(user)
+}
+
+#[query]
+pub fn get_communities_followed(user: Principal) -> Vec<Community> {
+    communities::get_communities_followed(user)
 }
 
 #[query]
@@ -279,6 +315,11 @@ pub fn get_communities(start_index: Option<u128>, count: Option<u128>) -> Vec<Co
     communities::get_communities(start_index, count)
 }
 
+#[query]
+pub fn get_community(slug: CommunityId) -> Option<Community> {
+    communities::get_community(slug)
+}
+
 // ----- community end ----
 
 // ----- course start ----
@@ -291,12 +332,10 @@ pub fn create_course(
     level: CourseLevel,
     logo: String,
     content: String,
-    badge_name: String,
-    badge_image: String,
 ) -> Result<CourseId, String> {
     let user = ic_cdk::api::caller();
-    let badge = Badge::new(badge_name, badge_image);
-    courses::create_course(slug, title, description, level, logo, content, user, badge)
+
+    courses::create_course(slug, title, description, level, logo, content, user)
 }
 
 #[update(guard = "caller_is_not_anonymous")]
@@ -304,11 +343,6 @@ pub fn finish_course(slug: CourseId) -> Result<(), String> {
     let user = ic_cdk::api::caller();
 
     courses::finish_course(user, slug)
-}
-
-#[query]
-pub fn get_earned_badges(user_id: UserId) -> Result<Vec<Badge>, String> {
-    courses::get_earned_badges(user_id)
 }
 
 #[query]
@@ -327,6 +361,24 @@ pub fn get_course(course_id: CourseId) -> Option<Course> {
 }
 
 // ----- course end ----
+
+// ----- token ----
+#[update(guard = "caller_is_not_anonymous")]
+pub async fn claim_rewards() -> Result<(), String> {
+    let caller = ic_cdk::api::caller();
+
+    let mut user = creators::creator_metadata(caller).ok_or("User not found")?;
+
+    let rewards = user.claimable_rewards.clone();
+
+    user.claim_rewards(rewards, caller, ic_cdk::api::time()).await?;
+
+    creators::set_creator_metadata(caller, user)?;
+
+    Ok(())
+}
+
+// ----- token end ----
 
 // Administrative functions
 #[update(guard = "caller_is_admin")]
@@ -369,6 +421,18 @@ pub fn mint_fee() -> u64 {
 #[query]
 pub fn vibe_token() -> Option<Principal> {
     administrative::vibe_token()
+}
+
+/// Inter canister call should be `update` not `query`
+// #[update]
+pub async fn vibe_token_name() -> Option<String> {
+    let principal = administrative::vibe_token();
+
+    let vibe = principal.map(VibeToken::new);
+
+    vibe.as_ref()?;
+
+    Some(vibe.unwrap().icrc1_name().await.unwrap_or_default())
 }
 
 #[query]

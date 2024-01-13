@@ -23,6 +23,9 @@ export function useFollowCommunity() {
       queryClient.invalidateQueries({
         queryKey: [`isCommunityFollower-${slug}-${activeProvider?.principal}`],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['communities-followed'],
+      });
 
       return result.Ok;
     },
@@ -42,6 +45,9 @@ export function useUnfollowCommunity() {
       }
       queryClient.invalidateQueries({
         queryKey: [`isCommunityFollower-${slug}-${activeProvider?.principal}`],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['communities-followed'],
       });
 
       return result.Ok;

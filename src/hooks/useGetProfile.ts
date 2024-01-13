@@ -16,7 +16,7 @@ export function useGetProfile({ principal }: { principal?: string }) {
         return null;
       }
 
-      return asCreator(profile[0]);
+      return asCreator(profile[0][0], profile[0][1]);
     },
     enabled: !!actor && !!principal,
   });

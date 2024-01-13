@@ -3,7 +3,7 @@ use candid::Nat;
 use crate::{
     creators,
     memory::COMMUNITIES,
-    types::{score, Community, CommunityId, UserId},
+    types::{score, Community, CommunityId, Socials, UserId},
 };
 
 pub fn add_communities(communities: Vec<Community>) -> Result<Nat, String> {
@@ -39,14 +39,30 @@ pub fn remove_communities(communities: Vec<CommunityId>) -> Result<Nat, String> 
     })
 }
 
+#[allow(clippy::too_many_arguments)]
 pub fn create_community(
     slug: CommunityId,
     creator: UserId,
     name: String,
     description: String,
     logo: String,
+    hero_image: String,
+    metadata: Vec<String>,
+    socials: Socials,
 ) -> Result<(), String> {
-    let community = Community::new(slug, creator, name, description, logo, false, vec![creator], vec![creator]);
+    let community = Community::new(
+        slug,
+        creator,
+        name,
+        description,
+        logo,
+        hero_image,
+        metadata,
+        socials,
+        false,
+        vec![creator],
+        vec![creator],
+    );
     add_communities(vec![community]).unwrap();
 
     // Increase score
@@ -154,6 +170,19 @@ pub fn get_communities_joinned(user: UserId) -> Vec<Community> {
     })
 }
 
+pub fn get_communities_followed(user: UserId) -> Vec<Community> {
+    COMMUNITIES.with(|c| {
+        let communities = c.borrow();
+        let mut user_communities = Vec::new();
+        for (_, community) in communities.iter() {
+            if community.is_follower(&user) {
+                user_communities.push(community.clone());
+            }
+        }
+        user_communities
+    })
+}
+
 pub fn get_communities_created_by(user: UserId) -> Vec<Community> {
     COMMUNITIES.with(|c| {
         let communities = c.borrow();
@@ -197,6 +226,13 @@ pub fn get_communities(start_index: Option<u128>, count: Option<u128>) -> Vec<Co
     })
 }
 
+pub fn get_community(slug: CommunityId) -> Option<Community> {
+    COMMUNITIES.with(|c| {
+        let communities = c.borrow();
+        communities.get(&slug)
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use candid::Principal;
@@ -213,6 +249,9 @@ mod tests {
             String::from("name"),
             String::from("description"),
             String::from("logo"),
+            String::from("logo"),
+            Vec::new(),
+            Default::default(),
         );
 
         assert!(result.is_ok());

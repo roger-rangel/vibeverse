@@ -15,7 +15,6 @@ export function useCreateCourse() {
       level,
       logo,
       content,
-      badge,
     }: CreateCourseProps) => {
       const result = await actor!.create_course(
         slug,
@@ -24,8 +23,6 @@ export function useCreateCourse() {
         asRawCourseLevel(level),
         logo,
         content,
-        badge.name,
-        badge.image,
       );
 
       if ('Err' in result) {

@@ -1,6 +1,7 @@
 
 BACKEND=vibeverse_backend
 FRONTEND=vibeverse_assets
+TOKEN=vibeverse_token
 
 prepare:
 	rustup target add wasm32-unknown-unknown
@@ -37,6 +38,7 @@ generate-did:
 	
 generate-declaration:
 	dfx generate $(BACKEND)
+	dfx generate $(TOKEN)
 
 generate-wasm:
 	scripts/generate-wasm.sh
@@ -59,8 +61,12 @@ deploy-backend: build
 deploy-ii:
 	dfx deploy internet_identity
 
+deploy-token:
+	dfx deploy vibeverse_token
+
 deploy: deploy-backend
 	make deploy-ii
+	make deploy-token
 
 redeploy: build
 	make generate-did
@@ -96,3 +102,6 @@ upgrade-ic: build-ic
 
 testdata:
 	scripts/deploy-test-data.sh
+
+claim:
+	dfx canister call $(BACKEND) claim_rewards 

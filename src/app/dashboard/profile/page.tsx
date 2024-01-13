@@ -5,6 +5,7 @@ import { Poppins } from 'next/font/google';
 
 import About from '@/components/dashboard/profile/About';
 import Items from '@/components/dashboard/profile/Items';
+import { CommunitiesFollowed } from '@/components/dashboard/profile/CommunitiesFollowed';
 
 import { useGetPrincipalNfts } from '@/hooks';
 
@@ -18,9 +19,10 @@ const ProfilePage = () => {
 
   return (
     <div
-      className={`${poppins.className} min-h-[inherit] bg-[#1f1f38] text-white m-0 p-0 border-none outline-none box-border list-none no-underline scroll-smooth leading-7 profile`}
+      className={`${poppins.className} profile m-0 box-border min-h-[inherit] list-none scroll-smooth border-none bg-[#1f1f38] p-0 leading-7 text-white no-underline outline-none`}
     >
       <About />
+      <CommunitiesFollowed />
       {nfts && <Items nfts={nfts.reverse()} />}
     </div>
   );

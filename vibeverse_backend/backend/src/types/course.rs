@@ -5,7 +5,7 @@ use std::borrow::Cow;
 
 use libraries::msgpack::{deserialize_then_unwrap, serialize_then_unwrap};
 
-use super::{Badge, UserId};
+use super::UserId;
 
 pub type CourseId = String;
 
@@ -41,9 +41,6 @@ pub struct Course {
     #[serde(rename = "a")]
     pub author: UserId,
 
-    #[serde(rename = "b")]
-    pub badge: Badge,
-
     #[serde(rename = "le", default)]
     pub learners: Vec<UserId>,
 }
@@ -70,7 +67,6 @@ impl Course {
         logo: String,
         content: String,
         author: UserId,
-        badge: Badge,
     ) -> Self {
         Self {
             slug,
@@ -80,7 +76,6 @@ impl Course {
             logo,
             content,
             author,
-            badge,
             learners: Vec::new(),
         }
     }
