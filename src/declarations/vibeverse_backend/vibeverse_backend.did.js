@@ -59,6 +59,7 @@ export const idlFactory = ({ IDL }) => {
     's' : IDL.Text,
     'v' : IDL.Bool,
     'hi' : IDL.Text,
+    'md' : IDL.Vec(IDL.Text),
     'so' : Socials,
   });
   const Course = IDL.Record({
@@ -124,7 +125,15 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'create_community' : IDL.Func(
-        [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Vec(IDL.Text),
+          IDL.Text,
+        ],
         [Result_3],
         [],
       ),
@@ -214,7 +223,6 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'vibe_token' : IDL.Func([], [IDL.Opt(IDL.Principal)], ['query']),
-    'vibe_token_name' : IDL.Func([], [IDL.Opt(IDL.Text)], []),
   });
 };
 export const init = ({ IDL }) => { return []; };

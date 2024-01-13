@@ -22,6 +22,7 @@ type Community = record {
   s : text;
   v : bool;
   hi : text;
+  md : vec text;
   so : Socials;
 };
 type Course = record {
@@ -73,7 +74,9 @@ service : () -> {
   collections_created_by : (principal) -> (vec Collection) query;
   collections_created_by_caller : () -> (vec Collection) query;
   create_collection : (text, text, bool, opt nat, opt text, text) -> (Result_1);
-  create_community : (text, text, text, text) -> (Result_3);
+  create_community : (text, text, text, text, text, vec text, text) -> (
+      Result_3,
+    );
   create_course : (text, text, text, CourseLevel, text, text) -> (Result_3);
   creator_metadata : (principal) -> (opt record { Creator; Badge }) query;
   finish_course : (text) -> (Result);
@@ -109,5 +112,4 @@ service : () -> {
       Result_5,
     );
   vibe_token : () -> (opt principal) query;
-  vibe_token_name : () -> (opt text);
 }

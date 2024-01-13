@@ -24,6 +24,9 @@ export function useCreateCommunity() {
         name,
         description,
         logo,
+        '',
+        [],
+        '',
       );
 
       if ('Err' in result) {

@@ -29,6 +29,7 @@ export interface Community {
   's' : string,
   'v' : boolean,
   'hi' : string,
+  'md' : Array<string>,
   'so' : Socials,
 }
 export interface Course {
@@ -97,7 +98,10 @@ export interface _SERVICE {
     [string, string, boolean, [] | [bigint], [] | [string], string],
     Result_1
   >,
-  'create_community' : ActorMethod<[string, string, string, string], Result_3>,
+  'create_community' : ActorMethod<
+    [string, string, string, string, string, Array<string>, string],
+    Result_3
+  >,
   'create_course' : ActorMethod<
     [string, string, string, CourseLevel, string, string],
     Result_3
@@ -141,5 +145,4 @@ export interface _SERVICE {
     Result_5
   >,
   'vibe_token' : ActorMethod<[], [] | [Principal]>,
-  'vibe_token_name' : ActorMethod<[], [] | [string]>,
 }

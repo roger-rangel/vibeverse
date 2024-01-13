@@ -34,6 +34,9 @@ pub struct Community {
     #[serde(rename = "hi", default)]
     pub hero_image: String,
 
+    #[serde(rename = "md", default)]
+    pub metadata: Vec<String>,
+
     #[serde(rename = "so", default)]
     pub socials: Socials,
 
@@ -55,6 +58,9 @@ impl Community {
         name: String,
         description: String,
         logo: String,
+        hero_image: String,
+        metadata: Vec<String>,
+        socials: Socials,
         verified: bool,
         members: Vec<UserId>,
         followers: Vec<UserId>,
@@ -65,8 +71,9 @@ impl Community {
             name,
             description,
             logo,
-            hero_image: Default::default(),
-            socials: Default::default(),
+            hero_image,
+            metadata,
+            socials,
             verified,
             members,
             followers,

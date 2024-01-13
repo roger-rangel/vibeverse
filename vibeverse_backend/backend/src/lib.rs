@@ -220,9 +220,26 @@ pub fn get_nft_metadata(collection_id: CollectionId, nft_id: Nat) -> Option<NftM
 // ----- community start ----
 
 #[update(guard = "caller_is_not_anonymous")]
-pub fn create_community(slug: CommunityId, name: String, description: String, logo: String) -> Result<CommunityId, String> {
+pub fn create_community(
+    slug: CommunityId,
+    name: String,
+    description: String,
+    logo: String,
+    hero_image: String,
+    metadata: Vec<String>,
+    homepage: String,
+) -> Result<CommunityId, String> {
     let creator = ic_cdk::api::caller();
-    communities::create_community(slug.clone(), creator, name, description, logo)?;
+    communities::create_community(
+        slug.clone(),
+        creator,
+        name,
+        description,
+        logo,
+        hero_image,
+        metadata,
+        Socials { home: homepage },
+    )?;
 
     Ok(slug)
 }
