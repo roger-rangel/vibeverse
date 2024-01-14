@@ -56,7 +56,7 @@ export function Avatar({
       case 'md':
         return 'w-32 h-32 rounded-md';
       case 'lg':
-        return 'w-64 h-64 rounded-lg';
+        return 'w-96 h-96 rounded-lg';
     }
   };
 
