@@ -14,7 +14,9 @@ ic-cdk-macros = { workspace = true }
 ic-stable-structures = { workspace = true }
 rmp-serde = { workspace = true }
 serde = { workspace = true }
+serde_bytes = { workspace = true }
 tracing = { workspace = true }
+async-trait = "0.1.77"
 
 libraries = { path = "../../libraries" }
 

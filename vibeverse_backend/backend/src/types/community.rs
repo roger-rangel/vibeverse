@@ -8,22 +8,44 @@ use libraries::msgpack::{deserialize_then_unwrap, serialize_then_unwrap};
 
 pub type CommunityId = String;
 
-#[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize)]
+#[derive(Clone, CandidType, PartialEq, Debug, Serialize, Deserialize, Default)]
+pub struct Socials {
+    #[serde(rename = "h", default)]
+    pub home: String,
+}
+
+#[derive(Clone, CandidType, Debug, Serialize, Deserialize)]
 pub struct Community {
     #[serde(rename = "s", default)]
     pub slug: CommunityId,
+
     #[serde(rename = "c")]
     pub creator: UserId,
+
     #[serde(rename = "n", default)]
     pub name: String,
+
     #[serde(rename = "d", default)]
     pub description: String,
+
     #[serde(rename = "l", default)]
     pub logo: String,
+
+    #[serde(rename = "hi", default)]
+    pub hero_image: String,
+
+    #[serde(rename = "md", default)]
+    pub metadata: Vec<String>,
+
+    #[serde(rename = "so", default)]
+    pub socials: Socials,
+
     #[serde(rename = "v", default)]
     pub verified: bool,
+
     #[serde(rename = "m", default)]
     pub members: Vec<UserId>,
+
     #[serde(rename = "f", default)]
     pub followers: Vec<UserId>,
 }
@@ -36,6 +58,9 @@ impl Community {
         name: String,
         description: String,
         logo: String,
+        hero_image: String,
+        metadata: Vec<String>,
+        socials: Socials,
         verified: bool,
         members: Vec<UserId>,
         followers: Vec<UserId>,
@@ -46,6 +71,9 @@ impl Community {
             name,
             description,
             logo,
+            hero_image,
+            metadata,
+            socials,
             verified,
             members,
             followers,

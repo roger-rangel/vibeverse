@@ -8,7 +8,6 @@ import rehypeRaw from 'rehype-raw';
 import { toast } from 'react-toastify';
 import { useSearchParams, notFound } from 'next/navigation';
 
-import BadgeComponent from '@/components/Badge';
 import { useFinishCourse, useGetCourse } from '@/hooks';
 
 export default function CourseView() {
@@ -28,7 +27,7 @@ export default function CourseView() {
     toast.promise(finishCourse({ slug: slug || '' }), {
       pending: 'Finishing course...',
       error: 'Error',
-      success: `Finished ${course?.title} course and you got ${course?.badge.name} badge!`,
+      success: `Finished ${course?.title} course!`,
     });
   };
 
@@ -38,10 +37,6 @@ export default function CourseView() {
         <div className="text-white">
           <h4 className="my-4 text-4xl">{course.title}</h4>
           <p className="text-md my-2">{course.description}</p>
-          <p className="my-2 text-sm">
-            After finish this course you will get&nbsp;
-            <BadgeComponent badge={course.badge} /> badge in your profile.
-          </p>
           <div className="my-4 rounded-2xl border border-cyan-700 p-4">
             <Markdown
               remarkPlugins={[remarkGfm]}

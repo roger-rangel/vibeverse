@@ -3,6 +3,5 @@ export * from './CommunitySection';
 export * from './CreateCommunityModal';
 export * from './ConnectSocials';
 export * from './AllCommunities';
-export * from './CuriousRefuge';
-export * from './WhiteMirror';
+export * from './Page';
 export * from './Portal';

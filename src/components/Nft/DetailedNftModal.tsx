@@ -5,6 +5,7 @@ import { Modal, ModalProps } from '@/components/Modal';
 import { Creator, DetailedNft, NftMetadata } from '@/types';
 import { Reactions } from '../Emoji';
 import { Player } from '../Player';
+import { Avatar } from '../Avatar';
 
 export default function DetailedNftModal({
   nft,
@@ -22,16 +23,7 @@ export default function DetailedNftModal({
       <article className="rounded-3xl border border-indigo-600 bg-[#262626] pb-8 pt-2 xs:px-6 sm:px-0 sm:pl-6">
         <div className="bottom-0 flex items-end justify-between pb-2 text-blue-200">
           <div className="ml-4 flex items-center py-2">
-            <Image
-              className="rounded-full border border-white object-cover xxs:h-10 xxs:w-10 xs:mb-0 sm:mb-2 sm:h-12 sm:w-12"
-              src={creator?.avatar || nft.profileImage}
-              height={200}
-              width={200}
-              alt=""
-            />
-            <div className={`rounded-xl px-2 py-2 pl-4`}>
-              <h2 className="text-2xl">{creator?.name || nft.creator}</h2>
-            </div>
+            {creator && <Avatar profile={creator} size="sm" showName />}
             <div className="ml-4 flex items-center">
               {nft.awards &&
                 nft.awards.map((award, index) => (

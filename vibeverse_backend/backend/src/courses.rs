@@ -1,7 +1,7 @@
 use crate::{
     creators,
     memory::COURSES,
-    types::{score, Badge, Course, CourseId, CourseLevel, UserId},
+    types::{score, Course, CourseId, CourseLevel, UserId},
 };
 
 #[allow(clippy::too_many_arguments)]
@@ -13,9 +13,8 @@ pub fn create_course(
     logo: String,
     content: String,
     author: UserId,
-    badge: Badge,
 ) -> Result<CourseId, String> {
-    let course = Course::new(slug.clone(), title, description, level, logo, content, author, badge);
+    let course = Course::new(slug.clone(), title, description, level, logo, content, author);
     COURSES.with(|courses| {
         courses.borrow_mut().insert(slug.clone(), course);
     });
@@ -75,30 +74,6 @@ pub fn get_courses(start_index: Option<u128>, count: Option<u128>) -> Vec<Course
 
         communities
     })
-}
-
-pub fn get_earned_badges(user_id: UserId) -> Result<Vec<Badge>, String> {
-    let user = creators::creator_metadata(user_id).ok_or_else(|| format!("User {} does not exist.", user_id))?;
-
-    let badge = user
-        .completed_courses
-        .keys()
-        .cloned()
-        .collect::<Vec<_>>()
-        .into_iter()
-        .map(|course_id| {
-            let course = COURSES.with(|courses| {
-                courses
-                    .borrow()
-                    .get(&course_id)
-                    .unwrap_or_else(|| panic!("Course {} does not exist.", course_id))
-            });
-
-            course.badge.clone()
-        })
-        .collect::<Vec<_>>();
-
-    Ok(badge)
 }
 
 pub fn get_course(course_id: CourseId) -> Option<Course> {

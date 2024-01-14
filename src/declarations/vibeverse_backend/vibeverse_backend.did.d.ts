@@ -28,10 +28,12 @@ export interface Community {
   'n' : string,
   's' : string,
   'v' : boolean,
+  'hi' : string,
+  'md' : Array<string>,
+  'so' : Socials,
 }
 export interface Course {
   'a' : Principal,
-  'b' : Badge,
   'c' : string,
   'd' : string,
   'l' : string,
@@ -48,7 +50,9 @@ export interface Creator {
   'n' : string,
   's' : bigint,
   'cc' : Array<[string, bigint]>,
+  'cr' : bigint,
   'lc' : Array<[string, bigint]>,
+  'rh' : Array<[bigint, bigint]>,
 }
 export interface Nft {
   'id' : [bigint, bigint],
@@ -68,12 +72,11 @@ export type Result_2 = { 'Ok' : AddRemoveReactionResult } |
   { 'Err' : string };
 export type Result_3 = { 'Ok' : string } |
   { 'Err' : string };
-export type Result_4 = { 'Ok' : Array<Badge> } |
+export type Result_4 = { 'Ok' : [bigint, bigint] } |
   { 'Err' : string };
-export type Result_5 = { 'Ok' : [bigint, bigint] } |
+export type Result_5 = { 'Ok' : null } |
   { 'Err' : string };
-export type Result_6 = { 'Ok' : null } |
-  { 'Err' : string };
+export interface Socials { 'h' : string }
 export interface _SERVICE {
   'add_admin' : ActorMethod<[Principal], Result>,
   'add_emojis' : ActorMethod<[Array<string>], Result_1>,
@@ -82,6 +85,7 @@ export interface _SERVICE {
     [[] | [AssetType], [] | [bigint], [] | [bigint]],
     Array<Nft>
   >,
+  'claim_rewards' : ActorMethod<[], Result>,
   'collection_count' : ActorMethod<[], bigint>,
   'collection_fee' : ActorMethod<[], bigint>,
   'collections' : ActorMethod<
@@ -94,12 +98,15 @@ export interface _SERVICE {
     [string, string, boolean, [] | [bigint], [] | [string], string],
     Result_1
   >,
-  'create_community' : ActorMethod<[string, string, string, string], Result_3>,
-  'create_course' : ActorMethod<
-    [string, string, string, CourseLevel, string, string, string, string],
+  'create_community' : ActorMethod<
+    [string, string, string, string, string, Array<string>, string],
     Result_3
   >,
-  'creator_metadata' : ActorMethod<[Principal], [] | [Creator]>,
+  'create_course' : ActorMethod<
+    [string, string, string, CourseLevel, string, string],
+    Result_3
+  >,
+  'creator_metadata' : ActorMethod<[Principal], [] | [[Creator, Badge]]>,
   'finish_course' : ActorMethod<[string], Result>,
   'follow_community' : ActorMethod<[string], Result>,
   'get_collection' : ActorMethod<[bigint], [] | [Collection]>,
@@ -108,10 +115,10 @@ export interface _SERVICE {
     Array<Community>
   >,
   'get_communities_created_by' : ActorMethod<[Principal], Array<Community>>,
-  'get_communities_joinned' : ActorMethod<[Principal], Array<Community>>,
+  'get_communities_followed' : ActorMethod<[Principal], Array<Community>>,
+  'get_community' : ActorMethod<[string], [] | [Community]>,
   'get_course' : ActorMethod<[string], [] | [Course]>,
   'get_courses' : ActorMethod<[[] | [bigint], [] | [bigint]], Array<Course>>,
-  'get_earned_badges' : ActorMethod<[Principal], Result_4>,
   'get_emojis' : ActorMethod<[], Array<string>>,
   'get_nft_metadata' : ActorMethod<[bigint, bigint], [] | [NftMetadata]>,
   'is_admin' : ActorMethod<[Principal], boolean>,
@@ -119,24 +126,24 @@ export interface _SERVICE {
   'mint_fee' : ActorMethod<[], bigint>,
   'mint_nft' : ActorMethod<
     [bigint, Principal, string, string, [] | [string], [] | [AssetType]],
-    Result_5
+    Result_4
   >,
   'nfts' : ActorMethod<[bigint, [] | [bigint], [] | [bigint]], Array<Nft>>,
   'nfts_of_caller' : ActorMethod<[], Array<Nft>>,
   'nfts_of_user' : ActorMethod<[Principal], Array<Nft>>,
   'remove_admin' : ActorMethod<[Principal], Result>,
   'remove_emojis' : ActorMethod<[Array<string>], Result_1>,
-  'set_collection_fee' : ActorMethod<[bigint], Result_6>,
-  'set_creator_metadata' : ActorMethod<[string, string], Result_6>,
-  'set_mint_fee' : ActorMethod<[bigint], Result_6>,
-  'set_vibe_token' : ActorMethod<[Principal], Result_6>,
+  'set_collection_fee' : ActorMethod<[bigint], Result_5>,
+  'set_creator_metadata' : ActorMethod<[string, string], Result_5>,
+  'set_mint_fee' : ActorMethod<[bigint], Result_5>,
+  'set_vibe_token' : ActorMethod<[Principal], Result_5>,
   'total_communities' : ActorMethod<[], bigint>,
   'total_courses' : ActorMethod<[], bigint>,
-  'transfer_nft' : ActorMethod<[bigint, bigint, Principal], Result_6>,
-  'unfollow_community' : ActorMethod<[string], Result_6>,
+  'transfer_nft' : ActorMethod<[bigint, bigint, Principal], Result_5>,
+  'unfollow_community' : ActorMethod<[string], Result_5>,
   'update_collection_metadata' : ActorMethod<
     [bigint, string, string, [] | [string], [] | [string]],
-    Result_6
+    Result_5
   >,
   'vibe_token' : ActorMethod<[], [] | [Principal]>,
 }

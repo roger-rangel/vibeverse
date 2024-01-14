@@ -75,18 +75,10 @@ const coursePictures = [
   },
 ];
 
-const awardPrictures = [
-  'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_3.png',
-  'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_5.png',
-];
-
 export function CreateCourseModal({ isOpen, hideModal }: ModalProps) {
   const [selectedPicture, setSelectedPicture] = useState<number | undefined>(
     undefined,
   );
-  const [selectedAwardPicture, setSelectedAwardPicture] = useState<
-    number | undefined
-  >(undefined);
   const { register, handleSubmit, setValue } = useForm<CreateCourseProps>();
   const { mutateAsync: createCourse } = useCreateCourse();
   const onSubmit: SubmitHandler<CreateCourseProps> = (data) => {
@@ -225,44 +217,6 @@ export function CreateCourseModal({ isOpen, hideModal }: ModalProps) {
                 ))}
               </ul>
             </div>
-          </div>
-
-          <div className="flex flex-col gap-2 border border-indigo-600 p-4">
-            <h4 className="text-white">Badge</h4>
-            <div className="flex flex-row items-center justify-start gap-4">
-              <label htmlFor="title" className="text-sm font-medium text-white">
-                Badge Name
-              </label>
-              <input
-                type="text"
-                className="max-w-xs flex-1 rounded-md border-0 bg-white/5 p-2 text-white ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:text-sm sm:leading-6"
-                placeholder="This is course badge name"
-                {...register('badge.name')}
-              />
-            </div>
-            <ul className="grid grid-cols-1 gap-x-1 gap-y-1 xs:grid-cols-2 sm:grid-cols-4">
-              {awardPrictures.map((picture, id) => (
-                <li
-                  key={id}
-                  onClick={() => {
-                    setSelectedAwardPicture(id);
-                    setValue('badge.image', picture);
-                  }}
-                >
-                  <Image
-                    src={picture}
-                    alt="Product screenshot"
-                    className={`block w-full py-1.5 shadow-sm ring-1 ring-inset hover:cursor-pointer ${
-                      selectedAwardPicture === id
-                        ? 'ring-indigo-500'
-                        : 'ring-white/10'
-                    } focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6`}
-                    width={1000}
-                    height={1000}
-                  />
-                </li>
-              ))}
-            </ul>
           </div>
 
           <Editor

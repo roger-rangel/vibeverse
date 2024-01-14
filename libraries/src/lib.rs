@@ -1,3 +1,5 @@
+pub use canister_client;
+pub use canister_client_macros;
 pub use canister_logger;
 pub use canister_state_macros;
 pub use canister_time;

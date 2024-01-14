@@ -9,6 +9,8 @@ candid = { workspace = true }
 ic-cdk = { workspace = true }
 ic-cdk-macros = { workspace = true }
 
+canister_client = { path = "./canister_client" }
+canister_client_macros = { path = "./canister_client_macros" }
 canister_logger = { path = "./canister_logger" }
 canister_state_macros = { path = "./canister_state_macros" }
 canister_time = { path = "./canister_time" }
