@@ -15,7 +15,7 @@ export function IntroPage({ onIntroComplete }: IntroPageProps) {
         width={500}
         height={500}
       />
-      <h1 className="mt-2 mb-8 text-2xl font-bold">The Magic of Algorithms</h1>
+      <h1 className="mt-6 mb-8 text-2xl font-bold">The Magic of Algorithms</h1>
       <p className="mb-4 text-xl">
         Midjourney is the best prompt-to-image tool out there and it&apos;s not
         even close. In this lesson, we&apos;ll explain why we will use

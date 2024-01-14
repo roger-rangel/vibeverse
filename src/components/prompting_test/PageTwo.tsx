@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image'; // Import the Image component from the appropriate package
 
 type PageTwoProps = {
@@ -7,6 +7,16 @@ type PageTwoProps = {
 
 export function PageTwo({ onAnswerSelected }: PageTwoProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false); // New state for loading
+
+  useEffect(() => {
+    if (selectedAnswer === 'true') {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000); //
+    }
+  }, [selectedAnswer]);
 
   const handleAnswer = (answer: string) => {
     // Scroll to the bottom of the page
@@ -72,13 +82,25 @@ export function PageTwo({ onAnswerSelected }: PageTwoProps) {
       </div>
       {selectedAnswer === 'true' && (
         <div>
-          <Image
-            width={500}
-            height={250}
-            src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_3-2.webp"
-            alt="Act One: The Setup"
-            className="h-96 w-full rounded-xl object-cover"
-          />
+          {isLoading ? (
+            <div className="flex items-center justify-center">
+              <Image
+                src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_24.png"
+                alt="Loading"
+                width={100}
+                height={100}
+                className="mt-20 h-6 w-8 animate-bounce" // TailwindCSS bounce animation
+              />
+            </div>
+          ) : (
+            <Image
+              width={500}
+              height={250}
+              src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_3-2.webp"
+              alt="Prompt"
+              className="h-96 w-full rounded-xl object-cover"
+            />
+          )}
         </div>
       )}
     </div>
