@@ -55,7 +55,7 @@ export default function CourseAndTournament() {
               layout="fill"
               className="h-full w-full object-cover object-center"
             />
-            <div className="absolute inset-0 z-10 p-4 flex flex-col justify-between font-mono">
+            <div className="absolute inset-0 z-0 p-4 flex flex-col justify-between font-mono">
               <div>
                 <h1 className="text-center text-white text-4xl lg:text-2xl font-black">Introduction to AI</h1>
                 <h2 className="text-center text-gray-900 text-sm font-black mt-2">Storytelling</h2>
@@ -68,7 +68,7 @@ export default function CourseAndTournament() {
                 </div>
                 <Link href="/storytelling_test">
                   <button className="w-full text-sm bg-black text-white py-2 rounded-md font-medium border border-black hover:border-green-500 focus:outline-none transition duration-150 ease-in-out">
-                  Continue Learning
+                    Continue Learning
                   </button>
                 </Link>
               </div>
