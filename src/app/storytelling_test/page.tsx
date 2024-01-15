@@ -99,10 +99,10 @@ export default function StorytellingTest() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-between bg-white">
+    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-between bg-white">
       {/* Navigation progress bar */}
       <div
-        className={`fixed left-0 top-0 z-10 w-full shadow-md transition-opacity duration-500 ${
+        className={`fixed left-1/2 top-0 z-10 w-full max-w-md -translate-x-1/2 shadow-md transition-opacity duration-500 ${
           reviewPhase || lessonComplete
             ? 'pointer-events-none opacity-0'
             : 'bg-white'
