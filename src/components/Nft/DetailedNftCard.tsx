@@ -54,11 +54,11 @@ export function DetailedNftCard({ nft }: { nft: DetailedNft }) {
 
   return (
     <div
-      className="relative h-80 overflow-hidden rounded-xl border border-blue-400 pb-1"
+      className="relative h-64 overflow-hidden rounded-xl border border-blue-400 pb-1"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <Player path={nft.assetUrl || '/images/items/item_1.png'} />
+      <Player path={nft.assetUrl || '/images/items/item_1.png'}/>
       <div className="absolute inset-0 mb-1">
         <div className="flex h-full flex-col justify-between">
           <div className="flex w-full justify-between p-3">

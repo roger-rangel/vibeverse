@@ -39,13 +39,13 @@ export default function Gallery() {
     .filter((value) => typeof value === 'string') as string[];
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex flex-row gap-2">
+    <div className="flex flex-col gap-3 mt-4">
+      <div className="flex flex-row gap-4 justify-center">
         <button
           onClick={() => setSelectedAssetType(undefined)}
           className={`${
             gradients[gradients.length - 1]
-          } min-w-[80px] rounded-lg p-2 text-white`}
+          } min-w-[80px] rounded-lg px-2 py-1 text-base text-white`}
         >
           All
         </button>
@@ -54,13 +54,13 @@ export default function Gallery() {
             key={type}
             // @ts-ignore
             onClick={() => setSelectedAssetType(AssetType[type])}
-            className={`${gradients[i]} min-w-[80px] rounded-lg p-2 text-white`}
+            className={`${gradients[i]} min-w-[80px] rounded-lg px-2 py-1 text-base text-white`}
           >
             {type}
           </button>
         ))}
       </div>
-      <div className="mx-auto grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 mx-auto grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {nfts?.map((nft) => (
           <DetailedNftCard key={`${nft.collectionId}-${nft.id}`} nft={nft} />
         ))}

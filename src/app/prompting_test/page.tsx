@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   IntroPage,
   PageOne,
@@ -8,7 +8,7 @@ import {
   PageThree,
   PageFour,
   FinalAnimation,
-} from '@/components/storytelling_test';
+} from '@/components/prompting_test';
 
 // Summary review component with TypeScript type annotations
 const ReviewPage = ({ onReviewComplete }: { onReviewComplete: () => void }) => (
@@ -37,12 +37,35 @@ const ReviewPage = ({ onReviewComplete }: { onReviewComplete: () => void }) => (
   </div>
 );
 
-export default function StorytellingTest() {
+export default function PromptingTest() {
   const [showContinue, setShowContinue] = useState(false);
   const [activePages, setActivePages] = useState<number[]>([]);
   const [reviewPhase, setReviewPhase] = useState(false);
   const [lessonComplete, setLessonComplete] = useState(false);
   const totalPages = 5;
+
+  const bottomMarkerRef = useRef(null); // Ref for the bottom marker in PageOne
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        const entry = entries[0];
+        if (entry.isIntersecting && activePages.includes(1)) {
+          setShowContinue(true);
+          observer.unobserve(entry.target); // Stop observing once visible
+        }
+      },
+      { threshold: 1.0 },
+    );
+
+    if (bottomMarkerRef.current) {
+      observer.observe(bottomMarkerRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [bottomMarkerRef, activePages]);
 
   // Ref for the container of the pages
   const pagesContainerRef = useRef<HTMLDivElement>(null);
@@ -55,7 +78,7 @@ export default function StorytellingTest() {
   const handleStartLesson = () => {
     // Start with the first page
     setActivePages([1]);
-    setShowContinue(true);
+    setShowContinue(false);
   };
 
   const handleContinue = () => {
@@ -99,10 +122,10 @@ export default function StorytellingTest() {
   };
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-between bg-white">
+    <div className="flex min-h-screen flex-col justify-between bg-white">
       {/* Navigation progress bar */}
       <div
-        className={`fixed left-1/2 top-0 z-10 w-full max-w-md -translate-x-1/2 shadow-md transition-opacity duration-500 ${
+        className={`fixed left-0 top-0 z-10 w-full shadow-md transition-opacity duration-500 ${
           reviewPhase || lessonComplete
             ? 'pointer-events-none opacity-0'
             : 'bg-white'
@@ -113,7 +136,7 @@ export default function StorytellingTest() {
             <div
               key={index}
               className={`mx-1 h-1 rounded-lg transition-colors duration-300 ${
-                index < activePages.length ? 'bg-green-500' : 'bg-gray-300'
+                index < activePages.length ? 'bg-indigo-500' : 'bg-gray-300'
               }`}
               style={{ flex: index === 0 ? '0 0 5%' : '1' }}
             />
@@ -133,7 +156,9 @@ export default function StorytellingTest() {
         {!reviewPhase && !activePages.length && (
           <IntroPage onIntroComplete={handleStartLesson} />
         )}
-        {!reviewPhase && activePages.includes(1) && <PageOne />}
+        {!reviewPhase && activePages.includes(1) && (
+          <PageOne bottomMarkerRef={bottomMarkerRef} />
+        )}
         {!reviewPhase && activePages.includes(2) && (
           <PageTwo onAnswerSelected={handleAnswerSelected} />
         )}

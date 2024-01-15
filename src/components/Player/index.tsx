@@ -10,7 +10,8 @@ export function Player({
   path,
   name,
   className = 'h-full',
-  autoPlay = false,
+  loop = true,
+  autoPlay = true,
   controls = false,
   showAssetTypeSwitcher = false,
   width = 480,
@@ -19,7 +20,9 @@ export function Player({
 }: {
   path: string;
   name?: string;
+  aspectRatio?: string;
   className?: string;
+  loop?: boolean;
   autoPlay?: boolean;
   controls?: boolean;
   width?: number;
@@ -52,7 +55,14 @@ export function Player({
           />
         );
       case AssetType.Audio:
-        return <audio src={path} controls={controls} autoPlay={autoPlay} />;
+        return (
+          <audio
+            src={path}
+            controls={controls}
+            autoPlay={autoPlay}
+            loop={loop}
+          />
+        );
       case AssetType.Other:
       case AssetType.Video:
         return (
@@ -62,12 +72,14 @@ export function Player({
             playing={autoPlay}
             width={width}
             height={height}
+            loop={loop}
+            muted={true}
           />
         );
       default:
         return <div className="text-white">Unable to load content</div>;
     }
-  }, [assetType, path, name, controls, autoPlay, width, height]);
+  }, [assetType, path, name, controls, autoPlay, width, height, loop]);
 
   const assetTypes = Object.keys(AssetType)
     // @ts-ignore
