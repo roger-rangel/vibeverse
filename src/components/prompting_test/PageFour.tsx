@@ -16,12 +16,17 @@ export function PageFour({ onAnswerSelected }: PageFourProps) {
 
     // Update the response text based on the selected answer
     let response;
-    if (answer === 'Act 1' || answer === 'Act 3') {
-      response = "Not quite right. The climax usually happens in Act 2, where tensions reach their peak!";
+    if (answer === 'Act 1') {
+      response =
+        "A high angle shot looks down on the subject from above, often to make them appear vulnerable or insignificant. However, this image is not a high angle shot since it's not looking down on the subject.";
+    } else if (answer === 'Act 3') {
+      response =
+        "A Dutch angle shot is a shot that is tilted sideways on the horizontal axis. This image is not a Dutch angle shot since it's not tilted sideways.";
     } else if (answer === 'Act 2') {
-      response = "Exactly! Act 2 is where the story reaches its climax and the stakes are highest.";
+      response =
+        "A POV shot shows the perspective of a scene from a character's viewpoint. This image seems to be a POV shot, as it's taken from the cyclist's perspective, making the audience see through the cyclist's eyes.";
     } else {
-      response = "Please select an act to continue.";
+      response = 'Please select an option to continue.';
     }
     setResponseText(response);
 
@@ -37,7 +42,7 @@ export function PageFour({ onAnswerSelected }: PageFourProps) {
   const buttonStyle = (answer: string) => {
     const baseStyle = 'mr-2 py-2 px-4 text-black border border-neutral-800 rounded';
     if (selectedAnswer === answer) {
-      return `${baseStyle} ${answer === 'Act 2' ? 'bg-green-200' : 'bg-gray-300'}`;
+      return `${baseStyle} ${answer === 'Act 2' ? 'bg-indigo-200' : 'bg-gray-300'}`;
     }
     return `${baseStyle} ${selectedAnswer ? 'opacity-50' : 'bg-white'}`;
   };
@@ -45,110 +50,52 @@ export function PageFour({ onAnswerSelected }: PageFourProps) {
   // Check if any button is selected to disable all buttons
   const isDisabled = selectedAnswer !== null;
 
-  const images = [
-    { url: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_1-ZSySjPyBT.webp', text: '6. Tests, Allies, Enemies' },
-    { url: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_1_(1).webp', text: '7. Approaching the Inner Cave' },
-    { url: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_3.webp', text: '8. The Ordeal' },
-    { url: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_3_(1).webp', text: '9. Seize the Reward' }
-  ];
-
-  // Define the image data for Act 3
-  const imagesAct3 = [
-    { url: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_3-ybsKLSNnm.webp', text: '10. The Road Back Home' },
-    { url: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_1-wP--i3lxW.webp', text: '11. Resurrection' },
-    { url: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_2_(1)-BOOsIlAXi.webp', text: '12. Return with the Elixir' },
-  ];
-
   return (
-    <div id="page-4" className="mx-10 pt-6 pb-32 lg:pt-12 text-black bg-white min-h-[75vh]">
-      <Image 
-        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_1-xfF_SDNsW.webp" 
-        alt="Descriptive Alt Text" 
-        className="h-80 w-full object-cover mx-auto rounded-2xl" 
+    <div
+      id="page-4"
+      className="mx-10 min-h-[75vh] bg-white pb-32 pt-6 text-black lg:pt-12"
+    >
+      <h2 className="my-8 text-lg">
+        Now let&rsquo;s try to guess a new type of shot in film.
+        <br />
+        <br />
+        What type of shot do you think this is?
+      </h2>
+
+      <Image
+        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_2-llVe8T3si.webp"
+        alt="Descriptive Alt Text"
+        className="mx-auto h-80 w-full rounded-2xl object-cover"
         width={500}
         height={500}
       />
 
-      <h2 className="text-lg my-8">
-        <strong>Act 2</strong> is where there are more tests, more allies, and more enemies. 
-        <br />
-        <br />
-        The heroes will consequently have to avoid crazy obstacles and make progress in their journey. 
-      </h2>
-
-      <h2 className="text-lg my-8">
-          It continues as follows:
-      </h2>
-      <h1 className="mb-4 flex justify-center text-lg text-zinc-600">
-          ACT 2
-      </h1>
-      <div className="grid grid-cols-2 gap-4">
-        {images.map(({ url, text }, index) => (
-          <div key={index} className="flex flex-col items-center">
-            {/* Image */}
-            <Image 
-              src={url}
-              alt={`Descriptive Alt Text for Image ${index + 1}`}
-              className="object-cover mx-auto rounded-2xl"
-              width={500}
-              height={300}
-            />
-            {/* Text below the image */}
-            <p className="text-xs mt-2">{text}</p>
-          </div>
-        ))}
-      </div>
-
-      <h2 className="text-lg my-16">
-        <strong>Act 3</strong> concludes the Hero&apos;s Journey with the hero&apos;s return and their 
-        transformation, bringing back new wisdom or power to restore balance to their world.
-      </h2>
-
-      {/* Container for Act 3 images */}
-      <div className="grid grid-cols-3 gap-4">
-        {imagesAct3.map(({ url, text }, index) => (
-          <div key={index} className="flex flex-col items-center">
-            {/* Image */}
-            <Image 
-              src={url}
-              alt={`Descriptive Alt Text for Image ${index + 1}`}
-              className="object-cover mx-auto rounded-2xl"
-              width={500}
-              height={300}
-            />
-            {/* Text below the image */}
-            <p className="text-xs mt-2 text-center">{text}</p>
-          </div>
-        ))}
-      </div>
-
-      <h2 className="pt-10 text-lg mb-4">In which act is the climax of the story found?</h2>
-      <div className="mb-4">
-        <button 
-          onClick={() => handleAnswer('Act 1')} 
-          className={buttonStyle('Act 1')} 
+      <div className="mt-10 mb-4">
+        <button
+          onClick={() => handleAnswer('Act 1')}
+          className={buttonStyle('Act 1')}
           disabled={isDisabled}
         >
-          Act 1
+          High Angle
         </button>
-        <button 
-          onClick={() => handleAnswer('Act 2')} 
+        <button
+          onClick={() => handleAnswer('Act 2')}
           className={buttonStyle('Act 2')}
           disabled={isDisabled}
         >
-          Act 2
+          POV (Point of View)
         </button>
-        <button 
-          onClick={() => handleAnswer('Act 3')} 
+        <button
+          onClick={() => handleAnswer('Act 3')}
           className={buttonStyle('Act 3')}
           disabled={isDisabled}
         >
-          Act 3
+          Dutch Angle
         </button>
       </div>
 
       {responseText && (
-        <div className="mt-8 mb-4">
+        <div className="mb-4 mt-8">
           <p>{responseText}</p>
         </div>
       )}

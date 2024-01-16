@@ -89,7 +89,7 @@ export function PageTwo({ onAnswerSelected }: PageTwoProps) {
                 alt="Loading"
                 width={100}
                 height={100}
-                className="mt-20 h-6 w-8 animate-bounce" // TailwindCSS bounce animation
+                className="mt-20 h-5 w-6 animate-bounce" // TailwindCSS bounce animation
               />
             </div>
           ) : (

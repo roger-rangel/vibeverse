@@ -1,83 +1,59 @@
-import { useRef, useState } from 'react';
 import Image from 'next/image';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { useRef, useState } from 'react';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
 
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-const ItemType = {
-  IMAGE: 'image'
-};
-
-type DraggableImageProps = {
-  id: string;
-  url: string;
-  onDrop: (id: string, url: string, targetId: number) => void;
-};
-
-// Draggable image component
-function DraggableImage({ id, url, onDrop }: DraggableImageProps) {
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: ItemType.IMAGE,
-    item: { id, url },
-    end: (item, monitor) => {
-      const dropResult = monitor.getDropResult();
-      if (item && dropResult) {
-        onDrop(item.id, item.url, (dropResult as { targetId: number }).targetId);
-      }
-    },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging()
-    })
-  }));
-
-  return (
-    <Image
-      ref={drag}
-      src={url}
-      className={`h-32 border-2 border-orange-500 ${isDragging ? 'opacity-50' : 'opacity-100'}`}
-      alt={`Draggable item ${id}`}
-      width={200}
-      height={200}
-    />
-  );
-}
-
-// Correct the type definition for the `droppedImages` state
-type DroppedImagesState = { [key: number]: { id: string; url: string } | undefined };
-
-type DropTargetProps = {
-  targetId: number;
-  droppedImage: { id: string; url: string } | undefined;
-  label: string;
-};
-
-function DropTarget({ targetId, droppedImage, label }: DropTargetProps) {
-  const [, drop] = useDrop({
-    accept: ItemType.IMAGE,
-    drop: () => ({ targetId }),
-  });
-
-  return (
-    <div className="mx-2 my-2 flex flex-col items-center">
-      <div ref={drop} className="border-2 border-dashed border-gray-300 h-32 w-32 flex justify-center items-center overflow-hidden relative">
-        {droppedImage ? (
-          <Image
-            src={droppedImage.url}
-            alt={`Dropped item`}
-            width={128} // Adjust width as needed
-            height={128} // Adjust height as needed
-            className="object-cover"
-            layout="fixed"
-          />
-        ) : (
-          <span className="text-2xl font-bold text-gray-700">{targetId}</span> // This will display the number when the box is empty
-        )}
-      </div>
-      <div className="w-full text-center py-1 text-xs">{label}</div>
-    </div>
-  );
-}
+const cinematicShots = [
+  {
+    id: '1',
+    name: 'Extreme Wide Shot',
+    description:
+      'The subject is a speck in the distance, and the landscape dominates the frame.',
+    image:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_3-62cYPH6ve.webp',
+  },
+  {
+    id: '2',
+    name: 'Wide Shot',
+    description:
+      'The subject takes up the full frame, or at least as much as comfortably possible.',
+    image:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_2-uShjRHMcz.webp',
+  },
+  {
+    id: '3',
+    name: 'Medium Shot',
+    description:
+      'The subject is in the center of the frame, and the shot is taken from a medium distance.',
+    image:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_2-1.webp',
+  },
+  {
+    id: '4',
+    name: 'Medium Close Up',
+    description:
+      'The subject fills the frame more than in a medium shot, but not as much as in a close-up.',
+    image:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_2-2.webp',
+  },
+  {
+    id: '5',
+    name: 'Close Up',
+    description: 'The subject takes up the entire frame.',
+    image:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Screenshot_2024-01-16_at_7.26.31_PM.png',
+  },
+  {
+    id: '6',
+    name: 'Extreme Close Up',
+    description:
+      'The shot is so tight that only a specific detail of the subject, such as someone&apos;s eyes, can be seen.',
+    image:
+      'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_1-k0K55M--G.webp',
+  },
+];
 
 type PageThreeProps = {
   onAnswerSelected: () => void;
@@ -114,161 +90,135 @@ export function PageThree({ onAnswerSelected }: PageThreeProps) {
       endOfPageRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   };
-  
-  const squareLabels = [
-    { id: 1, text: 'The Ordinary World' },
-    { id: 2, text: 'The Call of Adventure' },
-    { id: 3, text: 'Refusal of the Call' },
-    { id: 4, text: 'Meeting the Mentor' },
-    { id: 5, text: 'Crossing the Threshold' },
-  ];
-
-  const initialImages = [
-    'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_2_(3).webp',
-    'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_0.webp',
-    'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_1.webp',
-    'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_2.webp',
-    'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_2_(1)-Ck_kj733y.webp'
-  ];
-
-  // Changed to keep track of images that have been dropped
-  const [droppedImages, setDroppedImages] = useState<DroppedImagesState>({});
-
-  const handleDrop = (imageId: string, url: string, targetId: number) => {
-    setDroppedImages(prev => ({
-      ...prev,
-      [targetId]: { id: imageId, url }
-    }));
-  };
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div id="page-3" className="mx-10 -mt-40 lg:pt-12 text-black bg-white">
-        
-        <h2 className="text-lg mb-4">
-          In Western storytelling, stories usually follow what is known as a <strong>Hero&apos;s journey</strong>.
+      <div id="page-3" className="mx-10 -mt-10 bg-white text-black lg:pt-12">
+        <h2 className="mb-4 text-lg">
+          Before we start with the basics, let&apos;s explore the types of
+          cinematic shots so we can start getting familiar with the language of
+          film.
         </h2>
 
-        
-        <h1 className="mt-20 text-2xl mb-6 text-zinc-600">
-          THE HERO&apos;S JOURNEY 
-        </h1>
-        <h2 className="text-lg mb-4">
-          This is a 12-step narrative structure that describes the typical adventure of a hero.
-        </h2>
-
-        <div className="flex overflow-x-auto gap-x-2">
-          {initialImages.map((url, index) => (
-            <DraggableImage key={`image-${index}`} id={`image-${index}`} url={url} onDrop={handleDrop} />
-          ))}
-        </div>
-        <h1 className="flex justify-end mt-2 text-sm mb-4 text-orange-300">
-          drag and drop each image to the correct box
-        </h1>
-
-        <h1 className="flex justify-center mt-2 text-lg mb-2 text-zinc-600">
-          ACT 1
-        </h1>
-
-        <div className="mt-2 flex justify-center flex-wrap pb-4">
-          {squareLabels.map(({ id, text }, index) => (
-            <div key={id} className={`flex flex-col items-center ${index < 3 ? 'w-1/3' : 'w-1/3'}`}>
-              <DropTarget targetId={id} droppedImage={droppedImages[id]} label={text} />
-            </div>
-          ))}
-
-        </div>
+        {cinematicShots.map((shot) => (
+          <div key={shot.id} className="relative my-8">
+            <Image
+              width={500}
+              height={250}
+              src={shot.image}
+              alt="Prompt"
+              className="h-96 w-full rounded-xl object-cover"
+            />
+            <h1 className="absolute bottom-0 left-1/2 mb-6 -translate-x-1/2 transform rounded-2xl bg-indigo-500 px-4 py-2 text-xl text-white">
+              {shot.name}
+            </h1>
+          </div>
+        ))}
 
         {!checkClicked && (
-          <button onClick={handleCheck} className="mx-auto mb-4 bg-black text-white px-4 py-2 rounded">
+          <button
+            onClick={handleCheck}
+            className="mx-auto mb-4 rounded bg-black px-4 py-2 text-white"
+          >
             Check
           </button>
         )}
 
         <div className="mb-24">
           <div className="mx-auto flex items-center justify-between">
-            {showGoodJob && (   
+            {showGoodJob && (
               <div className="flex flex-row">
-                <h1 className="ml-2 text-lg text-zinc-600">
-                    Good job!
-                </h1>
+                <h1 className="ml-2 text-lg text-zinc-600">Good job!</h1>
                 <Image
-                  src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/dancing_elf.gif"
+                  src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/heart_hands.gif"
                   alt="Good Job"
                   width={50}
                   height={50}
-                  className="ml-2 -mt-2.5 h-8 w-8"
+                  className="-mt-2.5 ml-2 h-12 w-20"
                 />
-              </div>          
-            )
-            }
+              </div>
+            )}
             {/* Explanation Popup */}
             {showExplanationPopup && (
-              <div className="fixed top-4 left-4 right-4 bg-white p-4 z-10 border border-gray-200 shadow-xl rounded-lg">
+              <div className="fixed left-4 right-4 top-4 z-10 rounded-lg border border-gray-200 bg-white p-4 shadow-xl">
                 <button
                   onClick={toggleExplanationPopup}
-                  className="text-white bg-black rounded-full w-6 h-6 leading-none text-lg flex items-center justify-center absolute top-0 right-0 -m-2"
+                  className="absolute right-0 top-0 -m-2 flex h-6 w-6 items-center justify-center rounded-full bg-black text-lg leading-none text-white"
                 >
                   <XMarkIcon className="h-4 w-4" />
                 </button>
-                <div className="flex items-center mb-1">
-                  <h1 className="text-2xl font-bold">Act 1 of the Hero&apos;s Journey</h1>
+                <div className="mb-1 flex items-center">
+                  <h1 className="text-2xl font-bold">Shots in Film</h1>
                   <Image
-                    src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/knight.png"
+                    src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Group_24.png"
                     alt="Good Job"
                     width={50}
                     height={50}
-                    className="ml-4 flex items-center h-10 w-10"
+                    className="ml-4 flex h-5 w-6 items-center"
                   />
                 </div>
                 <p>
                   {/* Your explanation content here */}
                   <br />
-                  <strong>The Ordinary World:</strong> Meet our hero, comfortably curled up in their familiar bubble. It&apos;s comfy, cozy, and... 
-                  well, a tad bit boring. This is where we see what &apos;normal&apos; looks like before things get wild!
+                  <strong>Extreme Long Shot (ELS)/Wide Shot</strong> Captures a
+                  vast area to set the scene. It&apos;s often used to show
+                  landscapes or massive building exteriors.
                   <br />
                   <br />
-                  <strong>The Call of Adventure:</strong> Suddenly, an invitation arrives! It&apos;s like getting a letter to a wizarding school or 
-                  finding a hidden map in the attic. The hero&apos;s eyes sparkle with the first glimpse of a thrilling quest.
+                  <strong>Long Shot (LS):</strong> Shows the full body of a
+                  character (or characters) in relation to their surroundings,
+                  without much focus on expressions.
                   <br />
                   <br />
-                  <strong>Refusal of the Call:</strong> &quot;Who, me?&quot; our hero gasps, stepping back. There&apos;s hesitation, a case of cold feet. 
-                  Maybe it&apos;s fear, or maybe it&apos;s Tuesday, and the hero really doesn&apos;t want to miss their favorite TV show.
+                  <strong>Full Shot:</strong> Similar to a long shot, but
+                  focuses more closely on the character, usually framing them
+                  from head to toe.
                   <br />
                   <br />
-                  <strong>Meeting the Mentor:</strong> Just when our hero&apos;s about to give up, in comes a wise figure, possibly with a long beard and 
-                  a cryptic riddle, offering the nudge (or magical doodad) needed to face the challenge ahead.
+                  <strong>Medium Long Shot (MLS):</strong> Also known as a 3/4
+                  shot, it frames the subject from about the knees up, showing
+                  some background.
                   <br />
                   <br />
-                  <strong>Crossing the Threshold:</strong> Taking a deep breath, our hero steps forward (or is nudged by a friendly sidekick) across an 
-                  invisible line. Goodbye, Ordinary World! The adventure has officially begun, and there&apos;s no turning back now.
+                  <strong>Medium Shot (MS):</strong> Cuts the character at the
+                  waist, capturing gestures and facial expressions more clearly.
+                  <br />
+                  <br />
+                  <strong>Medium Close-Up (MCU):</strong> Frames a character
+                  from the chest up, balancing facial expressions with some body
+                  language.
+                  <br />
+                  <br />
+                  <strong>Close-Up (CU):</strong> Focuses on a character&apos;s
+                  face to capture detailed emotions, or on an object to
+                  highlight its importance.
                   <br />
                   <br />
                 </p>
               </div>
             )}
             {showPoints && (
-              <div className="text-md bg-green-200 text-green-500 rounded-lg animate-slide-up py-0.5 px-1.5 flex items-center">
-                <Image 
+              <div className="text-md flex animate-slide-up items-center rounded-lg bg-indigo-200 px-1.5 py-0.5 text-indigo-500">
+                <Image
                   src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/diamond.png"
                   alt="Good Job"
                   width={50}
                   height={50}
-                  className="flex items-center h-6 w-6"
+                  className="flex h-6 w-6 items-center"
                 />
                 {/* <PlusIcon className="h-4 w-4 font-bold" /> */}
-                +10
+                +20
                 <h2 className="ml-1">VIBES</h2>
-              </div> 
+              </div>
             )}
           </div>
           {showGoodJob && (
-            <div className="my-4 bg-slate-200 p-4 rounded-lg flex justify-end">
-              <div className="flex items-center border border-stone-400 p-2 rounded-lg hover:bg-slate-300 cursor-pointer">
+            <div className="my-4 flex justify-end rounded-lg bg-slate-200 p-4">
+              <div className="flex cursor-pointer items-center rounded-lg border border-stone-400 p-2 hover:bg-slate-300">
                 <span onClick={toggleExplanationPopup} className="text-md ">
                   Explain it to me
                 </span>
-                <Image 
+                <Image
                   src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/open-book.png"
                   alt="Good Job"
                   width={200}

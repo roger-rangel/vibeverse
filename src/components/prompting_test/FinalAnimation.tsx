@@ -17,7 +17,7 @@ export function FinalAnimation() {
         />
       </div>
       <Image
-        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/forest_background.jpeg"
+        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_0-1.webp"
         layout="fill"
         objectFit="cover"
         alt="Forest Background"
@@ -27,7 +27,7 @@ export function FinalAnimation() {
         {/* Place your content here */}
         <p className="mb-8 text-center text-5xl font-bold">LESSON COMPLETE</p>
         <div className="flex gap-x-4">
-          <div className="text-md flex animate-slide-up items-center rounded-lg bg-green-200 px-1.5 py-0.5 text-green-500">
+          <div className="text-md flex animate-slide-up items-center rounded-lg bg-indigo-200 px-1.5 py-0.5 text-indigo-500">
             <Image
               src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/diamond.png"
               alt="Good Job"
@@ -39,7 +39,7 @@ export function FinalAnimation() {
             +10
             <h2 className="ml-1">VIBES</h2>
           </div>
-          <div className="text-md flex animate-slide-up items-center rounded-lg bg-green-200 px-1.5 py-0.5 text-green-500">
+          <div className="text-md flex animate-slide-up items-center rounded-lg bg-indigo-200 px-1.5 py-0.5 text-indigo-500">
             <Image
               src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/mobile_vibeverse.png"
               alt="Good Job"

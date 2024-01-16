@@ -15,14 +15,14 @@ const ReviewPage = ({ onReviewComplete }: { onReviewComplete: () => void }) => (
   <div>
     <div className="px-10">
       <Image
-        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/legolas_aragorn.gif"
+        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/barbie.gif"
         alt="Descriptive Alt Text"
         className="h-96 w-full rounded-xl object-cover"
         width={500}
         height={500}
       />
       <h1 className="my-8 flex justify-center text-2xl font-bold text-black">
-        What a Champ! Excellent job!
+        Go Girl! You did great!
       </h1>
     </div>
 

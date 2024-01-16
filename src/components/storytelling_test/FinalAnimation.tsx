@@ -17,13 +17,13 @@ export function FinalAnimation() {
         />
       </div>
       <Image
-        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/forest_background.jpeg"
+        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_3_9.27.29_PM.webp"
         layout="fill"
         objectFit="cover"
         alt="Forest Background"
         className="object-cover"
       />
-      <div className="absolute right-1/2 top-1/2 z-10 flex -translate-y-1/2 translate-x-1/2 flex-col items-center justify-center text-white">
+      <div className="absolute right-1/2 top-1/2 z-10 flex -translate-y-1/2 translate-x-1/2 flex-col items-center justify-center text-white -mt-64 w-full">
         {/* Place your content here */}
         <p className="mb-8 text-center text-5xl font-bold">LESSON COMPLETE</p>
         <div className="flex gap-x-4">
