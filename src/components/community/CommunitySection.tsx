@@ -1,27 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useModal } from 'react-modal-hook';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { CreateCommunityModal } from './CreateCommunityModal';
 
-// Define the interface for follow states
-interface Follow {
-  [key: string]: boolean;
-}
-
 export function CommunitySection() {
-  // Initialize a state object to track the follow state of each community
-  const [follow, setFollow] = useState<Follow>({});
-
-  // Function to handle follow/unfollow click
-  const handleFollowClick = (source: string) => {
-    setFollow((prevStates) => ({
-      ...prevStates,
-      [source]: !prevStates[source],
-    }));
-  };
-
   const [showModal, hideModal] = useModal(
     () => <CreateCommunityModal isOpen hideModal={hideModal} />,
     [],
@@ -30,7 +14,7 @@ export function CommunitySection() {
   const files = [
     {
       type: 'Join',
-      path: '/dashboard/curious-refuge',
+      path: '/dashboard/communities/curious-refuge',
       source:
         'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_0_9.27.29_PM.webp',
       logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Curious_Refuge_Logo_White_Flat.png',
@@ -45,7 +29,7 @@ export function CommunitySection() {
     },
     {
       type: 'Join',
-      path: '/dashboard/white-mirror',
+      path: '/dashboard/communities/white-mirror',
       source:
         'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_3_9.27.29_PM.webp',
       logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Screenshot_2023-08-26_at_5_50_29_PM-removebg-preview.png',
@@ -131,14 +115,7 @@ export function CommunitySection() {
                 className={`mt-2 flex-col items-center justify-center gap-2`}
               >
                 <div className="mt-4 flex items-center justify-center">
-                  {file.type === 'Join' ? (
-                    <button
-                      onClick={() => handleFollowClick(file.source)}
-                      className={`rounded-md bg-indigo-600 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500`}
-                    >
-                      {follow[file.source] ? <span>Following</span> : 'Follow'}
-                    </button>
-                  ) : (
+                  {file.type === 'Join' ? null : (
                     <button
                       onClick={showModal}
                       className="rounded-md bg-blue-600 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"

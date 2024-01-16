@@ -56,7 +56,7 @@ const About = () => {
   return (
     <section id="about">
       <div className={styles.about__container}>
-        <div className=" mt-20 rounded-lg border border-sky-500 ">
+        <div className="mt-20">
           <Avatar profile={profile} size="lg" showBadge={false} />
         </div>
 

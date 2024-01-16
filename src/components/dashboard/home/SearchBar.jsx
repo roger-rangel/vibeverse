@@ -3,9 +3,8 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 
 export default function SearchBar() {
-
   return (
-    <div className="flex flex-1 justify-center px-2 lg:justify-end items-center">
+    <div className="flex flex-1 items-center justify-center px-2 lg:justify-end">
       <div className="w-full max-w-lg lg:max-w-xs">
         <label htmlFor="search" className="sr-only">
           Search
@@ -16,11 +15,11 @@ export default function SearchBar() {
           </div>
           <input
             id="search"
-            className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-white focus:ring-2 border-pink-300 focus:ring-offset-indigo-600 sm:text-sm sm:leading-6 bg-white/5"
+            className="block w-full rounded-md border-0 border-pink-300 bg-white/5 py-1.5 pl-10 pr-3 text-white focus:ring-2 focus:ring-offset-indigo-600 sm:text-sm sm:leading-6"
             placeholder="Search"
             type="search"
             name="search_randomstring"
-            autocomplete="off"
+            autoComplete="off"
           />
         </div>
       </div>
