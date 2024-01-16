@@ -54,7 +54,7 @@ export function FinalAnimation() {
         </div>
       </div>
 
-      <div className="fixed bottom-4 left-1/2 mx-auto w-full max-w-xl -translate-x-1/2 transform p-4">
+      <div className="fixed bottom-4 left-1/2 mx-auto w-full max-w-md -translate-x-1/2 transform p-4">
         <button
           className="w-full rounded-lg bg-black py-3 text-center text-white"
           onClick={() => router.push('/dashboard')}

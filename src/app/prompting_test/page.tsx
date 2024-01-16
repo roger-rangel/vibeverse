@@ -26,7 +26,7 @@ const ReviewPage = ({ onReviewComplete }: { onReviewComplete: () => void }) => (
       </h1>
     </div>
 
-    <div className="fixed bottom-4 left-1/2 mx-auto w-full max-w-xl -translate-x-1/2 transform p-4">
+    <div className="fixed bottom-4 left-1/2 mx-auto w-full max-w-md -translate-x-1/2 transform p-4">
       <button
         onClick={onReviewComplete}
         className="w-full rounded-lg bg-black py-3 text-center text-white"
@@ -122,10 +122,10 @@ export default function PromptingTest() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-between bg-white">
+    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-between bg-white">
       {/* Navigation progress bar */}
       <div
-        className={`fixed left-0 top-0 z-10 w-full shadow-md transition-opacity duration-500 ${
+        className={`fixed left-1/2 top-0 z-10 mx-auto w-full max-w-md -translate-x-1/2 shadow-md transition-opacity duration-500 ${
           reviewPhase || lessonComplete
             ? 'pointer-events-none opacity-0'
             : 'bg-white'
@@ -176,7 +176,7 @@ export default function PromptingTest() {
 
       {/* Continue button */}
       {!lessonComplete && !reviewPhase && showContinue && (
-        <div className="fixed bottom-4 left-1/2 mx-auto w-full max-w-xl -translate-x-1/2 transform p-4">
+        <div className="fixed bottom-4 left-1/2 mx-auto w-full max-w-md -translate-x-1/2 transform p-4">
           <button
             onClick={handleContinue}
             className="w-full rounded-lg bg-black py-3 text-center text-white"
