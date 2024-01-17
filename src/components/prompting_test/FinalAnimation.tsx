@@ -62,7 +62,7 @@ export function FinalAnimation() {
           Continue
         </button>
         <button className="mt-2 w-full rounded-lg bg-white py-3 text-center text-black">
-          Redo Lesson
+          Re-do Lesson
         </button>
       </div>
     </div>
