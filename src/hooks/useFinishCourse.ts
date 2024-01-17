@@ -1,10 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { useActor } from '@/providers/ActorProvider';
-import { CommunityId } from '@/types';
 
 export interface FinishCourseProps {
-  slug: CommunityId;
+  slug: string;
 }
 
 export function useFinishCourse() {

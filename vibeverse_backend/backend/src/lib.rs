@@ -88,6 +88,11 @@ pub fn creator_metadata(creator: Principal) -> Option<(Creator, Badge)> {
 }
 
 #[query]
+pub fn top_n_creators(n: u8) -> Vec<(UserId, Creator, Badge)> {
+    creators::top_n_creators(n.into())
+}
+
+#[query]
 pub fn collections_created_by(creator: Principal) -> Vec<Collection> {
     nfts::collections_created_by(creator)
 }

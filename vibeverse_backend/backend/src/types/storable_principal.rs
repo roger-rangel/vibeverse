@@ -28,3 +28,10 @@ impl From<Principal> for StorablePrincipal {
         Self(principal)
     }
 }
+
+#[allow(clippy::from_over_into)]
+impl Into<Principal> for StorablePrincipal {
+    fn into(self) -> Principal {
+        self.0
+    }
+}

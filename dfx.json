@@ -26,7 +26,8 @@
       "wasm": "https://github.com/dfinity/internet-identity/releases/download/release-2023-11-17/internet_identity_dev.wasm.gz",
       "remote": {
         "id": {
-          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai",
+          "staging": "rdmx6-jaaaa-aaaaa-aaadq-cai"
         }
       },
       "frontend": {}
@@ -37,7 +38,8 @@
       "wasm": "https://github.com/vibeverse-team/vibe-token/releases/download/0.1.0/vibe_token.wasm.gz",
       "remote": {
         "id": {
-          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+          "ic": "tfqwm-nyaaa-aaaak-afjqa-cai",
+          "staging": "xufih-jyaaa-aaaak-afjia-cai"
         }
       },
       "declarations": {

@@ -17,7 +17,7 @@ export function FinalAnimation() {
         />
       </div>
       <Image
-        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/forest_background.jpeg"
+        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_0-1.webp"
         layout="fill"
         objectFit="cover"
         alt="Forest Background"
@@ -27,7 +27,7 @@ export function FinalAnimation() {
         {/* Place your content here */}
         <p className="mb-8 text-center text-5xl font-bold">LESSON COMPLETE</p>
         <div className="flex gap-x-4">
-          <div className="text-md flex animate-slide-up items-center rounded-lg bg-green-200 px-1.5 py-0.5 text-green-500">
+          <div className="text-md flex animate-slide-up items-center rounded-lg bg-indigo-200 px-1.5 py-0.5 text-indigo-500">
             <Image
               src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/diamond.png"
               alt="Good Job"
@@ -36,10 +36,10 @@ export function FinalAnimation() {
               className="flex h-6 w-6 items-center"
             />
             {/* <PlusIcon className="h-4 w-4 font-bold" /> */}
-            +10
+            +3
             <h2 className="ml-1">VIBES</h2>
           </div>
-          <div className="text-md flex animate-slide-up items-center rounded-lg bg-green-200 px-1.5 py-0.5 text-green-500">
+          <div className="text-md flex animate-slide-up items-center rounded-lg bg-indigo-200 px-1.5 py-0.5 text-indigo-500">
             <Image
               src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/mobile_vibeverse.png"
               alt="Good Job"
@@ -48,13 +48,13 @@ export function FinalAnimation() {
               className="mr-2 flex h-3 w-4 items-center"
             />
             {/* <PlusIcon className="h-4 w-4 font-bold" /> */}
-            +50
+            +3
             <h2 className="ml-1">EXP</h2>
           </div>
         </div>
       </div>
 
-      <div className="fixed bottom-4 left-1/2 mx-auto w-full max-w-xl -translate-x-1/2 transform p-4">
+      <div className="fixed bottom-4 left-1/2 mx-auto w-full max-w-md -translate-x-1/2 transform p-4">
         <button
           className="w-full rounded-lg bg-black py-3 text-center text-white"
           onClick={() => router.push('/dashboard')}

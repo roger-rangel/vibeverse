@@ -74,20 +74,33 @@ impl Creator {
         }
     }
 
-    pub fn add_created_course(&mut self, course: CourseId, unlocked: u64) {
+    pub fn add_created_course(&mut self, course: CourseId, unlocked: u64) -> Result<(), String> {
+        // If course exists, throw error
+        if self.created_courses.contains_key(&course) {
+            return Err(format!("Course {} already created", course));
+        }
+
         self.created_courses.insert(course, unlocked);
+
+        Ok(())
     }
 
-    pub fn add_created_course_now(&mut self, course: CourseId) {
-        self.created_courses.insert(course, ic_cdk::api::time());
+    pub fn add_created_course_now(&mut self, course: CourseId) -> Result<(), String> {
+        self.add_created_course(course, ic_cdk::api::time())
     }
 
-    pub fn add_completed_course(&mut self, course: CourseId, unlocked: u64) {
+    pub fn add_completed_course(&mut self, course: CourseId, unlocked: u64) -> Result<(), String> {
+        // If course exists, throw error
+        if self.completed_courses.contains_key(&course) {
+            return Err(format!("Course {} already completed", course));
+        }
+
         self.completed_courses.insert(course, unlocked);
+        Ok(())
     }
 
-    pub fn add_completed_course_now(&mut self, course: CourseId) {
-        self.completed_courses.insert(course, ic_cdk::api::time());
+    pub fn add_completed_course_now(&mut self, course: CourseId) -> Result<(), String> {
+        self.add_completed_course(course, ic_cdk::api::time())
     }
 
     pub fn add_score(&mut self, score: u8) -> StorableNat {

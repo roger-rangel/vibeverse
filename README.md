@@ -34,6 +34,7 @@ Check out our platform in action by trying our demo on our [website](https://vib
 | -------- | -------------------------------------------------------------------------------------------------------------- |
 | frontend | [quuas-aqaaa-aaaak-afcja-cai](https://quuas-aqaaa-aaaak-afcja-cai.icp0.io)                                     |
 | backend  | [q5xlo-wyaaa-aaaak-afciq-cai](https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.ic0.app/?id=q5xlo-wyaaa-aaaak-afciq-cai) |
+| token    | [xufih-jyaaa-aaaak-afjia-cai](https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.ic0.app/?id=xufih-jyaaa-aaaak-afjia-cai) |
 
 ### Production
 
@@ -41,6 +42,7 @@ Check out our platform in action by trying our demo on our [website](https://vib
 | -------- | -------------------------------------------------------------------------------------------------------------- |
 | frontend | [h5fnl-4iaaa-aaaap-abddq-cai](https://h5fnl-4iaaa-aaaap-abddq-cai.icp0.io)                                     |
 | backend  | [gqljf-taaaa-aaaap-abdea-cai](https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.ic0.app/?id=gqljf-taaaa-aaaap-abdea-cai) |
+| token    | [tfqwm-nyaaa-aaaak-afjqa-cai](https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.ic0.app/?id=tfqwm-nyaaa-aaaak-afjqa-cai) |
 
 ## Features
 

@@ -13,9 +13,11 @@ export function AllCommunities() {
           role="list"
           className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
         >
-          {communities?.map((c) => (
-            <CommunityCard key={c.slug} community={c} />
-          ))}
+          {communities
+            ?.filter(
+              (c) => c.slug !== 'white-mirror' && c.slug !== 'curious-refuge',
+            )
+            .map((c) => <CommunityCard key={c.slug} community={c} />)}
         </ul>
       </div>
     </div>

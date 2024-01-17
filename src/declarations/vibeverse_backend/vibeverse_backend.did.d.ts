@@ -137,6 +137,7 @@ export interface _SERVICE {
   'set_creator_metadata' : ActorMethod<[string, string], Result_5>,
   'set_mint_fee' : ActorMethod<[bigint], Result_5>,
   'set_vibe_token' : ActorMethod<[Principal], Result_5>,
+  'top_n_creators' : ActorMethod<[number], Array<[Principal, Creator, Badge]>>,
   'total_communities' : ActorMethod<[], bigint>,
   'total_courses' : ActorMethod<[], bigint>,
   'transfer_nft' : ActorMethod<[bigint, bigint, Principal], Result_5>,

@@ -17,13 +17,13 @@ export function FinalAnimation() {
         />
       </div>
       <Image
-        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/forest_background.jpeg"
+        src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_3_9.27.29_PM.webp"
         layout="fill"
         objectFit="cover"
         alt="Forest Background"
         className="object-cover"
       />
-      <div className="absolute right-1/2 top-1/2 z-10 flex -translate-y-1/2 translate-x-1/2 flex-col items-center justify-center text-white">
+      <div className="absolute right-1/2 top-1/2 z-10 -mt-64 flex w-full -translate-y-1/2 translate-x-1/2 flex-col items-center justify-center text-white">
         {/* Place your content here */}
         <p className="mb-8 text-center text-5xl font-bold">LESSON COMPLETE</p>
         <div className="flex gap-x-4">
@@ -36,7 +36,7 @@ export function FinalAnimation() {
               className="flex h-6 w-6 items-center"
             />
             {/* <PlusIcon className="h-4 w-4 font-bold" /> */}
-            +10
+            +3
             <h2 className="ml-1">VIBES</h2>
           </div>
           <div className="text-md flex animate-slide-up items-center rounded-lg bg-green-200 px-1.5 py-0.5 text-green-500">
@@ -48,7 +48,7 @@ export function FinalAnimation() {
               className="mr-2 flex h-3 w-4 items-center"
             />
             {/* <PlusIcon className="h-4 w-4 font-bold" /> */}
-            +50
+            +3
             <h2 className="ml-1">EXP</h2>
           </div>
         </div>

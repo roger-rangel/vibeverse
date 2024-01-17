@@ -23,16 +23,18 @@ import { toast } from 'react-toastify';
 
 const About = () => {
   const { activeProvider } = useConnect();
-  const { data: profile } = useGetProfile({
+  const { data: profile, refetch: refetchProfile } = useGetProfile({
     principal: activeProvider?.principal,
   });
   const { data: nfts } = useGetPrincipalNfts();
   const { data: communities } = useGetCommunitiesFollowed({
     userId: activeProvider?.principal,
   });
-  const { data: vibeBalance } = useGetVibeTokenBalance({
-    principal: activeProvider?.principal,
-  });
+  const { data: vibeBalance, refetch: refetchBalance } = useGetVibeTokenBalance(
+    {
+      principal: activeProvider?.principal,
+    },
+  );
   const { data: tokenInfo } = useGetVibeTokenInfo();
 
   const { mutateAsync: claimRewards } = useClaimRewards();
@@ -41,9 +43,13 @@ const About = () => {
     if (!profile) {
       toast.error('You need to login first');
     }
-
+    const id = toast.loading(`Claiming rewards...`);
     await claimRewards({});
-  }, [claimRewards, profile]);
+    toast.dismiss(id);
+    toast.success(`Successfully claimed`);
+    refetchBalance();
+    refetchProfile();
+  }, [claimRewards, refetchBalance, refetchProfile, profile]);
 
   if (!profile) {
     return (
@@ -56,7 +62,7 @@ const About = () => {
   return (
     <section id="about">
       <div className={styles.about__container}>
-        <div className=" mt-20 rounded-lg border border-sky-500 ">
+        <div className="mt-20">
           <Avatar profile={profile} size="lg" showBadge={false} />
         </div>
 
@@ -122,7 +128,7 @@ const About = () => {
               <button
                 onClick={handleClaimRewards}
                 disabled={profile.claimableRewards === BigInt(0)}
-                className="cursor-pointer rounded-lg bg-gradient-to-r from-[#4ade80] to-[#3b82f6] px-4 py-2 text-base hover:from-[#FDFC47] hover:to-[#4ade80] hover:text-zinc-800"
+                className="rounded-lg bg-gradient-to-r from-[#4ade80] to-[#3b82f6] px-4 py-2 text-base hover:cursor-pointer hover:from-[#FDFC47] hover:to-[#4ade80] hover:text-zinc-800 disabled:cursor-not-allowed"
               >
                 Claim
               </button>

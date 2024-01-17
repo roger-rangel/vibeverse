@@ -22,3 +22,4 @@ export * from './useGetCommunitiesFollowed';
 export * from './useGetVibeTokenInfo';
 export * from './useClaimRewards';
 export * from './useGetCommunity';
+export * from './useGetTopNCreators';

@@ -15,7 +15,7 @@ export function useGetNfts({
   limit,
 }: PaginationParams & { assetType?: AssetType }) {
   const { actor } = useActor();
-  console.log(assetType !== undefined ? [asRawAssetType(assetType)] : []);
+
   return useQuery({
     queryKey: [actor, 'all-nfts', assetType, page, limit],
     queryFn: async () => {
