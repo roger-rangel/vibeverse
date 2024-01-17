@@ -105,6 +105,7 @@ service : () -> {
   set_creator_metadata : (text, text) -> (Result_5);
   set_mint_fee : (nat64) -> (Result_5);
   set_vibe_token : (principal) -> (Result_5);
+  top_n_creators : (nat8) -> (vec record { principal; Creator; Badge }) query;
   total_communities : () -> (nat64) query;
   total_courses : () -> (nat64) query;
   transfer_nft : (nat, nat, principal) -> (Result_5);

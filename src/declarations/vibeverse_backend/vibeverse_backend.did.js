@@ -210,6 +210,11 @@ export const idlFactory = ({ IDL }) => {
     'set_creator_metadata' : IDL.Func([IDL.Text, IDL.Text], [Result_5], []),
     'set_mint_fee' : IDL.Func([IDL.Nat64], [Result_5], []),
     'set_vibe_token' : IDL.Func([IDL.Principal], [Result_5], []),
+    'top_n_creators' : IDL.Func(
+        [IDL.Nat8],
+        [IDL.Vec(IDL.Tuple(IDL.Principal, Creator, Badge))],
+        ['query'],
+      ),
     'total_communities' : IDL.Func([], [IDL.Nat64], ['query']),
     'total_courses' : IDL.Func([], [IDL.Nat64], ['query']),
     'transfer_nft' : IDL.Func(

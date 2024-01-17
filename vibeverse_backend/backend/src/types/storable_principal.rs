@@ -28,3 +28,9 @@ impl From<Principal> for StorablePrincipal {
         Self(principal)
     }
 }
+
+impl Into<Principal> for StorablePrincipal {
+    fn into(self) -> Principal {
+        self.0
+    }
+}

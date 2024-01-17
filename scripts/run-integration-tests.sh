@@ -25,11 +25,12 @@ then
 fi
 
 # Go to the [releases overview](https://dashboard.internetcomputer.org/releases) and copy the latest replica binary revision
-COMMIT_ID=1e3f540180f15de4aae10a40257907dc47af8480
+# or find commits from this https://github.com/dfinity/pocketic
+COMMIT_ID=69e1408347723dbaa7a6cd2faa9b65c42abbe861
 
 cd vibeverse_backend/integration_tests/local-bin
 echo "PocketIC download starting"
-curl -sO https://download.dfinity.systems/ic/307d5847c1d2fe1f5e19181c7d0fcec23f4658b3/binaries/x86_64-$PLATFORM/pocket-ic.gz || exit 1
+curl -sO https://download.dfinity.systems/ic/$COMMIT_ID/binaries/x86_64-$PLATFORM/pocket-ic.gz || exit 1
 gzip -df pocket-ic.gz
 chmod +x pocket-ic
 echo "PocketIC download completed"

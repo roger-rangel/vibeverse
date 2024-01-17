@@ -28,3 +28,6 @@ dfx canister call $BACKEND create_community '("curious-refuge", "Curious Refuge"
 
 # Course
 dfx canister call $BACKEND create_course '("test-course", "The Current State of AI", "Test course description", (variant {"Advanced"}), "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/54a531d62eb7d502cf4977391769fca0.jpg", "Test course content", "Bronze", "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_3.png")' --network $NETWORK
+
+# Vibetoken
+dfx canister call vibeverse_backend set_vibe_token '(principal "'xufih-jyaaa-aaaak-afjia-cai'")' --network=staging
