@@ -7,7 +7,6 @@ const leagues = [
   'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/chevron_(1).png',
   'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/chevron_(2).png',
   'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/chevron.png',
-  'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/5362484.png',
 ];
 
 export function TopCreators() {
@@ -26,11 +25,7 @@ export function TopCreators() {
             {leagues.map((league, index) => (
               <div
                 key={index}
-                className={`flex items-center justify-center rounded-lg ${
-                  index === leagues.length - 1
-                    ? 'my-auto h-10 w-10 lg:h-10 lg:w-10'
-                    : 'h-16 w-16 lg:h-14 lg:w-14'
-                }`}
+                className={`flex items-center justify-center rounded-lg ${'h-16 w-16 lg:h-14 lg:w-14'}`}
               >
                 <Image
                   src={league}
@@ -50,35 +45,37 @@ export function TopCreators() {
             </h2>
           </div>
           <div className="relative overflow-y-auto px-4 py-3">
-            {creators?.map(({ userId, creator }, id) => (
-              <div
-                key={`top-n-${userId}`}
-                className="flex items-center justify-between py-2"
-              >
-                <div className="flex items-center">
-                  {/* Player Rank */}
-                  <span className="mr-3 text-sm font-bold text-gray-200">
-                    {id + 1}
-                  </span>
-                  {/* Player Profile Picture */}
-                  <Image
-                    src={creator.avatar}
-                    alt={`${creator.name}'s profile`}
-                    width={32}
-                    height={32}
-                    className="h-10 w-10 rounded-md"
-                  />
-                  {/* Player Name */}
-                  <span className="ml-3 text-base font-medium text-gray-200">
-                    {creator.name}
+            {creators
+              ?.filter(({ creator }) => creator.name !== 'Test Creator')
+              .map(({ userId, creator }, id) => (
+                <div
+                  key={`top-n-${userId}`}
+                  className="flex items-center justify-between py-2"
+                >
+                  <div className="flex items-center">
+                    {/* Player Rank */}
+                    <span className="mr-3 text-sm font-bold text-gray-200">
+                      {id + 1}
+                    </span>
+                    {/* Player Profile Picture */}
+                    <Image
+                      src={creator.avatar}
+                      alt={`${creator.name}'s profile`}
+                      width={32}
+                      height={32}
+                      className="h-10 w-10 rounded-md"
+                    />
+                    {/* Player Name */}
+                    <span className="ml-3 text-base font-medium text-gray-200">
+                      {creator.name}
+                    </span>
+                  </div>
+                  {/* Player XP */}
+                  <span className="mr-2 text-base font-medium text-green-200 lg:mr-0">
+                    {creator.score.toString()} XP
                   </span>
                 </div>
-                {/* Player XP */}
-                <span className="mr-2 text-base font-medium text-green-200 lg:mr-0">
-                  {creator.score.toString()} XP
-                </span>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>
