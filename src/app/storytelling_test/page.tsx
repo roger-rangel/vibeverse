@@ -40,7 +40,7 @@ const ReviewPage = ({ onReviewComplete }: { onReviewComplete: () => void }) => {
         </h1>
       </div>
 
-      <div className="fixed bottom-4 left-1/2 mx-auto w-full max-w-md -translate-x-1/2 transform p-4">
+      <div className="fixed bottom-4 left-1/2 mx-auto w-full -translate-x-1/2 transform p-4">
         <button
           onClick={handleFinish}
           className="w-full rounded-lg bg-black py-3 text-center text-white"
@@ -114,16 +114,16 @@ export default function StorytellingTest() {
   };
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-between bg-white">
+    <div className="mx-auto flex min-h-screen flex-col justify-between bg-white">
       {/* Navigation progress bar */}
       <div
-        className={`fixed left-1/2 top-0 z-10 w-full max-w-md -translate-x-1/2 shadow-md transition-opacity duration-500 ${
+        className={`fixed left-1/2 top-0 z-10 w-full -translate-x-1/2 shadow-md transition-opacity duration-500 ${
           reviewPhase || lessonComplete
             ? 'pointer-events-none opacity-0'
             : 'bg-white'
         }`}
       >
-        <div className="mx-auto flex max-w-md items-center justify-between p-4">
+        <div className="mx-auto flex items-center justify-between p-4">
           {Array.from({ length: totalPages }).map((_, index) => (
             <div
               key={index}
@@ -166,7 +166,7 @@ export default function StorytellingTest() {
 
       {/* Continue button */}
       {!lessonComplete && !reviewPhase && showContinue && (
-        <div className="fixed bottom-4 left-1/2 mx-auto w-full max-w-md -translate-x-1/2 transform p-4">
+        <div className="fixed bottom-4 left-1/2 mx-auto w-full -translate-x-1/2 transform p-4">
           <button
             onClick={handleContinue}
             className="w-full rounded-lg bg-black py-3 text-center text-white"

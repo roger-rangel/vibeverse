@@ -14,7 +14,7 @@ export function CommunitySection() {
   const files = [
     {
       type: 'Join',
-      path: '/dashboard/communities/curious-refuge',
+      path: '/storytelling_test',
       source:
         'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_0_9.27.29_PM.webp',
       logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Curious_Refuge_Logo_White_Flat.png',
@@ -29,7 +29,7 @@ export function CommunitySection() {
     },
     {
       type: 'Join',
-      path: '/dashboard/communities/white-mirror',
+      path: '/prompting_test',
       source:
         'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_3_9.27.29_PM.webp',
       logo: 'https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Screenshot_2023-08-26_at_5_50_29_PM-removebg-preview.png',

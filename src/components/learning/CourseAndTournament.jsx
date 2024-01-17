@@ -53,7 +53,7 @@ export default function CourseAndTournament() {
           </h2>
           <div className="relative h-80 w-full overflow-hidden rounded-lg border border-gray-200 bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 sm:h-64">
             <Image
-              src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/rogerweb3_Fours_friends_on_a_adventure_to_find_the_lost_city_in_5a183371-8cf0-4505-bc4e-62dfed1573d7.png"
+              src="https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_2-2.webp"
               alt="intro"
               layout="fill"
               className="h-full w-full object-cover object-center"
@@ -61,10 +61,10 @@ export default function CourseAndTournament() {
             <div className="absolute inset-0 z-0 flex flex-col justify-between p-4 font-mono">
               <div>
                 <h1 className="text-center text-4xl font-black text-white lg:text-2xl">
-                  What is prompt?
+                  Prompt Engineering
                 </h1>
                 <h2 className="mt-2 text-center text-sm font-black text-gray-900">
-                  Prompt test
+                  Text-to-Image
                 </h2>
               </div>
               <div className="w-full self-end">
