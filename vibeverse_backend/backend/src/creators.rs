@@ -32,7 +32,7 @@ pub fn top_n_creators(n: usize) -> Vec<(UserId, Creator, Badge)> {
         creators
             .borrow()
             .iter()
-            .map(|(user_id, creator)| (Into::<UserId>::into(user_id.clone()), creator.clone(), creator.badge()))
+            .map(|(user_id, creator)| (Into::<UserId>::into(user_id), creator.clone(), creator.badge()))
             // sort by score
             .sorted_by(|(_, a, _), (_, b, _)| b.score.cmp(&a.score))
             // take top n

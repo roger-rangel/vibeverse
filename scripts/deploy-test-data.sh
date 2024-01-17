@@ -2,6 +2,7 @@
 BACKEND=vibeverse_backend
 PRINCIPAL=$(dfx identity get-principal)
 NETWORK=${1:-local}
+VIBE_TOKEN=$(dfx canister id vibeverse_token --network $NETWORK)
 
 # Register profile
 dfx canister call $BACKEND set_creator_metadata '("Test Creator", "https://avatars.githubusercontent.com/u/13149596?v=4")' --network $NETWORK
@@ -27,7 +28,8 @@ dfx canister call $BACKEND create_community '("white-mirror", "White Mirror", "W
 dfx canister call $BACKEND create_community '("curious-refuge", "Curious Refuge", "Curious Refuge", "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/Curious_Refuge_Logo_White_Flat.png", "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/0_0_9.27.29_PM.webp", (vec { "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/vaporwave_room.mp4"; "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/cyborg_creationmp4.mp4"}), "https://www.curiousrefuge.com/")' --network $NETWORK
 
 # Course
-dfx canister call $BACKEND create_course '("test-course", "The Current State of AI", "Test course description", (variant {"Advanced"}), "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/54a531d62eb7d502cf4977391769fca0.jpg", "Test course content", "Bronze", "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/trophy_3.png")' --network $NETWORK
+dfx canister call $BACKEND create_course '("prompting_test", "What is prompt?", "Test course description", (variant {"Advanced"}), "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/54a531d62eb7d502cf4977391769fca0.jpg", "Test course content")' --network local
+dfx canister call $BACKEND create_course '("storytelling_test", "Introduction to AI", "Test course description", (variant {"Advanced"}), "https://cdn.pixelbin.io/v2/throbbing-poetry-5e04c5/original/54a531d62eb7d502cf4977391769fca0.jpg", "Test course content")' --network local
 
-# Vibetoken
-dfx canister call vibeverse_backend set_vibe_token '(principal "'xufih-jyaaa-aaaak-afjia-cai'")' --network=staging
+# Vibe token
+dfx canister call $BACKEND set_vibe_token '(principal "'$VIBE_TOKEN'")' --network $NETWORK

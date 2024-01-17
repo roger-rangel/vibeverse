@@ -36,7 +36,7 @@ export function FinalAnimation() {
               className="flex h-6 w-6 items-center"
             />
             {/* <PlusIcon className="h-4 w-4 font-bold" /> */}
-            +10
+            +3
             <h2 className="ml-1">VIBES</h2>
           </div>
           <div className="text-md flex animate-slide-up items-center rounded-lg bg-indigo-200 px-1.5 py-0.5 text-indigo-500">
@@ -48,7 +48,7 @@ export function FinalAnimation() {
               className="mr-2 flex h-3 w-4 items-center"
             />
             {/* <PlusIcon className="h-4 w-4 font-bold" /> */}
-            +50
+            +3
             <h2 className="ml-1">EXP</h2>
           </div>
         </div>

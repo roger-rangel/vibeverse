@@ -16,12 +16,19 @@ pub fn create_course(
 ) -> Result<CourseId, String> {
     let course = Course::new(slug.clone(), title, description, level, logo, content, author);
     COURSES.with(|courses| {
+        // If course exists, throw error
+        if courses.borrow().contains_key(&slug) {
+            return Err(format!("Course {} already exists", slug));
+        }
+
         courses.borrow_mut().insert(slug.clone(), course);
-    });
+
+        Ok(())
+    })?;
 
     let mut binding = creators::creator_metadata(author);
     let author_profile = binding.as_mut().expect("Not exist creator");
-    author_profile.add_created_course_now(slug.clone());
+    author_profile.add_created_course_now(slug.clone())?;
     author_profile.add_score(score::CREATE_COURSE);
     creators::set_creator_metadata(author, author_profile.clone())?;
 
@@ -33,14 +40,16 @@ pub fn finish_course(user_id: UserId, course_id: CourseId) -> Result<(), String>
         let mut course = courses
             .borrow()
             .get(&course_id)
-            .unwrap_or_else(|| panic!("Course {} does not exist.", course_id));
+            .ok_or(format!("Course {} does not exist", course_id))?;
         course.add_learner(user_id);
         courses.borrow_mut().insert(course_id.clone(), course);
-    });
+
+        Ok::<(), String>(())
+    })?;
 
     let mut binding = creators::creator_metadata(user_id);
     let user_profile = binding.as_mut().expect("Not exist creator");
-    user_profile.add_completed_course_now(course_id.clone());
+    user_profile.add_completed_course_now(course_id.clone())?;
     user_profile.add_score(score::FINISH_COURSE);
 
     creators::set_creator_metadata(user_id, user_profile.clone())
